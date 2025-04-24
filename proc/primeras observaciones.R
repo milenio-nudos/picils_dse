@@ -10,3 +10,18 @@ icils_2023 <- readRDS("../proc/icils_2023_proc.rds")
 
 summary(icils_2023)
 
+# ---- Por hacer ----
+
+# sintaxis de sumatoria de NAs por pais
+
+# ---- Pasos a seguir ----
+
+# modelo general 
+
+# modelos de medicion para cada pais
+
+# sacar modelos configural estimados para cada pais x separado
+
+# visualizar loadings x pais
+
+# invarianza (metrico)

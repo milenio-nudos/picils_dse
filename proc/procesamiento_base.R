@@ -6,7 +6,6 @@ pacman::p_load(dplyr, haven,sjlabelled, psych, purrr, tidyr, sjPlot, ggplot2, pa
 options(scipen = 999)
 rm(list = ls())
 
-
 # Cargar bases de datos 
 
 load("../input/df_countries/BSGAUTI3.Rdata")
@@ -23,7 +22,7 @@ icils_2023 <- rbind(BSGAUTI3, BSGAZEI3, BSGBFLI3, BSGBIHI3, BSGCHLI3, BSGCYPI3, 
 # Seleccionar variables que componen la autoeficacia digital
 
 icils_2023_proc <- icils_2023 %>%
-  select(IS3G24A, IS3G24B, IS3G24C, IS3G24D, IS3G24E, IS3G24F, IS3G24G, IS3G24H, IS3G24I, IS3G24J,
+  select(CNTRY, IDSCHOOL, IS3G24A, IS3G24B, IS3G24C, IS3G24D, IS3G24E, IS3G24F, IS3G24G, IS3G24H, IS3G24I, IS3G24J,
          IS3G24K, IS3G24L, IS3G24M)
 
 # Revisar las categorias de respuesta para poder agrupar los NA
