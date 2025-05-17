@@ -57,3 +57,5 @@ pisa_2022_proc <- pisa_2022 %>%
          IC183Q05JA, IC183Q07JA, IC183Q08JA, IC183Q09JA, IC183Q10JA,
          IC183Q12JA, IC183Q13JA, IC183Q14JA, IC183Q15JA, IC183Q16JA)
 
+saveRDS(pisa_2022_proc, "../../data/proc_data/pisa_2022_proc.rds")
+
