@@ -8,8 +8,21 @@ rm(list = ls())
 
 # Cargar bases de datos 
 
-load("../input/df_countries/BSGAUTI3.Rdata")
-load("../input/df_countries/BSGAZEI3.Rdata")
+archivos_bsg <- list.files(
+  path = "./data/raw_data/icils_countries", # Directorio actual (cambia si es necesario)
+  pattern = "^BSG.*\\.Rdata$",
+  full.names = TRUE
+)
+
+# Ver qué archivos encontramos
+print(archivos_bsg)
+
+# Cargar todos los archivos encontrados
+for (archivo in archivos_bsg) {
+  load(archivo)
+  cat("Cargado:", archivo, "\n")
+}
+
 # así hasta cargar todas
 
 # Unir bases de datos
@@ -24,7 +37,7 @@ icils_2023 <- rbind(BSGAUTI3, BSGAZEI3, BSGBFLI3, BSGBIHI3, BSGCHLI3, BSGCYPI3, 
 
 icils_2023_proc <- icils_2023 %>%
   select(CNTRY, IDSCHOOL, IS3G24A, IS3G24B, IS3G24C, IS3G24D, IS3G24E, IS3G24F, IS3G24G, IS3G24H, IS3G24I, IS3G24J,
-         IS3G24K, IS3G24L, IS3G24M)
+         IS3G24K, IS3G24L, IS3G24M, PV1CIL)
 
 # Revisar las categorias de respuesta para poder agrupar los NA
 sjlabelled::get_labels(icils_2023_proc)
@@ -45,7 +58,7 @@ icils_2023_proc$IS3G24K <- recode(icils_2023_proc$IS3G24K, "c(8,9)=NA")
 icils_2023_proc$IS3G24L <- recode(icils_2023_proc$IS3G24L, "c(8,9)=NA")
 icils_2023_proc$IS3G24M <- recode(icils_2023_proc$IS3G24M, "c(8,9)=NA")
 
-saveRDS(icils_2023_proc, "proc/icils_2023_proc.rds")
+saveRDS(icils_2023_proc, "data/proc_data/icils_2023_proc.rds")
 
 # ---- Base de autoeficacia digital PISA 2022 ----
 

@@ -15,7 +15,8 @@ pacman::p_load(
   beeswarm, 
   lme4,
   scales,
-  ggrepel
+  ggrepel,
+  corrplot
   )
 options(scipen = 999)
 rm(list = ls())
@@ -24,7 +25,7 @@ rm(list = ls())
 
 icils_2023 <- readRDS("data/proc_data/icils_2023_proc.rds")
 
-# Visualización de NA por variablwe / país.
+# ---- Visualización de NA por variable / país ----
 
 # Variables a analizar
 
@@ -126,9 +127,84 @@ grafico_cleveland_nas <- ggplot(prop_na_pais_item, aes(x = Prop_NA, y = Item)) +
 
 print(grafico_cleveland_nas)
 
-# ---- Por hacer ----
+# ---- Correlación entre CIL, Selfeff y NAs ----
 
-# sintaxis de sumatoria de NAs por pais
+# Cálculo de promedios CIL, Selfefficacy y prop_NA por país
+
+# Selfeff
+
+selfeff_country_mean <- icils_2023 %>%
+  select(CNTRY, all_of(item_cols)) %>%
+  pivot_longer(cols = all_of(item_cols),
+               names_to = "selfeff_variable",  # Nombre temporal para las columnas de items
+               values_to = "selfeff_value") %>% # Nombre temporal para los valores
+  group_by(CNTRY) %>%
+  summarise(
+    selfeff_mean = mean(selfeff_value, na.rm = TRUE), # na.rm = TRUE para ignorar NAs en el cálculo del promedio
+    .groups = "drop"  # Elimina la agrupación después de summarise
+  )
+
+# CIL
+
+cil_country_mean <- icils_2023 %>%
+  group_by(CNTRY) %>%
+  summarise(
+    CIL_mean = mean(PV1CIL, na.rm = TRUE), # na.rm = TRUE para ignorar NAs
+    .groups = "drop"
+  )
+
+# Prop_NA
+
+NAs_country_mean <- prop_na_pais_item %>%
+  group_by(CNTRY) %>%
+  summarise(
+    NA_mean = mean(Prop_NA), # na.rm = TRUE para ignorar NAs
+    .groups = "drop"
+  )
+
+# Unimos dataframes CIL y Selfeff
+
+country_level_summary <- selfeff_country_mean %>%
+  left_join(cil_country_mean, by = "CNTRY")
+
+# Unimos dataframe NAs con el anterior
+
+corr_data <- left_join(
+  NAs_country_mean,
+  country_level_summary,
+  by = "CNTRY"
+)
+# ---- Matriz de correlaciones entre CIL, Selfeff y NAs ----
+
+# Seleccionar y renombrar variables
+corr_data <- corr_data %>%
+  select(
+    NA_mean,
+    selfeff_mean,
+    CIL_mean
+  ) %>%
+  rename(
+    `Promedio % NAs` = NA_mean,
+    `Promedio Autoeficacia` = selfeff_mean,
+    `Promedio Puntaje CIL` = CIL_mean
+  )
+
+# Calcular la matriz de correlación
+matriz_correlacion <- cor(corr_data, use = "pairwise.complete.obs")
+
+# Generar el gráfico
+corrplot(matriz_correlacion,
+         method = "color",        
+         type = "lower",           
+         order = "original",       
+         addCoef.col = "black",
+         tl.col = "black",
+         tl.srt = 45,
+         diag = FALSE,
+         cl.pos = "r",
+         title = "Matriz de Correlaciones entre Indicadores Agregados",
+         mar = c(0, 0, 2, 0)
+)
 
 # ---- Pasos a seguir ----
 
