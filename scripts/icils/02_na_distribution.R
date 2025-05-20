@@ -16,7 +16,8 @@ pacman::p_load(
   lme4,
   scales,
   ggrepel,
-  corrplot
+  corrplot,
+  ggtext
   )
 options(scipen = 999)
 rm(list = ls())
@@ -74,11 +75,23 @@ data_for_labels <- prop_na_pais_item %>%
   slice_max(order_by = Prop_NA, n = 3, with_ties = FALSE) %>% # with_ties=FALSE para asegurar solo 3
   ungroup()
 
+
+# Redefinimos los niveles del factor con etiquetas en color
+
+colored_labels <- setNames(item_cols, item_cols)  # crea una lista con nombres originales
+
+# Aplicamos color solo a los ítems seleccionados
+
+highlight_items <- c("IS3G24D", "IS3G24K", "IS3G24L")
+for (item in highlight_items) {
+  colored_labels[item] <- paste0("<span style='color:#D73027;'>", item, "</span>")  # rojo oscuro
+}
+
 # Convertimos Item a factor en el orden correcto para la visualización
 
-prop_na_pais_item$Item <- factor(prop_na_pais_item$Item, levels = rev(item_cols))
-prop_na_general_item$Item <- factor(prop_na_general_item$Item, levels = rev(item_cols))
-data_for_labels$Item <- factor(data_for_labels$Item, levels = rev(item_cols))
+prop_na_pais_item$Item <- factor(prop_na_pais_item$Item, levels = rev(item_cols), labels = rev(colored_labels))
+prop_na_general_item$Item <- factor(prop_na_general_item$Item, levels = rev(item_cols), labels = rev(colored_labels))
+data_for_labels$Item <- factor(data_for_labels$Item, levels = rev(item_cols), labels = rev(colored_labels))
 
 # Creamos el gráfico
 
@@ -106,22 +119,23 @@ grafico_cleveland_nas <- ggplot(prop_na_pais_item, aes(x = Prop_NA, y = Item)) +
   
   # Escalas y etiquetas
   scale_x_continuous(labels = percent_format(accuracy = 1), 
-                     name = "% de NAs") +
-  scale_y_discrete(name = "Ítem de Autoeficacia Digital") +
-  scale_color_manual(name = "Referencia:",
+                     name = "% of Missings") +
+  scale_y_discrete(name = "Items") +
+  scale_color_manual(name = "Reference:",
                      values = c("País" = "steelblue", "Promedio General (Item)" = "red"),
                      guide = guide_legend(override.aes = list(shape = c(16, 18), size = c(2,4)))) + 
   
   # Título y tema
-  labs(title = "Proporción de NAs por País en Items de Autoeficacia Digital",
-       subtitle = "Se etiquetan los 3 países con mayor % de NAs para cada ítem.",
-       caption = "Datos: ICILS 2023") +
+  labs(title = "Missing values proportion by country around DSE ítems",
+       subtitle = "3 most % countries with more missing values are labelled",
+       caption = "Data: ICILS 2023
+       Corr CIL y mean % NA in above battery: -0.63") +
   theme_minimal(base_size = 11) +
   theme(
     legend.position = "top",
     plot.title = element_text(hjust = 0.5, face = "bold"),
     plot.subtitle = element_text(hjust = 0.5),
-    axis.text.y = element_text(size=9),
+    axis.text.y = ggtext::element_markdown(size = 9),
     axis.text.x = element_text(size=9)
   )
 
