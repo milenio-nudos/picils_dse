@@ -1,0 +1,54 @@
+---
+title: "ICILS Descriptives"
+author: "Tomás Urzúa"
+format: html
+editor: visual
+---
+
+# Cargar librerias y base de datos
+
+```{r}
+pacman::p_load(
+  dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
+  parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
+  ggtext)
+
+options(scipen = 999)
+rm(list = ls())
+```
+
+```{r}
+icils_2023 <- readRDS("data/proc_data/icils_2023_proc.rds")
+```
+
+## Eliminar NA's
+
+```{r}
+icils_2023 <- na.omit(icils_2023)
+```
+
+# Descriptivos
+
+```{r}
+#| echo: false
+#| label: fig-descriptivos
+#| fig-cap: Descriptivos de autoeficacia digital
+
+a <- icils_2023 %>% 
+  select(starts_with("IS3G24")) %>% 
+  sjPlot::plot_likert(geom.colors = "Reds",
+                      title = c("Items (n = 107.507)"),
+                      geom.size = 0.8,
+                      axis.labels = c("gen", "gen", "gen", "esp", "gen", "gen", "gen", "gen", "gen", "gen", "esp", "esp", "gen"),
+                      catcount = 4,
+                      values  =  "sum.outside",
+                      reverse.colors = F,
+                      reverse.scale = T,
+                      show.n = FALSE,
+                      show.prc.sign = T
+  ) +
+  ggplot2::theme(legend.position = "bottom")
+
+a
+```
+

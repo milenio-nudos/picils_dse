@@ -220,14 +220,99 @@ corrplot(matriz_correlacion,
          mar = c(0, 0, 2, 0)
 )
 
-# ---- Pasos a seguir ----
+# ---- PISA ----
 
-# modelo general 
+pisa <- readRDS("data/proc_data/pisa22ict.rds")
 
-# modelos de medicion para cada pais
+items <- c("IC183Q01JA", "IC183Q02JA", "IC183Q03JA", "IC183Q04JA", "IC183Q05JA", 
+           "IC183Q07JA", "IC183Q08JA", "IC183Q09JA", "IC183Q10JA", "IC183Q12JA", 
+           "IC183Q13JA", "IC183Q14JA", "IC183Q15JA", "IC183Q16JA")
 
-# sacar modelos configural estimados para cada pais x separado
+pisa$CNT <- haven::as_factor(pisa$CNT)
 
-# visualizar loadings x pais
+data_longp <- pisa %>%
+  select(CNT, all_of(items)) %>%
+  pivot_longer(cols = all_of(items),
+               names_to = "Item",
+               values_to = "Valor")
 
-# invarianza (metrico)
+# Cálculo de % NAs por item por país
+
+prop_na_cnt_item <- data_longp %>%
+  group_by(CNT, Item) %>%
+  summarise(
+    Total = n(),
+    NAs = sum(is.na(Valor)),
+    Prop_NA = NAs / Total,
+    .groups = "drop"
+  )
+
+prop_na_general_itemp <- data_longp %>%
+  group_by(Item) %>%
+  summarise(
+    Total_General = n(),
+    NAs_General = sum(is.na(Valor)),
+    Prop_NA_General = NAs_General / Total_General,
+    .groups = "drop"
+  )
+
+data_for_labelsp <- prop_na_cnt_item %>%
+  group_by(Item) %>%
+  slice_max(order_by = Prop_NA, n = 5, with_ties = FALSE) %>% # with_ties=FALSE para asegurar solo 5
+  ungroup()
+
+colored_labels <- setNames(items, items)
+
+highlight_items <- c("IC183Q10JA", "IC183Q13JA", "IC183Q14JA", "IC183Q15JA")
+for (item in highlight_items) {
+  colored_labels[item] <- paste0("<span style='color:#D73027;'>", item, "</span>")  # rojo oscuro
+}
+
+prop_na_cnt_item$Item <- factor(prop_na_cnt_item$Item, levels = rev(items), labels = rev(colored_labels))
+prop_na_general_itemp$Item <- factor(prop_na_general_itemp$Item, levels = rev(items), labels = rev(colored_labels))
+data_for_labelsp$Item <- factor(data_for_labelsp$Item, levels = rev(items), labels = rev(colored_labels))
+
+grafico_cleveland_nas <- ggplot(prop_na_cnt_item, aes(x = Prop_NA, y = Item)) +
+  # Puntos para cada país
+  geom_point(aes(color = "País"), alpha = 0.7, size = 2) +
+  
+  # Punto para el promedio general del item
+  geom_point(data = prop_na_general_itemp, 
+             aes(x = Prop_NA_General, y = Item, color = "Promedio General (Item)"), 
+             size = 4, shape = 18) + # Usamos una forma diferente (diamante)
+  
+  # Etiquetas para los 3 países con más NAs por item
+  # Pasamos 'data_for_labels' al argumento 'data' de esta capa específica
+  geom_text_repel(data = data_for_labelsp,
+                  aes(label = CNT), # Usamos directamente la columna CNTRY
+                  size = 2.8,    
+                  max.overlaps = Inf, 
+                  box.padding = 0.4, 
+                  point.padding = 0.2,
+                  segment.color = 'grey50', 
+                  segment.size = 0.3,
+                  min.segment.length = 0 
+  ) +
+  
+  # Escalas y etiquetas
+  scale_x_continuous(labels = percent_format(accuracy = 1), 
+                     name = "% of Missings") +
+  scale_y_discrete(name = "Items") +
+  scale_color_manual(name = "Reference:",
+                     values = c("País" = "steelblue", "Promedio General (Item)" = "red"),
+                     guide = guide_legend(override.aes = list(shape = c(16, 18), size = c(2,4)))) + 
+  
+  # Título y tema
+  labs(title = "Missing values proportion by country around DSE ítems",
+       subtitle = "5 most % countries with more missing values are labelled",
+       caption = "Data: PISA 2022") +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.text.y = ggtext::element_markdown(size = 9),
+    axis.text.x = element_text(size=9)
+  )
+
+print(grafico_cleveland_nas)
