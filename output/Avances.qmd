@@ -30,7 +30,7 @@ editor_options:
 pacman::p_load(
   dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
   parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
-  ggtext, patchwork, lavaan)
+  ggtext, patchwork, lavaan, semTools)
 
 options(scipen = 999)
 rm(list = ls())
@@ -61,8 +61,8 @@ options(knitr.kable.NA = "")
 #| label: data
 #| echo: false
 
-icils <- readRDS("../data/proc_data/icils23_proc.rds")
-pisa <- readRDS("../data/proc_data/pisa22_proc.rds")
+icils <- readRDS("~/GitHub/ILSAs_batteries_measurement/data/proc_data/icils23_proc.rds")
+pisa <- readRDS("~/GitHub/ILSAs_batteries_measurement/data/proc_data/pisa22_proc.rds")
 ```
 
 # ICILS
@@ -174,7 +174,7 @@ corrplot::corrplot(M$rho,
                    addCoef.col = "black",
                    type = "upper",
                    tl.col = "black",
-                   col = colorRampPalette(c("#E16462", "white", "#0D0887"))(12),
+                   col = colorRampPalette(c("#B42012", "white", "#E16462"))(12),
                    bg = "white",
                    na.label = "-")
 ```
@@ -289,13 +289,33 @@ corrplot::corrplot(Mp$rho,
                    addCoef.col = "black",
                    type = "upper",
                    tl.col = "black",
-                   col = colorRampPalette(c("#E16462", "white", "#0D0887"))(12),
+                   col = colorRampPalette(c("#B42012", "white", "#E16462"))(12),
                    bg = "white",
                    number.digits = 2,
                    na.label = "-")
 ```
 
-## Confirmatory factorial analysis
+## Exploratory factor model (3 factors)
+
+```{r}
+#| include: false 
+
+pisa_efa <- pisa %>% 
+  select(search_info, asses_info, share_info, pair_collab, how_to_share, 
+         edit_text, collect_data, create_pres, page_web, change_settings, 
+         select_app, create_program, identify_error, logical_solution)
+corMat <- round(cor(pisa_efa), 2)
+KMO(corMat) 
+cortest.bartlett(corMat, n = 393607)
+```
+
+```{r}
+fac_pa <- fa(r = pisa_efa, nfactors = 3, fm= "pa")
+fac_pa
+```
+
+
+## Confirmatory factor analysis
 
 ```{r}
 #| label: Measurement model
@@ -337,20 +357,92 @@ summary(m_cfa)
 #| tbl-cap-location: bottom
 #| echo: true
 
-fit_icils <- fitMeasures(m_cfa,
+fit_pisa <- fitMeasures(m_cfa,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
 
-knitr::kable(fit_icils, digits = 3)
+knitr::kable(fit_pisa, digits = 3)
 ```
 
 $\chi^2$ es un número extremadamente alto y significativo, lo cual no es buen indicio, pero esto puede deberse al gran tamaño de la muestra (N > 200 tienden a dar $\chi^2$ significativo).
 
 El *CFI* y el *TLI* poseen valores que sugieren un buen ajuste del modelo (*CFI* & *TLI* > 0.95), aunque el *RMSEA* contradice los indices de ajuste anteriores (*RMSEA* < 0.05), lo cual evidencia una incongruencia en el modelo. 
 
-## Appendix
+## SEM Multigrupo con PISA
 
 ```{r}
-m2_cfa <- cfa(model_cfa, data=pisa)
+#| label: Multigroup
 
-summary(m2_cfa, fit.measures=TRUE, standardized=TRUE)
+multigroup_cfa <- '
+    gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
+         edit_text + collect_data + create_pres + change_settings + select_app
+    spec_dse = ~ page_web + create_program + identify_error + logical_solution
+  '
 ```
+
+
+```{r}
+#| label: modelo confirmatorio multigrupo
+
+fitgroup <- sem(model = multigroup_cfa, data = pisa, group = "CNT")
+```
+
+
+### Summary del modelo 
+
+```{r}
+# El output arroja los modelos para todos los paises
+
+summary(fitgroup, fit.measures = TRUE, standardized = TRUE)
+```
+
+
+```{r}
+summary(fit, fit.measures = TRUE, standardized = TRUE)
+```
+
+```{r}
+modin <- modificationIndices(fit)
+
+modin %>% 
+  filter(mi > 3.84)
+```
+
+# SEM Multinivel con PISA
+
+
+```{r}
+
+
+multimodel_cfa <- '
+    level: 1
+    gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
+         edit_text + collect_data + create_pres + change_settings + select_app
+    spec_dse = ~ create_program + identify_error + logical_solution
+    level: 2
+    gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
+         edit_text + collect_data + create_pres + change_settings + select_app
+    spec_dse = ~ create_program + identify_error + logical_solution
+  '
+```
+
+
+```{r}
+fit <- sem(model = multimodel_cfa, data = pisa, cluster = "CNT")
+```
+
+
+### Cargas estandarizadas 
+
+```{r}
+standardizedsolution(fit)
+```
+
+Se observa un panorama generalizado en las altas cargas factoriales en los indicadores. La gran mayoría ronda por el 0.8, mientras que solamente el indicador que trata sobre crear y mantener una página web tiene un loading > 0.7
+
+### Correlación intraclase
+
+```{r}
+lavInspect(fit, "icc")
+```
+
+El ICC de todos los indicadores es bastante alto. El caso más llamativo es el de la variable relativa a buscar información en dispositivos digitales, donde el 58% de su varianza se debe a diferencias entre países (diferencias en cómo comprenden la escala?).
