@@ -1,7 +1,8 @@
 ---
-title: "Digital self efficacy scale validation analysis: ICILS & PISA"
+title: "Digital self efficacy scale validation analysis: ICILS & PISA
+"
 subtitle: "Advances"
-author: "Tomás Urzúa"
+author: "Tomás Urzúa e Ismael Aguayo"
 date: today
 lang: en
 fontsize: 14pt
@@ -30,7 +31,7 @@ editor_options:
 pacman::p_load(
   dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
   parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
-  ggtext, patchwork, lavaan, semTools)
+  ggtext, patchwork, lavaan, semTools, DT)
 
 options(scipen = 999)
 rm(list = ls())
@@ -61,8 +62,8 @@ options(knitr.kable.NA = "")
 #| label: data
 #| echo: false
 
-icils <- readRDS("~/GitHub/ILSAs_batteries_measurement/data/proc_data/icils23_proc.rds")
-pisa <- readRDS("~/GitHub/ILSAs_batteries_measurement/data/proc_data/pisa22_proc.rds")
+icils <- readRDS("../data/proc_data/icils23_proc.rds")
+pisa <- readRDS("../data/proc_data/pisa22_proc.rds")
 ```
 
 # ICILS
@@ -192,7 +193,7 @@ corrplot::corrplot(M$rho,
 pisa <- pisa %>%
   select(search_info, asses_info, share_info, pair_collab, how_to_share, 
          edit_text, collect_data, create_pres, page_web, change_settings, 
-         select_app, create_program, identify_error, logical_solution)
+         select_app, create_program, identify_error, logical_solution, CNT)
 ```
 
 ```{r}
@@ -314,7 +315,6 @@ fac_pa <- fa(r = pisa_efa, nfactors = 3, fm= "pa")
 fac_pa
 ```
 
-
 ## Confirmatory factor analysis
 
 ```{r}
@@ -363,9 +363,9 @@ fit_pisa <- fitMeasures(m_cfa,
 knitr::kable(fit_pisa, digits = 3)
 ```
 
-$\chi^2$ es un número extremadamente alto y significativo, lo cual no es buen indicio, pero esto puede deberse al gran tamaño de la muestra (N > 200 tienden a dar $\chi^2$ significativo).
+$\chi^2$ es un número extremadamente alto y significativo, lo cual no es buen indicio, pero esto puede deberse al gran tamaño de la muestra (N \> 200 tienden a dar $\chi^2$ significativo).
 
-El *CFI* y el *TLI* poseen valores que sugieren un buen ajuste del modelo (*CFI* & *TLI* > 0.95), aunque el *RMSEA* contradice los indices de ajuste anteriores (*RMSEA* < 0.05), lo cual evidencia una incongruencia en el modelo. 
+El *CFI* y el *TLI* poseen valores que sugieren un buen ajuste del modelo (*CFI* & *TLI* \> 0.95), aunque el *RMSEA* contradice los indices de ajuste anteriores (*RMSEA* \< 0.05), lo cual evidencia una incongruencia en el modelo.
 
 ## SEM Multigrupo con PISA
 
@@ -379,36 +379,200 @@ multigroup_cfa <- '
   '
 ```
 
-
 ```{r}
 #| label: modelo confirmatorio multigrupo
 
 fitgroup <- sem(model = multigroup_cfa, data = pisa, group = "CNT")
 ```
 
-
-### Summary del modelo 
+### Visualización cargas factoriales por país
 
 ```{r}
-# El output arroja los modelos para todos los paises
 
-summary(fitgroup, fit.measures = TRUE, standardized = TRUE)
+all_params <- parameterEstimates(fitgroup, standardized = TRUE)
+
+factor_loadings_all_groups <- all_params %>%
+  filter(op == "=~")
+
+group_labels <- lavInspect(fitgroup, "group.label")
+
+country_map <- data.frame(group = 1:length(group_labels), CNT = unlist(group_labels))
+
+factor_loadings_all_groups <- factor_loadings_all_groups %>%
+  left_join(country_map, by = "group")
+```
+
+```{r}
+
+loadings_gen_dse <- factor_loadings_all_groups %>%
+  filter(lhs == "gen_dse") %>%
+  select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+labels_gen_dse <- loadings_gen_dse %>%
+  group_by(item) %>%
+  slice_min(order_by = loading, n = 3) %>%
+  ungroup()
+
+loadings_spec_dse <- factor_loadings_all_groups %>%
+  filter(lhs == "spec_dse") %>%
+  select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+labels_spec_dse <- loadings_spec_dse %>%
+  group_by(item) %>%
+  slice_min(order_by = loading, n = 3) %>%
+  ungroup()
+```
+
+#### Cleaveland loadings autoeficacia general
+
+```{r}
+
+library(forcats)
+
+plot_gen_dse <- ggplot(loadings_gen_dse,
+                       aes(x = loading,
+                           y = fct_reorder(item, loading, .fun = median, .desc = FALSE))) +
+  geom_point(aes(color = '#B42012'), size = 3, alpha = 0.7) + 
+    geom_text(data = labels_gen_dse, 
+            aes(label = CNT), 
+            nudge_y = 0.3,
+            size = 2.5,
+            color = "black",
+            check_overlap = TRUE) +
+  scale_color_identity(name = "Factor", 
+                       guide = "legend", 
+                       labels = c("General")) +
+  labs(title = "Cargas Factoriales: Autoeficacia General",
+       x = "Carga Factorial Estandarizada",
+       y = "Ítem") +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.y = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "top")
+
+print(plot_gen_dse)
+```
+
+El rango varía entre 0.6 y 0.9 aproximadamente. Japon se repite entre los países con menor carga factorial en las variables, y Brunei Darussalam y España también aparecen en varias ocasiones.. Las variables create_pres, collect_data, change_settings y select_app presentan en general un menor puntaje. 
+#### Cleaveland loadings autoeficacia especializada
+
+```{r}
+
+plot_spec_dse <- ggplot(loadings_spec_dse,
+                        aes(x = loading,
+                            y = fct_reorder(item, loading, .fun = median, .desc = FALSE))) +
+  geom_point(aes(color = '#E16462'), size = 3, alpha = 0.7) +
+    geom_text_repel(data = labels_spec_dse, 
+                  aes(label = CNT), 
+                  size = 2.5,
+                  color = "black",
+                  box.padding = 0.4,
+                  point.padding = 0.2,
+                  min.segment.length = 0,
+                  max.overlaps = Inf) +
+  scale_color_identity(name = "Factor", 
+                       guide = "legend", 
+                       labels = c("Especializada")) +
+  labs(title = "Cargas Factoriales: Autoeficacia Especializada", 
+       x = "Carga Factorial Estandarizada",
+       y = "Ítem") +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.y = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "top")
+
+print(plot_spec_dse)
+```
+
+Se repite Letonia en tres de las categorías y Lituania en 2. Se observa una menor dispersión en los loadings.
+
+### SEM por separado para cada país
+
+Este procedimiento se realiza para obtener los indicadores de ajuste por cada CNT
+
+```{r}
+
+lista_paises <- unique(unlist(pisa$CNT))
+
+resultados_lista <- list()
+summary_lista <- list()
+
+for (pais_actual in lista_paises) {
+  
+  # Imprimimos el progreso
+  # cat("Procesando:", pais_actual, "...\n")
+  
+  datos_pais <- pisa %>%
+    filter(CNT == pais_actual)
+  
+  fit_pais <- tryCatch({
+    
+    sem(model = multigroup_cfa, 
+        data = datos_pais)
+  }, error = function(e) {
+    
+     cat("  -> ¡ERROR! No se pudo ajustar el modelo para", pais_actual, ". Razón:", conditionMessage(e), "\n")
+     return(NULL)
+  })
+    
+  if (!is.null(fit_pais)) {
+     if (lavInspect(fit_pais, "converged")) {
+        medidas_ajuste <- fitMeasures(fit_pais)
+        resultados_lista[[pais_actual]] <- medidas_ajuste
+       # cat("  -> Modelo ajustado y resultados guardados.\n")
+     } else {
+        cat("  -> ¡ADVERTENCIA! El modelo para", pais_actual, "no convergió. Se omitirán sus resultados.\n")
+        resultados_lista[[pais_actual]] <- rep(NA)
+        
+     }
+  }
+}
+
+# cat("\n...Proceso de ajuste finalizado.\n")
+
+```
+
+```{r}
+
+
+fit_indices_por_pais <- do.call(rbind, resultados_lista)
+
+fit_indices_por_pais <- as.data.frame(fit_indices_por_pais)
+
+fit_indices_por_pais <- fit_indices_por_pais %>%
+  tibble::rownames_to_column(var = "CNT")
+
+indices_ajuste <- fit_indices_por_pais %>% 
+  select(CNT, chisq, df, rmsea, rmsea.ci.lower,  rmsea.ci.upper, srmr, cfi, tli)
+```
+
+```{r}
+#| label: tabla-interactiva
+#| echo: false
+
+datatable(
+  indices_ajuste,
+  options = list(
+    pageLength = 10,
+    autoWidth = TRUE,
+    searchHighlight = TRUE
+  ),
+  filter = 'top',
+  rownames = FALSE,
+  caption = "Índices de Ajuste del Modelo (Interactiva)"
+)
+
 ```
 
 
-```{r}
-summary(fit, fit.measures = TRUE, standardized = TRUE)
-```
+#### Descriptivos índices de ajuste
 
 ```{r}
-modin <- modificationIndices(fit)
 
-modin %>% 
-  filter(mi > 3.84)
+table1::table1(~ . + -CNT,data=indices_ajuste)
 ```
 
 # SEM Multinivel con PISA
-
 
 ```{r}
 
@@ -425,19 +589,17 @@ multimodel_cfa <- '
   '
 ```
 
-
 ```{r}
 fit <- sem(model = multimodel_cfa, data = pisa, cluster = "CNT")
 ```
 
-
-### Cargas estandarizadas 
+### Cargas estandarizadas
 
 ```{r}
 standardizedsolution(fit)
 ```
 
-Se observa un panorama generalizado en las altas cargas factoriales en los indicadores. La gran mayoría ronda por el 0.8, mientras que solamente el indicador que trata sobre crear y mantener una página web tiene un loading > 0.7
+Se observa un panorama generalizado en las altas cargas factoriales en los indicadores. La gran mayoría ronda por el 0.8, mientras que solamente el indicador que trata sobre crear y mantener una página web tiene un loading \> 0.7
 
 ### Correlación intraclase
 
