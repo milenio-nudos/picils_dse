@@ -1,6 +1,5 @@
 ---
-title: "Digital self efficacy scale validation analysis: ICILS & PISA
-"
+title: "Digital self efficacy scale validation analysis: ICILS & PISA"
 subtitle: "Advances"
 author: "Tomás Urzúa e Ismael Aguayo"
 date: today
@@ -62,8 +61,8 @@ options(knitr.kable.NA = "")
 #| label: data
 #| echo: false
 
-icils <- readRDS("../data/proc_data/icils23_proc.rds")
-pisa <- readRDS("../data/proc_data/pisa22_proc.rds")
+icils <- readRDS("./data/proc_data/icils23_proc.rds")
+pisa <- readRDS("./data/proc_data/pisa22_proc.rds")
 ```
 
 # ICILS
@@ -321,9 +320,9 @@ fac_pa
 #| label: Measurement model
 
 model_cfa <- '
-  gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
-         edit_text + collect_data + create_pres + change_settings + select_app
-  spec_dse = ~ page_web + create_program + identify_error + logical_solution
+  gen_dse = ~ asses_info + share_info + pair_collab + how_to_share + 
+         edit_text
+  spec_dse = ~ create_program + identify_error + logical_solution
   '
 
 m_cfa <- cfa(model = model_cfa, 
@@ -341,8 +340,7 @@ m_cfa <- cfa(model = model_cfa,
 
 standardizedsolution(m_cfa) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) %>% 
-  kable(format = "markdown", digits = 2)
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
 ```
 
 En @tbl-factor-loadings las cargas factoriales se encuentran estandarizadas. Resulta llamativo que todos los loadings son bastante altos, lo cual podría sugerir que los factores están sobre explicando a los indicadores
@@ -373,30 +371,134 @@ El *CFI* y el *TLI* poseen valores que sugieren un buen ajuste del modelo (*CFI*
 #| label: Multigroup
 
 multigroup_cfa <- '
-    gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
-         edit_text + collect_data + create_pres + change_settings + select_app
-    spec_dse = ~ page_web + create_program + identify_error + logical_solution
+  gen_dse = ~ asses_info + share_info + pair_collab + how_to_share + 
+         edit_text
+  spec_dse = ~ create_program + identify_error + logical_solution
   '
+
+
+#'
+#    gen_dse = ~ search_info + asses_info + share_info + pair_collab + #how_to_share + 
+#         edit_text + collect_data + create_pres + change_settings + #select_app
+#    spec_dse = ~ create_program + identify_error + logical_solution
+#  '
 ```
+
+
 
 ```{r}
 #| label: modelo confirmatorio multigrupo
 
-fitgroup <- sem(model = multigroup_cfa, data = pisa, group = "CNT")
+# Modelo configural
+fitgroup <- sem(model = multigroup_cfa, 
+                data = pisa, 
+                group = "CNT",
+                ordered = TRUE
+              #  missing = "fiml"
+              )
+
+# Modelo métrico (fijando las cargas)
+
+fitgroup_metric <- sem(model = multigroup_cfa, 
+                       data = pisa, 
+                       group = "CNT",
+                       ordered = TRUE,
+                      # missing = "fiml"
+                      group.equal = "loadings")
+
+# Modelo escalar (fijando cargas y interceptos)
+
+fitgroup_scalar <- sem(model = multigroup_cfa, 
+                  data = pisa, 
+                  group = "CNT",
+                  ordered = TRUE,
+                #  missing = "fiml",
+                  group.equal = c("loadings", "intercepts"))
+
+# Extracción de indicadores de ajuste
+
+fitmeasures_config <- fitMeasures(fitgroup,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_metric <- fitMeasures(fitgroup_metric,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_scalar <- fitMeasures(fitgroup_scalar,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
 ```
+
+### Tabla invarianza métrica en latex
+
+```{r}
+tabla_completa <- data.frame(
+  Modelo = c("1. Configural", "2. Métrico", "3. Escalar"),
+  chisq = c(fitmeasures_config["chisq"], fitmeasures_metric["chisq"], fitmeasures_scalar["chisq"]),
+  df = c(fitmeasures_config["df"], fitmeasures_metric["df"], fitmeasures_scalar["df"]),
+  CFI = c(fitmeasures_config["cfi"], fitmeasures_metric["cfi"], fitmeasures_scalar["cfi"]),
+  TLI = c(fitmeasures_config["tli"], fitmeasures_metric["tli"], fitmeasures_scalar["tli"]),
+  RMSEA = c(fitmeasures_config["rmsea"], fitmeasures_metric["rmsea"], fitmeasures_scalar["rmsea"]),
+  SRMR = c(fitmeasures_config["srmr"], fitmeasures_metric["srmr"], fitmeasures_scalar["srmr"])
+)
+
+# Cálculo deltas
+
+tabla_completa$delta_chisq <- c(NA, diff(tabla_completa$chisq))
+tabla_completa$delta_df    <- c(NA, diff(tabla_completa$df))
+tabla_completa$delta_CFI   <- c(NA, diff(tabla_completa$CFI))
+tabla_completa$delta_RMSEA <- c(NA, diff(tabla_completa$RMSEA))
+
+# ANOVA para significancia
+
+test_anova <- anova(fitgroup, fitgroup_metric, fitgroup_scalar)
+
+tabla_completa$p_value_delta_chisq <- test_anova$`Pr(>Chisq)`
+
+# Tabla en formato latex
+
+codigo_latex_tabla <- knitr::kable(
+  tabla_completa,
+  format = "latex",
+  digits = 5,
+  caption = "Comparación de Modelos de Invarianza Métrica",
+  col.names = c("Modelo", "$\\chi^2$", "df", "CFI", "TLI", "RMSEA", "SRMR", "$\\Delta\\chi^2$", "$\\Delta$df", "$\\Delta$CFI", "$\\Delta$RMSEA", "p-valor ($\\Delta\\chi^2$)"),
+  booktabs = TRUE # Usar booktabs = TRUE genera tablas más profesionales en LaTeX
+)
+
+
+# Revisamos la tabla
+
+print(codigo_latex_tabla)
+
+# Descarga como .tex
+
+writeLines(codigo_latex_tabla, "mi_tabla_de_invarianza.tex")
+
+
+```
+
 
 ### Visualización cargas factoriales por país
 
 ```{r}
 
+# Obtenemos todos los parámetros
+
 all_params <- parameterEstimates(fitgroup, standardized = TRUE)
+
+# Operador =~
 
 factor_loadings_all_groups <- all_params %>%
   filter(op == "=~")
 
+# Extraemos las labels
+
 group_labels <- lavInspect(fitgroup, "group.label")
 
+# Dataframe con todos los países
+
 country_map <- data.frame(group = 1:length(group_labels), CNT = unlist(group_labels))
+
+# Dataframe con ambas dimensiones
 
 factor_loadings_all_groups <- factor_loadings_all_groups %>%
   left_join(country_map, by = "group")
@@ -404,18 +506,26 @@ factor_loadings_all_groups <- factor_loadings_all_groups %>%
 
 ```{r}
 
+# Dataframe gen dse
+
 loadings_gen_dse <- factor_loadings_all_groups %>%
   filter(lhs == "gen_dse") %>%
   select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+# Etiquetas tres países con peor ajuste
 
 labels_gen_dse <- loadings_gen_dse %>%
   group_by(item) %>%
   slice_min(order_by = loading, n = 3) %>%
   ungroup()
 
+# Dataframe spec dse
+
 loadings_spec_dse <- factor_loadings_all_groups %>%
   filter(lhs == "spec_dse") %>%
   select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+# Etiquetas tres países con menor ajuste
 
 labels_spec_dse <- loadings_spec_dse %>%
   group_by(item) %>%
@@ -486,7 +596,7 @@ print(plot_spec_dse)
 
 Se repite Letonia en tres de las categorías y Lituania en 2. Se observa una menor dispersión en los loadings.
 
-### SEM por separado para cada país
+### SEM por separado para cada país (ahora con `fiml`)
 
 Este procedimiento se realiza para obtener los indicadores de ajuste por cada CNT
 
@@ -497,10 +607,8 @@ lista_paises <- unique(unlist(pisa$CNT))
 resultados_lista <- list()
 summary_lista <- list()
 
+# Iteramos por cada país con el mismo modelo
 for (pais_actual in lista_paises) {
-  
-  # Imprimimos el progreso
-  # cat("Procesando:", pais_actual, "...\n")
   
   datos_pais <- pisa %>%
     filter(CNT == pais_actual)
@@ -508,7 +616,9 @@ for (pais_actual in lista_paises) {
   fit_pais <- tryCatch({
     
     sem(model = multigroup_cfa, 
-        data = datos_pais)
+        data = datos_pais,
+        ordered = True,
+        missing = "fiml")
   }, error = function(e) {
     
      cat("  -> ¡ERROR! No se pudo ajustar el modelo para", pais_actual, ". Razón:", conditionMessage(e), "\n")
@@ -519,7 +629,6 @@ for (pais_actual in lista_paises) {
      if (lavInspect(fit_pais, "converged")) {
         medidas_ajuste <- fitMeasures(fit_pais)
         resultados_lista[[pais_actual]] <- medidas_ajuste
-       # cat("  -> Modelo ajustado y resultados guardados.\n")
      } else {
         cat("  -> ¡ADVERTENCIA! El modelo para", pais_actual, "no convergió. Se omitirán sus resultados.\n")
         resultados_lista[[pais_actual]] <- rep(NA)
@@ -528,12 +637,22 @@ for (pais_actual in lista_paises) {
   }
 }
 
-# cat("\n...Proceso de ajuste finalizado.\n")
+### Test con chile (o otros países)
+
+datos_test <- pisa %>%
+    filter(CNT == "CHL")
+
+test_model <- sem(model = multigroup_cfa, 
+        data = datos_test,
+        missing = "fiml")
+
+fitMeasures(test_model)
 
 ```
 
 ```{r}
 
+# Convertimos resultados_lista en dataframe y agregamos CNT para detectar país
 
 fit_indices_por_pais <- do.call(rbind, resultados_lista)
 
@@ -542,13 +661,19 @@ fit_indices_por_pais <- as.data.frame(fit_indices_por_pais)
 fit_indices_por_pais <- fit_indices_por_pais %>%
   tibble::rownames_to_column(var = "CNT")
 
+# Seleccionamos indicadores de interés
+
 indices_ajuste <- fit_indices_por_pais %>% 
   select(CNT, chisq, df, rmsea, rmsea.ci.lower,  rmsea.ci.upper, srmr, cfi, tli)
 ```
 
+### Tabla para visualizar indicadores de ajuste por país
+
 ```{r}
 #| label: tabla-interactiva
 #| echo: false
+
+# Tabla interactiva con datatable
 
 datatable(
   indices_ajuste,
@@ -565,32 +690,67 @@ datatable(
 ```
 
 
-#### Descriptivos índices de ajuste
+### Descriptivos índices de ajuste
 
 ```{r}
 
 table1::table1(~ . + -CNT,data=indices_ajuste)
 ```
 
+### Chi cuadrado por país (en base al modelo global)
+
+```{r}
+
+group_summary <- summary(fitgroup)
+
+valores_chi <- group_summary$test$standard$stat.group
+
+nombres_paises <- group_summary$data$group.label
+
+df_chi <- data.frame(
+  Pais = nombres_paises,
+  Chi.Cuadrado = valores_chi
+)
+
+knitr::kable(df_chi)
+
+datatable(
+  df_chi,
+  options = list(
+    pageLength = 10,
+    autoWidth = TRUE,
+    searchHighlight = TRUE
+  ),
+  filter = 'top',
+  rownames = FALSE,
+  caption = "Chi cuadrado por país"
+)
+
+```
+
+Chi cuadrado es igual al extraído con la iteración de modelo por país 
+
 # SEM Multinivel con PISA
 
 ```{r}
 
 
-multimodel_cfa <- '
-    level: 1
-    gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
-         edit_text + collect_data + create_pres + change_settings + select_app
-    spec_dse = ~ create_program + identify_error + logical_solution
-    level: 2
-    gen_dse = ~ search_info + asses_info + share_info + pair_collab + how_to_share + 
-         edit_text + collect_data + create_pres + change_settings + select_app
-    spec_dse = ~ create_program + identify_error + logical_solution
+multilevel_cfa <- '
+  level: 1
+  gen_dse = ~ asses_info + share_info + pair_collab + how_to_share + 
+         edit_text
+  spec_dse = ~ create_program + identify_error + logical_solution
+  level: 2
+  gen_dse = ~ asses_info + share_info + pair_collab + how_to_share + 
+         edit_text
+  spec_dse = ~ create_program + identify_error + logical_solution
   '
 ```
 
 ```{r}
-fit <- sem(model = multimodel_cfa, data = pisa, cluster = "CNT")
+fit <- sem(model = multilevel_cfa, data = pisa, cluster = "CNT")
+
+
 ```
 
 ### Cargas estandarizadas
