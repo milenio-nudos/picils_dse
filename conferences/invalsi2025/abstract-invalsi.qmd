@@ -1,0 +1,155 @@
+---
+title: "Measuring Digital Self-Efficacy in International Large-Scale Assessments: An International Comparison Between ICILS and PISA"
+author:
+  - name: "Juan Carlos Castillo"
+    affiliation: "University of Chile / NUDOS"
+    corresponding: true
+    email: juancastillov@uchile.cl
+  - name: "Daniel Miranda"
+    affiliation: "University of Chile / COES / NUDOS"
+  - name: "Tomás Urzúa"
+    affiliation: "University of Chile"
+  - name: "Nicolás Tobar"
+    affiliation: "University of Chile / NUDOS"
+  - name: "Ismael Aguayo"
+    affiliation: "University of Chile"
+format: pdf
+bibliography: references.bib
+csl: apa.csl
+date: "2025-05-30"
+---
+
+# Introduction
+
+Digital self-efficacy (hereinafter DSE), defined as expectations about one's capabilities to learn and accomplish tasks in digital technologies and digital environments, is one of the principal components to promote the formation of digital competences [@ulfertblank_digital_2022]. DSE is a construct frequently measured in international large-scale assessments (ILSAs), as substantial evidence indicates its critical role as an explanatory variable in the development of digital competences within educational settings [@scherer_relation_2019; @hatlevik_students_2018; @claro_assessment_2018]. Studies consistently demonstrate that DSE not only influences individuals' engagement with digital technologies but also predicts their ability to acquire and apply digital skills effectively [@rohatgi_role_2016; @siddiq_teachers_2017].
+
+The conceptualization and operationalization of DSE vary notably across the literature. Some studies treat DSE as a unidimensional construct, measuring individuals’ overall confidence in using digital technologies without distinguishing between types of tools and/or levels of complexity [@hatlevik_digital_2015; @rohatgi_role_2016]. Such unidimensional approach facilitates modeling and broader comparisons but may obscure important differences in how users perceive their abilities in specific digital contexts. In contrast, other studies adopt a multidimensional approach, distinguishing between general and specialized self-efficacy to account for the nature and complexity of digital tasks [@scherer_becoming_2017]. For example, general DSE encompasses confidence in everyday tasks such as internet navigation or word processing, whereas specialized DSE involves more advanced activities such as programming or data analysis.
+
+Both the unidimensional and the multidimensional approaches not only influence measurement instruments but also lead to different research findings: unidimensional models could underestimate the predictive power of DSE for complex digital problem-solving, while multidimensional models offer greater explanatory precision but can introduce challenges such as construct overlap or reduced generalizability across contexts, limiting findings across educational systems and cultural contexts [@scherer_relation_2019; @scherer_measuring_2021].
+
+Between the two most relevant ILSAs in the Digital Competence agenda (ICILS and PISA), a critical inconsistency persists in their conceptualization and measurement of DSE. PISA operationalizes DSE as a unidimensional construct, aggregating all digital task-related confidence into a single generalized measure [@oecd_pisa_2021]. In contrast, ICILS adopts a bidimensional framework, distinguishing between general DSE (basic digital tasks) and specialized DSE (advanced tasks) [@fraillon_preparing_2020; @scherer_relation_2019]. This discrepancy raises essential questions about construct validity and cross-assessment comparability, particularly since the choice of model (unidimensional vs. multidimensional) may influence policy interpretations and pedagogical interventions.
+
+Understanding the proper use of the dimensions of DSE is necessary to refine the scientific use of this construct to understand different populations’ expectations with technologies. This bidimensional differentiation emerged, in part, from observed gender disparities in self-efficacy patterns: some studies show that while gender gaps in general DSE are minimal or non-existent, women tend to report significantly lower confidence in specialized DSE domains—particularly those involving STEM-related digital tasks [@hargittai_differences_2006; @cai_gender_2017; @oecd_pisa_2021].
+
+Aiming to contribute to this research area, the present study's objective is to evaluate the measurement of a two-dimensional model of DSE and its comparability across countries and by gender in different large-scale assessments. Our contribution is twofold: (i) To test the bi-dimensional approach to DSE (as in ICILS) to PISA data (which assumes unidimensionality), and (ii) To test the comparability of these two dimensions by gender and country in ICILS and PISA.
+
+To address these research goals, we will employ confirmatory factor analysis (CFA) and measurement invariance testing as core methodological strategies [@brown_confirmatory_2015; @kline_principles_2016].
+
+CFA is particularly well-suited for testing theoretical models where specific latent structures are hypothesized a priori—such as the proposed distinction between general and specialized dimensions of digital self-efficacy. This approach allows for the rigorous evaluation of model fit and the validation of factor structures based on observed indicators from large-scale assessments. Accordingly, the first hypothesis refers to:
+
+**H1:** It is possible to identify two latent dimensions of digital self-efficacy (general and specialized) based on related batteries and indicators included in large-scale assessments such as PISA and ICILS (bi-dimensional hypothesis)
+
+Furthermore, testing for measurement invariance across gender and countries is essential to ensure that the latent constructs are interpreted in a comparable manner across groups [@leitgoeb_measurement_2023; @meuleman_why_2023]. Without such invariance, any observed differences in self-efficacy levels may reflect measurement artifacts rather than substantive differences. From this perspective, the second and third hypotheses are:
+
+**H2:** The bi-dimensional measurement model of digital self-efficacy is equivalent between girls and boys.  
+**H3:** The bi-dimensional measurement model of digital self-efficacy is equivalent across countries.
+
+![Confirmatory measurement model](images/figure1.png)
+
+
+# 2. What is the source of the data included in the analyses?
+
+We have two main data sources. The first one is ICILS, developed by the International Association for the Evaluation of Educational Achievement (IEA), assesses students’ digital literacy across three cycles (2013, 2018, 2023). The 2023 cycle expanded to 35 education systems, testing 67,682 Grade 8 students on computer and information literacy (CIL) and computational thinking. The study evaluates students’ ability to use digital tools responsibly, solve problems, and collaborate online. Data is collected through performance tests and contextual questionnaires for students, teachers, and schools. A key feature of ICILS is its bidimensional measurement of digital self-efficacy (DSE), distinguishing between general and specialized digital confidence.
+
+The second data source is PISA, organized by the OECD, has assessed 15-year-olds’ skills in mathematics, science, and reading across multiple cycles (the last three ones 2015, 2018, 2022). The study’s primary objective remains evaluating education systems’ effectiveness in preparing students for future challenges, with a growing emphasis on digital readiness. The 2022 assessment covered 81 countries/economies with a sample exceeding 600,000 students. Digital self-efficacy (DSE) was last measured in 2022 as part of the optional ICT familiarity questionnaire, following its absence in the 2018 cycle. This questionnaire was applied in an optional way in 53 countries, which are included in the analysis (n of students = 279,435).
+
+
+# 3. How will the crucial variables be operationalized?
+
+Table 1 summarizes the measurement batteries for self-efficacy in both studies. These items will be treated as numerical values.
+
+## Table 1: ICLS and PISA items comparison
+
+| Task Category         | ICILS 2023 Item                                         | PISA 2022 Item                                       |
+|-----------------------|----------------------------------------------------------|------------------------------------------------------|
+| Search information    | Search for and find relevant info for a school project   | Search for and find relevant information online      |
+| Assess information    | Judge whether you can trust information you find         | Assess the quality of information you found online   |
+| Create multimedia     | Create a multi-media presentation                        | Create a multimedia presentation                     |
+| Edit documents        | Insert an image / edit text for assignment               | Write or edit text for a school assignment           |
+| Edit images           | Edit digital photographs                                 | —                                                    |
+| Upload/share content  | Upload or share content                                  | Share practical information / explain sharing        |
+| Collaborate           | Collaborate on group assignment                          | Collaborate with students                            |
+| Change settings       | Change device settings                                   | Change settings to protect data/privacy              |
+| Install/select apps   | Install programs                                         | Select most efficient app                            |
+| Programming           | Write program in code                                    | Create visual/text-based program                     |
+| Build a webpage       | Build/edit webpage                                       | Create/maintain webpage or blog                      |
+| Identify software errors | Identify software error                               | Partial match (same intent)                          |
+
+# 4. How will this data be obtained?
+
+Data is openly available:
+
+- ICILS 2023: <https://www.iea.nl/data-tools/repository/icils>  
+- PISA 2022: <https://www.oecd.org/en/data/datasets/pisa-2022-database.html>
+
+
+# 5. Are there any exclusion criteria for the data?
+
+Full Information Maximum Likelihood (FIML) will handle remaining partial missingness during confirmatory analysis.
+
+# 6. What are the planned statistical analyses?
+
+Before modeling, we will:
+
+- Recode PISA’s “I don’t know what this is” as missing.
+- Examine missing value distributions by country.
+
+### Step 1: CFA
+
+Run two-factor CFA in PISA and ICILS by country:
+- Factor 1 = general DSE (basic tasks)
+- Factor 2 = specialized DSE (advanced tasks)
+
+Evaluate with:
+- Chi-square
+- CFI and TLI
+- RMSEA
+
+[@brown_confirmatory_2015]
+
+### Step 2: Multi-group CFA
+
+Test invariance across:
+- Configural (baseline)
+- Metric (equal loadings)
+- Scalar (equal loadings and intercepts)
+
+Interpret model fit changes:  
+- Metric: ΔCFI ≥ -0.004; ΔRMSEA ≤ .05  
+- Scalar: ΔCFI ≥ -0.004; ΔRMSEA ≤ .01  
+[@rutkowski_multidimensional_2017]
+
+Modeling will assume ordered variables and use FIML [@enders_relative_2001].
+
+Analyses will be done in R and MPlus. Scripts and data will be hosted at:  
+<https://github.com/milenio-nudos/ILSAs_batteries_measurement>
+
+# 7. What are the criteria for confirming and disconfirming the hypotheses?
+
+- Good model fit: CFI/TLI ≥ 0.95, RMSEA ≤ 0.06
+- Invariance decisions based on thresholds above.
+
+# 8. Have the analyses been validated on a subset of the data?
+
+Not yet validated. ICILS 2018 Chile showed:
+
+- General DSE positively predicted digital literacy
+- Specialized DSE had a negative effect
+- Girls had higher general and lower specialized DSE
+
+PISA 2022 exploratory factor analyses support bidimensionality.
+
+# 9. What is known about the data that could be relevant for the tested hypotheses?
+
+Previous knowledge includes dimensionality evidence and gender effects in Chile and global PISA datasets.
+
+# 10. Timeline
+
+| Task                             | June Week 4 | July Week 1 | July Week 2 | July Week 3 |
+|----------------------------------|-------------|-------------|-------------|-------------|
+| Data cleaning & harmonization   | ✅          |             |             |             |
+| Variable recoding               | ✅          |             |             |             |
+| CFA and descriptive stats       |             | ✅          |             |             |
+| Cross-country invariance tests |             |             | ✅          |             |
+| Gender invariance tests         |             |             |             | ✅          |
+
