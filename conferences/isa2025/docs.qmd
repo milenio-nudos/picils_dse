@@ -136,6 +136,7 @@ Un poco de contexto: esta investigación forma parte de un proyecto de investiga
 ## Autoeficacia Digital y Género
 
 ![](images/gen_context.jpg)
+
 ## ILSAs approach
 
 CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y SUS ESTRATEGIAS DISTINTAS DE MEDICIÓN
@@ -151,7 +152,7 @@ CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y S
 
 *The bidimensional model of Digital Self-efficacy is equivalent by gender and across countries?*
 
-[*Which gender differences exist on Digital Self-efficacy across countires?*]{style="margin-top: 150px; display: block;"}
+*Which gender differences exist on Digital Self-efficacy across countires?*
 :::
 
 ## Hipótesis
@@ -176,7 +177,7 @@ CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y S
 :::
 :::::
 
-## Variable Autoeficacia Digital
+## Variable Autoeficacia Digital {.smaller}
 
 ¿En qué medida eres capaz de realizar las siguientes tareas cuando utilizas <dispositivos digitales>?
 
@@ -220,10 +221,13 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 
 #### Global CFA model
 
+![](images/esquema_cfa.jpg)
 
 ##
 
 ##### Invariance results
+
+![](images/invariance_table.png)
 
 ## 
 
