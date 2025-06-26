@@ -27,6 +27,8 @@ editor: visual
 ---
 
 ```{r preparacion}
+#| message: false 
+#| warning: false
 pacman::p_load(dplyr, haven, psych, purrr, tidyr, tidytext, sjPlot, ggplot2,
                parameters, table1, beeswarm, lme4, rio, skimr, effects,
                labelled, knitr, kableExtra, stringr, sjmisc, purr, ggbeeswarm,
@@ -46,7 +48,7 @@ variables_labels <- c(
                  "hallar_error_programa",
                  "representar_solucion_logica")
 
-pisa22ict <- readRDS("~/GitHub/milenio_nudos/ILSAs_batteries_measurement/data/proc_data/pisa22ict.rds")
+pisa22ict <- readRDS("../../data/proc_data/pisa22ict.rds")
 
 # "No sé" como NA
 pisa22ict <- pisa22ict|>
@@ -213,9 +215,8 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 
 1.  Measurement model
 2.  Invariance test
-2.  Mean distribution across country
-3.  Gender differences across country
-
+3.  Mean distribution across country
+4.  Gender differences across country
 
 ## 
 
@@ -223,7 +224,7 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 
 ![](images/esquema_cfa.jpg)
 
-##
+## 
 
 ##### Invariance results
 

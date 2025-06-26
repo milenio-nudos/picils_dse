@@ -458,7 +458,7 @@ tabla_completa$p_value_delta_chisq <- test_anova$`Pr(>Chisq)`
 codigo_latex_tabla <- knitr::kable(
   tabla_completa,
   format = "latex",
-  digits = 5,
+  digits = 3,
   caption = "Comparación de Modelos de Invarianza Métrica",
   col.names = c("Modelo", "$\\chi^2$", "df", "CFI", "TLI", "RMSEA", "SRMR", "$\\Delta\\chi^2$", "$\\Delta$df", "$\\Delta$CFI", "$\\Delta$RMSEA", "p-valor ($\\Delta\\chi^2$)"),
   booktabs = TRUE # Usar booktabs = TRUE genera tablas más profesionales en LaTeX

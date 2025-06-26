@@ -6,8 +6,8 @@
 <script src="docs_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="docs_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="docs_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="docs_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.42">
+<link href="docs_files/libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.33">
 
   <title>Diferencias de género en la autoeficacia digital en la escuela en 52 países</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,7 +28,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="docs_files/libs/revealjs/dist/theme/quarto-a1583fd1fadcf8e3a9dfe04664fcb129.css">
+  <link rel="stylesheet" href="docs_files/libs/revealjs/dist/theme/quarto-cc1bebbeb4b7f6c21206f6c17df9246a.css">
   <link href="docs_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="docs_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="docs_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -726,6 +726,8 @@
       });
       clipboard.on('success', onCopySuccess);
       if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
         const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
           text: getTextToCopy,
           container: window.document.getElementById('quarto-embedded-source-code-modal')
