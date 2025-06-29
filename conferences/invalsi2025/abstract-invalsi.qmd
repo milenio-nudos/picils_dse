@@ -21,6 +21,9 @@ author:
   - name: "Ismael Aguayo"
     affiliation: "University of Chile"
 format:
+  docx: 
+    number-sections: true
+    reference-doc: reference.docx 
   html:
     toc: true
     toc-title: "Table of Contents"
@@ -33,34 +36,31 @@ format:
     fig-height: 600
     fig-caption: true
 bibliography: invalsi.bib
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
 ---
 
 # Introduction
 
 Digital self-efficacy (hereinafter DSE), conceived as expectations about one's capabilities to learn and accomplish tasks in digital technologies and digital environments, is one of the principal components to promote the formation of digital competences [@ulfertblank_digital_2022]. DSE is a construct frequently measured in international large-scale assessments (ILSAs), as substantial evidence indicates its critical role as an explanatory variable in the development of digital competences within educational settings [@scherer_relation_2019; @hatlevik_students_2018; @claro_assessment_2018]. Furthermore, studies consistently demonstrate that DSE also allows individuals to acquire and apply digital skills effectively along the life spam [@rohatgi_role_2016; @scherer_becoming_2017].
 
-The conceptualization and operationalization of DSE vary notably in terms of concepts and their measurement. Some studies treat DSE as a unidimensional construct, measuring individuals’ overall confidence in using digital technologies without distinguishing between types of tools and/or levels of complexity [@hatlevik_digital_2015; @rohatgi_role_2016]. In contrast, other studies adopt a multidimensional approach, mostly distinguishing between general and specialized self-efficacy to account for the nature and complexity of digital tasks [@scherer_becoming_2017]. Whereas _general DSE_ encompasses confidence in everyday tasks such as internet navigation or word processing, _specialized DSE_ involves more advanced activities such as programming and/or data analysis.  The distinction between general and specialized DSE is particularly relevant in the context of ILSAs, where the measurement of digital self-efficacy can significantly influence the interpretation of students' digital competencies. For instance, a unidimensional measure may aggregate all digital task-related confidence into a single score, potentially masking important differences in how students perceive their abilities across different digital contexts. In contrast, a bidimensional measure allows for a more precise understanding of students' digital competencies and can inform educational policies and practices more effectively. 
+The conceptualization and operationalization of DSE vary notably in terms of concepts and their measurement. Some studies conceive DSE as an unidimensional construct, measuring individuals’ overall confidence in using digital technologies without distinguishing between types of tools and/or levels of complexity [@hatlevik_digital_2015; @rohatgi_role_2016]. In contrast, other studies adopt a multidimensional approach, distinguishing between general and specialized self-efficacy to account for the nature and complexity of digital tasks [@scherer_becoming_2017]. Whereas *general DSE* encompasses confidence in everyday tasks such as internet navigation or word processing, *specialized DSE* involves more advanced activities such as programming and/or datamostly analysis. The distinction between general and specialized DSE is particularly relevant in the context of ILSAs, where the measurement of digital self-efficacy can significantly influence the interpretation of students' digital competencies. For instance, a unidimensional measure may aggregate all digital task-related confidence into a single score, potentially masking important differences in how students perceive their abilities across different digital contexts. In contrast, a bidimensional measure allows for a more precise understanding of students' digital competencies and can inform educational policies and practices more effectively.
 
 Between the two most relevant ILSAs in the Digital Competence agenda (ICILS and PISA), a critical inconsistency persists in their conceptualization and measurement of DSE. PISA operationalizes DSE as an unidimensional construct, aggregating all digital task-related confidence into a single generalized measure [@oecd_pisa_2021]. In contrast, ICILS adopts a bidimensional framework, distinguishing between general DSE (basic digital tasks) and specialized DSE (advanced tasks) [@fraillon_preparing_2020; @scherer_relation_2019]. This discrepancy raises essential questions about construct validity and cross-assessment comparability, particularly since the choice of model (unidimensional vs. multidimensional) may influence policy interpretations and pedagogical interventions. For instance, unidimensional models could underestimate the predictive power of DSE for complex digital problem-solving, as it is shown in studies that specialized DSE is a stronger predictor of performance in advanced digital tasks than general DSE [@scherer_relation_2019; @scherer_measuring_2021]. Besides, some studies show that while gender gaps in general DSE are minimal or non-existent, women tend to report significantly lower confidence in specialized DSE domains—particularly those involving STEM-related digital tasks [@hargittai_differences_2006; @cai_gender_2017; @oecd_pisa_2021]. Therefore, understanding the proper use of the dimensions of DSE in two of the most important ILSAs including DSE measurement is necessary to refine the scientific use of this construct to understand different populations’ expectations with technologies.
 
-The present study's aim is (i) To assess the bi-dimensional approach of DSE in International Large-scale Assessment studies, and (ii) To evaluate the comparability of the bi-dimensional measurement of DSE across countries and gender in ICILS and PISA. To achieve this, we will conduct confirmatory factor analysis (CFA) and measurement invariance testing using data from the latest cycles of ICILS (2023) and PISA (2022). This approach will allow us to rigorously evaluate the validity of the two-dimensional model of DSE and its cross-cultural applicability. CFA is particularly well-suited for testing theoretical models where specific latent structures are hypothesized a priori—such as the proposed distinction between general and specialized dimensions of digital self-efficacy. Besides, measurement invariance testing is crucial for ensuring that the same construct is being measured across different groups  and contexts, which is essential for making valid comparisons of DSE across countries.
-
+The present study's aim is (i) To assess the bi-dimensional approach of DSE in International Large-scale Assessment studies, and (ii) To evaluate the comparability of the bi-dimensional measurement of DSE across countries and gender in ICILS and PISA. To achieve this, we will conduct confirmatory factor analysis (CFA) and measurement invariance testing using data from the latest cycles of ICILS (2023) and PISA (2022). This approach will allow us to rigorously evaluate the validity of the two-dimensional model of DSE and its cross-cultural applicability. CFA is particularly well-suited for testing theoretical models where specific latent structures are hypothesized a priori—such as the proposed distinction between general and specialized dimensions of digital self-efficacy. Besides, measurement invariance testing is crucial for ensuring that the same construct is being measured across different groups and contexts, which is essential for making valid comparisons of DSE across countries.
 
 # Research Questions and Hypotheses
 
 The present study aims to address the following research questions:
 
-1. Is it possible to identify two latent dimensions of digital self-efficacy (general and specialized) based on related batteries and indicators, in a comparable way between PISA and ICILS?
-2. Is the bi-dimensional measurement model of digital self-efficacy equivalent between girls and boys?
-3. Is the bi-dimensional measurement model of digital self-efficacy equivalent across countries?
-
+1.  Is it possible to identify two latent dimensions of digital self-efficacy (general and specialized) based on related batteries and indicators, in a comparable way between PISA and ICILS?
+2.  Is the bi-dimensional measurement model of digital self-efficacy equivalent between girls and boys?
+3.  Is the bi-dimensional measurement model of digital self-efficacy equivalent across countries?
 
 To answer these questions, we will test the following hypotheses:
 
 **H1:** It is possible to identify two latent dimensions of digital self-efficacy (general and specialized) based on related batteries and indicators included in large-scale assessments such as PISA and ICILS (bi-dimensional hypothesis)
 
-**H2:** The bi-dimensional measurement model of digital self-efficacy is invariant (in terms of measurement) girls and boys.  
+**H2:** The bi-dimensional measurement model of digital self-efficacy is invariant (in terms of measurement) girls and boys.
 
 **H3:** The bi-dimensional measurement model of digital self-efficacy is invariant across countries.
 
@@ -74,33 +74,32 @@ We have two main data sources. The first one is ICILS, developed by the Internat
 
 The second data source is PISA, implemented by the OECD. It assesses 15-year-olds’ skills in mathematics, science, and reading across multiple cycles (the last three ones 2015, 2018, 2022). The study’s primary objective is to evaluate education systems’ effectiveness in preparing students for future challenges, with a growing emphasis on digital readiness. The 2022 assessment covered 81 countries/economies with a sample exceeding 600,000 students. Digital self-efficacy (DSE) was last measured in 2022 as part of the optional ICT familiarity questionnaire, following its absence in the 2018 cycle. This questionnaire was applied in an optional way in 53 countries, which are included in the analysis (N = 279,435).
 
-Both data sources are publicly available and can be accessed through the IEA and OECD websites, respectively. ICILS 2023 data can be found at <https://www.iea.nl/studies/iea/icils/2023>, whereas  PISA 2022 data is available at <https://www.oecd.org/pisa/data/pisa-2022-database/>.
+Both data sources are publicly available and can be accessed through the IEA and OECD websites, respectively. ICILS 2023 data can be found at <https://www.iea.nl/studies/iea/icils/2023>, whereas PISA 2022 data is available at <https://www.oecd.org/pisa/data/pisa-2022-database/>.
 
-## Variables 
+## Variables
 
 The analysis will focus on the digital self-efficacy (DSE) items from both ICILS and PISA. The DSE items in ICILS 2023 are designed to measure students' confidence in performing various digital tasks, while PISA 2022 includes similar items but framed within a unidimensional context.
 
 Table 1 summarizes the measurement batteries for self-efficacy in both studies. These items will be treated as numerical values.
 
-_Table 1: ICLS and PISA items comparison_
+*Table 1: ICLS and PISA items comparison*
 
-| Task Category         | ICILS 2023 Item                                         | PISA 2022 Item                                       |
-|-----------------------|----------------------------------------------------------|------------------------------------------------------|
-| Search information    | Search for and find relevant info for a school project   | Search for and find relevant information online      |
-| Assess information    | Judge whether you can trust information you find         | Assess the quality of information you found online   |
-| Create multimedia     | Create a multi-media presentation                        | Create a multimedia presentation                     |
-| Edit documents        | Insert an image / edit text for assignment               | Write or edit text for a school assignment           |
-| Edit images           | Edit digital photographs                                 | —                                                    |
-| Upload/share content  | Upload or share content                                  | Share practical information / explain sharing        |
-| Collaborate           | Collaborate on group assignment                          | Collaborate with students                            |
-| Change settings       | Change device settings                                   | Change settings to protect data/privacy              |
-| Install/select apps   | Install programs                                         | Select most efficient app                            |
-| Programming           | Write program in code                                    | Create visual/text-based program                     |
-| Build a webpage       | Build/edit webpage                                       | Create/maintain webpage or blog                      |
-| Identify software errors | Identify software error                               | Partial match (same intent)                          |
+| Task Category | ICILS 2023 Item | PISA 2022 Item |
+|------------------|----------------------------|--------------------------|
+| Search information | Search for and find relevant info for a school project | Search for and find relevant information online |
+| Assess information | Judge whether you can trust information you find | Assess the quality of information you found online |
+| Create multimedia | Create a multi-media presentation | Create a multimedia presentation |
+| Edit documents | Insert an image / edit text for assignment | Write or edit text for a school assignment |
+| Edit images | Edit digital photographs | — |
+| Upload/share content | Upload or share content | Share practical information / explain sharing |
+| Collaborate | Collaborate on group assignment | Collaborate with students |
+| Change settings | Change device settings | Change settings to protect data/privacy |
+| Install/select apps | Install programs | Select most efficient app |
+| Programming | Write program in code | Create visual/text-based program |
+| Build a webpage | Build/edit webpage | Create/maintain webpage or blog |
+| Identify software errors | Identify software error | Partial match (same intent) |
 
-
-## Estimation methods 
+## Estimation methods
 
 Statistical analyses will address missing data using Full Information Maximum Likelihood (FIML) during confirmatory analyses. Before modeling, PISA responses of “I don’t know what this is” will be recoded as missing, and the distribution of missing values will be examined by country. For each country, a two-factor confirmatory factor analysis (CFA) will be conducted separately for PISA and ICILS data, distinguishing between general digital self-efficacy (DSE) for basic digital tasks and specialized DSE for advanced digital tasks. Model fit will be evaluated using chi-square, Comparative Fit Index (CFI), Tucker-Lewis Index (TLI), and Root Mean Square Error of Approximation (RMSEA) [@brown_confirmatory_2015].
 
@@ -116,7 +115,6 @@ Analysis of gender differences reveals that general digital self-efficacy (DSE) 
 
 ![](https://milenio-nudos.github.io/ILSAs_batteries_measurement/output/Avances_files/figure-html/fig-descr-icils-1.png)
 
-
 ![](https://milenio-nudos.github.io/ILSAs_batteries_measurement/output/Avances_files/figure-html/fig-descr-pisa-1.png)
 
 ![](https://milenio-nudos.github.io/ILSAs_batteries_measurement/output/Avances_files/figure-html/unnamed-chunk-19-1.png)
@@ -125,8 +123,8 @@ Analysis of gender differences reveals that general digital self-efficacy (DSE) 
 
 # Summary
 
-- The bi-dimensional model of DSE is empirically supported in both ICILS and PISA, though with stronger evidence in ICILS.
-- Measurement invariance is generally supported at the configural and metric levels, but scalar invariance is more challenging, especially across countries.
-- Gender gaps are more pronounced in specialized DSE.
+-   The bi-dimensional model of DSE is empirically supported in both ICILS and PISA, though with stronger evidence in ICILS.
+-   Measurement invariance is generally supported at the configural and metric levels, but scalar invariance is more challenging, especially across countries.
+-   Gender gaps are more pronounced in specialized DSE.
 
 Full tables, code, and additional figures are available in the [Avances.html](Avances.html) file and the project repository.
