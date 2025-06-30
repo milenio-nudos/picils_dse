@@ -226,11 +226,139 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 
 ## 
 
-##### Invariance results
+##### Invariance results: country
 
-![](images/invariance_table.png)
+<table>
+<caption>Análisis de invarianza por países</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Modelo </th>
+   <th style="text-align:right;"> $\chi^2$ </th>
+   <th style="text-align:right;"> df </th>
+   <th style="text-align:right;"> CFI </th>
+   <th style="text-align:right;"> TLI </th>
+   <th style="text-align:right;"> RMSEA </th>
+   <th style="text-align:right;"> SRMR </th>
+   <th style="text-align:right;"> $\Delta\chi^2$ </th>
+   <th style="text-align:right;"> $\Delta$df </th>
+   <th style="text-align:right;"> $\Delta$CFI </th>
+   <th style="text-align:right;"> $\Delta$RMSEA </th>
+   <th style="text-align:right;"> p-valor ($\Delta\chi^2$) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1. Configural </td>
+   <td style="text-align:right;"> 15107.60 </td>
+   <td style="text-align:right;"> 988 </td>
+   <td style="text-align:right;"> 0.999 </td>
+   <td style="text-align:right;"> 0.998 </td>
+   <td style="text-align:right;"> 0.054 </td>
+   <td style="text-align:right;"> 0.035 </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+   <td style="text-align:right;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2. Métrico </td>
+   <td style="text-align:right;"> 18502.76 </td>
+   <td style="text-align:right;"> 1294 </td>
+   <td style="text-align:right;"> 0.999 </td>
+   <td style="text-align:right;"> 0.999 </td>
+   <td style="text-align:right;"> 0.052 </td>
+   <td style="text-align:right;"> 0.037 </td>
+   <td style="text-align:right;"> 3395.16 </td>
+   <td style="text-align:right;"> 306 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> -0.002 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3. Escalar </td>
+   <td style="text-align:right;"> 24944.79 </td>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> 0.998 </td>
+   <td style="text-align:right;"> 0.999 </td>
+   <td style="text-align:right;"> 0.048 </td>
+   <td style="text-align:right;"> 0.035 </td>
+   <td style="text-align:right;"> 6442.03 </td>
+   <td style="text-align:right;"> 714 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> -0.004 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
 
-## 
+##### Invariance results: sex
+
+<table>
+<caption>Análisis de invarianza por sexo</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><p>Modelo</p></th>
+<th style="text-align: right;"><p>$\chi^2$</p></th>
+<th style="text-align: right;"><p>df</p></th>
+<th style="text-align: right;"><p>CFI</p></th>
+<th style="text-align: right;"><p>TLI</p></th>
+<th style="text-align: right;"><p>RMSEA</p></th>
+<th style="text-align: right;"><p>SRMR</p></th>
+<th style="text-align: right;"><p>$\Delta\chi^2$</p></th>
+<th style="text-align: right;"><p>$\Delta$df</p></th>
+<th style="text-align: right;"><p>$\Delta$CFI</p></th>
+<th style="text-align: right;"><p>$\Delta$RMSEA</p></th>
+<th style="text-align: right;"><p>p-valor ($\Delta\chi^2$)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><p>1. Configural</p></td>
+<td style="text-align: right;"><p>10154.70</p></td>
+<td style="text-align: right;"><p>38</p></td>
+<td style="text-align: right;"><p>0.999</p></td>
+<td style="text-align: right;"><p>0.999</p></td>
+<td style="text-align: right;"><p>0.046</p></td>
+<td style="text-align: right;"><p>0.029</p></td>
+<td style="text-align: right;"><p>  </p></td>
+<td style="text-align: right;"><p>  </p></td>
+<td style="text-align: right;"><p>  </p></td>
+<td style="text-align: right;"><p>  </p></td>
+<td style="text-align: right;"><p>  </p></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><p>2. Métrico</p></td>
+<td style="text-align: right;"><p>10796.98</p></td>
+<td style="text-align: right;"><p>44</p></td>
+<td style="text-align: right;"><p>0.999</p></td>
+<td style="text-align: right;"><p>0.999</p></td>
+<td style="text-align: right;"><p>0.044</p></td>
+<td style="text-align: right;"><p>0.029</p></td>
+<td style="text-align: right;"><p>642.279</p></td>
+<td style="text-align: right;"><p>6</p></td>
+<td style="text-align: right;"><p>0</p></td>
+<td style="text-align: right;"><p>-0.002</p></td>
+<td style="text-align: right;"><p>0</p></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><p>3. Escalar</p></td>
+<td style="text-align: right;"><p>11634.72</p></td>
+<td style="text-align: right;"><p>58</p></td>
+<td style="text-align: right;"><p>0.999</p></td>
+<td style="text-align: right;"><p>0.999</p></td>
+<td style="text-align: right;"><p>0.040</p></td>
+<td style="text-align: right;"><p>0.029</p></td>
+<td style="text-align: right;"><p>837.742</p></td>
+<td style="text-align: right;"><p>14</p></td>
+<td style="text-align: right;"><p>0</p></td>
+<td style="text-align: right;"><p>-0.004</p></td>
+<td style="text-align: right;"><p>0</p></td>
+</tr>
+</tbody>
+</table>
+
+: Análisis de invarianza por sexo
 
 #### Digital Self-efficacy across countries
 

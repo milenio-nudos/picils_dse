@@ -192,7 +192,7 @@ corrplot::corrplot(M$rho,
 pisa <- pisa %>%
   select(search_info, asses_info, share_info, pair_collab, how_to_share, 
          edit_text, collect_data, create_pres, page_web, change_settings, 
-         select_app, create_program, identify_error, logical_solution, CNT)
+         select_app, create_program, identify_error, logical_solution, CNT, sex)
 ```
 
 ```{r}
@@ -384,7 +384,7 @@ multigroup_cfa <- '
 #  '
 ```
 
-
+## Invarianza por países
 
 ```{r}
 #| label: modelo confirmatorio multigrupo
@@ -427,9 +427,10 @@ fitmeasures_scalar <- fitMeasures(fitgroup_scalar,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
 ```
 
-### Tabla invarianza métrica en latex
+### Tabla invarianza en latex
 
 ```{r}
+
 tabla_completa <- data.frame(
   Modelo = c("1. Configural", "2. Métrico", "3. Escalar"),
   chisq = c(fitmeasures_config["chisq"], fitmeasures_metric["chisq"], fitmeasures_scalar["chisq"]),
@@ -457,9 +458,9 @@ tabla_completa$p_value_delta_chisq <- test_anova$`Pr(>Chisq)`
 
 codigo_latex_tabla <- knitr::kable(
   tabla_completa,
-  format = "latex",
+  format = "html",
   digits = 3,
-  caption = "Comparación de Modelos de Invarianza Métrica",
+  caption = "Análisis de invarianza por países",
   col.names = c("Modelo", "$\\chi^2$", "df", "CFI", "TLI", "RMSEA", "SRMR", "$\\Delta\\chi^2$", "$\\Delta$df", "$\\Delta$CFI", "$\\Delta$RMSEA", "p-valor ($\\Delta\\chi^2$)"),
   booktabs = TRUE # Usar booktabs = TRUE genera tablas más profesionales en LaTeX
 )
@@ -469,10 +470,95 @@ codigo_latex_tabla <- knitr::kable(
 
 print(codigo_latex_tabla)
 
-# Descarga como .tex
 
-writeLines(codigo_latex_tabla, "mi_tabla_de_invarianza.tex")
+```
 
+## Invarianza por sexo
+
+```{r}
+# Modelo configural
+
+pisa$sex <- as.factor(pisa$sex)
+fitgroup_sx <- sem(model = multigroup_cfa, 
+                data = pisa, 
+                group = "sex",
+                ordered = TRUE
+              )
+
+# Modelo métrico (fijando las cargas)
+
+fitgroup_metric_sx <- sem(model = multigroup_cfa, 
+                       data = pisa, 
+                       group = "sex",
+                       ordered = TRUE,
+                      group.equal = "loadings")
+
+# Modelo escalar (fijando cargas y interceptos)
+
+fitgroup_scalar_sx <- sem(model = multigroup_cfa, 
+                  data = pisa, 
+                  group = "sex",
+                  ordered = TRUE,
+                #  missing = "fiml",
+                  group.equal = c("loadings", "intercepts"))
+
+# Extracción de indicadores de ajuste
+
+fitmeasures_config_sx <- fitMeasures(fitgroup_sx,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_metric_sx <- fitMeasures(fitgroup_metric_sx,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_scalar_sx <- fitMeasures(fitgroup_scalar_sx,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+```
+
+## Tabla invarianza sexo
+
+```{r}
+
+
+tabla_completa_sx <- data.frame(
+  Modelo = c("1. Configural", "2. Métrico", "3. Escalar"),
+  chisq = c(fitmeasures_config_sx["chisq"], fitmeasures_metric_sx["chisq"], fitmeasures_scalar_sx["chisq"]),
+  df = c(fitmeasures_config_sx["df"], fitmeasures_metric_sx["df"], fitmeasures_scalar_sx["df"]),
+  CFI = c(fitmeasures_config_sx["cfi"], fitmeasures_metric_sx["cfi"], fitmeasures_scalar_sx["cfi"]),
+  TLI = c(fitmeasures_config_sx["tli"], fitmeasures_metric_sx["tli"], fitmeasures_scalar_sx["tli"]),
+  RMSEA = c(fitmeasures_config_sx["rmsea"], fitmeasures_metric_sx["rmsea"], fitmeasures_scalar_sx["rmsea"]),
+  SRMR = c(fitmeasures_config_sx["srmr"], fitmeasures_metric_sx["srmr"], fitmeasures_scalar_sx["srmr"])
+)
+
+# Cálculo deltas
+
+tabla_completa_sx$delta_chisq <- c(NA, diff(tabla_completa_sx$chisq))
+tabla_completa_sx$delta_df    <- c(NA, diff(tabla_completa_sx$df))
+tabla_completa_sx$delta_CFI   <- c(NA, diff(tabla_completa_sx$CFI))
+tabla_completa_sx$delta_RMSEA <- c(NA, diff(tabla_completa_sx$RMSEA))
+
+# ANOVA para significancia
+
+test_anova_sx <- anova(fitgroup_sx, fitgroup_metric_sx, fitgroup_scalar_sx)
+
+tabla_completa_sx$p_value_delta_chisq <- test_anova_sx$`Pr(>Chisq)`
+
+# Tabla en formato latex
+
+codigo_latex_tabla_sx <- knitr::kable(
+  tabla_completa_sx,
+  format = "html",
+  digits = 3,
+  caption = "Análisis de invarianza por sexo",
+  col.names = c("Modelo", "$\\chi^2$", "df", "CFI", "TLI", "RMSEA", "SRMR", "$\\Delta\\chi^2$", "$\\Delta$df", "$\\Delta$CFI", "$\\Delta$RMSEA", "p-valor ($\\Delta\\chi^2$)"),
+  booktabs = TRUE # Usar booktabs = TRUE genera tablas más profesionales en LaTeX
+)
+
+
+# Revisamos la tabla
+
+print(codigo_latex_tabla_sx)
+
+# Pasarselo a claude para que lo formatee bien y luego agregarlo a un interpretador de latex
 
 ```
 
@@ -563,8 +649,7 @@ plot_gen_dse <- ggplot(loadings_gen_dse,
 print(plot_gen_dse)
 ```
 
-El rango varía entre 0.6 y 0.9 aproximadamente. Japon se repite entre los países con menor carga factorial en las variables, y Brunei Darussalam y España también aparecen en varias ocasiones.. Las variables create_pres, collect_data, change_settings y select_app presentan en general un menor puntaje. 
-#### Cleaveland loadings autoeficacia especializada
+El rango varía entre 0.6 y 0.9 aproximadamente. Japon se repite entre los países con menor carga factorial en las variables, y Brunei Darussalam y España también aparecen en varias ocasiones.. Las variables create_pres, collect_data, change_settings y select_app presentan en general un menor puntaje. \#### Cleaveland loadings autoeficacia especializada
 
 ```{r}
 
@@ -689,7 +774,6 @@ datatable(
 
 ```
 
-
 ### Descriptivos índices de ajuste
 
 ```{r}
@@ -728,7 +812,7 @@ datatable(
 
 ```
 
-Chi cuadrado es igual al extraído con la iteración de modelo por país 
+Chi cuadrado es igual al extraído con la iteración de modelo por país
 
 # SEM Multinivel con PISA
 
