@@ -1,6 +1,6 @@
 ---
-pagetitle: "Diferencias de género en la autoeficacia digital en la escuela en 52 países"
-Author: Daniel Miranda, Nicolas Tobar, Tomás Urzúa, Ismael Aguayo y Juan Carlos Castillo
+pagetitle: "Digital Self-efficacy measurement and gender differences between 52 countries in PISA"
+Author: Daniel Miranda, Juan Carlos Castillo, Nicolas Tobar, Tomás Urzúa e Ismael Aguayo
 #bibliography: ../../../input/bib/icils_nudos.bib
 #csl: ../../../input/bib/apa.csl
 
@@ -95,15 +95,15 @@ pisa22ict <- pisa22ict |>
 ::: {.column .column-right width="85%"}
 <br>
 
-## **Diferencias de género en la autoeficacia digital en la escuela en 52 países**
+## **Digital Self-efficacy measurement and gender differences between 52 countries in PISA**
 
 ------------------------------------------------------------------------
 
-Daniel Miranda, Nicolas Tobar, Tomás Urzúa, Ismael Aguayo & Juan Carlos Castillo
+Daniel Miranda, Juan Carlos Castillo, Nicolas Tobar, Tomás Urzúa e Ismael Aguayo
 
-#### Universidad de Chile & Núcleo Milenio de Desigualdades y Oportunidades Digitales (*nudos.cl*)
+#### University of Chile & Millennium Nucleus on Digital Inequalities and Opportunities (*nudos.cl*)
 
-VIII Seminario Internacional de Desigualdad y Movilidad Social en América Latina - Río de Janeiro 24, 25 y 26 de marzo
+5th ISA Forum of Sociology; Rabat, 6-11 July
 :::
 :::::
 
@@ -127,51 +127,53 @@ Esta ponencia trata principalmente de las desigualdades digitales en la educaci�
 Un poco de contexto: esta investigación forma parte de un proyecto de investigación sobre Desigualdades y Oportunidades Digitales (proyecto NUDOS) en el que estamos cubriendo áreas como la conectividad, la educación y la política con un amplio equipo de investigadores, más información en nuestra web.
 :::
 
-## Equipo
+## Research team
 
-![](images/team.jpg)
+![](images/team-ing.jpg)
 
-## Punto de inicio
+## Starting point
 
-![](images/digital_context.jpg)
+![](images/dig-context.jpg)
 
-## Autoeficacia Digital y Género
+## Digital self-efficacy and gender 
 
-![](images/gen_context.jpg)
+![](images/dse-def.jpg)
 
 ## ILSAs approach
 
-CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y SUS ESTRATEGIAS DISTINTAS DE MEDICIÓN
+- Previous international large-scale assessment studies have already measured digital self-efficacy
+
+- International Computer and Information Literacy Study proposes a distinction between two types of self-efficacy: general and specialized.
 
 ## Diferencias entre países
 
-![](images/world_context.jpg)
+![](images/contries-dif.jpg)
 
 ##  {data-background-color="#5f5758"}
 
 ::: {style="font-size: 180%; display: flex; justify-content: center; align-items: flex-start; flex-direction: column; text-align: center"}
 *It is possible to identify two dimensions on PISA Digital Self-efficacy Measurement?*
 
-*The bidimensional model of Digital Self-efficacy is equivalent by gender and across countries?*
+*Is The bidimensional model of Digital Self-efficacy equivalent by gender and across countries?*
 
 *Which gender differences exist on Digital Self-efficacy across countires?*
 :::
 
-## Hipótesis
+## Hipotheses
 
 ![](images/hipotesis.jpg)
 
-# Método {data-background-color="#5f5758"}
+# Methods {data-background-color="#5f5758"}
 
-## Datos
+## Data
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 40px;"}
 -   Programme for International Student Assessment
 
--   Cuestionario de familiaridad con TIC.
+-   ICT familiarity questionnaire.
 
--   Ciclo 2022: `r nrow(pisa22ict)` estudiantes, `r length(unique(pisa22ict$CNTSCHID))` escuelas y `r length(unique(pisa22ict$CNT))` países
+-   2022 cycle: `r nrow(pisa22ict)` students, `r length(unique(pisa22ict$CNTSCHID))` schools and `r length(unique(pisa22ict$CNT))` countries
 :::
 
 ::: {.column width="50%"}
@@ -179,13 +181,13 @@ CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y S
 :::
 :::::
 
-## Variable Autoeficacia Digital {.smaller}
+## Digital self-efficacy variables {.smaller}
 
-¿En qué medida eres capaz de realizar las siguientes tareas cuando utilizas <dispositivos digitales>?
+¿To what extent are you able to do the following tasks when using <digital sources>?
 
 ::::: columns
 ::: {.column width="50%"}
-**Autoeficacia general**
+**General self-efficacy**
 
 -   Assess the quality of information you found online.
 
@@ -199,7 +201,7 @@ CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y S
 :::
 
 ::: {.column width="50%" style="color: #ff3057;"}
-**Autoeficacia especializada**
+**Specializated self-efficacy**
 
 -   Create a computer program .
 
@@ -209,9 +211,9 @@ CONSIDERO QUE ACA DEBERIAMOS PONER UNA NEUVA SLIDE QUE HABLE DE PISA E ICILS Y S
 :::
 :::::
 
-Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con un poco de esfuerzo (3), Puedo hacerlo fácilmente (4).
+Answers: I cannot do this (1), I struggle to do this on my own (2), I can do with a bit of effort (3), I can easily do this (4).
 
-# Resultados {data-background-color="#5f5758"}
+# Results {data-background-color="#5f5758"}
 
 1.  Measurement model
 2.  Invariance test
@@ -230,72 +232,6 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 
 <table>
 <caption>Análisis de invarianza por países</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Modelo </th>
-   <th style="text-align:right;"> $\chi^2$ </th>
-   <th style="text-align:right;"> df </th>
-   <th style="text-align:right;"> CFI </th>
-   <th style="text-align:right;"> TLI </th>
-   <th style="text-align:right;"> RMSEA </th>
-   <th style="text-align:right;"> SRMR </th>
-   <th style="text-align:right;"> $\Delta\chi^2$ </th>
-   <th style="text-align:right;"> $\Delta$df </th>
-   <th style="text-align:right;"> $\Delta$CFI </th>
-   <th style="text-align:right;"> $\Delta$RMSEA </th>
-   <th style="text-align:right;"> p-valor ($\Delta\chi^2$) </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 1. Configural </td>
-   <td style="text-align:right;"> 15107.60 </td>
-   <td style="text-align:right;"> 988 </td>
-   <td style="text-align:right;"> 0.999 </td>
-   <td style="text-align:right;"> 0.998 </td>
-   <td style="text-align:right;"> 0.054 </td>
-   <td style="text-align:right;"> 0.035 </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-   <td style="text-align:right;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 2. Métrico </td>
-   <td style="text-align:right;"> 18502.76 </td>
-   <td style="text-align:right;"> 1294 </td>
-   <td style="text-align:right;"> 0.999 </td>
-   <td style="text-align:right;"> 0.999 </td>
-   <td style="text-align:right;"> 0.052 </td>
-   <td style="text-align:right;"> 0.037 </td>
-   <td style="text-align:right;"> 3395.16 </td>
-   <td style="text-align:right;"> 306 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> -0.002 </td>
-   <td style="text-align:right;"> 0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 3. Escalar </td>
-   <td style="text-align:right;"> 24944.79 </td>
-   <td style="text-align:right;"> 2008 </td>
-   <td style="text-align:right;"> 0.998 </td>
-   <td style="text-align:right;"> 0.999 </td>
-   <td style="text-align:right;"> 0.048 </td>
-   <td style="text-align:right;"> 0.035 </td>
-   <td style="text-align:right;"> 6442.03 </td>
-   <td style="text-align:right;"> 714 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> -0.004 </td>
-   <td style="text-align:right;"> 0 </td>
-  </tr>
-</tbody>
-</table>
-
-##### Invariance results: sex
-
-<table>
-<caption>Análisis de invarianza por sexo</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"><p>Modelo</p></th>
@@ -315,42 +251,42 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><p>1. Configural</p></td>
-<td style="text-align: right;"><p>10154.70</p></td>
-<td style="text-align: right;"><p>38</p></td>
+<td style="text-align: right;"><p>15107.60</p></td>
+<td style="text-align: right;"><p>988</p></td>
 <td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.046</p></td>
-<td style="text-align: right;"><p>0.029</p></td>
-<td style="text-align: right;"><p>  </p></td>
-<td style="text-align: right;"><p>  </p></td>
-<td style="text-align: right;"><p>  </p></td>
-<td style="text-align: right;"><p>  </p></td>
-<td style="text-align: right;"><p>  </p></td>
+<td style="text-align: right;"><p>0.998</p></td>
+<td style="text-align: right;"><p>0.054</p></td>
+<td style="text-align: right;"><p>0.035</p></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><p>2. Métrico</p></td>
-<td style="text-align: right;"><p>10796.98</p></td>
-<td style="text-align: right;"><p>44</p></td>
+<td style="text-align: right;"><p>18502.76</p></td>
+<td style="text-align: right;"><p>1294</p></td>
 <td style="text-align: right;"><p>0.999</p></td>
 <td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.044</p></td>
-<td style="text-align: right;"><p>0.029</p></td>
-<td style="text-align: right;"><p>642.279</p></td>
-<td style="text-align: right;"><p>6</p></td>
+<td style="text-align: right;"><p>0.052</p></td>
+<td style="text-align: right;"><p>0.037</p></td>
+<td style="text-align: right;"><p>3395.16</p></td>
+<td style="text-align: right;"><p>306</p></td>
 <td style="text-align: right;"><p>0</p></td>
 <td style="text-align: right;"><p>-0.002</p></td>
 <td style="text-align: right;"><p>0</p></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><p>3. Escalar</p></td>
-<td style="text-align: right;"><p>11634.72</p></td>
-<td style="text-align: right;"><p>58</p></td>
+<td style="text-align: right;"><p>24944.79</p></td>
+<td style="text-align: right;"><p>2008</p></td>
+<td style="text-align: right;"><p>0.998</p></td>
 <td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.040</p></td>
-<td style="text-align: right;"><p>0.029</p></td>
-<td style="text-align: right;"><p>837.742</p></td>
-<td style="text-align: right;"><p>14</p></td>
+<td style="text-align: right;"><p>0.048</p></td>
+<td style="text-align: right;"><p>0.035</p></td>
+<td style="text-align: right;"><p>6442.03</p></td>
+<td style="text-align: right;"><p>714</p></td>
 <td style="text-align: right;"><p>0</p></td>
 <td style="text-align: right;"><p>-0.004</p></td>
 <td style="text-align: right;"><p>0</p></td>
@@ -358,7 +294,17 @@ Respuestas: No puedo hacerlo (1), Me cuesta hacerlo solo (2), Puedo hacerlo con 
 </tbody>
 </table>
 
-: Análisis de invarianza por sexo
+: Countries invariance 
+
+##### Invariance results: sex
+
+| Modelo | \$\\chi\^2\$ | df | CFI | TLI | RMSEA | SRMR | \$\\Delta\\chi\^2\$ | \$\\Delta\$df | \$\\Delta\$CFI | \$\\Delta\$RMSEA | p-valor (\$\\Delta\\chi\^2\$) |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1\. Configural | 10154.70 | 38 | 0.999 | 0.999 | 0.046 | 0.029 |  |  |  |  |  |
+| 2\. Métrico | 10796.98 | 44 | 0.999 | 0.999 | 0.044 | 0.029 | 642.279 | 6 | 0 | -0.002 | 0 |
+| 3\. Escalar | 11634.72 | 58 | 0.999 | 0.999 | 0.040 | 0.029 | 837.742 | 14 | 0 | -0.004 | 0 |
+
+: Gender invariance 
 
 #### Digital Self-efficacy across countries
 
@@ -501,33 +447,25 @@ ggplot(plot_data, aes(y = CNT, x = score)) +  # Use CNT directly (already reorde
   
 ```
 
-## Discusión
+## Discusion
 
 ::: {.incremental .highlight-last style="font-size: 150%;"}
--   Los modelos de medición comprueban que hay dos dimensiones en la autoeficacia digital.
+-   Measurement models confirm that there are two dimensions to digital self-efficacy.
 
--   Las mujeres presentan ventajas en la autoeficacia básica y los hombres en la autoeficacia especializada.
+-   The model adjusts to varying degrees depending on the country.
 
--   Las diferencias por género de autoeficacia digital varían entre los países del mundo.
+-   Women have advantages in basic self-efficacy and men in specialized self-efficacy.
 :::
 
-## Conclusiones
+## Conclusions
 
 ::: {.incremental .highlight-last style="font-size: 200%;"}
--   Hay diferencias de género en los niveles de autoeficacia entre países?
+-   Is The bidimensional model of Digital Self-efficacy equivalent by gender and across countries?
 
-    -   Sí, pero depende del tipo de autoeficacia, así como del país en el que los estudiantes están insertos.
+    -  Yes, but it depends on the type of self-efficacy, as well as the country in which the students are located.
 :::
 
-## Próximos pasos {data-background-color="black"}
+# Thank!
 
-::: {style="font-size: 180%;"}
--   Modelamiento multinivel
-
--   Explorar determinantes en las diferencias entre países (PIB, OCDE, Indices digitales, etc...)
-:::
-
-# Gracias!
-
--   **Sitio web NUDOS:** [www.nudos.cl](https://www.nudos.cl/)
--   **Repositorio GitHub del proyecto:** <https://github.com/milenio-nudos/ILSAs_batteries_measurement>
+-   **NUDOS website:** [www.nudos.cl](https://www.nudos.cl/)
+-   **GitHub proyect repository:** <https://github.com/milenio-nudos/ILSAs_batteries_measurement>
