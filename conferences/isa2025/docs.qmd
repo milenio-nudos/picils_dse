@@ -444,7 +444,7 @@ ggplot(plot_data, aes(y = CNT, x = score)) +  # Use CNT directly (already reorde
 
 ## Discusion
 
-::: {.incremental .highlight-last style="font-size: 150%;"}
+::: {.incremental .highlight-last style="font-size: 120%;"}
 -   Is The bidimensional model of Digital Self-efficacy equivalent by gender and across countries?
 
     -  Yes, but with less items PISA propose in their own battery.
