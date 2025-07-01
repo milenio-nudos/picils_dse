@@ -114,10 +114,10 @@ Esta ponencia trata principalmente de las desigualdades digitales en la educaci�
 ## NUDOS {.scrollable}
 
 ```{=html}
-<iframe width="1000" height="500" src="https://www.nudos.cl/en/sobre-nudos/" title="Webpage example"></iframe>
+<iframe width="1000" height="500" src="https://www.nudos.cl/en/about-nudos/" title="Webpage example"></iframe>
 ```
 
-[Más información: nudos.cl](https://www.nudos.cl/sobre-nudos/)
+[More information: nudos.cl](https://www.nudos.cl/en/about-nudos/)
 
 ![](images/banner_nudos.jpg){width="80%" fig-align="center"}
 
@@ -145,8 +145,7 @@ Un poco de contexto: esta investigación forma parte de un proyecto de investiga
 
 - International Computer and Information Literacy Study proposes a distinction between two types of self-efficacy: general and specialized.
 
-## Diferencias entre países
-
+## Country differences
 ![](images/contries-dif.jpg)
 
 ##  {data-background-color="#5f5758"}
@@ -158,10 +157,6 @@ Un poco de contexto: esta investigación forma parte de un proyecto de investiga
 
 *Which gender differences exist on Digital Self-efficacy across countires?*
 :::
-
-## Hipotheses
-
-![](images/hipotesis.jpg)
 
 # Methods {data-background-color="#5f5758"}
 
@@ -228,90 +223,97 @@ Answers: I cannot do this (1), I struggle to do this on my own (2), I can do wit
 
 ## 
 
-##### Invariance results: country
+#### Invariance Analysis {.smaller}
 
-<table>
-<caption>Análisis de invarianza por países</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;"><p>Modelo</p></th>
-<th style="text-align: right;"><p>$\chi^2$</p></th>
-<th style="text-align: right;"><p>df</p></th>
-<th style="text-align: right;"><p>CFI</p></th>
-<th style="text-align: right;"><p>TLI</p></th>
-<th style="text-align: right;"><p>RMSEA</p></th>
-<th style="text-align: right;"><p>SRMR</p></th>
-<th style="text-align: right;"><p>$\Delta\chi^2$</p></th>
-<th style="text-align: right;"><p>$\Delta$df</p></th>
-<th style="text-align: right;"><p>$\Delta$CFI</p></th>
-<th style="text-align: right;"><p>$\Delta$RMSEA</p></th>
-<th style="text-align: right;"><p>p-valor ($\Delta\chi^2$)</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><p>1. Configural</p></td>
-<td style="text-align: right;"><p>15107.60</p></td>
-<td style="text-align: right;"><p>988</p></td>
-<td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.998</p></td>
-<td style="text-align: right;"><p>0.054</p></td>
-<td style="text-align: right;"><p>0.035</p></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><p>2. Métrico</p></td>
-<td style="text-align: right;"><p>18502.76</p></td>
-<td style="text-align: right;"><p>1294</p></td>
-<td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.052</p></td>
-<td style="text-align: right;"><p>0.037</p></td>
-<td style="text-align: right;"><p>3395.16</p></td>
-<td style="text-align: right;"><p>306</p></td>
-<td style="text-align: right;"><p>0</p></td>
-<td style="text-align: right;"><p>-0.002</p></td>
-<td style="text-align: right;"><p>0</p></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><p>3. Escalar</p></td>
-<td style="text-align: right;"><p>24944.79</p></td>
-<td style="text-align: right;"><p>2008</p></td>
-<td style="text-align: right;"><p>0.998</p></td>
-<td style="text-align: right;"><p>0.999</p></td>
-<td style="text-align: right;"><p>0.048</p></td>
-<td style="text-align: right;"><p>0.035</p></td>
-<td style="text-align: right;"><p>6442.03</p></td>
-<td style="text-align: right;"><p>714</p></td>
-<td style="text-align: right;"><p>0</p></td>
-<td style="text-align: right;"><p>-0.004</p></td>
-<td style="text-align: right;"><p>0</p></td>
-</tr>
-</tbody>
-</table>
+```{=html}
 
-: Countries invariance 
+<div style="
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+  padding: 1em;
+">
 
-##### Invariance results: sex
+  <div style="
+    font-size: 65%;
+    line-height: 1.2;
+    max-height: 70vh;
+    overflow-y: auto;
+    text-align: center;
+  ">
 
-| Modelo | \$\\chi\^2\$ | df | CFI | TLI | RMSEA | SRMR | \$\\Delta\\chi\^2\$ | \$\\Delta\$df | \$\\Delta\$CFI | \$\\Delta\$RMSEA | p-valor (\$\\Delta\\chi\^2\$) |
-|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1\. Configural | 10154.70 | 38 | 0.999 | 0.999 | 0.046 | 0.029 |  |  |  |  |  |
-| 2\. Métrico | 10796.98 | 44 | 0.999 | 0.999 | 0.044 | 0.029 | 642.279 | 6 | 0 | -0.002 | 0 |
-| 3\. Escalar | 11634.72 | 58 | 0.999 | 0.999 | 0.040 | 0.029 | 837.742 | 14 | 0 | -0.004 | 0 |
+    <table style="margin: 0 auto;">
+      <caption>Cross-Country</caption>
+      <thead>
+        <tr>
+          <th style="text-align: left;">Model</th>
+          <th style="text-align: right;">&chi;&sup2;</th>
+          <th style="text-align: right;">df</th>
+          <th style="text-align: right;">CFI</th>
+          <th style="text-align: right;">TLI</th>
+          <th style="text-align: right;">RMSEA</th>
+          <th style="text-align: right;">SRMR</th>
+          <th style="text-align: right;">&Delta;&chi;&sup2;</th>
+          <th style="text-align: right;">&Delta;df</th>
+          <th style="text-align: right;">&Delta;CFI</th>
+          <th style="text-align: right;">&Delta;RMSEA</th>
+          <th style="text-align: right;">p-value (&Delta;&chi;&sup2;)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Configural</td><td style="text-align: right;">15107.60</td><td style="text-align: right;">988</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.998</td><td style="text-align: right;">0.054</td><td style="text-align: right;">0.035</td><td colspan="5"></td>
+        </tr>
+        <tr>
+          <td>Metrical</td><td style="text-align: right;">18502.76</td><td style="text-align: right;">1294</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.052</td><td style="text-align: right;">0.037</td><td style="text-align: right;">3395.16</td><td style="text-align: right;">306</td><td style="text-align: right;">0</td><td style="text-align: right;">-0.002</td><td style="text-align: right;">0</td>
+        </tr>
+        <tr>
+          <td>Scalar</td><td style="text-align: right;">24944.79</td><td style="text-align: right;">2008</td><td style="text-align: right;">0.998</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.048</td><td style="text-align: right;">0.035</td><td style="text-align: right;">6442.03</td><td style="text-align: right;">714</td><td style="text-align: right;">0</td><td style="text-align: right;">-0.004</td><td style="text-align: right;">0</td>
+        </tr>
+      </tbody>
+    </table>
 
-: Gender invariance 
+    <br><br>
+
+    <table style="margin: 0 auto;">
+      <caption>By Gender</caption>
+      <thead>
+        <tr>
+          <th style="text-align: left;">Model</th>
+          <th style="text-align: right;">&chi;&sup2;</th>
+          <th style="text-align: right;">df</th>
+          <th style="text-align: right;">CFI</th>
+          <th style="text-align: right;">TLI</th>
+          <th style="text-align: right;">RMSEA</th>
+          <th style="text-align: right;">SRMR</th>
+          <th style="text-align: right;">&Delta;&chi;&sup2;</th>
+          <th style="text-align: right;">&Delta;df</th>
+          <th style="text-align: right;">&Delta;CFI</th>
+          <th style="text-align: right;">&Delta;RMSEA</th>
+          <th style="text-align: right;">p-value (&Delta;&chi;&sup2;)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Configural</td><td style="text-align: right;">10154.70</td><td style="text-align: right;">38</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.046</td><td style="text-align: right;">0.029</td><td colspan="5"></td>
+        </tr>
+        <tr>
+          <td>Metrical</td><td style="text-align: right;">10796.98</td><td style="text-align: right;">44</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.044</td><td style="text-align: right;">0.029</td><td style="text-align: right;">642.28</td><td style="text-align: right;">6</td><td style="text-align: right;">0</td><td style="text-align: right;">-0.002</td><td style="text-align: right;">0</td>
+        </tr>
+        <tr>
+          <td>Scalar</td><td style="text-align: right;">11634.72</td><td style="text-align: right;">58</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.999</td><td style="text-align: right;">0.040</td><td style="text-align: right;">0.029</td><td style="text-align: right;">837.74</td><td style="text-align: right;">14</td><td style="text-align: right;">0</td><td style="text-align: right;">-0.004</td><td style="text-align: right;">0</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+```
+
+
+##
 
 #### Digital Self-efficacy across countries
-
-::: notes
--   Los puntajes en autoeficacia general tienden a ser más altos.
--   En autoeficacia especializada los primeros puestos son contra-intuitivos.
-:::
 
 ```{r}
 beeswarm_plot <- pisa22ict|>
@@ -357,20 +359,13 @@ ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
     legend.position = "none",
     plot.caption = element_text(size = 15)
   ) +
-  scale_x_discrete(labels = c("1. General DSE", "2. Specialized DSE")) +
+  scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
   labs(caption = "r = 0.21")
 ```
 
 ## 
 
 #### Gender differences across country
-
-::: notes
--   En general tienden a ganar mujeres, mientras que en especializada hombres.
--   Hay unos cuantos casos excepcionales para ambas autoeficacias, pero cuando gana el sexo opuesto las brechas son minúsculas.
--   Las brechas de género son mayores en la especializada.
--   Los países latinoamericanos suelen estar bajo la media.
-:::
 
 ```{r}
 # Add the latam column to the data (assuming it exists in pisa22ict)
@@ -381,8 +376,8 @@ pisa22ict <- pisa22ict %>%
 plot_data <- pisa22ict |>  
   group_by(CNT, sex) |>  
   summarise(
-    "1. General DSE" = mean(effgen, na.rm = TRUE),
-    "2. Specialized DSE" = mean(effspec, na.rm = TRUE)
+    "General DSE" = mean(effgen, na.rm = TRUE),
+    "Specialized DSE" = mean(effspec, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,
@@ -422,11 +417,11 @@ ggplot(plot_data, aes(y = CNT, x = score)) +  # Use CNT directly (already reorde
   geom_line(aes(group = CNT), size = 0.5) +  
   geom_point(aes(color = sex, shape = sex), size = 2) +  
   scale_color_manual(
-    name = "Género",
+    name = "Gender",
     labels = c("Female", "Male"),
     values = c("Female" = "#FE3057", "Male" = "#5f5758")) +
   scale_shape_manual(
-    name = "Género",
+    name = "Gender",
     labels = c("Female", "Male"),
     values = c("Female" = 16, "Male" = 17)) + 
   scale_y_discrete(labels = y_axis_labels) +  # Customize y-axis labels
@@ -450,19 +445,14 @@ ggplot(plot_data, aes(y = CNT, x = score)) +  # Use CNT directly (already reorde
 ## Discusion
 
 ::: {.incremental .highlight-last style="font-size: 150%;"}
--   Measurement models confirm that there are two dimensions to digital self-efficacy.
-
--   The model adjusts to varying degrees depending on the country.
-
--   Women have advantages in basic self-efficacy and men in specialized self-efficacy.
-:::
-
-## Conclusions
-
-::: {.incremental .highlight-last style="font-size: 200%;"}
 -   Is The bidimensional model of Digital Self-efficacy equivalent by gender and across countries?
 
-    -  Yes, but it depends on the type of self-efficacy, as well as the country in which the students are located.
+    -  Yes, but with less items PISA propose in their own battery.
+
+-   Which gender differences exist on Digital Self-efficacy across countires?
+
+    -  In general Girls takes advantage in General DSE and Boys on Specialized DSE.
+    -  But in some not Occidental OCDE countries Female takes advantage in Specialized DSE.
 :::
 
 # Thank!
