@@ -22,7 +22,7 @@ This repository structure follows the IPO Protocol:
 
 ## Reports
 
-[Empirical Advances](https://milenio-nudos.github.io/picils_dse/output/avances.html)
+[Empirical Advances](https://milenio-nudos.github.io/picils_dse/output/reports/avances.html)
 
 ## Conferences
 
