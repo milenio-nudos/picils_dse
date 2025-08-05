@@ -61,8 +61,8 @@ options(knitr.kable.NA = "")
 #| label: data
 #| echo: false
 
-icils <- readRDS("./data/proc_data/icils23_proc.rds")
-pisa <- readRDS("./data/proc_data/pisa22_proc.rds")
+icils <- readRDS("../../input/data/proc_data/icils23_proc.rds")
+pisa <- readRDS("../../input/data/proc_data/pisa22_proc.rds")
 ```
 
 # ICILS
