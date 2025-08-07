@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>CFA Invarianza ICILS 2023</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="3-cfa-invariance-pisa_files/libs/clipboard/clipboard.min.js"></script>
+<script src="3-cfa-invariance-pisa_files/libs/quarto-html/quarto.js"></script>
+<script src="3-cfa-invariance-pisa_files/libs/quarto-html/popper.min.js"></script>
+<script src="3-cfa-invariance-pisa_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="3-cfa-invariance-pisa_files/libs/quarto-html/anchor.min.js"></script>
+<link href="3-cfa-invariance-pisa_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="3-cfa-invariance-pisa_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="3-cfa-invariance-pisa_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="3-cfa-invariance-pisa_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="3-cfa-invariance-pisa_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="3-cfa-invariance-pisa_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+<link href="3-cfa-invariance-pisa_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/datatables-binding-0.33/datatables.js"></script>
+
+<script src="3-cfa-invariance-pisa_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="3-cfa-invariance-pisa_files/libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/selectize-0.12.0/selectize.min.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/dt-plugin-searchhighlight-1.13.6/source.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/dt-plugin-searchhighlight-1.13.6/jquery.highlight.js"></script>
+
+<script src="3-cfa-invariance-pisa_files/libs/dt-plugin-searchhighlight-1.13.6/source.min.js"></script>
+
+<link href="3-cfa-invariance-pisa_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="3-cfa-invariance-pisa_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">CFA Invarianza ICILS 2023</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="preparation" class="level1">
+<h1>Preparation</h1>
+<p>Setting the sesion and loading the data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seteo de sesión</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'pacman' was built under R version 4.4.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos los datos</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>pisa <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"input/data/proc_data/pisa22_proc.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cfa-pooled-model" class="level1">
+<h1>CFA pooled model</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model_cfa <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">  gen_dse =~ search_info + evaluate_info + collect_data + </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">  explain_content + share_content + pair_collab + </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">  write_text +  + create_media + change_settings</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  spec_dse =~ programming + develop_webpage</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>m_cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(<span class="at">model =</span> model_cfa, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> pisa, </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">estimator =</span> <span class="st">"DWLS"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">ordered =</span> T,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">std.lv =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">standardizedsolution</span>(m_cfa) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(op <span class="sc">==</span> <span class="st">"=~"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Factor =</span> lhs, <span class="at">Indicator =</span> rhs, <span class="st">`</span><span class="at">Loading (DWLS)</span><span class="st">`</span> <span class="ot">=</span> est.std)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Factor       Indicator Loading..DWLS.
+1   gen_dse     search_info          0.909
+2   gen_dse   evaluate_info          0.891
+3   gen_dse    collect_data          0.834
+4   gen_dse explain_content          0.887
+5   gen_dse   share_content          0.906
+6   gen_dse     pair_collab          0.889
+7   gen_dse      write_text          0.890
+8   gen_dse    create_media          0.844
+9   gen_dse change_settings          0.809
+10 spec_dse     programming          0.674
+11 spec_dse develop_webpage          1.002</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_cfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 32 iterations
+
+  Estimator                                       DWLS
+  Optimization method                           NLMINB
+  Number of model parameters                        45
+
+                                                  Used       Total
+  Number of observations                        247752      393607
+
+Model Test User Model:
+                                                       
+  Test statistic                              98875.541
+  Degrees of freedom                                 43
+  P-value (Chi-square)                            0.000
+
+Parameter Estimates:
+
+  Parameterization                               Delta
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model        Unstructured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  gen_dse =~                                          
+    search_info       1.000                           
+    evaluate_info     0.981    0.001 1347.797    0.000
+    collect_data      0.918    0.001 1333.543    0.000
+    explain_contnt    0.976    0.001 1473.984    0.000
+    share_content     0.998    0.001 1465.273    0.000
+    pair_collab       0.978    0.001 1458.512    0.000
+    write_text        0.980    0.001 1441.677    0.000
+    create_media      0.929    0.001 1345.320    0.000
+    change_settngs    0.890    0.001 1264.131    0.000
+  spec_dse =~                                         
+    programming       1.000                           
+    develop_webpag    1.487    0.003  551.730    0.000
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+  gen_dse ~~                                          
+    spec_dse          0.437    0.001  590.982    0.000
+
+Thresholds:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+    search_info|t1   -1.534    0.004 -387.962    0.000
+    search_info|t2   -1.170    0.003 -359.253    0.000
+    search_info|t3   -0.379    0.003 -146.697    0.000
+    evaluate_nf|t1   -1.617    0.004 -387.958    0.000
+    evaluate_nf|t2   -1.111    0.003 -350.180    0.000
+    evaluate_nf|t3   -0.065    0.003  -25.915    0.000
+    collect_dat|t1   -1.439    0.004 -385.048    0.000
+    collect_dat|t2   -0.866    0.003 -299.383    0.000
+    collect_dat|t3    0.082    0.003   32.620    0.000
+    expln_cntnt|t1   -1.550    0.004 -388.137    0.000
+    expln_cntnt|t2   -1.035    0.003 -336.581    0.000
+    expln_cntnt|t3   -0.092    0.003  -36.492    0.000
+    share_cntnt|t1   -1.580    0.004 -388.244    0.000
+    share_cntnt|t2   -1.121    0.003 -351.733    0.000
+    share_cntnt|t3   -0.227    0.003  -89.494    0.000
+    pair_collab|t1   -1.629    0.004 -387.753    0.000
+    pair_collab|t2   -1.143    0.003 -355.314    0.000
+    pair_collab|t3   -0.230    0.003  -90.600    0.000
+    write_text|t1    -1.628    0.004 -387.776    0.000
+    write_text|t2    -1.130    0.003 -353.275    0.000
+    write_text|t3    -0.236    0.003  -92.620    0.000
+    create_medi|t1   -1.480    0.004 -386.691    0.000
+    create_medi|t2   -0.896    0.003 -306.522    0.000
+    create_medi|t3    0.019    0.003    7.558    0.000
+    chng_sttngs|t1   -1.489    0.004 -386.968    0.000
+    chng_sttngs|t2   -0.944    0.003 -317.730    0.000
+    chng_sttngs|t3   -0.062    0.003  -24.742    0.000
+    programming|t1   -0.721    0.003 -260.298    0.000
+    programming|t2   -0.101    0.003  -40.187    0.000
+    programming|t3    0.668    0.003  244.277    0.000
+    develp_wbpg|t1   -1.139    0.003 -354.708    0.000
+    develp_wbpg|t2   -0.499    0.003 -189.306    0.000
+    develp_wbpg|t3    0.375    0.003  145.191    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)
+   .search_info       0.175                           
+   .evaluate_info     0.206                           
+   .collect_data      0.305                           
+   .explain_contnt    0.214                           
+   .share_content     0.179                           
+   .pair_collab       0.210                           
+   .write_text        0.207                           
+   .create_media      0.287                           
+   .change_settngs    0.346                           
+   .programming       0.546                           
+   .develop_webpag   -0.004                           
+    gen_dse           0.825    0.001 1067.492    0.000
+    spec_dse          0.454    0.001  391.728    0.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_pisa <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(m_cfa,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">"chisq"</span>, <span class="st">"df"</span>, <span class="st">"pvalue"</span>, <span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"srmr"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(fit_pisa, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">chisq</td>
+<td style="text-align: right;">98875.54115382</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">df</td>
+<td style="text-align: right;">43.00000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pvalue</td>
+<td style="text-align: right;">0.00000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cfi</td>
+<td style="text-align: right;">0.99527934</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tli</td>
+<td style="text-align: right;">0.99396194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rmsea</td>
+<td style="text-align: right;">0.09631813</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">srmr</td>
+<td style="text-align: right;">0.05758094</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="cfa-multigroup-country-invariance" class="level1">
+<h1>CFA Multigroup-Country Invariance</h1>
+<section id="estimations" class="level3">
+<h3 class="anchored" data-anchor-id="estimations">Estimations</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>multigroup_cfa <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">  gen_dse =~ search_info + evaluate_info + collect_data + </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">  explain_content + share_content + pair_collab + </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">  write_text +  + create_media + change_settings</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">  spec_dse =~ programming + develop_webpage</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo configural</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>fitgroup <span class="ot">&lt;-</span> <span class="fu">cfa</span>(<span class="at">model =</span> multigroup_cfa, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> pisa, </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">group =</span> <span class="st">"CNT"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># demora 2 minutos</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo métrico (fijando las cargas)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>fitgroup_metric <span class="ot">&lt;-</span> <span class="fu">cfa</span>(<span class="at">model =</span> multigroup_cfa, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> pisa, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">group =</span> <span class="st">"CNT"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                      <span class="co"># missing = "fiml"</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">group.equal =</span> <span class="st">"loadings"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 minutos</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo escalar (fijando cargas y interceptos)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">memory.limit</span>(<span class="at">size =</span> <span class="dv">5000</span>) <span class="co"># Si tienes 16 GB de RAM, por ejemplo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 'memory.limit()' is no longer supported</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Inf</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fitgroup_scalar <span class="ot">&lt;-</span> <span class="fu">cfa</span>(<span class="at">model =</span> multigroup_cfa, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> pisa, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">group =</span> <span class="st">"CNT"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                <span class="co">#  missing = "fiml",</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+</div>
+</section>
+<section id="summary-table" class="level3">
+<h3 class="anchored" data-anchor-id="summary-table">Summary table</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracción de indicadores de ajuste</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fitmeasures_config <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(fitgroup,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">"chisq"</span>, <span class="st">"df"</span>, <span class="st">"pvalue"</span>, <span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"srmr"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fitmeasures_metric <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(fitgroup_metric,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">"chisq"</span>, <span class="st">"df"</span>, <span class="st">"pvalue"</span>, <span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"srmr"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fitmeasures_scalar <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(fitgroup_scalar,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">"chisq"</span>, <span class="st">"df"</span>, <span class="st">"pvalue"</span>, <span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"srmr"</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Todo se demora aprox 2 minutos</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla resumen (html y opción latex)</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>tabla_completa <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Modelo =</span> <span class="fu">c</span>(<span class="st">"1. Configural"</span>, <span class="st">"2. Métrico"</span>, <span class="st">"3. Escalar"</span>),</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">chisq =</span> <span class="fu">c</span>(fitmeasures_config[<span class="st">"chisq"</span>], fitmeasures_metric[<span class="st">"chisq"</span>], fitmeasures_scalar[<span class="st">"chisq"</span>]),</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> <span class="fu">c</span>(fitmeasures_config[<span class="st">"df"</span>], fitmeasures_metric[<span class="st">"df"</span>], fitmeasures_scalar[<span class="st">"df"</span>]),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">CFI =</span> <span class="fu">c</span>(fitmeasures_config[<span class="st">"cfi"</span>], fitmeasures_metric[<span class="st">"cfi"</span>], fitmeasures_scalar[<span class="st">"cfi"</span>]),</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">TLI =</span> <span class="fu">c</span>(fitmeasures_config[<span class="st">"tli"</span>], fitmeasures_metric[<span class="st">"tli"</span>], fitmeasures_scalar[<span class="st">"tli"</span>]),</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">RMSEA =</span> <span class="fu">c</span>(fitmeasures_config[<span class="st">"rmsea"</span>], fitmeasures_metric[<span class="st">"rmsea"</span>], fitmeasures_scalar[<span class="st">"rmsea"</span>]),</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">SRMR =</span> <span class="fu">c</span>(fitmeasures_config[<span class="st">"srmr"</span>], fitmeasures_metric[<span class="st">"srmr"</span>], fitmeasures_scalar[<span class="st">"srmr"</span>])</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Cálculo deltas</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>tabla_completa<span class="sc">$</span>delta_chisq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(tabla_completa<span class="sc">$</span>chisq))</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>tabla_completa<span class="sc">$</span>delta_df    <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(tabla_completa<span class="sc">$</span>df))</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>tabla_completa<span class="sc">$</span>delta_CFI   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(tabla_completa<span class="sc">$</span>CFI))</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>tabla_completa<span class="sc">$</span>delta_RMSEA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(tabla_completa<span class="sc">$</span>RMSEA))</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA para significancia</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>test_anova <span class="ot">&lt;-</span> <span class="fu">anova</span>(fitgroup, fitgroup_metric, fitgroup_scalar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lavTestLRT():  
+   Some restricted models fit better than less restricted models; either 
+   these models are not nested, or the less restricted model failed to reach 
+   a global optimum.Smallest difference = -9182.17722022042.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3-4 minutos</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>tabla_completa<span class="sc">$</span>p_value_delta_chisq <span class="ot">&lt;-</span> test_anova<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;Chisq)</span><span class="st">`</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>invariance_table_cnt <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  tabla_completa,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"html"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Análisis de invarianza por países"</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="at">col.names =</span> <span class="fu">c</span>(</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Modelo"</span>, </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&amp;#x03C7;&lt;sup&gt;2&lt;/sup&gt;"</span>,  <span class="co"># chi²</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"df"</span>, <span class="st">"CFI"</span>, <span class="st">"TLI"</span>, <span class="st">"RMSEA"</span>, <span class="st">"SRMR"</span>, </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&amp;#x0394;&amp;#x03C7;&lt;sup&gt;2&lt;/sup&gt;"</span>,  <span class="co"># Δχ²</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&amp;#x0394;df"</span>,              <span class="co"># Δdf</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&amp;#x0394;CFI"</span>,             <span class="co"># ΔCFI</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&amp;#x0394;RMSEA"</span>,           <span class="co"># ΔRMSEA</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"p-valor (&amp;#x0394;&amp;#x03C7;&lt;sup&gt;2&lt;/sup&gt;)"</span> <span class="co"># p-valor (Δχ²)</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">escape=</span><span class="cn">FALSE</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>, <span class="st">"condensed"</span>, <span class="st">"responsive"</span>))</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>invariance_table_cnt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<caption>Análisis de invarianza por países</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Modelo</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">χ<sup>2</sup></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CFI</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TLI</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">RMSEA</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SRMR</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Δχ<sup>2</sup></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Δdf</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ΔCFI</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ΔRMSEA</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p-valor (Δχ<sup>2</sup>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1. Configural</td>
+<td style="text-align: right;">113431.5</td>
+<td style="text-align: right;">2236</td>
+<td style="text-align: right;">0.995</td>
+<td style="text-align: right;">0.994</td>
+<td style="text-align: right;">0.102</td>
+<td style="text-align: right;">0.062</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2. Métrico</td>
+<td style="text-align: right;">145381.1</td>
+<td style="text-align: right;">2695</td>
+<td style="text-align: right;">0.994</td>
+<td style="text-align: right;">0.994</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.069</td>
+<td style="text-align: right;">31949.649</td>
+<td style="text-align: right;">459</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3. Escalar</td>
+<td style="text-align: right;">136199.0</td>
+<td style="text-align: right;">3715</td>
+<td style="text-align: right;">0.995</td>
+<td style="text-align: right;">0.996</td>
+<td style="text-align: right;">0.087</td>
+<td style="text-align: right;">0.062</td>
+<td style="text-align: right;">-9182.177</td>
+<td style="text-align: right;">1020</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">-0.019</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+</section>
+</section>
+<section id="loading-by-country" class="level1">
+<h1>Loading by country</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtenemos todos los parámetros</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="at">tz =</span> <span class="st">"Chile/Continental"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2025-08-07 16:00:31"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>all_params <span class="ot">&lt;-</span> <span class="fu">parameterEstimates</span>(fitgroup, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Operador =~</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>factor_loadings_all_groups <span class="ot">&lt;-</span> all_params <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(op <span class="sc">==</span> <span class="st">"=~"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraemos las labels</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>group_labels <span class="ot">&lt;-</span> <span class="fu">lavInspect</span>(fitgroup, <span class="st">"group.label"</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataframe con todos los países</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>country_map <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(group_labels), <span class="at">CNT =</span> <span class="fu">unlist</span>(group_labels))</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataframe con ambas dimensiones</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>factor_loadings_all_groups <span class="ot">&lt;-</span> factor_loadings_all_groups <span class="sc">%&gt;%</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(country_map, <span class="at">by =</span> <span class="st">"group"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataframe gen dse</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>loadings_gen_dse <span class="ot">&lt;-</span> factor_loadings_all_groups <span class="sc">%&gt;%</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lhs <span class="sc">==</span> <span class="st">"gen_dse"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNT, <span class="at">item =</span> rhs, <span class="at">loading =</span> std.all, <span class="at">latent_factor =</span> lhs)</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Etiquetas tres países con peor ajuste</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>labels_gen_dse <span class="ot">&lt;-</span> loadings_gen_dse <span class="sc">%&gt;%</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(item) <span class="sc">%&gt;%</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> loading, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataframe spec dse</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>loadings_spec_dse <span class="ot">&lt;-</span> factor_loadings_all_groups <span class="sc">%&gt;%</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lhs <span class="sc">==</span> <span class="st">"spec_dse"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNT, <span class="at">item =</span> rhs, <span class="at">loading =</span> std.all, <span class="at">latent_factor =</span> lhs)</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Etiquetas tres países con menor ajuste</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>labels_spec_dse <span class="ot">&lt;-</span> loadings_spec_dse <span class="sc">%&gt;%</span></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(item) <span class="sc">%&gt;%</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> loading, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico cleaveland autoeficacia general</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'forcats'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:sjlabelled':
+
+    as_factor</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plot_gen_dse <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(loadings_gen_dse,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">aes</span>(<span class="at">x =</span> loading,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> <span class="fu">fct_reorder</span>(item, loading, <span class="at">.fun =</span> median, <span class="at">.desc =</span> <span class="cn">FALSE</span>))) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">'#B42012'</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data =</span> labels_gen_dse, </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> CNT), </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="fl">0.3</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">check_overlap =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_identity</span>(<span class="at">name =</span> <span class="st">"Factor"</span>, </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="st">"legend"</span>, </span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"General"</span>)) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cargas Factoriales: Autoeficacia General"</span>,</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Carga Factorial Estandarizada"</span>,</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ítem"</span>) <span class="sc">+</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>plot_gen_dse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3-cfa-invariance-pisa_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleaveland autoeficacia especializada</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fijar el gráfico a x = .3</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plot_spec_dse <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(loadings_spec_dse,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">aes</span>(<span class="at">x =</span> loading,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">y =</span> <span class="fu">fct_reorder</span>(item, loading, <span class="at">.fun =</span> median, <span class="at">.desc =</span> <span class="cn">FALSE</span>))) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">'#E16462'</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text_repel</span>(<span class="at">data =</span> labels_spec_dse, </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">label =</span> CNT), </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">box.padding =</span> <span class="fl">0.4</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">point.padding =</span> <span class="fl">0.2</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">min.segment.length =</span> <span class="dv">0</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">max.overlaps =</span> <span class="cn">Inf</span>) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_identity</span>(<span class="at">name =</span> <span class="st">"Factor"</span>, </span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="st">"legend"</span>, </span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Especializada"</span>)) <span class="sc">+</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cargas Factoriales: Autoeficacia Especializada"</span>, </span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Carga Factorial Estandarizada"</span>,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ítem"</span>) <span class="sc">+</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>plot_spec_dse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3-cfa-invariance-pisa_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fit-by-countries" class="level1">
+<h1>Fit by countries</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SEM por separado para cada país</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>lista_paises <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">unlist</span>(pisa<span class="sc">$</span>CNT))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>resultados_lista <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>summary_lista <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Iteramos por cada país con el mismo modelo</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pais_actual <span class="cf">in</span> lista_paises) {</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="at">tz =</span> <span class="st">"Chile/Continental"</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  datos_pais <span class="ot">&lt;-</span> pisa <span class="sc">%&gt;%</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(CNT <span class="sc">==</span> pais_actual)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  fit_pais <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>({</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sem</span>(<span class="at">model =</span> multigroup_cfa, </span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> datos_pais,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>       <span class="co"># missing = "fiml"</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  }, <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>     <span class="fu">cat</span>(<span class="st">"  -&gt; ¡ERROR! No se pudo ajustar el modelo para"</span>, pais_actual, <span class="st">". Razón:"</span>, <span class="fu">conditionMessage</span>(e), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>     <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(fit_pais)) {</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> (<span class="fu">lavInspect</span>(fit_pais, <span class="st">"converged"</span>)) {</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>        medidas_ajuste <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(fit_pais)</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>        resultados_lista[[pais_actual]] <span class="ot">&lt;-</span> medidas_ajuste</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>     } <span class="cf">else</span> {</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">"  -&gt; ¡ADVERTENCIA! El modelo para"</span>, pais_actual, <span class="st">"no convergió. Se omitirán sus resultados.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>        resultados_lista[[pais_actual]] <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>)</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>     }</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">format</span>(<span class="fu">Sys.time</span>(), <span class="at">tz =</span> <span class="st">"Chile/Continental"</span>)</span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative
+Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Test con chile (o otros países)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>datos_test <span class="ot">&lt;-</span> pisa <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(CNT <span class="sc">==</span> <span class="st">"CHL"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>test_model <span class="ot">&lt;-</span> <span class="fu">sem</span>(<span class="at">model =</span> multigroup_cfa, </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> datos_test,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: lavaan-&gt;lav_object_post_check():  
+   some estimated ov variances are negative</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fitMeasures(test_model)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertimos resultados_lista en dataframe y agregamos CNT para detectar país</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>fit_indices_por_pais <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, resultados_lista)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>fit_indices_por_pais <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(fit_indices_por_pais)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>fit_indices_por_pais <span class="ot">&lt;-</span> fit_indices_por_pais <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"CNT"</span>)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos indicadores de interés</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>indices_ajuste <span class="ot">&lt;-</span> fit_indices_por_pais <span class="sc">%&gt;%</span> </span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNT, chisq, df, rmsea, rmsea.ci.lower,  rmsea.ci.upper, srmr, cfi, tli)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  indices_ajuste,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">pageLength =</span> <span class="dv">10</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">autoWidth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">searchHighlight =</span> <span class="cn">TRUE</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">filter =</span> <span class="st">'top'</span>,</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Índices de Ajuste del Modelo (Interactiva)"</span></span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-93e05ff6377babf6ee28" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-93e05ff6377babf6ee28">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"531.268273233037\" data-max=\"7718.14987947246\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.073498057572836\" data-max=\"0.14222359847881\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.070328102187046\" data-max=\"0.138728993815973\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.076717020767933\" data-max=\"0.146003456647509\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.02627247507843\" data-max=\"0.09563536245709\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.977624344332683\" data-max=\"0.998981542886368\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0.971379975309246\" data-max=\"0.998697322296517\" data-scale=\"15\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","caption":"<caption>Índices de Ajuste del Modelo (Interactiva)<\/caption>","data":[["ALB","ARG","AUS","AUT","BEL","BRA","BRN","BGR","CHL","TAP","CRI","HRV","CZE","DNK","DOM","EST","FIN","GEO","DEU","GRC","HKG","HUN","ISL","IRL","ISR","ITA","JPN","KAZ","JOR","KOR","LVA","LTU","MAC","MYS","MLT","MAR","PAN","POL","ROU","SAU","SGP","SVK","SVN","ESP","SWE","CHE","THA","TUR","QUR","GBR","USA","URY"],[881.835828346902,2259.690361828158,3143.944887223971,1362.144607215421,1867.041142927859,3394.549987749166,3531.972691986929,781.764990979967,1799.884691669471,3532.62412690782,1720.348249822792,1467.061331333487,3109.004944680904,1384.257095421446,901.743865805803,1327.687536814259,1495.939372861278,822.7206819170556,1360.486723213513,2661.48654436464,3886.773995044667,1730.308095012701,1016.530777123759,1829.477933452454,1308.826538178409,2192.023429680729,4504.995687796462,5453.299928704731,1487.390222995645,2281.002357451488,1036.126186827378,2476.182872706179,2715.696041665306,4201.590744090136,531.2682732330375,1712.668739598993,643.1855790199845,1419.716862113912,1954.355048383081,1622.46828178769,2803.853225451613,1553.114715337625,3016.617992187192,7718.14987947246,1910.929489981635,1264.860059143814,1783.509293135815,3300.574064658412,1072.935963935561,4214.665598278253,1158.345128323285,823.8480191799567],[43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43],[0.09956156417898521,0.1085746779934772,0.08503542497796644,0.08873654214872617,0.09428288641349886,0.1286952925299157,0.1420167406131393,0.0803217833423896,0.1074325218874396,0.1255555250571328,0.1009070049987349,0.08639436258707135,0.1114735740699313,0.09369667613801734,0.0885315125779534,0.07993321413589789,0.07349805757283663,0.09185802242600197,0.09490120814118345,0.1212804430784235,0.1371678018856285,0.09498789498198608,0.1060783185078264,0.09951730756974639,0.09830778724954573,0.08417218862553613,0.1422235984788094,0.09042434137891922,0.1038601004078055,0.09670823512382766,0.07755367400964631,0.1033761051347772,0.127775950135139,0.1375445671501258,0.07903111070066052,0.1122443819921341,0.09614353288736177,0.09001908064555637,0.09762413196318154,0.1003445551296061,0.106254129483766,0.09958817610638725,0.1222395338219531,0.09112137751844623,0.1067924438764837,0.08263759103586119,0.07838990059426659,0.11973786691263,0.1049883283265811,0.1129460135476035,0.09045670801368903,0.08633967045675393],[0.09389295452873669,0.1047875581673083,0.08252867174343738,0.08471845610985007,0.09065609825905344,0.1250462798710381,0.1380702016058655,0.07544331142155172,0.1032212644168384,0.1220667569471335,0.09685833801707043,0.08263032689686707,0.1081687521410699,0.08948939558570972,0.08355059485370786,0.07626512252040413,0.07032810218704671,0.08643005528147985,0.09060125399941678,0.1173891368954098,0.1335363509490827,0.09118804703918312,0.1004780566549198,0.09564893011979397,0.09376271651338365,0.08119020947743813,0.1387289938159723,0.08840661026547705,0.09936730444936563,0.09335117280779227,0.07350044379753201,0.09993495512856726,0.1237181205187251,0.1340437688949221,0.07309607659050869,0.1077304246183104,0.0896502830642075,0.08602974495050898,0.09395599418621899,0.09619484093686405,0.10293420358929,0.0953756194200195,0.1185595775482168,0.08941412028146728,0.1027332267631498,0.07874824506664502,0.07530259044385451,0.1162941473845996,0.09960141702197683,0.1100758108195715,0.0859986683562235,0.08124153602741065],[0.1053424312536105,0.1124097784003155,0.08756920075614474,0.09281958437066257,0.09796008023236216,0.132382185939366,0.1460034566475084,0.08530228205471554,0.1117033533918433,0.1290798067157748,0.1050142055055337,0.09021713490572063,0.1148142176886162,0.09797145269190458,0.09361006748730329,0.0836613298726442,0.0767170207679337,0.09739692481368092,0.09927071540562768,0.1252172661148356,0.1408345193260357,0.09884252663682347,0.1117824596492031,0.1034399798584346,0.1029277385007434,0.08719251114726244,0.1457497542770021,0.0924586462954146,0.1084225458642906,0.1001076343346376,0.08168142454279589,0.1068589509274133,0.1318807789902843,0.1410780807444883,0.08511285694957149,0.1168237405437255,0.1027848029165658,0.09407164956210862,0.1013421357543661,0.1045559774031107,0.1096119108592777,0.1038647017065209,0.1259599729426641,0.09284043701132103,0.1109074467082582,0.08659205882337863,0.08152107799885933,0.1232178330395621,0.1104726804936576,0.1158429975088581,0.09499254964091937,0.09154193422745263],[0.03266364819646818,0.05070410123858347,0.05714402914561636,0.06984347985830748,0.0681228962223235,0.0624454410639085,0.0879056650569903,0.03457943782584277,0.07186830465223648,0.05959017207387108,0.07117379295125104,0.0459949863403875,0.08515583873542522,0.07906314701658032,0.03945971267688303,0.05840134824055201,0.03947898724285568,0.04264713912308283,0.07370208949620116,0.0784958714879261,0.06643544919852075,0.06514886003175321,0.06145736936021905,0.07005549666426564,0.05818075178436215,0.06590142744218495,0.09563536245708908,0.04016073585737244,0.03586780754027643,0.05190060882730861,0.05496454575894225,0.07182312909264175,0.07518282142193423,0.06466376666296642,0.05382280295034557,0.06004158829841904,0.04936239474619484,0.05150214421408005,0.05798137134677537,0.02627247507843031,0.07618512190965787,0.06471247733972796,0.07402336847635967,0.07369724009030637,0.06543762173266077,0.06624677428314396,0.03029865795072764,0.07108125290862717,0.06683674998437539,0.07068201982639515,0.06473952680339254,0.04768015998696325],[0.9988614485285923,0.9967020975026017,0.9957023570198955,0.9926256151567714,0.9907715911467344,0.9965740310712836,0.9776243443326832,0.9987668524013894,0.9921506236222556,0.9953448323153546,0.9928131582954218,0.9967705568506159,0.9851197854288321,0.9912841034494734,0.9982938639135767,0.9942134314578462,0.9981323159544903,0.9974870757475072,0.9897146120713147,0.9884082998515291,0.9944729907969327,0.9944244637550954,0.9959890807932921,0.991798186398784,0.9945782449117668,0.992223332294808,0.9785419217680412,0.9979985867059089,0.9982167720279935,0.9975496590554938,0.9934878560960105,0.9930853223497633,0.9871232775851836,0.9933420633152404,0.9968488789478037,0.9919946334524383,0.9960316484445224,0.9963088756559668,0.994900120053106,0.9989815428863673,0.9905271972632221,0.9949381260868838,0.9903688404621828,0.988794929189118,0.9958363640965624,0.9921958815911471,0.9989310519068081,0.9924054332827316,0.9943367582648212,0.9930821560057735,0.9940505449426646,0.9974489821350159],[0.9985437132342458,0.9957817526196069,0.9945030147928896,0.9905676472935447,0.9881962212341951,0.9956179467190838,0.971379975309246,0.9984227181878237,0.9899600999819548,0.9940457157521977,0.9908075280522838,0.9958693169019505,0.9809671674089713,0.9888517602260706,0.9978177329127144,0.9925985751205011,0.997611101802255,0.996785794560765,0.9868442712540072,0.9851734067868395,0.9929305696239838,0.9928685001518661,0.994869754503048,0.9895093081844911,0.9930651969801668,0.9900530994468474,0.9725536208660992,0.9974400527633718,0.9977191270125499,0.9968658429779572,0.9916705136111762,0.9911556448659763,0.9835297736554675,0.9914840344729819,0.9959694963285861,0.9897605776717234,0.9949242014988078,0.9952787944436785,0.9934768977423448,0.9986973222965163,0.9878836244064469,0.9935255101111305,0.9876810750097686,0.9856679326837556,0.9946744191932776,0.9900179880816998,0.9986327408110336,0.9902860193151217,0.9927563187108177,0.9911515948911057,0.9923902319034082,0.9967370701726948]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>CNT<\/th>\n      <th>chisq<\/th>\n      <th>df<\/th>\n      <th>rmsea<\/th>\n      <th>rmsea.ci.lower<\/th>\n      <th>rmsea.ci.upper<\/th>\n      <th>srmr<\/th>\n      <th>cfi<\/th>\n      <th>tli<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"autoWidth":true,"searchHighlight":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"name":"CNT","targets":0},{"name":"chisq","targets":1},{"name":"df","targets":2},{"name":"rmsea","targets":3},{"name":"rmsea.ci.lower","targets":4},{"name":"rmsea.ci.upper","targets":5},{"name":"srmr","targets":6},{"name":"cfi","targets":7},{"name":"tli","targets":8}],"order":[],"orderClasses":false,"orderCellsTop":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
