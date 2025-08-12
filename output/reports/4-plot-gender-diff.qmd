@@ -101,7 +101,8 @@ ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
     plot.caption = element_text(size = 15)
   ) +
   scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
-  labs(caption = "r = 0.51")
+  labs(caption = "r = 0.51") +
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
 ```
 ### ICILS
 
@@ -145,7 +146,9 @@ ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
     plot.caption = element_text(size = 15)
   ) +
   scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
-  labs(caption = "r = 0.47")
+  labs(caption = "r = 0.47")+
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4))+
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
 ```
 
 :::
@@ -231,7 +234,8 @@ ggplot(plot_data, aes(y = CNT, x = score)) +  # Use CNT directly (already reorde
     strip.text = element_text(size = 12),
     legend.text = element_text(size = 10)
   ) +
-  coord_cartesian(clip = "off")
+  coord_cartesian(clip = "off")+
+  scale_x_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
 ```
 
 ### ICILS
@@ -290,7 +294,8 @@ ggplot(plot_data, aes(y = CNTRY, x = score)) +  # Use CNT directly (already reor
     strip.text = element_text(size = 12),
     legend.text = element_text(size = 10)
   ) +
-  coord_cartesian(clip = "off")
+  coord_cartesian(clip = "off")+
+  scale_x_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
 ```
 
 :::

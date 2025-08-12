@@ -22,7 +22,12 @@ This repository structure follows the IPO Protocol:
 
 ## Reports
 
-[Empirical Advances](https://milenio-nudos.github.io/picils_dse/output/reports/avances.html)
+- [Empirical Advances](https://milenio-nudos.github.io/picils_dse/output/reports/1-avances.html)
+- [CFA Invariance ICILS](https://milenio-nudos.github.io/picils_dse/output/reports/2-cfa-invariance-icils.html)
+- [CFA Invariance PISA](https://milenio-nudos.github.io/picils_dse/output/reports/3-cfa-invariance-pisa.html)
+- [Gender Differences PICILS](https://milenio-nudos.github.io/picils_dse/output/reports/4-plot-gender-diff.html)
+
+
 
 ## Conferences
 
