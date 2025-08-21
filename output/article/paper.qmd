@@ -1,0 +1,75 @@
+---
+format:
+  html: 
+    toc: true
+    keep-tex: true
+editor: visual
+smooth-scroll: true
+number-sections: true
+bibliography: "icils_nudos.bib"
+csl: "apa.csl"
+link-citations: true
+mainfont: Times New Roman
+execute: 
+  echo: false
+  warning: false
+---
+
+This document was last modified at {{< modified >}} and it was last rendered at {{< now >}}.
+
+# Digital Self-efficacy and gender in Large-scale assesments {.unnumbered}
+
+Daniel Miranda[^1], Juan Carlos Castillo[^2], Nicolás Tobar[^3], Tomás Urzúa[^4] and Ismael Aguayo[^5]
+
+[^1]: Psychology Department, University of Chile. Associate researcher at Center of Social Cohesion and Conflict studies (COES). Adjunct researcher on NUDOS. [damiran1\@uc.cl](mailto:danmiranda@uchile.cl).
+
+[^2]: Sociology Department, University of Chile. Principal researcher on Millennium Nucleus on Digital Inequalities and Opportunities (NUDOS) and at the Center of Social Cohesion and Conflict studies (COES). [juancastillov\@uchile.cl](mailto:juancastillov@uchile.cl) - [jc-castillo.com](jc-castillo.com)
+
+[^3]: Research Assistant on NUDOS. Msc (c) Political Science, Faculty of Government, University of Chile. [nicolas.tobar\@ug.uchile.cl.](mailto:nicolas.tobar@ug.uchile.cl)
+
+[^4]: Research Assistant on NUDOS. Msc (c) Social Sciences, Sociology Department, University of Chile. [tomas.urzua@ug.uchile.cl](mailto:tomas.urzua@ug.uchile.cl )
+
+
+[^5]: Research Assistant on NUDOS. Bsc (c) Sociology, Sociology Department, University of Chile. [ismael.aguayo@ug.uchile.cl](mailto:ismael.aguayo@ug.uchile.cl )
+
+```{r setup}
+
+setwd(here::here())
+
+# Sesion setting
+
+options(scipen=999) #No scientific notation
+options(digits = 2) #Round results two decimals
+
+
+#install.packages("pacman")
+library(pacman)
+
+pacman::p_load(
+  dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
+  parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra)
+
+options(scipen = 999)
+
+rm(list = ls()) 
+
+icils23_proc <- readRDS(here::here("~/GitHub/milenio_nudos/picils_dse/input/data/proc_data/icils23_proc.rds"))
+pisa <- readRDS(here::here("input/data/proc_data/pisa22_proc.rds"))
+```
+
+**Abstract**
+
+...
+
+{{< include 1-intro.qmd >}}
+
+{{< include 2-dse.qmd >}}
+
+{{< include 3-methods.qmd >}}
+
+{{< include 4-results.qmd >}}
+
+{{< include 5-discussion.qmd >}}
+
+{{< include 6-appendix.qmd >}}

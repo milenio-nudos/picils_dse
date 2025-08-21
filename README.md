@@ -19,7 +19,6 @@ This repository structure follows the IPO Protocol:
 │ ├─── reports: Progress reports in QMD format, along with their rendered HTML versions.
 ```
 
-
 ## Reports
 
 - [Empirical Advances](https://milenio-nudos.github.io/picils_dse/output/reports/1-avances.html)

@@ -1,0 +1,13 @@
+---
+editor: visual
+---
+
+# Introduction
+
+Primer párrafo sobre como las competencias digitales son algo más complejo que acceso o saber usar dispositivos, que han dado un giro hacia lo actitudinal. Uno de los elementos centrales para entender como se van formando las competencias digitales es la autoeficacia, que ha adquirido un lugar central en estos estudios.
+
+Segundo párrafo acerca de cómo se ha hallado que dentro de este componente actitudinal, son las mujeres las que tienden a demostrar menos niveles de confianza, motivacion, actitudes menos que los hombres. Pero que esto se ha dado vuelta ultimamente en terminos generales.
+
+Tercer parrafo para señalar que estas diferencias actitudinales dependen mucho del contexto y de como a gran escalas las sociedades adoptan de manera diferenciada las tecnologías. Hay países en que probablemente la brecha entre hombres y mujeres sean menores que en otros.
+
+Cuarto parrafo comentando que producto de estudios de evaluación a larga escala se ha dado una gran disponibilidad de datos que tienden a construir de modo distinto las escalas de autoeficacia, y que por supuesto esto puede tener efectos en como los países adoptan esta batería, y como aquello demuestre efectos distintos o no con otros constructos. Para eso, este estudio dispone medir invarianza en ICILS y PISA por pais y por género, y hacer una exploración sobre como esta aproximaciones llegan a determinados resultados.
