@@ -42,10 +42,16 @@ Cuarto párrafo. PISA muestra mayor contextualización en los ítems, define obs
 
 Quito párrafo. A pesar de estas de estas diferencias entre los ítems, se nota que el tipo de tareas que ambos consideran son similiar, incluyendo tanto tareas generales, como de programación o desarrollo web. En ese sentido, pareciera que es posible hipotetizar que tanto PISA como ICILS tienen un modelo bi-dimensional, a pesar que la primera no lo declare. 
 
+Considering the previous statements, The first hypothesis is of this study is $$H_{1}$$: *It is possible to identify two latent dimensions of digital self-efficacy (general and specialized) based on related batteries and indicators included in large-scale assessments such as PISA and ICILS (bi-dimensional hypothesis).*
+
 Sexto párrafo. Esto es un problema porque afecta la comparabilidad de los estudios pos baterías, y además, para confirmar que estos sean validos por país como aspiran, se requiere validar la estabilidad de la escala.Y cómo la evidencia muestra que hay diferencias de género por tipo de dimensión (antes mencionadas), también resulta necesario probar la estabilidad por género.
 
-H1
-H2
-H3
+By the way, the second and third hypoteses are:
+
+$$H_{2}$$: *The bi-dimensional measurement model of digital self-efficacy is equivalent across countries* 
+
+$$H_{3}$$: *The bi-dimensional measurement model of digital self-efficacy is equivalent between girls and boys* 
+
+
 
 
