@@ -3,6 +3,8 @@ format:
   html: 
     toc: true
     keep-tex: true
+comments:
+  hypothesis: true
 editor: visual
 smooth-scroll: true
 number-sections: true
