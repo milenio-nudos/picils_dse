@@ -13,9 +13,9 @@ mainfont: Times New Roman
 execute: 
   echo: false
   warning: false
+comments:
+  hypothesis: true
 ---
-
-This document was last modified at {{< modified >}} and it was last rendered at {{< now >}}.
 
 # Digital Self-efficacy and gender in Large-scale assesments {.unnumbered}
 
@@ -27,14 +27,11 @@ Daniel Miranda[^1], Juan Carlos Castillo[^2], Nicolás Tobar[^3], Tomás Urzúa[
 
 [^3]: Research Assistant on NUDOS. Msc (c) Political Science, Faculty of Government, University of Chile. [nicolas.tobar\@ug.uchile.cl.](mailto:nicolas.tobar@ug.uchile.cl)
 
-[^4]: Research Assistant on NUDOS. Msc (c) Social Sciences, Sociology Department, University of Chile. [tomas.urzua@ug.uchile.cl](mailto:tomas.urzua@ug.uchile.cl )
+[^4]: Research Assistant on NUDOS. Msc (c) Social Sciences, Sociology Department, University of Chile. [tomas.urzua\@ug.uchile.cl](mailto:tomas.urzua@ug.uchile.cl)
 
-
-[^5]: Research Assistant on NUDOS. Bsc (c) Sociology, Sociology Department, University of Chile. [ismael.aguayo@ug.uchile.cl](mailto:ismael.aguayo@ug.uchile.cl )
+[^5]: Research Assistant on NUDOS. Bsc (c) Sociology, Sociology Department, University of Chile. [ismael.aguayo\@ug.uchile.cl](mailto:ismael.aguayo@ug.uchile.cl)
 
 ```{r setup}
-
-setwd(here::here())
 
 # Sesion setting
 
@@ -51,11 +48,10 @@ pacman::p_load(
   ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra)
 
 options(scipen = 999)
-
 rm(list = ls()) 
 
-icils23_proc <- readRDS(here::here("~/GitHub/milenio_nudos/picils_dse/input/data/proc_data/icils23_proc.rds"))
-pisa <- readRDS(here::here("input/data/proc_data/pisa22_proc.rds"))
+icils23_proc <- readRDS(here::here("input", "data", "proc_data", "icils23_proc.rds"))
+pisa <- readRDS(here::here("input", "data", "proc_data", "pisa22_proc.rds"))
 ```
 
 **Abstract**

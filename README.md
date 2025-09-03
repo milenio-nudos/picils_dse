@@ -31,4 +31,3 @@ This repository structure follows the IPO Protocol:
 ## Conferences
 
 - [Abstract INVALSI 2025: Measuring Digital Self-Efficacy in International Large-Scale Assessments: An International Comparison Between ICILS and PISA ](https://milenio-nudos.github.io/picils_dse/output/conferences/invalsi2025/abstract-invalsi.html)
-

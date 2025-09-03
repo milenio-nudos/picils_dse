@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -44,21 +44,60 @@ div.csl-indent {
 
 
 <script src="paper_files/libs/clipboard/clipboard.min.js"></script>
-<script src="paper_files/libs/quarto-html/quarto.js"></script>
+<script src="paper_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="paper_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="paper_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="paper_files/libs/quarto-html/popper.min.js"></script>
 <script src="paper_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="paper_files/libs/quarto-html/anchor.min.js"></script>
 <link href="paper_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="paper_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="paper_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="paper_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="paper_files/libs/bootstrap/bootstrap-5df21de7e26fe8a5b374b3a0ff2b2876.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="paper_files/libs/bootstrap/bootstrap-7d93324de37141de249bc7ccfc83ae21.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+<script src="paper_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="paper_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body>
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -71,7 +110,10 @@ div.csl-indent {
   <li><a href="#self-efficacy-and-digital-technologies" id="toc-self-efficacy-and-digital-technologies" class="nav-link" data-scroll-target="#self-efficacy-and-digital-technologies"><span class="header-section-number">2</span> Self-efficacy and Digital Technologies</a></li>
   <li><a href="#measuring-digital-self-efficacy" id="toc-measuring-digital-self-efficacy" class="nav-link" data-scroll-target="#measuring-digital-self-efficacy"><span class="header-section-number">3</span> Measuring Digital Self-efficacy</a></li>
   <li><a href="#pisa-and-icils-different-approachs" id="toc-pisa-and-icils-different-approachs" class="nav-link" data-scroll-target="#pisa-and-icils-different-approachs"><span class="header-section-number">4</span> PISA and ICILS different approachs</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">5</span> </a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">5</span> Data</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables"><span class="header-section-number">6</span> Variables</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">7</span> Methods</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">8</span> </a></li>
   </ul>
 </nav>
 </div>
@@ -80,7 +122,6 @@ div.csl-indent {
 
 
 
-<p>This document was last modified at {{&lt; modified &gt;}} and it was last rendered at {{&lt; now &gt;}}.</p>
 <section id="digital-self-efficacy-and-gender-in-large-scale-assesments" class="level1 unnumbered">
 <h1 class="unnumbered">Digital Self-efficacy and gender in Large-scale assesments</h1>
 <p>Daniel Miranda<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, Juan Carlos Castillo<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, Nicolás Tobar<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, Tomás Urzúa<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> and Ismael Aguayo<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
@@ -89,98 +130,270 @@ div.csl-indent {
 </section>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>The mastery of digital technologies today requires more than physical access to devices or procedural knowledge of software; it increasingly involves attitudinal dispositions such as confidence, persistence, and the capacity to adapt in complex environments <span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022">(<a href="#ref-europeancommissionjointresearchcentre_digcomp_2022" role="doc-biblioref">European Commission Joint Research Centre, 2022</a>)</span>. Research in educational psychology has consistently highlighted self-efficacy as a key determinant of how individuals engage with technology. Defined as the belief in one’s ability to accomplish tasks and overcome obstacles in digital contexts, digital self-efficacy (DSE) has emerged as a central construct in understanding the development of digital competences <span class="citation" data-cites="bandura_selfefficacy_1995 ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref">Ulfert-Blank &amp; Schmidt, 2022</a>; <a href="#ref-bandura_selfefficacy_1995" role="doc-biblioref"><strong>bandura_selfefficacy_1995?</strong></a>)</span>. Unlike purely skill-based measures, DSE captures both perceived capability and self-regulatory attitudes, making it particularly useful for explaining why some learners successfully navigate digital transformations while others struggle <span class="citation" data-cites="schererRelationStudentsSocioeconomic2019 rohatgiRoleICTSelfefficacy2016">(<a href="#ref-rohatgiRoleICTSelfefficacy2016" role="doc-biblioref">Rohatgi et al., 2016</a>; <a href="#ref-schererRelationStudentsSocioeconomic2019" role="doc-biblioref">Scherer &amp; Siddiq, 2019</a>)</span>.</p>
-<p>Within this attitudinal dimension, evidence has consistently revealed gender-related patterns. Historically, women have reported lower levels of self-confidence and motivation in digital environments, especially in tasks associated with STEM or advanced technical applications <span class="citation" data-cites="hargittaiDifferencesActualPerceived2006 caiGenderAttitudesTechnology2017a">(<a href="#ref-caiGenderAttitudesTechnology2017a" role="doc-biblioref">Cai et al., 2017</a>; <a href="#ref-hargittaiDifferencesActualPerceived2006" role="doc-biblioref">Hargittai &amp; Shafer, 2006</a>)</span>. However, more recent studies suggest a nuanced picture: while women continue to show lower self-efficacy in specialized digital domains such as programming or data analysis, they now frequently outperform or equal men in general DSE tasks related to information navigation, communication, and content creation <span class="citation" data-cites="gebhardtGenderDifferencesComputer2019">(<a href="#ref-gebhardtGenderDifferencesComputer2019" role="doc-biblioref">Gebhardt et al., 2019</a>)</span>. These shifts indicate that the relationship between gender and DSE is dynamic, contingent upon how digital tasks are conceptualized and measured.</p>
-<p>Such attitudinal differences are also shaped by broader sociocultural and educational contexts. Cross-national studies show that the magnitude of the gender gap in digital self-efficacy varies considerably depending on how societies adopt and integrate technologies into everyday life <span class="citation" data-cites="camposDigitalGenderGaps2024 hatlevikStudentsICTSelfefficacy2018a">(<a href="#ref-camposDigitalGenderGaps2024" role="doc-biblioref">Campos &amp; Scherer, 2024</a>; <a href="#ref-hatlevikStudentsICTSelfefficacy2018a" role="doc-biblioref">Hatlevik et al., 2018</a>)</span>. This contextual variability underscores the importance of measurement models that are not only valid within single cultural settings but also comparable across diverse populations. Without rigorous tests of measurement invariance, it is difficult to determine whether observed differences reflect substantive disparities or methodological artifacts <span class="citation" data-cites="leitgob_measurement_2023">(<a href="#ref-leitgob_measurement_2023" role="doc-biblioref">Leitgöb et al., 2023</a>)</span>.</p>
-<p>International large-scale assessments (ILSAs) provide an unparalleled opportunity to examine these issues. Studies such as the International Computer and Information Literacy Study (ICILS) and the Programme for International Student Assessment (PISA) include DSE measures, but they differ in important ways. PISA has traditionally adopted a unidimensional approach, aggregating digital self-confidence into a single scale <span class="citation" data-cites="oecdPISA2022ICT2023">(<a href="#ref-oecdPISA2022ICT2023" role="doc-biblioref">OECD, 2023</a>)</span>, whereas ICILS uses a bidimensional framework, distinguishing between general and specialized DSE <span class="citation" data-cites="fraillon_preparing_2020">(<a href="#ref-fraillon_preparing_2020" role="doc-biblioref">Fraillon et al., 2020</a>)</span>. These differences are more than technical: they affect how countries governments interpret digital readiness and how gender disparities are identified. Against this background, the present study contributes by (i) testing whether a two-dimensional model of DSE —general and specialized— can be identified in both PISA and ICILS, (ii) evaluating its measurement invariance across gender and countries, and (iii) exploring determinants on gender differences at country level for both studies. By doing so, we aim to clarify whether differences in DSE are consistent across contexts or instead a product of how assessments operationalize the construct.</p>
+<p>The mastery of digital technologies today requires more than physical access to devices or procedural knowledge of software; it increasingly involves attitudinal dispositions such as confidence, persistence, and the capacity to adapt in complex environments <span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022">(<a href="#ref-europeancommissionjointresearchcentre_digcomp_2022" role="doc-biblioref"><strong>europeancommissionjointresearchcentre_digcomp_2022?</strong></a>)</span>. Research in educational psychology has consistently highlighted self-efficacy as a key determinant of how individuals engage with technology. Defined as the belief in one’s ability to accomplish tasks and overcome obstacles in digital contexts, digital self-efficacy (DSE) has emerged as a central construct in understanding the development of digital competences <span class="citation" data-cites="bandura_selfefficacy_1995 ulfert-blank_assessing_2022">(<a href="#ref-bandura_selfefficacy_1995" role="doc-biblioref"><strong>bandura_selfefficacy_1995?</strong></a>; <a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref"><strong>ulfert-blank_assessing_2022?</strong></a>)</span>. Unlike purely skill-based measures, DSE captures both perceived capability and self-regulatory attitudes, making it particularly useful for explaining why some learners successfully navigate digital transformations while others struggle <span class="citation" data-cites="schererRelationStudentsSocioeconomic2019 rohatgiRoleICTSelfefficacy2016">(<a href="#ref-schererRelationStudentsSocioeconomic2019" role="doc-biblioref"><strong>schererRelationStudentsSocioeconomic2019?</strong></a>; <a href="#ref-rohatgiRoleICTSelfefficacy2016" role="doc-biblioref"><strong>rohatgiRoleICTSelfefficacy2016?</strong></a>)</span>.</p>
+<p>Within this attitudinal dimension, evidence has consistently revealed gender-related patterns. Historically, women have reported lower levels of self-confidence and motivation in digital environments, especially in tasks associated with STEM or advanced technical applications <span class="citation" data-cites="hargittaiDifferencesActualPerceived2006 caiGenderAttitudesTechnology2017a">(<a href="#ref-hargittaiDifferencesActualPerceived2006" role="doc-biblioref"><strong>hargittaiDifferencesActualPerceived2006?</strong></a>; <a href="#ref-caiGenderAttitudesTechnology2017a" role="doc-biblioref"><strong>caiGenderAttitudesTechnology2017a?</strong></a>)</span>. However, more recent studies suggest a nuanced picture: while women continue to show lower self-efficacy in specialized digital domains such as programming or data analysis, they now frequently outperform or equal men in general DSE tasks related to information navigation, communication, and content creation <span class="citation" data-cites="gebhardtGenderDifferencesComputer2019">(<a href="#ref-gebhardtGenderDifferencesComputer2019" role="doc-biblioref"><strong>gebhardtGenderDifferencesComputer2019?</strong></a>)</span>. These shifts indicate that the relationship between gender and DSE is dynamic, contingent upon how digital tasks are conceptualized and measured.</p>
+<p>Such attitudinal differences are also shaped by broader sociocultural and educational contexts. Cross-national studies show that the magnitude of the gender gap in digital self-efficacy varies considerably depending on how societies adopt and integrate technologies into everyday life <span class="citation" data-cites="camposDigitalGenderGaps2024 hatlevikStudentsICTSelfefficacy2018">(<a href="#ref-camposDigitalGenderGaps2024" role="doc-biblioref"><strong>camposDigitalGenderGaps2024?</strong></a>; <a href="#ref-hatlevikStudentsICTSelfefficacy2018" role="doc-biblioref"><strong>hatlevikStudentsICTSelfefficacy2018?</strong></a>)</span>. This contextual variability underscores the importance of measurement models that are not only valid within single cultural settings but also comparable across diverse populations. Without rigorous tests of measurement invariance, it is difficult to determine whether observed differences reflect substantive disparities or methodological artifacts <span class="citation" data-cites="leitgob_measurement_2023">(<a href="#ref-leitgob_measurement_2023" role="doc-biblioref"><strong>leitgob_measurement_2023?</strong></a>)</span>.</p>
+<p>International large-scale assessments (ILSAs) provide an unparalleled opportunity to examine these issues. Studies such as the International Computer and Information Literacy Study (ICILS) and the Programme for International Student Assessment (PISA) include DSE measures, but they differ in important ways. PISA has traditionally adopted a unidimensional approach, aggregating digital self-confidence into a single scale <span class="citation" data-cites="oecdPISA2022ICT2023">(<a href="#ref-oecdPISA2022ICT2023" role="doc-biblioref"><strong>oecdPISA2022ICT2023?</strong></a>)</span>, whereas ICILS uses a bidimensional framework, distinguishing between general and specialized DSE <span class="citation" data-cites="fraillon_preparing_2020">(<a href="#ref-fraillon_preparing_2020" role="doc-biblioref"><strong>fraillon_preparing_2020?</strong></a>)</span>. Although ICILS and PISA differ in the wording of the items, if one examines the meaning of the items in depth, they are similar in terms of the tasks, which does not justify their different measurement strategies.</p>
+<p>These differences are more than technical: they affect how countries governments interpret digital readiness and how gender disparities are identified. Against this background, the present study contributes by (i) testing whether a two-dimensional model of DSE —general and specialized— can be identified in both PISA and ICILS, (ii) evaluating its measurement invariance across gender and countries, and (iii) exploring determinants on gender differences at country level for both studies. By doing so, we aim to clarify whether differences in DSE are consistent across contexts or instead a product of how assessments operationalize the construct.</p>
 </section>
 <section id="self-efficacy-and-digital-technologies" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Self-efficacy and Digital Technologies</h1>
-<p>Self-efficacy is an orchestration or continued improvisation of multiple skills to manage the ever-changing situation around mastering an activity. As part of the forethought element of human agency, Self-efficacy is not the simple self-perception about the ability to execute an action, is concerned by judgments of how well one can execute courses of action required to deal with prospective situations. Self-efficacy is a type of self-assessment or expectatives to produce particular outcomes, crucial for reinforcing the mastery of the activity to which one is dedicated <span class="citation" data-cites="banduraSelfefficacyMechanismHuman1982 banduraSelfefficacyUnifyingTheory1977">(<a href="#ref-banduraSelfefficacyUnifyingTheory1977" role="doc-biblioref">Bandura, 1977</a>, <a href="#ref-banduraSelfefficacyMechanismHuman1982" role="doc-biblioref">1982</a>)</span>.</p>
+<p>Self-efficacy is an orchestration or continued improvisation of multiple skills to manage the ever-changing situation around mastering an activity. As part of the forethought element of human agency, Self-efficacy is not the simple self-perception about the ability to execute an action, is concerned by judgments of how well one can execute courses of action required to deal with prospective situations. Self-efficacy is a type of self-assessment or expectatives to produce particular outcomes, crucial for reinforcing the mastery of the activity to which one is dedicated <span class="citation" data-cites="banduraSelfefficacyMechanismHuman1982 banduraSelfefficacyUnifyingTheory1977">(<a href="#ref-banduraSelfefficacyMechanismHuman1982" role="doc-biblioref"><strong>banduraSelfefficacyMechanismHuman1982?</strong></a>; <a href="#ref-banduraSelfefficacyUnifyingTheory1977" role="doc-biblioref"><strong>banduraSelfefficacyUnifyingTheory1977?</strong></a>)</span>.</p>
 <p>This concept occupies a pivotal role in the causal structure of adaptation and change in learning contexts through its effect on other cognitive determinants. i) Efficacy plays a central role in the self-regulation of motivation through goal challenges and outcome expectations. ii) Efficacy determines the challenge to undertake, how much effort to expend in the endeavor, how long to persevere in the face of obstacles and failure, and whether failures are motivating or demoralizing. iii) Efficacy beliefs also play a key role in shaping the courses lives take by influencing the types of activities and environments people choose to get into. In synthesis, efficacy shapes the mindset, choices on path-life, and change of environments, crucial for creating fulfilling standards and obtaining performance accomplishments across learning activities <span class="citation" data-cites="bandura_selfefficacy_1995 steele_stereotype_1995">(<a href="#ref-bandura_selfefficacy_1995" role="doc-biblioref"><strong>bandura_selfefficacy_1995?</strong></a>; <a href="#ref-steele_stereotype_1995" role="doc-biblioref"><strong>steele_stereotype_1995?</strong></a>)</span>.</p>
 <p>Self-efficacy has proven to be particularly relevant when it comes to digital technologies learning achievements. A whole thematic research agenda has opened up around self-efficacy role on the adoption and competences on digital technologies, although there are scattered efforts when it comes to measuring this construct.</p>
-<p>The first antecedents of self-efficacy applied to digital issues resorted to ‘Computer self-efficacy’. <span class="citation" data-cites="compeau_computer_1995">(<a href="#ref-compeau_computer_1995" role="doc-biblioref"><strong>compeau_computer_1995?</strong></a>)</span> proposed this early instrument focused on general computer domains and specific software application tasks. Defined as individual’s perceptions of his or her ability to use computers in the accomplishment of a task (ie., using a software package for data analysis, writing a mailmerge letter using a word processor), rather than reflecting simple component skills (ie., formatting diskettes, booting up a computer, using a specific software feature such as “bolding text” or “changing margin”). The computer self-efficacy construct was criticized and overcome for neglecting the changing dynamics of digital systems, which extender the digital enviroment over computers. The items of these scales tend to become outdated rapidly <span class="citation" data-cites="weigel_technical_2014">(<a href="#ref-weigel_technical_2014" role="doc-biblioref"><strong>weigel_technical_2014?</strong></a>)</span>.</p>
-<p>While the increasing importance of interconnection with technologies, the focus turn on Internet Self-efficacy, which was defined as the general one’s judgment of confidence to accomplish different tasks related to online use of technologies. Internet Self-efficacy it does not refer to operative simple tasks, such as writing HTML, using a browser, or transferring files, for example. Instead, it assesses a person’s judgment of their ability to apply Internet skills in a more encompassing mode, such as finding information, social communication, or troubleshooting search problems. Internet self-efficacy may be distinguished from computer self-efficacy as the belief that one can successfully perform a distinct set of behaviors required to establish, maintain, and utilize effectively the Internet over and above basic personal computer skills <span class="citation" data-cites="eastin_internet_2000a">(<a href="#ref-eastin_internet_2000a" role="doc-biblioref"><strong>eastin_internet_2000a?</strong></a>)</span></p>
-<p>Although this new construct partially addressed the obsolescence of technologies, the set of digital activities was reduced to a particular domain, as is the case with the Internet and online interactions. An ICT Self-efficacy scale was proposed to comprise Computer and internet tasks on the same construct. ICT Self-efficacy construct considers digital information processing and content creation <span class="citation" data-cites="aesaert_exploring_2014 hatlevik_students_2018a">(<a href="#ref-aesaert_exploring_2014" role="doc-biblioref"><strong>aesaert_exploring_2014?</strong></a>; <a href="#ref-hatlevik_students_2018a" role="doc-biblioref"><strong>hatlevik_students_2018a?</strong></a>)</span>. Also, more advanced skills, such as programming or web development <span class="citation" data-cites="rohatgi_role_2016">(<a href="#ref-rohatgi_role_2016" role="doc-biblioref"><strong>rohatgi_role_2016?</strong></a>)</span>, started to be considered. Although to its new measures, ICT Self-efficacy usually presents unidimensional concepts or focuses on specific application domains (using ICT for work, school, or leisure) rather than competencies applicably for general life domains <span class="citation" data-cites="ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref">Ulfert-Blank &amp; Schmidt, 2022</a>)</span>.</p>
-<p>The current measures presented have common limitations in various ways. First, they often do not consider more recent frameworks of digital competences, such as the DigComp, regarding their level of generality, the competences included, and their multidimensionality. The DigComp describes digital competences in terms of general actions (i.e., tasks, functions), such as protecting devices or managing data, that can be applied to a heterogeneous group of individuals and are independent of specific digital systems. Most DSE scales are still system (e.g., specific computer software) or technology-specific (e.g., data storage such as floppy disc) and may thus become outdated. Second, critical competence areas, such as safety and problem-solving are often disregarded. Most of the scales focus on the informational, communicative, and creative aspects of the technologies without exhaustively capturing their dimensions of mastery. Third, the term DSE has been used interchangeably for measuring general competence beliefs (i.e., including items assessing self-concept, another competence belief) or actual proficiency. As a result, this has led to inconsistencies in the representation of the DSE construct in the literature. This is in spite of self-efficacy literature offering clear definitions of how measures should be constructed and its well-defined differentiation from related constructs <span class="citation" data-cites="ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref">Ulfert-Blank &amp; Schmidt, 2022</a>)</span>.</p>
-<p><span class="citation" data-cites="ulfert-blank_assessing_2022">Ulfert-Blank &amp; Schmidt (<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref">2022</a>)</span> suggests to work with a unified construct denominated Digital Self-efficacy (hereinafter DSE) to reach a high-level research on this issue. Considering the gaps and inconsistencies in previous measurements, <span class="citation" data-cites="ulfert-blank_assessing_2022">Ulfert-Blank &amp; Schmidt (<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref">2022</a>)</span> points out that DSE construct have to (1) be theoretically-grounded multi-dimensional measures of DSE, encompassing diverse digital competence areas, (2) cover different functions and tasks of digital systems, (3) be independent of a specific digital system (e.g., Word), (4) be also labor or economical, not only educational-oriented.</p>
+<p>The first antecedents of self-efficacy applied to digital issues resorted to ‘Computer self-efficacy’. <span class="citation" data-cites="compeau_computer_1995">(<a href="#ref-compeau_computer_1995" role="doc-biblioref"><strong>compeau_computer_1995?</strong></a>)</span> proposed this early instrument focused on general computer domains and specific software application tasks. Defined as individual’s perceptions of his or her ability to use computers in the accomplishment of a task (ie., using a software package for data analysis, writing a mailmerge letter using a word processor), rather than reflecting simple component skills (ie., formatting diskettes, booting up a computer, using a specific software feature such as “bolding text” or “changing margin”). The computer self-efficacy construct was criticized and overcome for neglecting the changing dynamics of digital systems, which extender the digital enviroment over computers. The items of these scales tend to become outdated rapidly <span class="citation" data-cites="durndellComputerSelfEfficacy2002 weigel_technical_2014">(<a href="#ref-durndellComputerSelfEfficacy2002" role="doc-biblioref"><strong>durndellComputerSelfEfficacy2002?</strong></a>; <a href="#ref-weigel_technical_2014" role="doc-biblioref"><strong>weigel_technical_2014?</strong></a>)</span>.</p>
+<p>While the increasing importance of interconnection with technologies, the focus turn on Internet Self-efficacy, which was defined as the general one’s judgment of confidence to accomplish different tasks related to online use of technologies. Internet Self-efficacy it does not refer to operative simple tasks, such as writing HTML, using a browser, or transferring files, for example. Instead, it assesses a person’s judgment of their ability to apply Internet skills in a more encompassing mode, such as finding information, social communication, or troubleshooting search problems. Internet self-efficacy may be distinguished from computer self-efficacy as the belief that one can successfully perform a distinct set of behaviors required to establish, maintain, and utilize effectively the Internet over and above basic personal computer skills <span class="citation" data-cites="eastin_internet_2000a hsuInternetSelfefficacyElectronic2004">(<a href="#ref-eastin_internet_2000a" role="doc-biblioref"><strong>eastin_internet_2000a?</strong></a>; <a href="#ref-hsuInternetSelfefficacyElectronic2004" role="doc-biblioref"><strong>hsuInternetSelfefficacyElectronic2004?</strong></a>)</span></p>
+<p>Although this new construct partially addressed the obsolescence of technologies, the set of digital activities was reduced to a particular domain, as is the case with the Internet and online interactions. An ICT Self-efficacy scale was proposed to comprise Computer and internet tasks on the same construct. ICT Self-efficacy construct considers digital information processing and content creation <span class="citation" data-cites="aesaert_exploring_2014 hatlevik_students_2018a">(<a href="#ref-aesaert_exploring_2014" role="doc-biblioref"><strong>aesaert_exploring_2014?</strong></a>; <a href="#ref-hatlevik_students_2018a" role="doc-biblioref"><strong>hatlevik_students_2018a?</strong></a>)</span>. Also, more advanced skills, such as programming or web development <span class="citation" data-cites="rohatgi_role_2016">(<a href="#ref-rohatgi_role_2016" role="doc-biblioref"><strong>rohatgi_role_2016?</strong></a>)</span>, started to be considered. Although to its new measures, ICT Self-efficacy usually presents unidimensional concepts or focuses on specific application domains (using ICT for work, school, or leisure) rather than competencies applicably for general life domains <span class="citation" data-cites="ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref"><strong>ulfert-blank_assessing_2022?</strong></a>)</span>.</p>
+<p>The current measures presented have common limitations in various ways. First, they often do not consider more recent frameworks of digital competences, such as the DigComp, regarding their level of generality, the competences included, and their multidimensionality. The DigComp describes digital competences in terms of general actions (i.e., tasks, functions), such as protecting devices or managing data, that can be applied to a heterogeneous group of individuals and are independent of specific digital systems. Most DSE scales are still system (e.g., specific computer software) or technology-specific (e.g., data storage such as floppy disc) and may thus become outdated. Second, critical competence areas, such as safety and problem-solving are often disregarded. Most of the scales focus on the informational, communicative, and creative aspects of the technologies without exhaustively capturing their dimensions of mastery. Third, the term DSE has been used interchangeably for measuring general competence beliefs (i.e., including items assessing self-concept, another competence belief) or actual proficiency. As a result, this has led to inconsistencies in the representation of the DSE construct in the literature. This is in spite of self-efficacy literature offering clear definitions of how measures should be constructed and its well-defined differentiation from related constructs <span class="citation" data-cites="ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref"><strong>ulfert-blank_assessing_2022?</strong></a>)</span>.</p>
+<p><span class="citation" data-cites="ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref"><strong>ulfert-blank_assessing_2022?</strong></a>)</span> suggests to work with a unified construct denominated Digital Self-efficacy (hereinafter DSE) to reach a high-level research on this issue. Considering the gaps and inconsistencies in previous measurements, <span class="citation" data-cites="ulfert-blank_assessing_2022">(<a href="#ref-ulfert-blank_assessing_2022" role="doc-biblioref"><strong>ulfert-blank_assessing_2022?</strong></a>)</span> points out that DSE construct have to (1) be theoretically-grounded multi-dimensional measures of DSE, encompassing diverse digital competence areas, (2) cover different functions and tasks of digital systems, (3) be independent of a specific digital system (e.g., Word), (4) be also labor or economical, not only educational-oriented.</p>
 </section>
 <section id="measuring-digital-self-efficacy" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Measuring Digital Self-efficacy</h1>
 <p>Generally, Self-efficacy has two ways to be studied: As perceived capabilities for task achievement and as a self-regulatory attitude. Task self-efficacy involves the beliefs that one can or cannot perform a single instance of a circumscribed behavior at different levels of performance. Self-regulatory self-efficacy is the confidence in how one can (or could) achieve tasks in the context of potential barriers. Studies focusing on capabilities usually emphasize the magnitude of the task, i.e., its degree of difficulty or complexity, and the linear achievement of the masterization process. By contrast, studies focused on attitudinal aspects give greater importance to persistance or resistance in the face of adversities presented in the enviroment involved in an activity <span class="citation" data-cites="marlatt_selfefficacy_1995 schwarzer_socialcognitive_2000 williams_confounded_2016">(<a href="#ref-marlatt_selfefficacy_1995" role="doc-biblioref"><strong>marlatt_selfefficacy_1995?</strong></a>; <a href="#ref-schwarzer_socialcognitive_2000" role="doc-biblioref"><strong>schwarzer_socialcognitive_2000?</strong></a>; <a href="#ref-williams_confounded_2016" role="doc-biblioref"><strong>williams_confounded_2016?</strong></a>)</span>.</p>
-<p>Digital self-efficacy measurements are generally based on the linear achievement of tasks, more than the development of a strong confident self-attitude with technologies. Although some studies define DSE as a unidimensional construct, measuring individuals’ task achievement in using digital technologies without distinguishing between types of tools and/or levels of complexity <span class="citation" data-cites="hatlevik_digital_2015 rohatgiRoleICTSelfefficacy2016">(<a href="#ref-hatlevik_digital_2015" role="doc-biblioref">Hatlevik et al., 2015</a>; <a href="#ref-rohatgiRoleICTSelfefficacy2016" role="doc-biblioref">Rohatgi et al., 2016</a>)</span>, another range of studies adopt a bidimensional approach, which categorise as ‘General or basic DSE’ a first level of achievement considering widespread skills around handling information (browsing the web, evaluating the accuracy of information on the internet, installing programmes, communicating or collaborating through technologies (uploading content to social media, creating online profiles) and creating digital content (designing images, videos and text). A second level of achievement, jerarquically above the previous one, considers high technical expertise on computational tasks such as using programming languages, application development, or website management. Generally, is labelled as ‘Specialized or advanced DSE’ <span class="citation" data-cites="pashaCrossNationalVariationsSelfEfficacy2024 gebhardtGenderDifferencesComputer2019">(<a href="#ref-gebhardtGenderDifferencesComputer2019" role="doc-biblioref">Gebhardt et al., 2019</a>; <a href="#ref-pashaCrossNationalVariationsSelfEfficacy2024" role="doc-biblioref">Pasha, 2024</a>)</span>.</p>
-<p>Both the unidimensional and the bidimensional approaches not only influence measurement instruments but also lead to different research findings: unidimensional models could underestimate the predictive power of DSE for complex digital enviroments, while bidimensional models offer greater explanatory precision but can introduce challenges such as construct overlap or reduced generalizability across contexts, limiting findings across educational systems and cultural contexts <span class="citation" data-cites="siddiqThereGenderGap2019 scherer_gender_2023 camposDigitalGenderGaps2024">(<a href="#ref-camposDigitalGenderGaps2024" role="doc-biblioref">Campos &amp; Scherer, 2024</a>; <a href="#ref-scherer_gender_2023" role="doc-biblioref">Scherer et al., 2023</a>; <a href="#ref-siddiqThereGenderGap2019" role="doc-biblioref">Siddiq &amp; Scherer, 2019</a>)</span>. Thus, the choice between unidimensional and bidimensional models of DSE is not merely theoretical, as it has significant implications for the validity, reliability, and utility of research on digital competence development.</p>
-<p>However, although evidence shows that self-efficacy in technological area improvement does not follow a positive linear direction with performance, it is noteworthy that studies in the area of DSE focus closely on task achievement rather than on developing attitudes for dealing with situated difficult situations in digital learning processes <span class="citation" data-cites="bandura_selfefficacy_1995 fabia_students_2024 mekheimer_technological_2025">(<a href="#ref-fabia_students_2024" role="doc-biblioref">Fabia, 2024</a>; <a href="#ref-mekheimer_technological_2025" role="doc-biblioref">Mekheimer, 2025</a>; <a href="#ref-bandura_selfefficacy_1995" role="doc-biblioref"><strong>bandura_selfefficacy_1995?</strong></a>)</span>.</p>
+<p>Digital self-efficacy measurements are generally based on the linear achievement of tasks, more than the development of a strong confident self-attitude with technologies. Although some studies define DSE as a unidimensional construct, measuring individuals’ task achievement in using digital technologies without distinguishing between types of tools and/or levels of complexity <span class="citation" data-cites="hatlevik_digital_2015 rohatgiRoleICTSelfefficacy2016">(<a href="#ref-hatlevik_digital_2015" role="doc-biblioref"><strong>hatlevik_digital_2015?</strong></a>; <a href="#ref-rohatgiRoleICTSelfefficacy2016" role="doc-biblioref"><strong>rohatgiRoleICTSelfefficacy2016?</strong></a>)</span>, another range of studies adopt a bidimensional approach, which categorise as ‘general or basic DSE’ a first level of achievement considering widespread skills around handling information (browsing the web, evaluating the accuracy of information on the internet, installing programmes), communicating or collaborating through technologies (uploading content to social media, creating online profiles) and creating digital content (designing images, videos and text). A second level of achievement, jerarquically above the previous one, considers high technical expertise on computational tasks such as using programming languages, application development, or website management. Generally, is labelled as ‘specialized or advanced DSE’ <span class="citation" data-cites="pashaCrossNationalVariationsSelfEfficacy2024 gebhardtGenderDifferencesComputer2019">(<a href="#ref-pashaCrossNationalVariationsSelfEfficacy2024" role="doc-biblioref"><strong>pashaCrossNationalVariationsSelfEfficacy2024?</strong></a>; <a href="#ref-gebhardtGenderDifferencesComputer2019" role="doc-biblioref"><strong>gebhardtGenderDifferencesComputer2019?</strong></a>)</span>.</p>
+<p>Both the unidimensional and the bidimensional approaches not only influence measurement instruments but also lead to different research findings: unidimensional models could underestimate the predictive power of DSE for complex digital enviroments, while bidimensional models offer greater explanatory precision but can introduce challenges such as construct overlap or reduced generalizability across contexts, limiting findings across educational systems and cultural contexts <span class="citation" data-cites="aesaertAccuracyBiasICT2017 siddiqThereGenderGap2019 scherer_gender_2023 camposDigitalGenderGaps2024">(<a href="#ref-aesaertAccuracyBiasICT2017" role="doc-biblioref"><strong>aesaertAccuracyBiasICT2017?</strong></a>; <a href="#ref-siddiqThereGenderGap2019" role="doc-biblioref"><strong>siddiqThereGenderGap2019?</strong></a>; <a href="#ref-scherer_gender_2023" role="doc-biblioref"><strong>scherer_gender_2023?</strong></a>; <a href="#ref-camposDigitalGenderGaps2024" role="doc-biblioref"><strong>camposDigitalGenderGaps2024?</strong></a>)</span>. Thus, the choice between unidimensional and bidimensional models of DSE is not merely theoretical, as it has significant implications for the validity, reliability, and utility of research on digital competence development.</p>
+<p>However, although evidence shows that self-efficacy in technological area improvement does not follow a positive linear direction with performance, it is noteworthy that studies in the area of DSE focus closely on task achievement rather than on developing attitudes for dealing with situated difficult situations in digital learning processes <span class="citation" data-cites="bandura_selfefficacy_1995 fabia_students_2024 mekheimer_technological_2025">(<a href="#ref-bandura_selfefficacy_1995" role="doc-biblioref"><strong>bandura_selfefficacy_1995?</strong></a>; <a href="#ref-fabia_students_2024" role="doc-biblioref"><strong>fabia_students_2024?</strong></a>; <a href="#ref-mekheimer_technological_2025" role="doc-biblioref"><strong>mekheimer_technological_2025?</strong></a>)</span>.</p>
 </section>
 <section id="pisa-and-icils-different-approachs" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> PISA and ICILS different approachs</h1>
+<p>Primer párrafo. El sentido de los ILSA. Existen los ILSA, estos tienden a medir constructos similares en muchos países con muchas validaciones metodológicas. Estos estudios han dado hincapié en la autoeficacia digital.</p>
+<p>Segundo párrafo. Hay dos estudios principales para ver temas digitales que son PISA e ICILS. Decir quienes lo organizan, los objetivos de cada uno (uno mas lifelong learning, ICILS mas técnico-computacional). OCDE vs IEA. Ambos miden autoeficacia.</p>
+<p>Tercer párrafo. PISA tiene un enfoque unidimensional de autoeficaica, ICILS uno bidimensional. Ejemplificar los ítems. PISA tiene ítems de las 5 dimensiones del DIGCOMP, ICILS solo de 3.</p>
+<p>Cuarto párrafo. PISA muestra mayor contextualización en los ítems, define obstáculos en algunos, acentuando más el self-regulatory self-efficacy, ICILS decanta en el aspecto operativo de task achievement de la autoeficacia.</p>
+<p>Quito párrafo. A pesar de estas de estas diferencias entre los ítems, se nota que el tipo de tareas que ambos consideran son similiar, incluyendo tanto tareas generales, como de programación o desarrollo web. En ese sentido, pareciera que es posible hipotetizar que tanto PISA como ICILS tienen un modelo bi-dimensional, a pesar que la primera no lo declare.</p>
+<p>Considering the previous statements, The first hypothesis is of this study is <span class="math display">\[H_{1}\]</span>: <em>It is possible to identify two latent dimensions of digital self-efficacy (general and specialized) based on related batteries and indicators included in large-scale assessments such as PISA and ICILS (bi-dimensional hypothesis).</em></p>
+<p>Sexto párrafo. Esto es un problema porque afecta la comparabilidad de los estudios pos baterías, y además, para confirmar que estos sean validos por país como aspiran, se requiere validar la estabilidad de la escala.Y cómo la evidencia muestra que hay diferencias de género por tipo de dimensión (antes mencionadas), también resulta necesario probar la estabilidad por género.</p>
+<p>By the way, the second and third hypoteses are:</p>
+<p><span class="math display">\[H_{2}\]</span>: <em>The bi-dimensional measurement model of digital self-efficacy is equivalent across countries</em></p>
+<p><span class="math display">\[H_{3}\]</span>: <em>The bi-dimensional measurement model of digital self-efficacy is equivalent between girls and boys</em></p>
 </section>
-<section id="section" class="level1 unnumbered" data-number="5">
+<section id="data" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Data</h1>
+<p>This study draws on student data from two sources: the 2023 cycle of the International Computer and Information Literacy Study (ICILS) and the 2022 cycle of the Programme for International Student Assessment (PISA).</p>
+<p>The ICILS data, collected by the International Association for the Evaluation of Educational Achievement (IEA), addresses student skills in computer and information literacy and computational thinking. The study employed a two-stage cluster sampling approach. In the first stage, schools with students in the target grade were randomly selected using a probability proportional to size (PPS) method. In the second stage, one intact class was randomly selected within each sampled school, and all students in that class were invited to participate. The final ICILS 2023 sample consists of data from 132,889 grade 8 students from 5,299 schools across 34 countries and one benchmarking participant <span class="citation" data-cites="julianfraillon2024">(<a href="#ref-julianfraillon2024" role="doc-biblioref">Julian Fraillon, 2024</a>)</span>.</p>
+<p>The second data source is the 2022 cycle of the Programme for International Student Assessment (PISA), conducted by the OECD. This study specifically draws on data from the optional ICT Familiarity Questionnaire <span class="citation" data-cites="pisa2022023">(<a href="#ref-pisa2022023" role="doc-biblioref"><em>PISA 2022 ICT Framework</em>, 2023</a>)</span> , which was designed to document students’ access to, use of, and self-efficacy with information and communication technologies <span class="citation" data-cites="pisa2022024">(<a href="#ref-pisa2022024" role="doc-biblioref"><em>PISA 2022 Technical Report</em>, 2024</a>)</span> . The PISA target population consists of 15-year-old students attending educational institutions in grade 7 or higher. PISA also employs a two-stage stratified sampling design. In the first stage, schools were systematically selected with probability proportional to their size (PPS) from national sampling frames. In the second stage, a target number of 15-year-old students (typically 42) were randomly selected with equal probability from within each sampled school. The subset of data used in this research includes the 393,607 students clustered in 52 (mainly OECD) countries who completed the ICT questionnaire.</p>
+</section>
+<section id="variables" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Variables</h1>
+<p>Both datasets include a module on digital self-efficacy. In PISA, its main purpose is to measure ICT self-perceived skills, corresponding to the attitudinal dimension of ICT literacy. In contrast, ICILS does not provide a specific conceptual framework for digital self-efficacy, as the entire study is centered on ICT skills.</p>
+<p>In the ICILS database, the self-efficacy items are introduced with the phrase <strong>“How well can you do:”</strong>. The items that follow are conceptually distinguished into two dimensions: general and specialized digital skills. Examples of general tasks include “Search for relevant information for a school project on the internet,” while specialized skills include tasks like “Use a text-based programming language (e.g., Python, JavaScript…).” The response categories are: 1 = Very well; 2 = Moderately well; 3 = I have never done this, but I could work out how to do it; 4 = I do not think I could do this.</p>
+<p>In the PISA data, the items are prefaced with the question <strong>“To what extent are you able to do the following tasks when using &lt;digital resources&gt;?”</strong> (where &lt;digital resources&gt; is a placeholder for a term adapted to the target culture). The subsequent activities are not explicitly ordered and include general tasks like “Search for and find relevant information online,” as well as more complex tasks such as “Create a computer program (e.g., in Scratch, Python, Java)”. A complete comparison of the items from both surveys is presented in <a href="#tbl-comparison" class="quarto-xref">see&nbsp;1</a>, highlighting the concordances and distinctions between the studies. The PISA response categories are: 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this; and an additional option, “I don’t know what this is.”</p>
+<p>For the measurement invariance analysis and the multilevel gender gaps analysis described in the following section, this study also utilizes the three-digit ISO country code and the student’s sex (recoded as 1 = male and 2 = female) from both datasets.</p>
+<div class="cell">
+<div id="tbl-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Comparación de ítems de autoeficacia digital entre ICILS y PISA
+</figcaption>
+<div aria-describedby="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:800px; ">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">ICILS.Code</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">ICILS.Label</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">PISA.Code</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">PISA.Label</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Comparative.code</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Type.of.DSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IS3G24C</td>
+<td style="text-align: left;">Search for relevant information for a school project on the internet</td>
+<td style="text-align: left;">IC183Q01JA</td>
+<td style="text-align: left;">Search for and find relevant information online</td>
+<td style="text-align: left;">search_info</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IS3G24M</td>
+<td style="text-align: left;">Find the original sources of information referred to in an article on the internet</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">source_info</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24J</td>
+<td style="text-align: left;">Judge whether you can trust information you find on the internet</td>
+<td style="text-align: left;">IC183Q02JA</td>
+<td style="text-align: left;">Assess the quality of information you found online</td>
+<td style="text-align: left;">evaluate_info</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IC183Q08JA</td>
+<td style="text-align: left;">Collect and record data (e.g., using data loggers, Google Forms, spreadsheets)</td>
+<td style="text-align: left;">collect_data</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24I</td>
+<td style="text-align: left;">Install a program or app</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">install_app</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IC183Q03JA</td>
+<td style="text-align: left;">Explain to other students how to share digital content online or on a school platform</td>
+<td style="text-align: left;">explain_content</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24G</td>
+<td style="text-align: left;">Upload text, images, or video to an online profile</td>
+<td style="text-align: left;">IC183Q05JA</td>
+<td style="text-align: left;">Share practical information with a group of students</td>
+<td style="text-align: left;">share_content</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IC183Q04JA</td>
+<td style="text-align: left;">Collaborate with other students on a group assignment</td>
+<td style="text-align: left;">pair_collab</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24B</td>
+<td style="text-align: left;">Write or edit text for a school assignment</td>
+<td style="text-align: left;">IC183Q07JA</td>
+<td style="text-align: left;">Write or edit text for a school assignment</td>
+<td style="text-align: left;">write_text</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IS3G24D</td>
+<td style="text-align: left;">Build or edit a webpage</td>
+<td style="text-align: left;">IC183Q10JA</td>
+<td style="text-align: left;">Create, update and maintain a webpage or a blog</td>
+<td style="text-align: left;">develop_webpage</td>
+<td style="text-align: left;">Specialized</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24F</td>
+<td style="text-align: left;">Create a multi-media presentation (with sound, pictures, or video)</td>
+<td style="text-align: left;">IC183Q09JA</td>
+<td style="text-align: left;">Create a multi-media presentation (with sound, pictures, or video)</td>
+<td style="text-align: left;">create_media</td>
+<td style="text-align: left;">Generalized</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IS3G24H</td>
+<td style="text-align: left;">Insert an image into a document or message</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">insert_image</td>
+<td style="text-align: left;">Generalized</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24A</td>
+<td style="text-align: left;">Edit digital photographs or other graphic images</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">edit_image</td>
+<td style="text-align: left;">Generalized</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IS3G24K</td>
+<td style="text-align: left;">Use a text-based programming language (e.g., Python, JavaScript...)</td>
+<td style="text-align: left;">IC183Q14JA</td>
+<td style="text-align: left;">Create a computer program (e.g., in Scratch, Python, Java)</td>
+<td style="text-align: left;">programming</td>
+<td style="text-align: left;">Specialized</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IS3G24L</td>
+<td style="text-align: left;">Use visual coding (e.g., Scratch, Lego Mindstorms) to develop a simple computer program</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">visual_coding</td>
+<td style="text-align: left;">Specialized</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IS3G24E</td>
+<td style="text-align: left;">Change the settings on a device to suit your needs and preferences</td>
+<td style="text-align: left;">IC183Q12JA</td>
+<td style="text-align: left;">Change the settings of a device or App in order to protect my data and privacy</td>
+<td style="text-align: left;">change_settings</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IC183Q15JA</td>
+<td style="text-align: left;">Identify the source of an error in a software after considering a list of potential causes</td>
+<td style="text-align: left;">identify_error</td>
+<td style="text-align: left;">Specialized?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IC183Q13JA</td>
+<td style="text-align: left;">Select the most efficient programme or App that allows me to carry out a specific task</td>
+<td style="text-align: left;">identify_app</td>
+<td style="text-align: left;">Specialized?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">IC183Q16JA</td>
+<td style="text-align: left;">Break down a problem and represent a solution as a series of logical steps, such as an algorithm</td>
+<td style="text-align: left;">logical_solution</td>
+<td style="text-align: left;">Specialized?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="methods" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Methods</h1>
+<ul>
+<li><p>Data curation (center vars?)</p>
+<ul>
+<li><p>dplyr for data cleaning and preparation</p></li>
+<li><p>i think that listwise? (doube check)</p></li>
+<li><p>Variables tagging</p></li>
+</ul></li>
+<li><p>CFA pooled</p></li>
+<li><p>Diagnostic and further modifications if needed (mention which fit indicators we will use).</p></li>
+<li><p>CFA multigroup (with gender and countries) for invariance analysis</p></li>
+<li><p>Descriptive country DSE (specialized and general) scores</p></li>
+<li><p>Descriptive gender gaps in specialized and general DSE dimensions</p></li>
+<li><p>Exploration of country variables to explain the gaps</p></li>
+<li><p>Last step done trough a multilevel model (Countrie and person) with gender - cnt var interaction</p></li>
+</ul>
+</section>
+<section id="section" class="level1 unnumbered" data-number="8">
 
 
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">5 </h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-banduraSelfefficacyUnifyingTheory1977" class="csl-entry" role="listitem">
-Bandura, A. (1977). Self-efficacy: <span>Toward</span> a unifying theory of behavioral change. <em>Psychological Review</em>, <em>84</em>(2), 191–215. <a href="https://doi.org/10.1037/0033-295X.84.2.191">https://doi.org/10.1037/0033-295X.84.2.191</a>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">8 </h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-julianfraillon2024" class="csl-entry" role="listitem">
+Julian Fraillon, E. (2024). <em>An International Perspective on Digital Literacy: Results from ICILS 2023</em>. <a href="https://eric.ed.gov/?id=ED661744">https://eric.ed.gov/?id=ED661744</a>
 </div>
-<div id="ref-banduraSelfefficacyMechanismHuman1982" class="csl-entry" role="listitem">
-Bandura, A. (1982). Self-efficacy mechanism in human agency. <em>American Psychologist</em>, <em>37</em>(2), 122–147. <a href="https://doi.org/10.1037/0003-066X.37.2.122">https://doi.org/10.1037/0003-066X.37.2.122</a>
+<div id="ref-pisa2022023" class="csl-entry" role="listitem">
+<em>PISA 2022 ICT framework</em> (p. 238285). (2023). OECD Publishing.
 </div>
-<div id="ref-caiGenderAttitudesTechnology2017a" class="csl-entry" role="listitem">
-Cai, Z., Fan, X., &amp; Du, J. (2017). Gender and attitudes toward technology use: <span>A</span> meta-analysis. <em>Computers &amp; Education</em>, <em>105</em>, 1–13. <a href="https://doi.org/10.1016/j.compedu.2016.11.003">https://doi.org/10.1016/j.compedu.2016.11.003</a>
-</div>
-<div id="ref-camposDigitalGenderGaps2024" class="csl-entry" role="listitem">
-Campos, D. G., &amp; Scherer, R. (2024). Digital gender gaps in <span>Students</span>’ knowledge, attitudes and skills: <span>An</span> integrative data analysis across 32 <span>Countries</span>. <em>Education and Information Technologies</em>, <em>29</em>(1), 655–693. <a href="https://doi.org/10.1007/s10639-023-12272-9">https://doi.org/10.1007/s10639-023-12272-9</a>
-</div>
-<div id="ref-europeancommissionjointresearchcentre_digcomp_2022" class="csl-entry" role="listitem">
-European Commission Joint Research Centre. (2022). <em><span>DigComp</span> 2.2, <span>The Digital Competence</span> framework for citizens: With new examples of knowledge, skills and attitudes.</em> Publications Office.
-</div>
-<div id="ref-fabia_students_2024" class="csl-entry" role="listitem">
-Fabia, J. N. V. (2024). Students satisfaction, self-efficacy and achievement in an emergency online learning course. <em>Research in Learning Technology</em>, <em>32</em>. <a href="https://doi.org/10.25304/rlt.v32.3179">https://doi.org/10.25304/rlt.v32.3179</a>
-</div>
-<div id="ref-fraillon_preparing_2020" class="csl-entry" role="listitem">
-Fraillon, J., Ainley, J., Schulz, W., Friedman, T., &amp; Duckworth, D. (2020). <em>Preparing for <span>Life</span> in a <span>Digital World</span>: <span>IEA International Computer</span> and <span>Information Literacy Study</span> 2018 <span>International Report</span></em>. Springer Nature. <a href="https://doi.org/10.1007/978-3-030-38781-5">https://doi.org/10.1007/978-3-030-38781-5</a>
-</div>
-<div id="ref-gebhardtGenderDifferencesComputer2019" class="csl-entry" role="listitem">
-Gebhardt, E., Thomson, S., Ainley, J., &amp; Hillman, K. (2019). <em>Gender <span>Differences</span> in <span>Computer</span> and <span>Information Literacy</span>: <span class="nocase">An In-depth Analysis</span> of <span>Data</span> from <span>ICILS</span></em> (Vol. 8). Springer International Publishing. <a href="https://doi.org/10.1007/978-3-030-26203-7">https://doi.org/10.1007/978-3-030-26203-7</a>
-</div>
-<div id="ref-hargittaiDifferencesActualPerceived2006" class="csl-entry" role="listitem">
-Hargittai, E., &amp; Shafer, S. (2006). Differences in <span>Actual</span> and <span>Perceived Online Skills</span>: <span>The Role</span> of <span>Gender</span>. <em>Social Science Quarterly</em>, <em>87</em>(2), 432–448. <a href="https://doi.org/10.1111/j.1540-6237.2006.00389.x">https://doi.org/10.1111/j.1540-6237.2006.00389.x</a>
-</div>
-<div id="ref-hatlevik_digital_2015" class="csl-entry" role="listitem">
-Hatlevik, O. E., Gumundsdóttir, G. B., &amp; Loi, M. (2015). Digital diversity among upper secondary students: <span>A</span> multilevel analysis of the relationship between cultural capital, self-efficacy, strategic use of information and digital competence. <em>Computers &amp; Education</em>, <em>81</em>, 345–353. <a href="https://doi.org/10.1016/j.compedu.2014.10.019">https://doi.org/10.1016/j.compedu.2014.10.019</a>
-</div>
-<div id="ref-hatlevikStudentsICTSelfefficacy2018a" class="csl-entry" role="listitem">
-Hatlevik, O. E., Throndsen, I., Loi, M., &amp; Gudmundsdottir, G. B. (2018). Students’ <span>ICT</span> self-efficacy and computer and information literacy: <span>Determinants</span> and relationships. <em>Computers &amp; Education</em>, <em>118</em>, 107–119. <a href="https://doi.org/10.1016/j.compedu.2017.11.011">https://doi.org/10.1016/j.compedu.2017.11.011</a>
-</div>
-<div id="ref-leitgob_measurement_2023" class="csl-entry" role="listitem">
-Leitgöb, H., Seddig, D., Asparouhov, T., Behr, D., Davidov, E., De Roover, K., Jak, S., Meitinger, K., Menold, N., Muthén, B., Rudnev, M., Schmidt, P., &amp; van de Schoot, R. (2023). Measurement invariance in the social sciences: <span>Historical</span> development, methodological challenges, state of the art, and future perspectives. <em>Social Science Research</em>, <em>110</em>, 102805. <a href="https://doi.org/10.1016/j.ssresearch.2022.102805">https://doi.org/10.1016/j.ssresearch.2022.102805</a>
-</div>
-<div id="ref-mekheimer_technological_2025" class="csl-entry" role="listitem">
-Mekheimer, M. (2025). Technological self-efficacy, motivation, and contextual factors in advanced <span>EFL</span> e-learning: A mixed-methods study of strategy use and satisfaction. <em>Humanities and Social Sciences Communications</em>, <em>12</em>(1), 677. <a href="https://doi.org/10.1057/s41599-025-04947-0">https://doi.org/10.1057/s41599-025-04947-0</a>
-</div>
-<div id="ref-oecdPISA2022ICT2023" class="csl-entry" role="listitem">
-OECD. (2023). <span>PISA</span> 2022 <span>ICT Framework</span>. In <em><span>PISA</span> 2022 <span>Assessment</span> and <span>Analytical Framework</span></em> (pp. 238–285). OECD Publishing.
-</div>
-<div id="ref-pashaCrossNationalVariationsSelfEfficacy2024" class="csl-entry" role="listitem">
-Pasha, M. H. (2024). <em>Cross-<span>National Variations</span> in <span>Self-Efficacy</span> and <span>Attitudes Towards ICT Use</span> in <span>Teaching</span>: <span>An Integrative Data Analysis Across ICILS Countries</span></em> [Master’s thesis].
-</div>
-<div id="ref-rohatgiRoleICTSelfefficacy2016" class="csl-entry" role="listitem">
-Rohatgi, A., Scherer, R., &amp; Hatlevik, O. E. (2016). The role of <span>ICT</span> self-efficacy for students’ <span>ICT</span> use and their achievement in a computer and information literacy test. <em>Computers &amp; Education</em>, <em>102</em>, 103–116. <a href="https://doi.org/10.1016/j.compedu.2016.08.001">https://doi.org/10.1016/j.compedu.2016.08.001</a>
-</div>
-<div id="ref-schererRelationStudentsSocioeconomic2019" class="csl-entry" role="listitem">
-Scherer, R., &amp; Siddiq, F. (2019). The relation between students’ socioeconomic status and <span>ICT</span> literacy: <span>Findings</span> from a meta-analysis. <em>Computers &amp; Education</em>, <em>138</em>, 13–32. <a href="https://doi.org/10.1016/j.compedu.2019.04.011">https://doi.org/10.1016/j.compedu.2019.04.011</a>
-</div>
-<div id="ref-scherer_gender_2023" class="csl-entry" role="listitem">
-Scherer, R., Siddiq, F., Howard, S. K., &amp; Tondeur, J. (2023). Gender divides in teachers’ readiness for online teaching and learning in higher education: <span>Do</span> women and men consider themselves equally prepared? <em>Computers &amp; Education</em>, <em>199</em>, 104774. <a href="https://doi.org/10.1016/j.compedu.2023.104774">https://doi.org/10.1016/j.compedu.2023.104774</a>
-</div>
-<div id="ref-siddiqThereGenderGap2019" class="csl-entry" role="listitem">
-Siddiq, F., &amp; Scherer, R. (2019). Is there a gender gap? <span>A</span> meta-analysis of the gender differences in students’ <span>ICT</span> literacy. <em>Educational Research Review</em>, <em>27</em>, 205–217. <a href="https://doi.org/10.1016/j.edurev.2019.03.007">https://doi.org/10.1016/j.edurev.2019.03.007</a>
-</div>
-<div id="ref-ulfert-blank_assessing_2022" class="csl-entry" role="listitem">
-Ulfert-Blank, A.-S., &amp; Schmidt, I. (2022). Assessing digital self-efficacy: <span>Review</span> and scale development. <em>Computers &amp; Education</em>, <em>191</em>, 104626. <a href="https://doi.org/10.1016/j.compedu.2022.104626">https://doi.org/10.1016/j.compedu.2022.104626</a>
+<div id="ref-pisa2022024" class="csl-entry" role="listitem">
+<em>PISA 2022 technical report</em>. (2024). OECD Publishing.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
@@ -194,236 +407,242 @@ Ulfert-Blank, A.-S., &amp; Schmidt, I. (2022). Assessing digital self-efficacy: 
 </section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -431,185 +650,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

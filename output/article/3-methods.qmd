@@ -1,3 +1,61 @@
 ---
 editor: visual
+bibliography: references.bib
 ---
+
+# Data
+
+This study draws on student data from two sources: the 2023 cycle of the International Computer and Information Literacy Study (ICILS) and the 2022 cycle of the Programme for International Student Assessment (PISA).
+
+The ICILS data, collected by the International Association for the Evaluation of Educational Achievement (IEA), addresses student skills in computer and information literacy and computational thinking. The study employed a two-stage cluster sampling approach. In the first stage, schools with students in the target grade were randomly selected using a probability proportional to size (PPS) method. In the second stage, one intact class was randomly selected within each sampled school, and all students in that class were invited to participate. The final ICILS 2023 sample consists of data from 132,889 grade 8 students from 5,299 schools across 34 countries and one benchmarking participant [@julianfraillon2024].
+
+The second data source is the 2022 cycle of the Programme for International Student Assessment (PISA), conducted by the OECD. This study specifically draws on data from the optional ICT Familiarity Questionnaire [@pisa2022023] , which was designed to document students' access to, use of, and self-efficacy with information and communication technologies [@pisa2022024] . The PISA target population consists of 15-year-old students attending educational institutions in grade 7 or higher. PISA also employs a two-stage stratified sampling design. In the first stage, schools were systematically selected with probability proportional to their size (PPS) from national sampling frames. In the second stage, a target number of 15-year-old students (typically 42) were randomly selected with equal probability from within each sampled school. The subset of data used in this research includes the 393,607 students clustered in 52 (mainly OECD) countries who completed the ICT questionnaire.
+
+# Variables
+
+Both datasets include a module on digital self-efficacy. In PISA, its main purpose is to measure ICT self-perceived skills, corresponding to the attitudinal dimension of ICT literacy. In contrast, ICILS does not provide a specific conceptual framework for digital self-efficacy, as the entire study is centered on ICT skills.
+
+In the ICILS database, the self-efficacy items are introduced with the phrase **"How well can you do:"**. The items that follow are conceptually distinguished into two dimensions: general and specialized digital skills. Examples of general tasks include "Search for relevant information for a school project on the internet," while specialized skills include tasks like "Use a text-based programming language (e.g., Python, JavaScript...)." The response categories are: 1 = Very well; 2 = Moderately well; 3 = I have never done this, but I could work out how to do it; 4 = I do not think I could do this.
+
+In the PISA data, the items are prefaced with the question **"To what extent are you able to do the following tasks when using \<digital resources\>?"** (where \<digital resources\> is a placeholder for a term adapted to the target culture). The subsequent activities are not explicitly ordered and include general tasks like "Search for and find relevant information online," as well as more complex tasks such as "Create a computer program (e.g., in Scratch, Python, Java)". A complete comparison of the items from both surveys is presented in [see @tbl-comparison], highlighting the concordances and distinctions between the studies. The PISA response categories are: 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this; and an additional option, "I don't know what this is."
+
+For the measurement invariance analysis and the multilevel gender gaps analysis described in the following section, this study also utilizes the three-digit ISO country code and the student's sex (recoded as 1 = male and 2 = female) from both datasets.
+
+```{r}
+#| label: tbl-comparison
+#| tbl-cap: "Comparación de ítems de autoeficacia digital entre ICILS y PISA"
+
+library(kableExtra)
+library(openxlsx)
+
+table <- openxlsx::read.xlsx(here::here("input", "documents", "batteries_icils_pisa_selfeff_comparison.xlsx"), fillMergedCells = TRUE)
+table[is.na(table)] <- ""
+
+table |>
+  knitr::kable() |>
+scroll_box(height="800px")
+```
+
+# Methods
+
+-   Data curation (center vars?)
+
+    -   dplyr for data cleaning and preparation
+
+    -   i think that listwise? (doube check)
+
+    -   Variables tagging
+
+-   CFA pooled
+
+-   Diagnostic and further modifications if needed (mention which fit indicators we will use).
+
+-   CFA multigroup (with gender and countries) for invariance analysis
+
+-   Descriptive country DSE (specialized and general) scores
+
+-   Descriptive gender gaps in specialized and general DSE dimensions
+
+-   Exploration of country variables to explain the gaps
+
+-   Last step done trough a multilevel model (Countrie and person) with gender - cnt var interaction
