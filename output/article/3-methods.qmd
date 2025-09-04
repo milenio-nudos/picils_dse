@@ -17,13 +17,15 @@ Both datasets include a module on digital self-efficacy. In PISA, its main purpo
 
 In the ICILS database, the self-efficacy items are introduced with the phrase **"How well can you do:"**. The items that follow are conceptually distinguished into two dimensions: general and specialized digital skills. Examples of general tasks include "Search for relevant information for a school project on the internet," while specialized skills include tasks like "Use a text-based programming language (e.g., Python, JavaScript...)." The response categories are: 1 = Very well; 2 = Moderately well; 3 = I have never done this, but I could work out how to do it; 4 = I do not think I could do this.
 
-In the PISA data, the items are prefaced with the question **"To what extent are you able to do the following tasks when using \<digital resources\>?"** (where \<digital resources\> is a placeholder for a term adapted to the target culture). The subsequent activities are not explicitly ordered and include general tasks like "Search for and find relevant information online," as well as more complex tasks such as "Create a computer program (e.g., in Scratch, Python, Java)". A complete comparison of the items from both surveys is presented in [see @tbl-comparison], highlighting the concordances and distinctions between the studies. The PISA response categories are: 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this; and an additional option, "I don't know what this is."
+In the PISA data, the items are prefaced with the question **"To what extent are you able to do the following tasks when using \<digital resources\>?"** (where \<digital resources\> is a placeholder for a term adapted to the target culture). The subsequent activities are not explicitly ordered and include general tasks like "Search for and find relevant information online," as well as more complex tasks such as "Create a computer program (e.g., in Scratch, Python, Java)". A complete comparison of the items from both surveys is presented in [Table @tbl-comparison], highlighting the concordances and distinctions between the studies. The PISA response categories are: 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this; and an additional option, "I don't know what this is."
 
 For the measurement invariance analysis and the multilevel gender gaps analysis described in the following section, this study also utilizes the three-digit ISO country code and the student's sex (recoded as 1 = male and 2 = female) from both datasets.
 
+**¿Country level variables explanation? (GII, HDI, IDI, etc.)**
+
 ```{r}
 #| label: tbl-comparison
-#| tbl-cap: "Comparación de ítems de autoeficacia digital entre ICILS y PISA"
+#| tbl-cap: "DSE item comparison between PISA and ICILS."
 
 library(kableExtra)
 library(openxlsx)
@@ -38,24 +40,10 @@ scroll_box(height="800px")
 
 # Methods
 
--   Data curation (center vars?)
+The main analyses were performed within a Confirmatory Factor Analysis (CFA) framework to test the hypothesized two-factor structure of digital self-efficacy [@brown2015]. All data management and analyses were conducted using the R statistical environment. Data preparation was handled with the dplyr package, the CFA models were estimated with the lavaan package [@rosseel2012], and the final multilevel models were estimated with the lme4 package [@bates2015]. Given the ordinal nature of the Likert-scale items, they were treated as ordered categorical variables in the CFA models. This specification handles missing data through pairwise deletion by default. The ICILS variables were inverted to match the PISA order of categories (1=low DSE; 4= high DSE).
 
-    -   dplyr for data cleaning and preparation
+To evaluate the goodness-of-fit of the pooled CFA model, we used the chi-square (χ²) test. However, due to the test's sensitivity to large sample sizes, model evaluation primarily relied on a complementary set of fit indices: the Comparative Fit Index (CFI), the Tucker-Lewis Index (TLI), and the Root Mean Square Error of Approximation (RMSEA). Following common guidelines, CFI and TLI values of 0.95 or higher are considered indicative of excellent fit, while values between 0.90 and 0.95 are considered acceptable. For RMSEA, values of 0.06 or less indicate a close fit, while values up to 0.08 are considered adequate [@brown2015; @wang2012].
 
-    -   i think that listwise? (doube check)
+To test the comparability of this measurement model across countries and genders, a series of Multi-Group Confirmatory Factor Analyses (MGCFA) was conducted to assess Measurement Equivalence or Invariance (ME/I) [e.g., @beaujean2014; @davidov2014]. This procedure involves testing three sequential levels of invariance by imposing progressive restrictions: **1) configural invariance**, which tests if the same factor structure holds for all groups; **2) metric invariance**, which adds the constraint that factor loadings are equal across groups; and **3) scalar invariance**, which further constrains item intercepts (or thresholds for ordinal items) to be equal [@cheung2002; @milfont2010]. The establishment of invariance between these nested models was evaluated by examining the change in CFI (ΔCFI) and RMSEA (ΔRMSEA). Specifically, for **metric (weak) invariance**, a change in CFI of ≥ -0.004 and a change in RMSEA of ≤ 0.050 were considered acceptable. For **scalar (strong) invariance**, a ΔCFI of ≥ -0.004 and a ΔRMSEA of ≤ 0.010 were considered adequate [@rutkowski2017]. Furthermore, a more demanding criterion of ΔCFI ≥ -0.002 was also considered, as suggested for models with three or fewer dimensions [@rutkowski2017]. Achieving scalar invariance is a prerequisite for further analysis.
 
-    -   Variables tagging
-
--   CFA pooled
-
--   Diagnostic and further modifications if needed (mention which fit indicators we will use).
-
--   CFA multigroup (with gender and countries) for invariance analysis
-
--   Descriptive country DSE (specialized and general) scores
-
--   Descriptive gender gaps in specialized and general DSE dimensions
-
--   Exploration of country variables to explain the gaps
-
--   Last step done trough a multilevel model (Countrie and person) with gender - cnt var interaction
+Upon establishing scalar invariance, the subsequent analyses proceeded in two main stages: descriptive and explanatory. First, for the descriptive stage, latent mean scores for both General and Specialized DSE were estimated. These scores were then used to map the cross-national distribution of DSE and to visualize the magnitude of the gender gap within each country. The explanatory stage then followed a structured, multi-step process to model the cross-national variation in this gender gap. First, the gender gap for each country was operationalized as the beta coefficient from a country-specific linear regression of the DSE factor score onto student gender. Second, an exploratory correlation analysis was performed between these country-level gender gaps and a set of national indicators (e.g., HDI, IDI, GII) to identify the most salient contextual predictors. Finally, based on this analysis, a definitive two-level hierarchical linear model was estimated, with students (Level 1) nested within countries (Level 2). The model's key component was a cross-level interaction between student gender and the selected country-level predictor(s) to formally test whether the national context significantly moderates the size of the DSE gender gap.

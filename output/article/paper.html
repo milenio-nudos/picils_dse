@@ -177,13 +177,14 @@ window.Quarto = {
 <h1 data-number="6"><span class="header-section-number">6</span> Variables</h1>
 <p>Both datasets include a module on digital self-efficacy. In PISA, its main purpose is to measure ICT self-perceived skills, corresponding to the attitudinal dimension of ICT literacy. In contrast, ICILS does not provide a specific conceptual framework for digital self-efficacy, as the entire study is centered on ICT skills.</p>
 <p>In the ICILS database, the self-efficacy items are introduced with the phrase <strong>“How well can you do:”</strong>. The items that follow are conceptually distinguished into two dimensions: general and specialized digital skills. Examples of general tasks include “Search for relevant information for a school project on the internet,” while specialized skills include tasks like “Use a text-based programming language (e.g., Python, JavaScript…).” The response categories are: 1 = Very well; 2 = Moderately well; 3 = I have never done this, but I could work out how to do it; 4 = I do not think I could do this.</p>
-<p>In the PISA data, the items are prefaced with the question <strong>“To what extent are you able to do the following tasks when using &lt;digital resources&gt;?”</strong> (where &lt;digital resources&gt; is a placeholder for a term adapted to the target culture). The subsequent activities are not explicitly ordered and include general tasks like “Search for and find relevant information online,” as well as more complex tasks such as “Create a computer program (e.g., in Scratch, Python, Java)”. A complete comparison of the items from both surveys is presented in <a href="#tbl-comparison" class="quarto-xref">see&nbsp;1</a>, highlighting the concordances and distinctions between the studies. The PISA response categories are: 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this; and an additional option, “I don’t know what this is.”</p>
+<p>In the PISA data, the items are prefaced with the question <strong>“To what extent are you able to do the following tasks when using &lt;digital resources&gt;?”</strong> (where &lt;digital resources&gt; is a placeholder for a term adapted to the target culture). The subsequent activities are not explicitly ordered and include general tasks like “Search for and find relevant information online,” as well as more complex tasks such as “Create a computer program (e.g., in Scratch, Python, Java)”. A complete comparison of the items from both surveys is presented in <a href="#tbl-comparison" class="quarto-xref">Table&nbsp;1</a>, highlighting the concordances and distinctions between the studies. The PISA response categories are: 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this; and an additional option, “I don’t know what this is.”</p>
 <p>For the measurement invariance analysis and the multilevel gender gaps analysis described in the following section, this study also utilizes the three-digit ISO country code and the student’s sex (recoded as 1 = male and 2 = female) from both datasets.</p>
+<p><strong>¿Country level variables explanation? (GII, HDI, IDI, etc.)</strong></p>
 <div class="cell">
 <div id="tbl-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Comparación de ítems de autoeficacia digital entre ICILS y PISA
+Table&nbsp;1: DSE item comparison between PISA and ICILS.
 </figcaption>
 <div aria-describedby="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -363,21 +364,10 @@ Table&nbsp;1: Comparación de ítems de autoeficacia digital entre ICILS y PISA
 </section>
 <section id="methods" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Methods</h1>
-<ul>
-<li><p>Data curation (center vars?)</p>
-<ul>
-<li><p>dplyr for data cleaning and preparation</p></li>
-<li><p>i think that listwise? (doube check)</p></li>
-<li><p>Variables tagging</p></li>
-</ul></li>
-<li><p>CFA pooled</p></li>
-<li><p>Diagnostic and further modifications if needed (mention which fit indicators we will use).</p></li>
-<li><p>CFA multigroup (with gender and countries) for invariance analysis</p></li>
-<li><p>Descriptive country DSE (specialized and general) scores</p></li>
-<li><p>Descriptive gender gaps in specialized and general DSE dimensions</p></li>
-<li><p>Exploration of country variables to explain the gaps</p></li>
-<li><p>Last step done trough a multilevel model (Countrie and person) with gender - cnt var interaction</p></li>
-</ul>
+<p>The main analyses were performed within a Confirmatory Factor Analysis (CFA) framework to test the hypothesized two-factor structure of digital self-efficacy <span class="citation" data-cites="brown2015">(<a href="#ref-brown2015" role="doc-biblioref">Brown, 2015</a>)</span>. All data management and analyses were conducted using the R statistical environment. Data preparation was handled with the dplyr package, the CFA models were estimated with the lavaan package <span class="citation" data-cites="rosseel2012">(<a href="#ref-rosseel2012" role="doc-biblioref">Rosseel, 2012</a>)</span>, and the final multilevel models were estimated with the lme4 package <span class="citation" data-cites="bates2015">(<a href="#ref-bates2015" role="doc-biblioref">Bates et al., 2015</a>)</span>. Given the ordinal nature of the Likert-scale items, they were treated as ordered categorical variables in the CFA models. This specification handles missing data through pairwise deletion by default. The ICILS variables were inverted to match the PISA order of categories (1=low DSE; 4= high DSE).</p>
+<p>To evaluate the goodness-of-fit of the pooled CFA model, we used the chi-square (χ²) test. However, due to the test’s sensitivity to large sample sizes, model evaluation primarily relied on a complementary set of fit indices: the Comparative Fit Index (CFI), the Tucker-Lewis Index (TLI), and the Root Mean Square Error of Approximation (RMSEA). Following common guidelines, CFI and TLI values of 0.95 or higher are considered indicative of excellent fit, while values between 0.90 and 0.95 are considered acceptable. For RMSEA, values of 0.06 or less indicate a close fit, while values up to 0.08 are considered adequate <span class="citation" data-cites="brown2015 wang2012">(<a href="#ref-brown2015" role="doc-biblioref">Brown, 2015</a>; <a href="#ref-wang2012" role="doc-biblioref">Wang &amp; Wang, n.d.</a>)</span>.</p>
+<p>To test the comparability of this measurement model across countries and genders, a series of Multi-Group Confirmatory Factor Analyses (MGCFA) was conducted to assess Measurement Equivalence or Invariance (ME/I) <span class="citation" data-cites="beaujean2014 davidov2014">(e.g., <a href="#ref-beaujean2014" role="doc-biblioref">Beaujean, 2014</a>; <a href="#ref-davidov2014" role="doc-biblioref">Davidov et al., 2014</a>)</span>. This procedure involves testing three sequential levels of invariance by imposing progressive restrictions: <strong>1) configural invariance</strong>, which tests if the same factor structure holds for all groups; <strong>2) metric invariance</strong>, which adds the constraint that factor loadings are equal across groups; and <strong>3) scalar invariance</strong>, which further constrains item intercepts (or thresholds for ordinal items) to be equal <span class="citation" data-cites="cheung2002 milfont2010">(<a href="#ref-cheung2002" role="doc-biblioref">Cheung &amp; Rensvold, 2002</a>; <a href="#ref-milfont2010" role="doc-biblioref">Milfont &amp; Fischer, 2010</a>)</span>. The establishment of invariance between these nested models was evaluated by examining the change in CFI (ΔCFI) and RMSEA (ΔRMSEA). Specifically, for <strong>metric (weak) invariance</strong>, a change in CFI of ≥ -0.004 and a change in RMSEA of ≤ 0.050 were considered acceptable. For <strong>scalar (strong) invariance</strong>, a ΔCFI of ≥ -0.004 and a ΔRMSEA of ≤ 0.010 were considered adequate <span class="citation" data-cites="rutkowski2017">(<a href="#ref-rutkowski2017" role="doc-biblioref">Rutkowski &amp; Svetina, 2017</a>)</span>. Furthermore, a more demanding criterion of ΔCFI ≥ -0.002 was also considered, as suggested for models with three or fewer dimensions <span class="citation" data-cites="rutkowski2017">(<a href="#ref-rutkowski2017" role="doc-biblioref">Rutkowski &amp; Svetina, 2017</a>)</span>. Achieving scalar invariance is a prerequisite for further analysis.</p>
+<p>Upon establishing scalar invariance, the subsequent analyses proceeded in two main stages: descriptive and explanatory. First, for the descriptive stage, latent mean scores for both General and Specialized DSE were estimated. These scores were then used to map the cross-national distribution of DSE and to visualize the magnitude of the gender gap within each country. The explanatory stage then followed a structured, multi-step process to model the cross-national variation in this gender gap. First, the gender gap for each country was operationalized as the beta coefficient from a country-specific linear regression of the DSE factor score onto student gender. Second, an exploratory correlation analysis was performed between these country-level gender gaps and a set of national indicators (e.g., HDI, IDI, GII) to identify the most salient contextual predictors. Finally, based on this analysis, a definitive two-level hierarchical linear model was estimated, with students (Level 1) nested within countries (Level 2). The model’s key component was a cross-level interaction between student gender and the selected country-level predictor(s) to formally test whether the national context significantly moderates the size of the DSE gender gap.</p>
 </section>
 <section id="section" class="level1 unnumbered" data-number="8">
 
@@ -386,14 +376,41 @@ Table&nbsp;1: Comparación de ítems de autoeficacia digital entre ICILS y PISA
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">8 </h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-bates2015" class="csl-entry" role="listitem">
+Bates, D., Mächler, M., Bolker, B., &amp; Walker, S. (2015). Fitting Linear Mixed-Effects Models Using lme4. <em>Journal of Statistical Software</em>, <em>67</em>, 1–48. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>
+</div>
+<div id="ref-beaujean2014" class="csl-entry" role="listitem">
+Beaujean, A. A. (2014). <em>Latent variable modeling using r: A step-by-step guide</em>. Routledge.
+</div>
+<div id="ref-brown2015" class="csl-entry" role="listitem">
+Brown, T. A. (2015). <em>Confirmatory factor analysis for applied research: Second edition</em>. Guildford. <a href="https://www.guilford.com/books/Confirmatory-Factor-Analysis-for-Applied-Research/Timothy-Brown/9781462515363?srsltid=AfmBOoptcYVzN648w0qDYYf-WNzkgmnWX7pgIT58ThKvyohpWlg1F21S">https://www.guilford.com/books/Confirmatory-Factor-Analysis-for-Applied-Research/Timothy-Brown/9781462515363?srsltid=AfmBOoptcYVzN648w0qDYYf-WNzkgmnWX7pgIT58ThKvyohpWlg1F21S</a>
+</div>
+<div id="ref-cheung2002" class="csl-entry" role="listitem">
+Cheung, G. W., &amp; Rensvold, R. B. (2002). Evaluating goodness-of-fit indexes for testing measurement invariance. <em>Structural Equation Modeling</em>, <em>9</em>(2), 233–255. <a href="https://doi.org/10.1207/S15328007SEM0902_5">https://doi.org/10.1207/S15328007SEM0902_5</a>
+</div>
+<div id="ref-davidov2014" class="csl-entry" role="listitem">
+Davidov, E., Meuleman, B., Cieciuch, J., Schmidt, P., &amp; Billiet, J. (2014). Measurement equivalence in cross-national research. <em>Annual Review of Sociology</em>, <em>40</em>, 55–75. <a href="https://doi.org/10.1146/annurev-soc-071913-043137">https://doi.org/10.1146/annurev-soc-071913-043137</a>
+</div>
 <div id="ref-julianfraillon2024" class="csl-entry" role="listitem">
 Julian Fraillon, E. (2024). <em>An International Perspective on Digital Literacy: Results from ICILS 2023</em>. <a href="https://eric.ed.gov/?id=ED661744">https://eric.ed.gov/?id=ED661744</a>
+</div>
+<div id="ref-milfont2010" class="csl-entry" role="listitem">
+Milfont, T. L., &amp; Fischer, R. (2010). Testing measurement invariance across groups: applications in cross-cultural research. <em>International Journal of Psychological Research</em>, <em>3</em>(1), 111–130. <a href="https://doi.org/10.21500/20112084.857">https://doi.org/10.21500/20112084.857</a>
 </div>
 <div id="ref-pisa2022023" class="csl-entry" role="listitem">
 <em>PISA 2022 ICT framework</em> (p. 238285). (2023). OECD Publishing.
 </div>
 <div id="ref-pisa2022024" class="csl-entry" role="listitem">
 <em>PISA 2022 technical report</em>. (2024). OECD Publishing.
+</div>
+<div id="ref-rosseel2012" class="csl-entry" role="listitem">
+Rosseel, Y. (2012). lavaan: An R Package for Structural Equation Modeling. <em>Journal of Statistical Software</em>, <em>48</em>, 1–36. <a href="https://doi.org/10.18637/jss.v048.i02">https://doi.org/10.18637/jss.v048.i02</a>
+</div>
+<div id="ref-rutkowski2017" class="csl-entry" role="listitem">
+Rutkowski, L., &amp; Svetina, D. (2017). Measurement invariance in international surveys: Categorical indicators and fit measure performance. <em>Applied Measurement in Education</em>, <em>30</em>(1), 39–51. <a href="https://doi.org/10.1080/08957347.2016.1243540">https://doi.org/10.1080/08957347.2016.1243540</a>
+</div>
+<div id="ref-wang2012" class="csl-entry" role="listitem">
+Wang, J., &amp; Wang, X. (n.d.). <em>Structural equation modeling: Applications using mplus</em>. John Wiley &amp; Sons, Ltd. <a href="http://dx.doi.org/10.1002/9781118356258">http://dx.doi.org/10.1002/9781118356258</a>
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
