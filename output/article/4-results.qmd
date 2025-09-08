@@ -1,3 +1,59 @@
 ---
 editor: visual
 ---
+
+```{r pisa}
+model_cfa_p <- '
+  gen_dse =~ search_info + evaluate_info + collect_data + 
+  explain_content + share_content + pair_collab + 
+  write_text + create_media + change_settings
+  spec_dse =~ programming + develop_webpage + identify_error + identify_app + logical_solution
+  '
+
+m_cfa_p <- cfa(model = model_cfa_p, 
+              data = pisa, 
+              estimator = "DWLS",
+              ordered = T,
+              std.lv = F)
+
+standardizedsolution(m_cfa_p) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+summary(m_cfa_p)
+
+fit_pisa <- fitMeasures(m_cfa_p,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa, digits = 3)
+```
+
+```{r icils}
+model_cfa_i <- '
+  gen_dse =~ search_info + source_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding + develop_webpage
+  '
+
+m_cfa_i <- cfa(model = model_cfa, 
+              data = icils23_proc, 
+              estimator = "DWLS",
+              ordered = T,
+              std.lv = F)
+
+standardizedsolution(m_cfa_i) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+
+summary(m_cfa_i)
+
+fit_icils <- fitMeasures(m_cfa_i,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils, digits = 3)
+
+```
+
+![](images/paste-4.png)![](images/paste-3.png)
