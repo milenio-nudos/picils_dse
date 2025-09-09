@@ -36,7 +36,7 @@ model_cfa_i <- '
   spec_dse =~ programming + visual_coding + develop_webpage
   '
 
-m_cfa_i <- cfa(model = model_cfa, 
+m_cfa_i <- cfa(model = model_cfa_i, 
               data = icils23_proc, 
               estimator = "DWLS",
               ordered = T,
