@@ -2,58 +2,268 @@
 editor: visual
 ---
 
-```{r pisa}
-model_cfa_p <- '
+## Modelo de primer orden digcomp
+Change settings fue eliminado ya que está solo en su categioría (Safety)
+Hay una warning problemática al correr el modelo inicial: 
+```r
+model_cfa2nd_p <- '
+     info_data =~ search_info + evaluate_info + collect_data
+     communication =~ explain_content + share_content + pair_collab
+     content_creation_gen =~ write_text + create_media
+     content_creation_spec =~ programming + develop_webpage
+     problem_solving =~ identify_error + logical_solution + identify_app
+     
+ '
+
+1: lavaan->lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
+   investigate.
+Warning message:
+lavaan->lav_start_check_cov():  
+   starting values imply a correlation larger than 1; variables involved are: content_creation_spec 
+   problem_solving 
+```
+Si se agrupan las variables de especializada (especificando las otras categorías por digcomp) la warning desaparece. Identify_app es la más problemárica al anaĺizar los modindices. Si se elimina mejora el rmsea de 0.15 a 0.127. Luego develop webpage genera problemas, si se elimina mejora el rmsea a 0.086 (bastante mejor!). Luego collect_data, lo cual nos haría pasar los criterios mínimos (RMSEA = 0.061).
+```{r pisa} 
+#| echo: true
+#| code-fold: true
+
+model_cfa_p1 <- '
+    info_data =~ search_info + evaluate_info
+    communication =~ explain_content + share_content + pair_collab
+    content_creation_gen =~ write_text + create_media
+    spec_dse =~ programming + logical_solution + identify_error
+    
+'
+
+m_cfa_p1 <- cfa(model = model_cfa_p1, 
+              data = pisa,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_cfa_p1) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+fit_pisa1 <- fitMeasures(m_cfa_p1,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa1, digits = 3)
+
+modindices(m_cfa_p1, sort = TRUE, maximum.number = 5)
+
+lavInspect(m_cfa_p1, "cov.lv")
+```
+
+
+## Modelo general y especializada
+Este modelo no tiene warnings. Partimos con el mismo rmsea de 0.15. 
+
+```r
+# Modelo inicial
+model_cfa_p2 <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
   write_text + create_media + change_settings
   spec_dse =~ programming + develop_webpage + identify_error + identify_app + logical_solution
   '
+```
+Identify app es medido por gen_dse (por eso quizás da tantos problemas en ambos modelos). Al eliminarlo el rmsea mejora a 0.12. La siguiente variable que trae problemas es nuevamente develop_webpage, que al eliminarse mejora el rmsea a 0.09. Luego, modindices da señales de que collect_data, change_settings, search_info y create_media también podrían ser medidos por spec_dse. Borrando collect_data el modelo queda con 0.086, y eliminando change_settings queda con 0.08, ajustando apenas, el modelo de arriba parece reflejar mejor la data. 
+```{r}
+#| echo: true
+#| code-fold: true
 
-m_cfa_p <- cfa(model = model_cfa_p, 
-              data = pisa, 
-              estimator = "DWLS",
-              ordered = T,
-              std.lv = F)
+model_cfa_p2 <- '
+  gen_dse =~ search_info + evaluate_info + 
+  explain_content + share_content + pair_collab + 
+  write_text + create_media
+  spec_dse =~ programming + identify_error + logical_solution
+  '
 
-standardizedsolution(m_cfa_p) %>% 
+m_cfa_p2 <- cfa(model = model_cfa_p2, 
+              data = pisa,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_cfa_p2) %>% 
   filter(op == "=~") %>% 
   select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
 
-summary(m_cfa_p)
-
-fit_pisa <- fitMeasures(m_cfa_p,
+fit_pisa2 <- fitMeasures(m_cfa_p2,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
 
-knitr::kable(fit_pisa, digits = 3)
+knitr::kable(fit_pisa2, digits = 3)
+
+modindices(m_cfa_p2, sort = TRUE, maximum.number = 5)
+
 ```
 
+## Modelo tomando en cuenta variables ambiguas
+Mirando los datos, creo que parece haber una "tercera dimensión", como una autoeficacia digital intermedia, compuesta por identificar apps, desarrollar páginas webs, recolectar data con formularios y cambiar configuraciones para proteger la privacidad (las variables que no ajustaban en los otros modelos). Este modelo es el mejor por lejos, al primer intento da 0.089 en rmsea. **Analicemos los modindices**. Quizás si desde esto dividimos gen_dse una vez más en algo que tiene sentido logramos un mejor ajuste. 
+
+```{r}
+#| echo: true
+#| code-fold: true
+
+model_cfa_p3 <- '
+  gen_dse =~ search_info + evaluate_info + 
+  explain_content + share_content + pair_collab + 
+  write_text + create_media
+  semi_dse =~ collect_data + develop_webpage + identify_app + change_settings
+  spec_dse =~ programming + identify_error + logical_solution
+  '
+
+m_cfa_p3 <- cfa(model = model_cfa_p3, 
+              data = pisa,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_cfa_p3) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+fit_pisa3 <- fitMeasures(m_cfa_p3,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa3, digits = 3)
+
+modindices(m_cfa_p3, sort = TRUE, maximum.number = 5)
+
+```
+
+
+## ICILS digcomp model
+
+En este modelo, ni change settings (que en icils no refiere a privacidad) ni share content pueden entrar ya que estan "solas". 
+
+```r
+model_cfa_i1 <- '
+    info_data =~ search_info + evaluate_info + install_app + source_info
+    content_creation_gen =~ write_text + create_media + insert_image + edit_image
+    content_creation_spec =~ programming + visual_coding + develop_webpage
+'
+
+Warning message:
+lavaan->lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
+   investigate. 
+```
+El modelo inicial, aparte que no ajusta (RMSEA = 0.125) arroja esas warnings problemáticas. Si se elimina source_info, pasamos a rmsea de .104, y luego insert_info llega a 0.1, y write_text a 0.074, ajustando el modelo. 
 ```{r icils}
-model_cfa_i <- '
+#| echo: true
+#| code-fold: true
+
+model_cfa_i1 <- '
+    info_data =~ search_info + evaluate_info + install_app
+    content_creation_gen =~ create_media + edit_image
+    content_creation_spec =~ programming + visual_coding + develop_webpage
+'
+
+m_cfa_i1 <- cfa(model = model_cfa_i1, 
+              data = icils23_proc,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_cfa_i1) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+fit_icils <- fitMeasures(m_cfa_i1,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils, digits = 3)
+
+modindices(m_cfa_i1, sort = TRUE, maximum.number = 5)
+
+
+```
+
+## ICILS general-specialized model
+
+```r
+model_cfa_i2 <- '
   gen_dse =~ search_info + source_info + evaluate_info + install_app +
               share_content + write_text +
               create_media + insert_image + edit_image + change_settings
   spec_dse =~ programming + visual_coding + develop_webpage
   '
+```
+Este parte mejor y sin warning (RMSEA = 0.107), eliminando source_info pasa a 0.09, y luego develop_webpage pasa a 0.079 (ajusta!). Una cosa curiosa es que si añadimos source_info a la dimensión especializada aumenta un poco el ajuste (0.094)
+```{r}
+#| echo: true
+#| code-fold: true
 
-m_cfa_i <- cfa(model = model_cfa_i, 
-              data = icils23_proc, 
-              estimator = "DWLS",
-              ordered = T,
-              std.lv = F)
+model_cfa_i2 <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding
+  '
 
-standardizedsolution(m_cfa_i) %>% 
+m_cfa_i2 <- cfa(model = model_cfa_i2, 
+              data = icils23_proc,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_cfa_i2) %>% 
   filter(op == "=~") %>% 
   select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
 
-
-summary(m_cfa_i)
-
-fit_icils <- fitMeasures(m_cfa_i,
+fit_icils <- fitMeasures(m_cfa_i2,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
 
 knitr::kable(fit_icils, digits = 3)
 
+modindices(m_cfa_i2, sort = TRUE, maximum.number = 5)
+```
+
+## ICILS 3 factor model
+
+Igualmente, probamos el modelo con tres factores. Este modelo ajusta desde el inicio con 0.079, pero tiene la warning de antes. 
+
+```r
+model_cfa_i3 <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  semi_dse =~ develop_webpage + source_info
+  spec_dse =~ programming + visual_coding
+  '
+  Warning message:
+lavaan->lav_object_post_check():  
+   covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
+   investigate. 
+```
+```{r}
+#| echo: true
+#| code-fold: true
+
+model_cfa_i3 <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  semi_dse =~ develop_webpage + source_info
+  spec_dse =~ programming + visual_coding
+  '
+
+m_cfa_i3 <- cfa(model = model_cfa_i3, 
+              data = icils23_proc,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_cfa_i3) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+fit_icils3 <- fitMeasures(m_cfa_i3,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils3, digits = 3)
+
+modindices(m_cfa_i3, sort = TRUE, maximum.number = 5)
+
+lavInspect(m_cfa_i3, "cov.lv")
 ```
 
 ![](images/paste-4.png)![](images/paste-3.png)
+
