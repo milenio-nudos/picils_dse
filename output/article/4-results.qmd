@@ -2,60 +2,6 @@
 editor: visual
 ---
 
-## Modelo de primer orden digcomp
-Change settings fue eliminado ya que está solo en su categioría (Safety)
-Hay una warning problemática al correr el modelo inicial: 
-```r
-model_cfa2nd_p <- '
-     info_data =~ search_info + evaluate_info + collect_data
-     communication =~ explain_content + share_content + pair_collab
-     content_creation_gen =~ write_text + create_media
-     content_creation_spec =~ programming + develop_webpage
-     problem_solving =~ identify_error + logical_solution + identify_app
-     
- '
-
-1: lavaan->lav_object_post_check():  
-   covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
-   investigate.
-Warning message:
-lavaan->lav_start_check_cov():  
-   starting values imply a correlation larger than 1; variables involved are: content_creation_spec 
-   problem_solving 
-```
-Si se agrupan las variables de especializada (especificando las otras categorías por digcomp) la warning desaparece. Identify_app es la más problemárica al anaĺizar los modindices. Si se elimina mejora el rmsea de 0.15 a 0.127. Luego develop webpage genera problemas, si se elimina mejora el rmsea a 0.086 (bastante mejor!). Luego collect_data, lo cual nos haría pasar los criterios mínimos (RMSEA = 0.061).
-```{r pisa} 
-#| echo: true
-#| code-fold: true
-
-model_cfa_p1 <- '
-    info_data =~ search_info + evaluate_info
-    communication =~ explain_content + share_content + pair_collab
-    content_creation_gen =~ write_text + create_media
-    spec_dse =~ programming + logical_solution + identify_error
-    
-'
-
-m_cfa_p1 <- cfa(model = model_cfa_p1, 
-              data = pisa,
-              estimator = "WLSMV",
-              ordered = T)
-
-standardizedsolution(m_cfa_p1) %>% 
-  filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
-
-fit_pisa1 <- fitMeasures(m_cfa_p1,
-                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
-
-knitr::kable(fit_pisa1, digits = 3)
-
-modindices(m_cfa_p1, sort = TRUE, maximum.number = 5)
-
-lavInspect(m_cfa_p1, "cov.lv")
-```
-
-
 ## Modelo general y especializada
 Este modelo no tiene warnings. Partimos con el mismo rmsea de 0.15. 
 
@@ -99,7 +45,10 @@ modindices(m_cfa_p2, sort = TRUE, maximum.number = 5)
 ```
 
 ## Modelo tomando en cuenta variables ambiguas
+### Comentarios anteriores
 Mirando los datos, creo que parece haber una "tercera dimensión", como una autoeficacia digital intermedia, compuesta por identificar apps, desarrollar páginas webs, recolectar data con formularios y cambiar configuraciones para proteger la privacidad (las variables que no ajustaban en los otros modelos). Este modelo es el mejor por lejos, al primer intento da 0.089 en rmsea. **Analicemos los modindices**. Quizás si desde esto dividimos gen_dse una vez más en algo que tiene sentido logramos un mejor ajuste. 
+
+Si eliminamos create_media llegamos a .078 rmsea y develop_webpage 0.06. Tomando en cuenta la covarianza de los residuos entre search_info y evaluate_info llega a 0.051. Con develop_webpage de vuelta RMSEA = 0.073
 
 ```{r}
 #| echo: true
@@ -108,9 +57,13 @@ Mirando los datos, creo que parece haber una "tercera dimensión", como una auto
 model_cfa_p3 <- '
   gen_dse =~ search_info + evaluate_info + 
   explain_content + share_content + pair_collab + 
-  write_text + create_media
-  semi_dse =~ collect_data + develop_webpage + identify_app + change_settings
+  write_text
+
+  semi_dse =~ collect_data + identify_app + change_settings + develop_webpage
+
   spec_dse =~ programming + identify_error + logical_solution
+  # Covarianzas
+  search_info ~~ evaluate_info
   '
 
 m_cfa_p3 <- cfa(model = model_cfa_p3, 
@@ -130,53 +83,8 @@ knitr::kable(fit_pisa3, digits = 3)
 modindices(m_cfa_p3, sort = TRUE, maximum.number = 5)
 
 ```
-
-
-## ICILS digcomp model
-
-En este modelo, ni change settings (que en icils no refiere a privacidad) ni share content pueden entrar ya que estan "solas". 
-
-```r
-model_cfa_i1 <- '
-    info_data =~ search_info + evaluate_info + install_app + source_info
-    content_creation_gen =~ write_text + create_media + insert_image + edit_image
-    content_creation_spec =~ programming + visual_coding + develop_webpage
-'
-
-Warning message:
-lavaan->lav_object_post_check():  
-   covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
-   investigate. 
-```
-El modelo inicial, aparte que no ajusta (RMSEA = 0.125) arroja esas warnings problemáticas. Si se elimina source_info, pasamos a rmsea de .104, y luego insert_info llega a 0.1, y write_text a 0.074, ajustando el modelo. 
-```{r icils}
-#| echo: true
-#| code-fold: true
-
-model_cfa_i1 <- '
-    info_data =~ search_info + evaluate_info + install_app
-    content_creation_gen =~ create_media + edit_image
-    content_creation_spec =~ programming + visual_coding + develop_webpage
-'
-
-m_cfa_i1 <- cfa(model = model_cfa_i1, 
-              data = icils23_proc,
-              estimator = "WLSMV",
-              ordered = T)
-
-standardizedsolution(m_cfa_i1) %>% 
-  filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
-
-fit_icils <- fitMeasures(m_cfa_i1,
-                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
-
-knitr::kable(fit_icils, digits = 3)
-
-modindices(m_cfa_i1, sort = TRUE, maximum.number = 5)
-
-
-```
+### Comentarios actuales
+Luego de filtrar los países, el modelo parte con rmsea de 0.086. Tomando en cuenta la varianza compartida de search_info y evaluate_info baja a 0.082, y al eliminar create_media el modelo ajusta de forma aceptable con rmsea de 0.076.
 
 ## ICILS general-specialized model
 
@@ -194,14 +102,14 @@ Este parte mejor y sin warning (RMSEA = 0.107), eliminando source_info pasa a 0.
 #| code-fold: true
 
 model_cfa_i2 <- '
-  gen_dse =~ search_info + evaluate_info + install_app +
+  gen_dse =~ search_info + source_info + evaluate_info + install_app +
               share_content + write_text +
               create_media + insert_image + edit_image + change_settings
-  spec_dse =~ programming + visual_coding
+  spec_dse =~ programming + visual_coding + develop_webpage
   '
 
 m_cfa_i2 <- cfa(model = model_cfa_i2, 
-              data = icils23_proc,
+              data = icils,
               estimator = "WLSMV",
               ordered = T)
 
@@ -218,7 +126,7 @@ modindices(m_cfa_i2, sort = TRUE, maximum.number = 5)
 ```
 
 ## ICILS 3 factor model
-
+### Comentarios anteriores
 Igualmente, probamos el modelo con tres factores. Este modelo ajusta desde el inicio con 0.079, pero tiene la warning de antes. 
 
 ```r
@@ -233,6 +141,8 @@ model_cfa_i3 <- '
 lavaan->lav_object_post_check():  
    covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
    investigate. 
+2: lavaan->lav_object_post_check():  
+   some estimated lv variances are negative 
 ```
 ```{r}
 #| echo: true
@@ -242,12 +152,15 @@ model_cfa_i3 <- '
   gen_dse =~ search_info + evaluate_info + install_app +
               share_content + write_text +
               create_media + insert_image + edit_image + change_settings
-  semi_dse =~ develop_webpage + source_info
+  semi_dse =~ develop_webpage + source_info 
   spec_dse =~ programming + visual_coding
+
+  # Covarianzas
+  search_info ~~ write_text
   '
 
 m_cfa_i3 <- cfa(model = model_cfa_i3, 
-              data = icils23_proc,
+              data = icils,
               estimator = "WLSMV",
               ordered = T)
 
@@ -263,6 +176,25 @@ knitr::kable(fit_icils3, digits = 3)
 modindices(m_cfa_i3, sort = TRUE, maximum.number = 5)
 
 lavInspect(m_cfa_i3, "cov.lv")
+
+```
+
+Al filtrar los países, el rmsea empeora pero muy poquito, empezando con 0.081. Se podría decir que tiene un fit aceptable. Seguimos teniendo esa warning problemática, más exploración es necesaria. Si eliminamos insert_image el modelo ajusta con 0.066. Creo que podríamos problematizar esa variable, y en general las de multimedia. Tienen cargas cruzadas con spec y semi en general, lo podemos revisar en la reunión.
+
+Probando, sin eliminar ninguna variable, el siguiente modelo tiene desde un inicio (y sin warning) un ajuste de 0.08, por lo que ajusta. Nos puede dar el paso a hablar de una tercera dimensión en PISA porque sus variables abordan más capacidades del mundo digital, mientras que el ICILS, aunque van por el buen camino en sus dos dimensiones por dificultad de las tareas, identifican de forma incorrecta la dificultad de identificar las fuentes por parte de los estudiantes. "Find the original sources of information referred to in an article on the internet" igual me parece algo complejo para estudiantes de octavo básico.
+
+```r
+model_cfa_i3 <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ develop_webpage + source_info + programming + visual_coding
+
+  # Covarianzas
+  search_info ~~ write_text
+  programming ~~ visual_coding
+  '
+
 ```
 
 ![](images/paste-4.png)![](images/paste-3.png)

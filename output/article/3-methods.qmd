@@ -11,7 +11,7 @@ ICILS 2023 employed a two-stage cluster sampling approach. In the first stage, s
 
 PISA 2022 target population consists of 15-year-old students attending educational establishments, employing a two-stage stratified sampling design. In the first stage, schools were systematically selected with PPS from national sampling frames. In the second stage, a target number of students (typically 42) were randomly selected with equal probability from within each sampled school. The subset of data used in this research includes the 393,607 students clustered in 52 (mainly OECD) countries who completed the ICT questionnaire.
 
-*Comentario Nico: Falta señalar la cantidad de escuelas que hay en PISA.
+\*Comentario Nico: Falta señalar la cantidad de escuelas que hay en PISA.
 
 # Variables
 
@@ -47,3 +47,5 @@ To evaluate the goodness-of-fit of the pooled CFA model, chi-square (χ²) test 
 To test the comparability of this measurement model across countries and genders, a series of Multi-Group Confirmatory Factor Analyses (MGCFA) was conducted to assess Measurement Equivalence or Invariance (ME/I) [e.g., @beaujean2014; @davidov2014]. This procedure involves testing three sequential levels of invariance by imposing progressive restrictions: **1) configural invariance**, which tests if the same factor structure holds for all groups; **2) metric invariance**, which adds the constraint that factor loadings are equal across groups; and **3) scalar invariance**, which further constrains item intercepts (or thresholds for ordinal items) to be equal [@cheung2002; @milfont2010]. The establishment of invariance between these nested models was evaluated by examining the change in CFI (ΔCFI) and RMSEA (ΔRMSEA). Specifically, for **metric (weak) invariance**, a change in CFI of ≥ -0.004 and a change in RMSEA of ≤ 0.050 were considered acceptable. For **scalar (strong) invariance**, a ΔCFI of ≥ -0.004 and a ΔRMSEA of ≤ 0.010 were considered adequate [@rutkowski2017]. Furthermore, a more demanding criterion of ΔCFI ≥ -0.002 was also considered, as suggested for models with three or fewer dimensions [@rutkowski2017]. Achieving scalar invariance is a prerequisite for further analysis.
 
 Upon establishing scalar invariance, latent mean scores of General and Specialized DSE country distribution are estimated. Then the magnitude of the DSE gender gap is visualized for each country. Finally, correlations between country-level gender gap and a set of national indicators is estimated to explore most salients contextual predictors.
+
+**Añadir especificación de filtrado de países para comparabilidad, y eliminación de diferencia entre dnw y deu y flandes en icils.**
