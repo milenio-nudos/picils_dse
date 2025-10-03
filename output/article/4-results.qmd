@@ -2,200 +2,36 @@
 editor: visual
 ---
 
-## Modelo general y especializada
-Este modelo no tiene warnings. Partimos con el mismo rmsea de 0.15. 
+## Pooled model: PISA
 
-```r
-# Modelo inicial
-model_cfa_p2 <- '
-  gen_dse =~ search_info + evaluate_info + collect_data + 
-  explain_content + share_content + pair_collab + 
-  write_text + create_media + change_settings
-  spec_dse =~ programming + develop_webpage + identify_error + identify_app + logical_solution
-  '
-```
-Identify app es medido por gen_dse (por eso quizás da tantos problemas en ambos modelos). Al eliminarlo el rmsea mejora a 0.12. La siguiente variable que trae problemas es nuevamente develop_webpage, que al eliminarse mejora el rmsea a 0.09. Luego, modindices da señales de que collect_data, change_settings, search_info y create_media también podrían ser medidos por spec_dse. Borrando collect_data el modelo queda con 0.086, y eliminando change_settings queda con 0.08, ajustando apenas, el modelo de arriba parece reflejar mejor la data. 
-```{r}
-#| echo: true
-#| code-fold: true
+It don't fit, so modifications are needed.
 
-model_cfa_p2 <- '
-  gen_dse =~ search_info + evaluate_info + 
-  explain_content + share_content + pair_collab + 
-  write_text + create_media
-  spec_dse =~ programming + identify_error + logical_solution
-  '
+## Pooled model: ICILS
 
-m_cfa_p2 <- cfa(model = model_cfa_p2, 
-              data = pisa,
-              estimator = "WLSMV",
-              ordered = T)
+It don't fit, so modifications are needed.
 
-standardizedsolution(m_cfa_p2) %>% 
-  filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+## Modified model: PISA
 
-fit_pisa2 <- fitMeasures(m_cfa_p2,
-                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+Here we propose and report the modified PISA model. Relevant indicators are cfi, rmsea and loadings.
 
-knitr::kable(fit_pisa2, digits = 3)
+## Modified model: ICILS
 
-modindices(m_cfa_p2, sort = TRUE, maximum.number = 5)
+Here we propose and report the modified ICILS model. Relevant indicators are cfi, rmsea and loadings.
 
-```
+## Invariance analysys: PISA
 
-## Modelo tomando en cuenta variables ambiguas
-### Comentarios anteriores
-Mirando los datos, creo que parece haber una "tercera dimensión", como una autoeficacia digital intermedia, compuesta por identificar apps, desarrollar páginas webs, recolectar data con formularios y cambiar configuraciones para proteger la privacidad (las variables que no ajustaban en los otros modelos). Este modelo es el mejor por lejos, al primer intento da 0.089 en rmsea. **Analicemos los modindices**. Quizás si desde esto dividimos gen_dse una vez más en algo que tiene sentido logramos un mejor ajuste. 
+Here we show and analyze the invariance table for country and gender for the PISA chosen and modified model.
 
-Si eliminamos create_media llegamos a .078 rmsea y develop_webpage 0.06. Tomando en cuenta la covarianza de los residuos entre search_info y evaluate_info llega a 0.051. Con develop_webpage de vuelta RMSEA = 0.073
+## Invariance analysis: ICILS
 
-```{r}
-#| echo: true
-#| code-fold: true
+Here we show and analyze the invariance table for country and gender for the PISA chosen and modified model.
 
-model_cfa_p3 <- '
-  gen_dse =~ search_info + evaluate_info + 
-  explain_content + share_content + pair_collab + 
-  write_text
+## Descriptives by gender and countries
 
-  semi_dse =~ collect_data + identify_app + change_settings + develop_webpage
+Graphs for loadings by gender and countries (PISA and ICILS (if fitted and comparable))
 
-  spec_dse =~ programming + identify_error + logical_solution
-  # Covarianzas
-  search_info ~~ evaluate_info
-  '
+## Correlations with some countries indicators
 
-m_cfa_p3 <- cfa(model = model_cfa_p3, 
-              data = pisa,
-              estimator = "WLSMV",
-              ordered = T)
-
-standardizedsolution(m_cfa_p3) %>% 
-  filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
-
-fit_pisa3 <- fitMeasures(m_cfa_p3,
-                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
-
-knitr::kable(fit_pisa3, digits = 3)
-
-modindices(m_cfa_p3, sort = TRUE, maximum.number = 5)
-
-```
-### Comentarios actuales
-Luego de filtrar los países, el modelo parte con rmsea de 0.086. Tomando en cuenta la varianza compartida de search_info y evaluate_info baja a 0.082, y al eliminar create_media el modelo ajusta de forma aceptable con rmsea de 0.076.
-
-## ICILS general-specialized model
-
-```r
-model_cfa_i2 <- '
-  gen_dse =~ search_info + source_info + evaluate_info + install_app +
-              share_content + write_text +
-              create_media + insert_image + edit_image + change_settings
-  spec_dse =~ programming + visual_coding + develop_webpage
-  '
-```
-Este parte mejor y sin warning (RMSEA = 0.107), eliminando source_info pasa a 0.09, y luego develop_webpage pasa a 0.079 (ajusta!). Una cosa curiosa es que si añadimos source_info a la dimensión especializada aumenta un poco el ajuste (0.094)
-```{r}
-#| echo: true
-#| code-fold: true
-
-model_cfa_i2 <- '
-  gen_dse =~ search_info + source_info + evaluate_info + install_app +
-              share_content + write_text +
-              create_media + insert_image + edit_image + change_settings
-  spec_dse =~ programming + visual_coding + develop_webpage
-  '
-
-m_cfa_i2 <- cfa(model = model_cfa_i2, 
-              data = icils,
-              estimator = "WLSMV",
-              ordered = T)
-
-standardizedsolution(m_cfa_i2) %>% 
-  filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
-
-fit_icils <- fitMeasures(m_cfa_i2,
-                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
-
-knitr::kable(fit_icils, digits = 3)
-
-modindices(m_cfa_i2, sort = TRUE, maximum.number = 5)
-```
-
-## ICILS 3 factor model
-### Comentarios anteriores
-Igualmente, probamos el modelo con tres factores. Este modelo ajusta desde el inicio con 0.079, pero tiene la warning de antes. 
-
-```r
-model_cfa_i3 <- '
-  gen_dse =~ search_info + evaluate_info + install_app +
-              share_content + write_text +
-              create_media + insert_image + edit_image + change_settings
-  semi_dse =~ develop_webpage + source_info
-  spec_dse =~ programming + visual_coding
-  '
-  Warning message:
-lavaan->lav_object_post_check():  
-   covariance matrix of latent variables is not positive definite ; use lavInspect(fit, "cov.lv") to 
-   investigate. 
-2: lavaan->lav_object_post_check():  
-   some estimated lv variances are negative 
-```
-```{r}
-#| echo: true
-#| code-fold: true
-
-model_cfa_i3 <- '
-  gen_dse =~ search_info + evaluate_info + install_app +
-              share_content + write_text +
-              create_media + insert_image + edit_image + change_settings
-  semi_dse =~ develop_webpage + source_info 
-  spec_dse =~ programming + visual_coding
-
-  # Covarianzas
-  search_info ~~ write_text
-  '
-
-m_cfa_i3 <- cfa(model = model_cfa_i3, 
-              data = icils,
-              estimator = "WLSMV",
-              ordered = T)
-
-standardizedsolution(m_cfa_i3) %>% 
-  filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
-
-fit_icils3 <- fitMeasures(m_cfa_i3,
-                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
-
-knitr::kable(fit_icils3, digits = 3)
-
-modindices(m_cfa_i3, sort = TRUE, maximum.number = 5)
-
-lavInspect(m_cfa_i3, "cov.lv")
-
-```
-
-Al filtrar los países, el rmsea empeora pero muy poquito, empezando con 0.081. Se podría decir que tiene un fit aceptable. Seguimos teniendo esa warning problemática, más exploración es necesaria. Si eliminamos insert_image el modelo ajusta con 0.066. Creo que podríamos problematizar esa variable, y en general las de multimedia. Tienen cargas cruzadas con spec y semi en general, lo podemos revisar en la reunión.
-
-Probando, sin eliminar ninguna variable, el siguiente modelo tiene desde un inicio (y sin warning) un ajuste de 0.08, por lo que ajusta. Nos puede dar el paso a hablar de una tercera dimensión en PISA porque sus variables abordan más capacidades del mundo digital, mientras que el ICILS, aunque van por el buen camino en sus dos dimensiones por dificultad de las tareas, identifican de forma incorrecta la dificultad de identificar las fuentes por parte de los estudiantes. "Find the original sources of information referred to in an article on the internet" igual me parece algo complejo para estudiantes de octavo básico.
-
-```r
-model_cfa_i3 <- '
-  gen_dse =~ search_info + evaluate_info + install_app +
-              share_content + write_text +
-              create_media + insert_image + edit_image + change_settings
-  spec_dse =~ develop_webpage + source_info + programming + visual_coding
-
-  # Covarianzas
-  search_info ~~ write_text
-  programming ~~ visual_coding
-  '
-
-```
+(Proposed) Correlation matrix for exploration of countries dse gender inequalities (for opening research questions and agendas)
 
 ![](images/paste-4.png)![](images/paste-3.png)
-

@@ -1,0 +1,171 @@
+---
+title: "Primera opción: Dimensiones general y especializada"
+date: today
+lang: en
+fontsize: 14pt
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 2
+    toc-expand: 1
+    toc-title: Contenidos
+    number-sections: true
+    number-depth: 3
+    theme:
+      - united
+    code-link: true
+    title-block-banner: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Enviroment setting
+
+```{r}
+
+# Sesion setting
+
+options(scipen=999) #No scientific notation
+options(digits = 2) #Round results two decimals
+
+
+#install.packages("pacman")
+library(pacman)
+
+pacman::p_load(
+  dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
+  parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra)
+
+options(scipen = 999)
+rm(list = ls()) 
+
+pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
+icils <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"))
+
+```
+# PISA
+
+## Pooled model
+```{r}
+model_pooled_p <- '
+  gen_dse =~ search_info + evaluate_info + collect_data + 
+  explain_content + share_content + pair_collab + 
+  write_text + create_media + change_settings
+  spec_dse =~ programming + develop_webpage + identify_error + identify_app + logical_solution
+  '
+
+m_pooled_p <- cfa(model = model_pooled_p, 
+              data = pisa,
+              estimator = "DWLS",
+              ordered = T)
+
+standardizedsolution(m_pooled_p) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+fit_pisa <- fitMeasures(m_pooled_p,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa, digits = 3)
+
+modindices(m_pooled_p, sort = TRUE, maximum.number = 5)
+```
+
+Este modelo no tiene warnings. Partimos con el mismo rmsea de 0.16. Identify app es medido por gen_dse (por eso quizás da tantos problemas en ambos modelos). Al eliminarlo el rmsea mejora a 0.12. La siguiente variable que trae problemas es nuevamente develop_webpage, que al eliminarse mejora el rmsea a 0.087. Luego, modindices da señales de que collect_data, change_settings, search_info y create_media también podrían ser medidos por spec_dse. Borrando collect_data el modelo queda con 0.084, y eliminando change_settings queda con 0.073. Si eliminamos create_media el modelo da 0.061 de rmsea.
+
+## Fitted model
+
+
+```{r}
+
+model_fitted_p <- '
+  gen_dse =~ search_info + evaluate_info + 
+  explain_content + share_content + pair_collab + 
+  write_text
+  spec_dse =~ programming + identify_error + logical_solution
+  '
+m_fitted_p <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              ordered = T)
+
+standardizedsolution(m_fitted_p) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+fit_pisa <- fitMeasures(m_fitted_p,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa, digits = 3)
+
+modindices(m_fitted_p, sort = TRUE, maximum.number = 5)
+
+```
+
+# ICILS
+
+## Pooled model
+
+
+```{r}
+#| echo: true
+#| code-fold: true
+
+model_pooled_i <- '
+  gen_dse =~ search_info + source_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding + develop_webpage
+  '
+
+m_pooled_i <- cfa(model = model_pooled_i, 
+              data = icils,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_pooled_i) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+fit_icils <- fitMeasures(m_pooled_i,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils, digits = 3)
+
+modindices(m_pooled_i, sort = TRUE, maximum.number = 5)
+```
+
+Este parte mejor (RMSEA = 0.105), eliminando source_info pasa a 0.091, y luego develop_webpage pasa a 0.08. SI sacamos write_text mejora a 0.077 pero no hay muchas vías más de mejoras (mi < 2800).
+
+## Fitted model
+
+```{r}
+#| echo: true
+#| code-fold: true
+
+model_fitted_i <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding
+  '
+
+m_fitted_i <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "WLSMV",
+              ordered = T)
+
+standardizedsolution(m_fitted_i) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+fit_icils <- fitMeasures(m_fitted_i,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils, digits = 3)
+
+modindices(m_fitted_i, sort = TRUE, maximum.number = 5)
+```

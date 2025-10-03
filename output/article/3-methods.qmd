@@ -49,3 +49,5 @@ To test the comparability of this measurement model across countries and genders
 Upon establishing scalar invariance, latent mean scores of General and Specialized DSE country distribution are estimated. Then the magnitude of the DSE gender gap is visualized for each country. Finally, correlations between country-level gender gap and a set of national indicators is estimated to explore most salients contextual predictors.
 
 **Añadir especificación de filtrado de países para comparabilidad, y eliminación de diferencia entre dnw y deu y flandes en icils.**
+
+**Reconstruir esta parte en base a la discusión del martes.**
