@@ -51,3 +51,5 @@ Upon establishing scalar invariance, latent mean scores of General and Specializ
 **Añadir especificación de filtrado de países para comparabilidad, y eliminación de diferencia entre dnw y deu y flandes en icils.**
 
 **Reconstruir esta parte en base a la discusión del martes.**
+
+**Hablar del proceso iterativo de correr el modelo, mirar los modindices, eliminar el peor, fitear modelo, y así.**

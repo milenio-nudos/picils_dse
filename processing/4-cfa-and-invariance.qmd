@@ -1,0 +1,791 @@
+---
+title: "Primera opción: Dimensiones general y especializada"
+date: today
+lang: en
+fontsize: 14pt
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 2
+    toc-expand: 1
+    toc-title: Contenidos
+    number-sections: true
+    number-depth: 3
+    theme:
+      - united
+    code-link: true
+    title-block-banner: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Enviroment setting
+
+```{r}
+
+# Sesion setting
+
+options(scipen=999) #No scientific notation
+options(digits = 2) #Round results two decimals
+
+
+#install.packages("pacman")
+library(pacman)
+
+pacman::p_load(
+  dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
+  parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer)
+
+options(scipen = 999)
+rm(list = ls()) 
+
+pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
+icils <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"))
+
+```
+
+# PISA
+
+## Pooled model
+
+```{r}
+model_pooled_p <- '
+  gen_dse =~ search_info + evaluate_info + collect_data + 
+  explain_content + share_content + pair_collab + 
+  write_text + create_media + change_settings
+  spec_dse =~ programming + develop_webpage + identify_error + identify_app + logical_solution
+  '
+
+m_pooled_p <- cfa(model = model_pooled_p, 
+              data = pisa,
+              estimator = "DWLS",
+              ordered = T)
+
+standardizedsolution(m_pooled_p) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+fit_pisa <- fitMeasures(m_pooled_p,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa, digits = 3)
+
+modindices(m_pooled_p, sort = TRUE, maximum.number = 20)
+```
+
+Este modelo no tiene warnings. Partimos con el mismo rmsea de 0.16. Identify app es medido por gen_dse (por eso quizás da tantos problemas en ambos modelos). Al eliminarlo el rmsea mejora a 0.12. La siguiente variable que trae problemas es nuevamente develop_webpage, que al eliminarse mejora el rmsea a 0.087. Luego, modindices da señales de que collect_data, change_settings, search_info y create_media también podrían ser medidos por spec_dse. Borrando collect_data el modelo queda con 0.084, y eliminando change_settings queda con 0.073. Si eliminamos create_media el modelo da 0.061 de rmsea.
+
+## Fitted model
+
+```{r}
+
+model_fitted_p <- '
+  gen_dse =~ search_info + evaluate_info + 
+  explain_content + share_content + pair_collab + 
+  write_text
+  spec_dse =~ programming + identify_error + logical_solution
+  '
+m_fitted_p <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              ordered = T)
+
+standardizedsolution(m_fitted_p) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+fit_pisa <- fitMeasures(m_fitted_p,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_pisa, digits = 3)
+
+modindices(m_fitted_p, sort = TRUE, maximum.number = 5)
+
+```
+
+## Country invariance analisys
+
+```{r}
+
+# Configural
+
+multigroup_p <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              group = "CNT",
+              ordered = T)
+
+# Métrico
+
+multigroup_p_m <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              group = "CNT",
+              ordered = T,
+              group.equal= "loadings")
+
+# Escalar
+
+multigroup_p_e <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              group = "CNT",
+              ordered = T,
+              group.equal= c("loadings", "intercepts"))
+
+```
+
+```{r}
+# Extracción de indicadores de ajuste
+
+fitmeasures_config_p <- fitMeasures(multigroup_p,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_metric_p <- fitMeasures(multigroup_p_m,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_scalar_p <- fitMeasures(multigroup_p_e,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+
+# Tabla resumen (html y opción latex)
+
+tabla_completa_p <- data.frame(
+  Estudio = c("PISA", "PISA", "PISA"),
+  Modelo = c("1. Configural", "2. Metric", "3. Scalar"),
+  chisq = c(fitmeasures_config_p["chisq"], fitmeasures_metric_p["chisq"], fitmeasures_scalar_p["chisq"]),
+  df = c(fitmeasures_config_p["df"], fitmeasures_metric_p["df"], fitmeasures_scalar_p["df"]),
+  CFI = c(fitmeasures_config_p["cfi"], fitmeasures_metric_p["cfi"], fitmeasures_scalar_p["cfi"]),
+  TLI = c(fitmeasures_config_p["tli"], fitmeasures_metric_p["tli"], fitmeasures_scalar_p["tli"]),
+  RMSEA = c(fitmeasures_config_p["rmsea"], fitmeasures_metric_p["rmsea"], fitmeasures_scalar_p["rmsea"]),
+  SRMR = c(fitmeasures_config_p["srmr"], fitmeasures_metric_p["srmr"], fitmeasures_scalar_p["srmr"])
+)
+
+# Cálculo deltas
+
+tabla_completa_p$delta_chisq <- c(NA, diff(tabla_completa_p$chisq))
+tabla_completa_p$delta_df    <- c(NA, diff(tabla_completa_p$df))
+tabla_completa_p$delta_CFI   <- c(NA, diff(tabla_completa_p$CFI))
+tabla_completa_p$delta_RMSEA <- c(NA, diff(tabla_completa_p$RMSEA))
+
+# Display para los deltas 
+
+tabla_completa_p$delta_CFI_display <- sapply(1:nrow(tabla_completa_p), function(i) {
+  if (i == 1) return(NA)
+  
+  if (tabla_completa_p$delta_CFI[i] >= -0.004) {
+    return("< -0.004")
+  } else {
+    return(sprintf("%.3f", tabla_completa_p$delta_CFI[i]))
+  }
+})
+
+tabla_completa_p$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_p), function(i) {
+  if (i == 1) return(NA)
+  
+  umbral <- if (i == 2) 0.050 else 0.010
+  
+  if (tabla_completa_p$delta_RMSEA[i] <= umbral) {
+    return(paste0("< ", umbral))
+  } else {
+    return(sprintf("%.3f", tabla_completa_p$delta_RMSEA[i]))
+  }
+})
+
+# ANOVA para significancia
+
+test_anova <- anova(multigroup_p, multigroup_p_m, multigroup_p_e)
+
+tabla_completa_p$p_value_delta_chisq <- case_when(test_anova$`Pr(>Chisq)`< 0.01 ~ "< 0.01",
+                                                  test_anova$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
+                                                  test_anova$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", test_anova$`Pr(>Chisq)`))
+
+tabla_completa_p$Decision <- c(
+  NA,  # Configural no tiene comparación previa
+  # Métrico: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
+  ifelse(tabla_completa_p$delta_CFI[2] >= -0.004 & 
+         tabla_completa_p$delta_RMSEA[2] <= 0.050, "Yes", "No"),
+  # Escalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
+  ifelse(tabla_completa_p$delta_CFI[3] >= -0.004 & 
+         tabla_completa_p$delta_RMSEA[3] <= 0.010, "Yes", "No")
+)
+
+```
+
+## Gender invariance analysis
+
+```{r}
+
+# Configural
+
+multigroup_p_g <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              group = "sex",
+              ordered = T)
+
+# Métrico
+
+multigroup_p_g_m <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              group = "sex",
+              ordered = T,
+              group.equal= "loadings")
+
+# Escalar
+
+multigroup_p_g_e <- cfa(model = model_fitted_p, 
+              data = pisa,
+              estimator = "DWLS",
+              group = "sex",
+              ordered = T,
+              group.equal= c("loadings", "intercepts"))
+
+```
+
+```{r}
+# Extracción de indicadores de ajuste
+
+fitmeasures_config_p_g <- fitMeasures(multigroup_p_g,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_metric_p_g <- fitMeasures(multigroup_p_g_m,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_scalar_p_g <- fitMeasures(multigroup_p_g_e,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+
+# Tabla resumen (html y opción latex)
+
+tabla_completa_p_g <- data.frame(
+  Estudio = c("PISA", "PISA", "PISA"),
+  Modelo = c("1. Configural", "2. Metric", "3. Scalar"),
+  chisq = c(fitmeasures_config_p_g["chisq"], fitmeasures_metric_p_g["chisq"], fitmeasures_scalar_p_g["chisq"]),
+  df = c(fitmeasures_config_p_g["df"], fitmeasures_metric_p_g["df"], fitmeasures_scalar_p_g["df"]),
+  CFI = c(fitmeasures_config_p_g["cfi"], fitmeasures_metric_p_g["cfi"], fitmeasures_scalar_p_g["cfi"]),
+  TLI = c(fitmeasures_config_p_g["tli"], fitmeasures_metric_p_g["tli"], fitmeasures_scalar_p_g["tli"]),
+  RMSEA = c(fitmeasures_config_p_g["rmsea"], fitmeasures_metric_p_g["rmsea"], fitmeasures_scalar_p_g["rmsea"]),
+  SRMR = c(fitmeasures_config_p_g["srmr"], fitmeasures_metric_p_g["srmr"], fitmeasures_scalar_p_g["srmr"])
+)
+
+# Cálculo deltas
+
+tabla_completa_p_g$delta_chisq <- c(NA, diff(tabla_completa_p_g$chisq))
+tabla_completa_p_g$delta_df    <- c(NA, diff(tabla_completa_p_g$df))
+tabla_completa_p_g$delta_CFI   <- c(NA, diff(tabla_completa_p_g$CFI))
+tabla_completa_p_g$delta_RMSEA <- c(NA, diff(tabla_completa_p_g$RMSEA))
+
+# Display para los deltas 
+
+tabla_completa_p_g$delta_CFI_display <- sapply(1:nrow(tabla_completa_p_g), function(i) {
+  if (i == 1) return(NA)
+  
+  if (tabla_completa_p_g$delta_CFI[i] >= -0.004) {
+    return("< -0.004")
+  } else {
+    return(sprintf("%.3f", tabla_completa_p_g$delta_CFI[i]))
+  }
+})
+
+tabla_completa_p_g$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_p_g), function(i) {
+  if (i == 1) return(NA)
+  
+  umbral <- if (i == 2) 0.050 else 0.010
+  
+  if (tabla_completa_p_g$delta_RMSEA[i] <= umbral) {
+    return(paste0("< ", umbral))
+  } else {
+    return(sprintf("%.3f", tabla_completa_p_g$delta_RMSEA[i]))
+  }
+})
+
+# ANOVA para significancia
+
+test_anova <- anova(multigroup_p_g, multigroup_p_g_m, multigroup_p_g_e)
+
+tabla_completa_p_g$p_value_delta_chisq <- case_when(test_anova$`Pr(>Chisq)`< 0.01 ~ "< 0.01",
+                                                  test_anova$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
+                                                  test_anova$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", test_anova$`Pr(>Chisq)`))
+
+tabla_completa_p_g$Decision <- c(
+  NA,  # Configural no tiene comparación previa
+  # Métrico: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
+  ifelse(tabla_completa_p_g$delta_CFI[2] >= -0.004 & 
+         tabla_completa_p_g$delta_RMSEA[2] <= 0.050, "Yes", "No"),
+  # Escalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
+  ifelse(tabla_completa_p_g$delta_CFI[3] >= -0.004 & 
+         tabla_completa_p_g$delta_RMSEA[3] <= 0.010, "Yes", "No")
+)
+
+```
+
+# ICILS
+
+## Pooled model
+
+```{r}
+#| echo: true
+#| code-fold: true
+
+model_pooled_i <- '
+  gen_dse =~ search_info + source_info + evaluate_info + install_app +
+              share_content + write_text +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding + develop_webpage
+  '
+
+m_pooled_i <- cfa(model = model_pooled_i, 
+              data = icils,
+              estimator = "DWLS",
+              ordered = T)
+
+standardizedsolution(m_pooled_i) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+fit_icils <- fitMeasures(m_pooled_i,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils, digits = 3)
+
+modindices(m_pooled_i, sort = TRUE, maximum.number = 5)
+```
+
+Este parte mejor (RMSEA = 0.105), eliminando source_info pasa a 0.091, y luego develop_webpage pasa a 0.08. SI sacamos write_text mejora a 0.077 pero no hay muchas vías más de mejoras (mi \< 2800).
+
+## Fitted model
+
+```{r}
+#| echo: true
+#| code-fold: true
+
+# No tiene source_info y write_text
+model_fitted_i <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding + develop_webpage
+  '
+
+m_fitted_i <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              ordered = T)
+
+standardizedsolution(m_fitted_i) %>% 
+  filter(op == "=~") %>% 
+  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+fit_icils <- fitMeasures(m_fitted_i,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+knitr::kable(fit_icils, digits = 3)
+
+modindices(m_fitted_i, sort = TRUE, maximum.number = 5)
+```
+
+## Country invariance analysis
+
+```{r}
+
+# Configural
+
+multigroup_i <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "CNTRY",
+              ordered = T)
+
+# Métrico
+
+multigroup_i_m <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "CNTRY",
+              ordered = T,
+              group.equal= "loadings")
+
+# Escalar
+
+multigroup_i_e <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "CNTRY",
+              ordered = T,
+              group.equal= c("loadings", "intercepts"))
+
+```
+
+```{r}
+# Extracción de indicadores de ajuste
+
+fitmeasures_config_i <- fitMeasures(multigroup_i,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_metric_i <- fitMeasures(multigroup_i_m,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_scalar_i <- fitMeasures(multigroup_i_e,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+
+# Tabla resumen (html y opción latex)
+
+tabla_completa_i <- data.frame(
+  Estudio = c("ICILS", "ICILS", "ICILS"),
+  Modelo = c("1. Configural", "2. Metric", "3. Scalar"),
+  chisq = c(fitmeasures_config_i["chisq"], fitmeasures_metric_i["chisq"], fitmeasures_scalar_i["chisq"]),
+  df = c(fitmeasures_config_i["df"], fitmeasures_metric_i["df"], fitmeasures_scalar_i["df"]),
+  CFI = c(fitmeasures_config_i["cfi"], fitmeasures_metric_i["cfi"], fitmeasures_scalar_i["cfi"]),
+  TLI = c(fitmeasures_config_i["tli"], fitmeasures_metric_i["tli"], fitmeasures_scalar_i["tli"]),
+  RMSEA = c(fitmeasures_config_i["rmsea"], fitmeasures_metric_i["rmsea"], fitmeasures_scalar_i["rmsea"]),
+  SRMR = c(fitmeasures_config_i["srmr"], fitmeasures_metric_i["srmr"], fitmeasures_scalar_i["srmr"])
+)
+
+# Cálculo deltas
+
+tabla_completa_i$delta_chisq <- c(NA, diff(tabla_completa_i$chisq))
+tabla_completa_i$delta_df    <- c(NA, diff(tabla_completa_i$df))
+tabla_completa_i$delta_CFI   <- c(NA, diff(tabla_completa_i$CFI))
+tabla_completa_i$delta_RMSEA <- c(NA, diff(tabla_completa_i$RMSEA))
+
+# Display para los deltas 
+
+tabla_completa_i$delta_CFI_display <- sapply(1:nrow(tabla_completa_i), function(i) {
+  if (i == 1) return(NA)
+  
+  if (tabla_completa_i$delta_CFI[i] >= -0.004) {
+    return("< -0.004")
+  } else {
+    return(sprintf("%.3f", tabla_completa_i$delta_CFI[i]))
+  }
+})
+
+tabla_completa_i$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_i), function(i) {
+  if (i == 1) return(NA)
+  
+  umbral <- if (i == 2) 0.050 else 0.010
+  
+  if (tabla_completa_i$delta_RMSEA[i] <= umbral) {
+    return(paste0("< ", umbral))
+  } else {
+    return(sprintf("%.3f", tabla_completa_i$delta_RMSEA[i]))
+  }
+})
+
+# ANOVA para significancia
+
+test_anova <- anova(multigroup_i, multigroup_i_m, multigroup_i_e)
+
+tabla_completa_i$p_value_delta_chisq <- case_when(test_anova$`Pr(>Chisq)`< 0.01 ~ "< 0.01",
+                                                  test_anova$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
+                                                  test_anova$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", test_anova$`Pr(>Chisq)`))
+tabla_completa_i$Decision <- c(
+  NA,  # Configural no tiene comparación previa
+  # Métrico: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
+  ifelse(tabla_completa_i$delta_CFI[2] >= -0.004 & 
+         tabla_completa_i$delta_RMSEA[2] <= 0.050, "Yes", "No"),
+  # Escalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
+  ifelse(tabla_completa_i$delta_CFI[3] >= -0.004 & 
+         tabla_completa_i$delta_RMSEA[3] <= 0.010, "Yes", "No")
+)
+```
+
+## Gender invariance analysis
+
+```{r}
+
+# Configural
+
+multigroup_i_g <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "sex",
+              ordered = T)
+
+# Métrico
+
+multigroup_i_g_m <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "sex",
+              ordered = T,
+              group.equal= "loadings")
+
+# Escalar
+
+multigroup_i_g_e <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "sex",
+              ordered = T,
+              group.equal= c("loadings", "intercepts"))
+
+```
+
+```{r}
+# Extracción de indicadores de ajuste
+
+fitmeasures_config_i_g <- fitMeasures(multigroup_i_g,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_metric_i_g <- fitMeasures(multigroup_i_g_m,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+fitmeasures_scalar_i_g <- fitMeasures(multigroup_i_g_e,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
+
+
+# Tabla resumen (html y opción latex)
+
+tabla_completa_i_g <- data.frame(
+  Estudio = c("ICILS", "ICILS", "ICILS"),
+  Modelo = c("1. Configural", "2. Metric", "3. Scalar"),
+  chisq = c(fitmeasures_config_i_g["chisq"], fitmeasures_metric_i_g["chisq"], fitmeasures_scalar_i_g["chisq"]),
+  df = c(fitmeasures_config_i_g["df"], fitmeasures_metric_i_g["df"], fitmeasures_scalar_i_g["df"]),
+  CFI = c(fitmeasures_config_i_g["cfi"], fitmeasures_metric_i_g["cfi"], fitmeasures_scalar_i_g["cfi"]),
+  TLI = c(fitmeasures_config_i_g["tli"], fitmeasures_metric_i_g["tli"], fitmeasures_scalar_i_g["tli"]),
+  RMSEA = c(fitmeasures_config_i_g["rmsea"], fitmeasures_metric_i_g["rmsea"], fitmeasures_scalar_i_g["rmsea"]),
+  SRMR = c(fitmeasures_config_i_g["srmr"], fitmeasures_metric_i_g["srmr"], fitmeasures_scalar_i_g["srmr"])
+)
+
+# Cálculo deltas
+
+tabla_completa_i_g$delta_chisq <- c(NA, diff(tabla_completa_i_g$chisq))
+tabla_completa_i_g$delta_df    <- c(NA, diff(tabla_completa_i_g$df))
+tabla_completa_i_g$delta_CFI   <- c(NA, diff(tabla_completa_i_g$CFI))
+tabla_completa_i_g$delta_RMSEA <- c(NA, diff(tabla_completa_i_g$RMSEA))
+
+# Display para los deltas 
+
+tabla_completa_i_g$delta_CFI_display <- sapply(1:nrow(tabla_completa_i_g), function(i) {
+  if (i == 1) return(NA)
+  
+  if (tabla_completa_i_g$delta_CFI[i] >= -0.004) {
+    return("< -0.004")
+  } else {
+    return(sprintf("%.3f", tabla_completa_i_g$delta_CFI[i]))
+  }
+})
+
+tabla_completa_i_g$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_i_g), function(i) {
+  if (i == 1) return(NA)
+  
+  umbral <- if (i == 2) 0.050 else 0.010
+  
+  if (tabla_completa_i_g$delta_RMSEA[i] <= umbral) {
+    return(paste0("< ", umbral))
+  } else {
+    return(sprintf("%.3f", tabla_completa_i_g$delta_RMSEA[i]))
+  }
+})
+
+# ANOVA para significancia
+
+test_anova <- anova(multigroup_i_g, multigroup_i_g_m, multigroup_i_g_e)
+
+tabla_completa_i_g$p_value_delta_chisq <- case_when(test_anova$`Pr(>Chisq)`< 0.01 ~ "< 0.01",
+                                                  test_anova$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
+                                                  test_anova$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", test_anova$`Pr(>Chisq)`))
+
+tabla_completa_i_g$Decision <- c(
+  NA,  # Configural no tiene comparación previa
+  # Métrico: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
+  ifelse(tabla_completa_i_g$delta_CFI[2] >= -0.004 & 
+         tabla_completa_i_g$delta_RMSEA[2] <= 0.050, "Yes", "No"),
+  # Escalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
+  ifelse(tabla_completa_i_g$delta_CFI[3] >= -0.004 & 
+         tabla_completa_i_g$delta_RMSEA[3] <= 0.010, "Yes", "No")
+)
+```
+
+# Figures layout & export
+
+```{r}
+
+tabla_completa_p_export <- tabla_completa_p %>%
+  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
+         delta_chisq, delta_df, 
+         delta_CFI_display, delta_RMSEA_display,
+         p_value_delta_chisq, Decision) %>%
+  rename(delta_CFI = delta_CFI_display,
+         delta_RMSEA = delta_RMSEA_display)
+
+tabla_completa_i_export <- tabla_completa_i %>%
+  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
+         delta_chisq, delta_df, 
+         delta_CFI_display, delta_RMSEA_display,
+         p_value_delta_chisq, Decision) %>%
+  rename(delta_CFI = delta_CFI_display,
+         delta_RMSEA = delta_RMSEA_display)
+
+
+tabla_completa_p_g_export <- tabla_completa_p_g %>%
+  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
+         delta_chisq, delta_df, 
+         delta_CFI_display, delta_RMSEA_display,
+         p_value_delta_chisq, Decision) %>%
+  rename(delta_CFI = delta_CFI_display,
+         delta_RMSEA = delta_RMSEA_display)
+
+
+tabla_completa_i_g_export <- tabla_completa_i_g %>%
+  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
+         delta_chisq, delta_df, 
+         delta_CFI_display, delta_RMSEA_display,
+         p_value_delta_chisq, Decision) %>%
+  rename(delta_CFI = delta_CFI_display,
+         delta_RMSEA = delta_RMSEA_display)
+
+
+tabla_unificada_cnt <- bind_rows(tabla_completa_p_export, tabla_completa_i_export)
+
+tabla_unificada_g <- bind_rows(tabla_completa_p_g_export, tabla_completa_i_g_export)
+```
+
+```{r}
+
+colnames(tabla_unificada_cnt) <- c(
+  "Study",
+  "Model", 
+  "\u03C7\u00B2",      # χ²
+  "df",
+  "CFI",
+  "TLI",
+  "RMSEA",
+  "SRMR",
+  "\u0394\u03C7\u00B2", # Δχ²
+  "\u0394df",          # Δdf
+  "\u0394CFI",         # ΔCFI
+  "\u0394RMSEA",       # ΔRMSEA
+  "p",
+  "Decision"
+)
+
+ft_cnt <- flextable(tabla_unificada_cnt) %>%
+# Formatear números: 0 decimales para χ², df, Δχ², Δdf
+  colformat_double(j = c("\u03C7\u00B2", "df", "\u0394\u03C7\u00B2", "\u0394df"), digits = 0) %>%
+  # 3 decimales para el resto de columnas numéricas
+  colformat_double(j = c("CFI", "TLI", "RMSEA", "SRMR", "\u0394CFI", "\u0394RMSEA", "p"), digits = 3) %>%  border_remove() %>%
+  hline_top(border = officer::fp_border(width = 2), part = "all") %>%
+  hline_bottom(border = officer::fp_border(width = 2), part = "all") %>%
+  hline(i = 1, border = officer::fp_border(width = 1.5), part = "header") %>%
+  bold(part = "header") %>%
+  font(fontname = "Calibri", part = "all") %>%
+  fontsize(size = 9, part = "body") %>%
+  fontsize(size = 10, part = "header") %>%
+  padding(padding = 3, part = "all") %>%
+  align(align = "center", part = "header") %>%
+  align(align = "left", part = "body", j = 1:2) %>%
+  align(align = "center", part = "body", j = 3:ncol(tabla_unificada_cnt)) %>%
+  autofit() %>%
+  fit_to_width(max_width = 7.5)
+
+delta_cfi_col <- which(colnames(tabla_unificada_cnt) == "\u0394CFI")
+delta_rmsea_col <- which(colnames(tabla_unificada_cnt) == "\u0394RMSEA")
+decision_col <- which(colnames(tabla_unificada_cnt) == "Decision")
+
+rows_cfi_fail <- which(!grepl("<", tabla_unificada_cnt[[delta_cfi_col]]) & 
+                       !is.na(tabla_unificada_cnt[[delta_cfi_col]]))
+rows_rmsea_fail <- which(!grepl("<", tabla_unificada_cnt[[delta_rmsea_col]]) & 
+                         !is.na(tabla_unificada_cnt[[delta_rmsea_col]]))
+rows_decision_no <- which(tabla_unificada_cnt$Decision == "No")
+
+if(length(rows_cfi_fail) > 0) {
+  ft_cnt <- ft_cnt %>%
+    bg(i = rows_cfi_fail, j = delta_cfi_col, bg = "#FFCCCB") %>%
+    color(i = rows_cfi_fail, j = delta_cfi_col, color = "#8B0000")
+}
+
+if(length(rows_rmsea_fail) > 0) {
+  ft_cnt <- ft_cnt %>%
+    bg(i = rows_rmsea_fail, j = delta_rmsea_col, bg = "#FFCCCB") %>%
+    color(i = rows_rmsea_fail, j = delta_rmsea_col, color = "#8B0000")
+}
+
+if(length(rows_decision_no) > 0) {
+  ft_cnt <- ft_cnt %>%
+    bg(i = rows_decision_no, j = decision_col, bg = "#FFCCCB") %>%
+    color(i = rows_decision_no, j = decision_col, color = "#8B0000") %>%
+    bold(i = rows_decision_no, j = decision_col)
+}
+
+ft_cnt
+# Guardar como docx
+save_as_docx(ft_cnt, path = "invariance_table_country.docx")
+```
+
+```{r}
+colnames(tabla_unificada_g) <- c(
+  "Study",
+  "Model", 
+  "\u03C7\u00B2",      # χ²
+  "df",
+  "CFI",
+  "TLI",
+  "RMSEA",
+  "SRMR",
+  "\u0394\u03C7\u00B2", # Δχ²
+  "\u0394df",          # Δdf
+  "\u0394CFI",         # ΔCFI
+  "\u0394RMSEA",       # ΔRMSEA
+  "p",
+  "Decision"
+)
+
+ft_g <- flextable(tabla_unificada_g) %>%
+  colformat_double(j = c("\u03C7\u00B2", "df", "\u0394\u03C7\u00B2", "\u0394df"), digits = 0) %>%
+  colformat_double(j = c("CFI", "TLI", "RMSEA", "SRMR", "\u0394CFI", "\u0394RMSEA", "p"), digits = 3) %>%  border_remove() %>%
+  hline_top(border = officer::fp_border(width = 2), part = "all") %>%
+  hline_bottom(border = officer::fp_border(width = 2), part = "all") %>%
+  hline(i = 1, border = officer::fp_border(width = 1.5), part = "header") %>%
+  bold(part = "header") %>%
+  font(fontname = "Calibri", part = "all") %>%
+  fontsize(size = 9, part = "body") %>%
+  fontsize(size = 10, part = "header") %>%
+  padding(padding = 3, part = "all") %>%
+  align(align = "center", part = "header") %>%
+  align(align = "left", part = "body", j = 1:2) %>%
+  align(align = "center", part = "body", j = 3:ncol(tabla_unificada_g)) %>%
+  autofit() %>%
+  fit_to_width(max_width = 7.5)
+
+delta_cfi_col <- which(colnames(tabla_unificada_g) == "\u0394CFI")
+delta_rmsea_col <- which(colnames(tabla_unificada_g) == "\u0394RMSEA")
+decision_col <- which(colnames(tabla_unificada_g) == "Decision")
+
+rows_cfi_fail <- which(!grepl("<", tabla_unificada_g[[delta_cfi_col]]) & 
+                       !is.na(tabla_unificada_g[[delta_cfi_col]]))
+rows_rmsea_fail <- which(!grepl("<", tabla_unificada_g[[delta_rmsea_col]]) & 
+                         !is.na(tabla_unificada_g[[delta_rmsea_col]]))
+rows_decision_no <- which(tabla_unificada_g$Decision == "No")
+
+if(length(rows_cfi_fail) > 0) {
+  ft_g <- ft_g %>%
+    bg(i = rows_cfi_fail, j = delta_cfi_col, bg = "#FFCCCB") %>%
+    color(i = rows_cfi_fail, j = delta_cfi_col, color = "#8B0000")
+}
+
+if(length(rows_rmsea_fail) > 0) {
+  ft_g <- ft_g %>%
+    bg(i = rows_rmsea_fail, j = delta_rmsea_col, bg = "#FFCCCB") %>%
+    color(i = rows_rmsea_fail, j = delta_rmsea_col, color = "#8B0000")
+}
+
+if(length(rows_decision_no) > 0) {
+  ft_g <- ft_g %>%
+    bg(i = rows_decision_no, j = decision_col, bg = "#FFCCCB") %>%
+    color(i = rows_decision_no, j = decision_col, color = "#8B0000") %>%
+    bold(i = rows_decision_no, j = decision_col)
+}
+
+ft_g
+
+# Guardar como docx
+save_as_docx(ft_g, path = "invariance_table_gender.docx")
+```

@@ -1,5 +1,6 @@
 library(pacman)
 p_load(dplyr, haven)
+rm(list = ls())
 
 pisa <- readRDS("./input/data/proc_data/pisa22_proc.rds")
 icils <- readRDS("./input/data/proc_data/icils23_proc.rds")

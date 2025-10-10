@@ -4,17 +4,21 @@ editor: visual
 
 ## Pooled model: PISA
 
-It don't fit, so modifications are needed.
+It don't fit, so modifications are needed. (no es necesario mostrar el diagrama). Aquí explicar cada variable que se sace y su mi.
 
 ## Pooled model: ICILS
 
 It don't fit, so modifications are needed.
 
-## Modified model: PISA
+## Modified-Fitted model: PISA
 
-Here we propose and report the modified PISA model. Relevant indicators are cfi, rmsea and loadings.
+Here we propose and report the modified PISA model. Relevant indicators are cfi, rmsea and loadings. **Aquí mostrar los modelos propuestos (diagrama y luego con loadings y ajustes).**
 
-## Modified model: ICILS
+Debo explicar qué items se eliminaron y por qué (cargas cruzadas, covarianzas, etc.)
+
+Aquí poner los diagramas **con los puntajes, indicadores de ajuste.**
+
+## Modified-Fitted model: ICILS
 
 Here we propose and report the modified ICILS model. Relevant indicators are cfi, rmsea and loadings.
 
@@ -29,9 +33,5 @@ Here we show and analyze the invariance table for country and gender for the PIS
 ## Descriptives by gender and countries
 
 Graphs for loadings by gender and countries (PISA and ICILS (if fitted and comparable))
-
-## Correlations with some countries indicators
-
-(Proposed) Correlation matrix for exploration of countries dse gender inequalities (for opening research questions and agendas)
 
 ![](images/paste-4.png)![](images/paste-3.png)

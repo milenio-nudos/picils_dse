@@ -127,7 +127,10 @@ icils23_proc <- icils23_proc|>
     edit_image = IS3G24A,
     programming = IS3G24K,
     visual_coding = IS3G24L,
-    change_settings = IS3G24E
+    change_settings = IS3G24E,
+    sex = IS3G02
   )
+
+icils23_proc$sex <- haven::as_factor(icils23_proc$sex)
 
 saveRDS(icils23_proc, "input/data/proc_data/icils23_proc.rds")
