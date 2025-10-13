@@ -1,5 +1,5 @@
 ---
-title: "Primera opción: Dimensiones general y especializada"
+title: "Confirmatory factor analisys and invariance script"
 date: today
 lang: en
 fontsize: 14pt
@@ -10,9 +10,9 @@ format:
     toc-location: left
     toc-depth: 2
     toc-expand: 1
-    toc-title: Contenidos
+    toc-title: Contents
     number-sections: true
-    number-depth: 3
+    number-depth: 2
     theme:
       - united
     code-link: true
@@ -606,6 +606,8 @@ tabla_completa_i_g$Decision <- c(
 
 # Figures layout & export
 
+## Country table
+
 ```{r}
 
 tabla_completa_p_export <- tabla_completa_p %>%
@@ -624,28 +626,8 @@ tabla_completa_i_export <- tabla_completa_i %>%
   rename(delta_CFI = delta_CFI_display,
          delta_RMSEA = delta_RMSEA_display)
 
-
-tabla_completa_p_g_export <- tabla_completa_p_g %>%
-  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
-         delta_chisq, delta_df, 
-         delta_CFI_display, delta_RMSEA_display,
-         p_value_delta_chisq, Decision) %>%
-  rename(delta_CFI = delta_CFI_display,
-         delta_RMSEA = delta_RMSEA_display)
-
-
-tabla_completa_i_g_export <- tabla_completa_i_g %>%
-  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
-         delta_chisq, delta_df, 
-         delta_CFI_display, delta_RMSEA_display,
-         p_value_delta_chisq, Decision) %>%
-  rename(delta_CFI = delta_CFI_display,
-         delta_RMSEA = delta_RMSEA_display)
-
-
 tabla_unificada_cnt <- bind_rows(tabla_completa_p_export, tabla_completa_i_export)
 
-tabla_unificada_g <- bind_rows(tabla_completa_p_g_export, tabla_completa_i_g_export)
 ```
 
 ```{r}
@@ -686,16 +668,19 @@ ft_cnt <- flextable(tabla_unificada_cnt) %>%
   autofit() %>%
   fit_to_width(max_width = 7.5)
 
+# --- LOGICA DE COLOREO AUTOMÁTICA --- #
+
+# Detectamos la columna a colorear
 delta_cfi_col <- which(colnames(tabla_unificada_cnt) == "\u0394CFI")
 delta_rmsea_col <- which(colnames(tabla_unificada_cnt) == "\u0394RMSEA")
 decision_col <- which(colnames(tabla_unificada_cnt) == "Decision")
-
+# Detectamos la fila a colorear (las que no tienen el operador menor que)
 rows_cfi_fail <- which(!grepl("<", tabla_unificada_cnt[[delta_cfi_col]]) & 
                        !is.na(tabla_unificada_cnt[[delta_cfi_col]]))
 rows_rmsea_fail <- which(!grepl("<", tabla_unificada_cnt[[delta_rmsea_col]]) & 
                          !is.na(tabla_unificada_cnt[[delta_rmsea_col]]))
 rows_decision_no <- which(tabla_unificada_cnt$Decision == "No")
-
+# Coloreamos según corresponda
 if(length(rows_cfi_fail) > 0) {
   ft_cnt <- ft_cnt %>%
     bg(i = rows_cfi_fail, j = delta_cfi_col, bg = "#FFCCCB") %>%
@@ -716,8 +701,38 @@ if(length(rows_decision_no) > 0) {
 }
 
 ft_cnt
-# Guardar como docx
-save_as_docx(ft_cnt, path = "invariance_table_country.docx")
+```
+
+```{r}
+#| eval: false
+
+# Guardar como docx y png
+save_as_docx(ft_cnt, path = "output/figures/tables/invariance_table_country.docx")
+save_as_image(ft_cnt, path = "output/figures/tables/invariance_table_country.png")
+```
+
+## Gender table
+
+```{r}
+tabla_completa_p_g_export <- tabla_completa_p_g %>%
+  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
+         delta_chisq, delta_df, 
+         delta_CFI_display, delta_RMSEA_display,
+         p_value_delta_chisq, Decision) %>%
+  rename(delta_CFI = delta_CFI_display,
+         delta_RMSEA = delta_RMSEA_display)
+
+
+tabla_completa_i_g_export <- tabla_completa_i_g %>%
+  select(Estudio, Modelo, chisq, df, CFI, TLI, RMSEA, SRMR,
+         delta_chisq, delta_df, 
+         delta_CFI_display, delta_RMSEA_display,
+         p_value_delta_chisq, Decision) %>%
+  rename(delta_CFI = delta_CFI_display,
+         delta_RMSEA = delta_RMSEA_display)
+
+tabla_unificada_g <- bind_rows(tabla_completa_p_g_export, tabla_completa_i_g_export)
+
 ```
 
 ```{r}
@@ -755,16 +770,19 @@ ft_g <- flextable(tabla_unificada_g) %>%
   autofit() %>%
   fit_to_width(max_width = 7.5)
 
+# --- LOGICA DE COLOREO AUTOMÁTICA --- #
+
+# Detectamos la columna a colorear
 delta_cfi_col <- which(colnames(tabla_unificada_g) == "\u0394CFI")
 delta_rmsea_col <- which(colnames(tabla_unificada_g) == "\u0394RMSEA")
 decision_col <- which(colnames(tabla_unificada_g) == "Decision")
-
+# Detectamos la fila a colorear (lás que no tienen el operador menor que)
 rows_cfi_fail <- which(!grepl("<", tabla_unificada_g[[delta_cfi_col]]) & 
                        !is.na(tabla_unificada_g[[delta_cfi_col]]))
 rows_rmsea_fail <- which(!grepl("<", tabla_unificada_g[[delta_rmsea_col]]) & 
                          !is.na(tabla_unificada_g[[delta_rmsea_col]]))
 rows_decision_no <- which(tabla_unificada_g$Decision == "No")
-
+# Coloreamos según corresponda
 if(length(rows_cfi_fail) > 0) {
   ft_g <- ft_g %>%
     bg(i = rows_cfi_fail, j = delta_cfi_col, bg = "#FFCCCB") %>%
@@ -785,7 +803,13 @@ if(length(rows_decision_no) > 0) {
 }
 
 ft_g
+```
 
-# Guardar como docx
-save_as_docx(ft_g, path = "invariance_table_gender.docx")
+
+```{r}
+#| eval: false
+
+# Guardar como docx y png
+save_as_docx(ft_g, path = "output/figures/tables/invariance_table_gender.docx")
+save_as_image(ft_g, path = "output/figures/tables/invariance_table_gender.png")
 ```

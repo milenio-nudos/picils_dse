@@ -18,8 +18,8 @@ options(scipen = 999)
 
 rm(list = ls()) 
 
-icils23_proc <- readRDS(here::here("~/GitHub/milenio_nudos/picils_dse/input/data/proc_data/icils23_proc.rds"))
-pisa22ict <- readRDS(here::here("input/data/proc_data/pisa22_proc.rds"))
+icils23_proc <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"))
+pisa22ict <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
 
 ```
 
@@ -247,7 +247,7 @@ ggplot(plot_data, aes(y = CNT, x = score)) +  # Use CNT directly (already reorde
 
 # Prepare the data for plotting
 plot_data <- icils23_proc|>  
-  group_by(CNTRY, IS3G02) |>  
+  group_by(CNTRY, sex) |>  
   summarise(
     "General DSE" = mean(effgen, na.rm = TRUE),
     "Specialized DSE" = mean(effspec, na.rm = TRUE)
@@ -258,7 +258,7 @@ plot_data <- icils23_proc|>
     values_to = "score"
   ) |>  
   ungroup() |>  
-  mutate(sex = to_label(IS3G02)) |>  
+  mutate(sex = to_label(sex)) |>  
   drop_na()
 
 # Reorder the data by score for each type

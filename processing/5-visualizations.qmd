@@ -1,0 +1,755 @@
+---
+title: "Loadings and scores visualizations script"
+date: today
+lang: en
+fontsize: 14pt
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 2
+    toc-expand: 1
+    toc-title: Contents
+    number-sections: true
+    number-depth: 2
+    theme:
+      - united
+    code-link: true
+    title-block-banner: true
+editor_options: 
+  chunk_output_type: console
+execute:
+  fig-width: 10
+  fig-height: 6
+
+---
+# Enviroment setting
+
+```{r}
+
+# Sesion setting
+
+options(scipen=999) #No scientific notation
+options(digits = 2) #Round results two decimals
+
+
+#install.packages("pacman")
+library(pacman)
+
+pacman::p_load(
+  dplyr, haven, sjlabelled,  psych,  purrr,  ggplot2, 
+  parameters,  beeswarm, scales, ggrepel,
+  ggtext, lavaan, semTools, knitr, kableExtra, flextable, officer, tidyr, ggbeeswarm)
+
+options(scipen = 999)
+rm(list = ls()) 
+
+pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
+icils <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"))
+
+```
+
+# PISA
+
+## Model running and data processing
+
+```{r}
+pisa <- pisa |>
+  mutate(
+    effgen = rowMeans(across(c(search_info, evaluate_info, 
+                               explain_content, share_content, pair_collab,
+                               write_text)), 
+                      na.rm = TRUE),
+    effspec = rowMeans(across(c(programming, identify_error, logical_solution)), 
+                       na.rm = TRUE)
+  )
+
+model_fitted_p <- '
+  gen_dse =~ search_info + evaluate_info + 
+  explain_content + share_content + pair_collab + 
+  write_text
+  spec_dse =~ programming + identify_error + logical_solution
+  '
+  
+fitgroup_p <- cfa(model = model_fitted_p, 
+                data = pisa, 
+                group = "CNT",
+                ordered = TRUE,
+                estimator = "DWLS"
+              )
+```
+
+```{r}
+# Obtenemos todos los parámetros
+
+all_params_p <- parameterEstimates(fitgroup_p, standardized = TRUE)
+
+# Operador =~
+
+factor_loadings_all_groups_p <- all_params_p %>%
+  filter(op == "=~")
+
+# Extraemos las etiquetas de cada país
+
+country_labels <- pisa %>%
+  select(CNT) %>%
+  distinct() %>%
+  mutate(
+    code = as.character(CNT),
+    label = as.character(haven::as_factor(CNT))
+  ) %>%
+  select(code, label)
+
+# Extraemos los códigos de los grupos
+
+group_labels_p <- lavInspect(fitgroup_p, "group.label")
+
+# Utilizamos el nombre en vez del código
+
+group_labels_p_named <- country_labels$label[match(group_labels_p, country_labels$code)]
+
+# Dataframe con todos los países
+
+country_map_p <- data.frame(
+  group = 1:length(group_labels_p_named), 
+  CNT = group_labels_p_named
+)
+
+# Dataframe con ambas dimensiones
+
+factor_loadings_all_groups_p <- factor_loadings_all_groups_p %>%
+  left_join(country_map_p, by = "group")
+
+# Dataframe gen dse
+
+loadings_gen_dse_p <- factor_loadings_all_groups_p %>%
+  filter(lhs == "gen_dse") %>%
+  select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+# Etiquetas tres países con peor ajuste
+
+labels_gen_dse_p <- loadings_gen_dse_p %>%
+  group_by(item) %>%
+  slice_min(order_by = loading, n = 3) %>%
+  ungroup()
+
+# Dataframe spec dse
+
+loadings_spec_dse_p <- factor_loadings_all_groups_p %>%
+  filter(lhs == "spec_dse") %>%
+  select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+# Etiquetas tres países con menor ajuste
+
+labels_spec_dse_p <- loadings_spec_dse_p %>%
+  group_by(item) %>%
+  slice_min(order_by = loading, n = 3) %>%
+  ungroup()
+
+```
+
+## General DSE loadings graph
+
+```{r}
+# Gráfico cleaveland autoeficacia general
+
+library(forcats)
+
+plot_gen_dse_p <- ggplot(loadings_gen_dse_p,
+                       aes(x = loading,
+                           y = fct_reorder(item, loading, .fun = median, .desc = FALSE))) +
+  geom_point(aes(color = '#5f5758'), size = 3, alpha = 0.7) + 
+    geom_text_repel(data = labels_gen_dse_p, 
+                  aes(label = CNT), 
+                  size = 2.5,
+                  color = "black",
+                  box.padding = 0.4,
+                  point.padding = 0.2,
+                  min.segment.length = 0,
+                  max.overlaps = Inf,
+                  seed = 123) +
+  scale_color_identity(name = "Factor", 
+                       guide = "legend", 
+                       labels = c("General")) +
+  scale_x_continuous(limits = c(0.5, NA)) +
+  labs(title = "PISA General DSE Loadings", 
+       x = "Standarized loadings",
+       y = "Item") +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.y = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        legend.position = "top")
+
+plot_gen_dse_p
+
+```
+
+## Specialized DSE loadings graph
+
+```{r}
+plot_spec_dse_p <- ggplot(loadings_spec_dse_p,
+                        aes(x = loading,
+                            y = fct_reorder(item, loading, .fun = median, .desc = FALSE))) +
+  geom_point(aes(color = '#fe3057'), size = 3, alpha = 0.7) +
+    geom_text_repel(data = labels_spec_dse_p, 
+                  aes(label = CNT), 
+                  size = 2.5,
+                  color = "black",
+                  box.padding = 0.4,
+                  point.padding = 0.2,
+                  min.segment.length = 0,
+                  max.overlaps = Inf) +
+  scale_color_identity(name = "Factor", 
+                       guide = "legend", 
+                       labels = c("Specialized")) +
+  scale_x_continuous(limits = c(0.5, NA)) +  
+  labs(title = "PISA Specialized DSE Loadings", 
+       x = "Standarized loadings",
+       y = "Item") +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.y = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        legend.position = "top")
+
+plot_spec_dse_p
+```
+
+## Countries DSE scores comparison
+
+```{r}
+
+beeswarm_plot <- pisa |>
+  group_by(CNT)|>
+  summarise(mean_geneff = mean(effgen, na.rm = T),
+            mean_speceff = mean(effspec, na.rm = T))|>
+  ungroup()|>
+  pivot_longer(cols = 2:3,
+               names_to = "type",
+               values_to = "score")
+
+beeswarm_labels <- 
+  rbind(
+  beeswarm_plot%>%
+  group_by(type) %>%
+  arrange(score) %>%
+  slice(c(1:3, (n() - 2):n())) %>%
+  ungroup() %>%
+  mutate(CNT = to_label(CNT)),
+  
+  beeswarm_plot%>%
+    filter(CNT %in% c(""))%>%
+    mutate(CNT = to_label(CNT))%>%
+    slice(-3)
+  )
+
+  
+pisa_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
+  geom_beeswarm(size = 2) +
+  geom_text_repel(
+    data = beeswarm_labels,
+    aes(label = CNT),
+    size = 3,
+    color = "black",
+    box.padding = 1.0,        
+    point.padding = 0.1,      
+    min.segment.length = 0,   
+    max.overlaps = Inf,       
+    force = 3,                
+    force_pull = 0.3,         
+    direction = "both",       
+    seed = 999              
+  ) +
+  scale_color_manual(values = c("#5f5758","#fe3057")) +
+  theme_minimal() +
+  theme(
+    legend.title = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10),
+    legend.position = "none",
+    plot.caption = element_text(size = 15),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  labs(title = "PISA countries DSE scores comparison") +
+  scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
+
+pisa_cnt_plot
+```
+
+## Gender DSE differences by country
+
+```{r}
+
+gender_plot <- pisa |>  
+  group_by(CNT, sex) |>  
+  summarise(
+    "General DSE" = mean(effgen, na.rm = TRUE),
+    "Specialized DSE" = mean(effspec, na.rm = TRUE)
+  ) |>  
+  pivot_longer(
+    cols = 3:4,
+    names_to = "type",
+    values_to = "score"
+  ) |>  
+  ungroup() |>  
+  mutate(sex = to_label(sex)) |>  
+  drop_na()
+
+# Crear etiquetas de países ANTES de convertir a factor
+country_labels_map <- gender_plot %>%
+  distinct(CNT) %>%
+  mutate(
+    CNT_code = as.character(CNT),
+    CNT_label = to_label(CNT)
+  ) %>%
+  select(CNT_code, CNT_label)
+
+# Reorder the data by score for each type
+gender_plot <- gender_plot %>%
+  mutate(CNT_code = as.character(CNT)) %>%
+  left_join(country_labels_map, by = "CNT_code") %>%
+  group_by(type) %>%
+  arrange(score) %>%
+  mutate(CNT_label = factor(CNT_label, levels = unique(CNT_label))) %>%
+  ungroup()
+
+# Create the plot
+pisa_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) + 
+  facet_grid(~type, scales = "free_y") +
+  geom_line(aes(group = CNT_label), size = 0.5) +  
+  geom_point(aes(color = sex, shape = sex), size = 2) +  
+  scale_color_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = "#FE3057", "Male" = "#5f5758")) +
+  scale_shape_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = 16, "Male" = 17)) + 
+  labs(title = "PISA gender DSE gaps by country") +  
+  theme_minimal() +  
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    legend.position = "top",
+    axis.text.y = element_text(size = 8, color = "black"),
+    plot.margin = margin(10, 10, 10, 10),
+    panel.spacing = unit(1.5, "lines"),
+    text = element_text(size = 12),
+    strip.text = element_text(size = 12),
+    legend.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(2, 4))
+
+pisa_gender_plot
+```
+
+Idea: Marcar en rojo a la izquierda los países que más brecha presentan en la autoeficacia digital especializada. Así podemos discutir estos casos y abrir el tema de que los países más desarrollados tienen mayores brechas en dirección a los hombres.
+
+# ICILS
+
+## Model running and data processing
+
+```{r}
+
+icils <- icils|>
+  mutate(
+    effgen = rowMeans(across(c(search_info, evaluate_info, install_app,
+                               share_content,
+                               create_media, insert_image, edit_image, change_settings)), 
+                      na.rm = TRUE),
+    effspec = rowMeans(across(c(programming, visual_coding, develop_webpage)), 
+                       na.rm = TRUE)  
+  )
+
+model_fitted_i <- '
+  gen_dse =~ search_info + evaluate_info + install_app +
+              share_content +
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ programming + visual_coding + develop_webpage
+  '
+
+fitgroup_i <- cfa(model = model_fitted_i, 
+              data = icils,
+              estimator = "DWLS",
+              group = "CNTRY",
+              ordered = T)
+
+```
+
+```{r}
+# Obtenemos todos los parámetros
+
+all_params_i <- parameterEstimates(fitgroup_i, standardized = TRUE)
+
+# Operador =~
+
+factor_loadings_all_groups_i <- all_params_i %>%
+  filter(op == "=~")
+
+# Extraemos las etiquetas de cada país
+
+country_labels <- icils %>%
+  select(CNTRY) %>%
+  distinct() %>%
+  mutate(
+    code = as.character(CNTRY),
+    label = as.character(haven::as_factor(CNTRY))
+  ) %>%
+  select(code, label)
+
+# Extraemos las labels
+
+group_labels_i <- lavInspect(fitgroup_i, "group.label")
+
+# Utilizamos el nombre en vez del código
+
+group_labels_i_named <- country_labels$label[match(group_labels_i, country_labels$code)]
+
+# Dataframe con todos los países
+
+country_map_i <- data.frame(group = 1:length(group_labels_i), CNT = unlist(group_labels_i_named))
+
+# Dataframe con ambas dimensiones
+
+factor_loadings_all_groups_i <- factor_loadings_all_groups_i %>%
+  left_join(country_map_i, by = "group")
+
+# Dataframe gen dse
+
+loadings_gen_dse_i <- factor_loadings_all_groups_i %>%
+  filter(lhs == "gen_dse") %>%
+  select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+# Etiquetas tres países con peor ajuste
+
+labels_gen_dse_i <- loadings_gen_dse_i %>%
+  group_by(item) %>%
+  slice_min(order_by = loading, n = 3) %>%
+  ungroup()
+
+# Dataframe spec dse
+
+loadings_spec_dse_i <- factor_loadings_all_groups_i %>%
+  filter(lhs == "spec_dse") %>%
+  select(CNT, item = rhs, loading = std.all, latent_factor = lhs)
+
+# Etiquetas tres países con menor ajuste
+
+labels_spec_dse_i <- loadings_spec_dse_i %>%
+  group_by(item) %>%
+  slice_min(order_by = loading, n = 3) %>%
+  ungroup()
+
+```
+
+## General DSE loadings graph
+
+```{r}
+# Gráfico cleaveland autoeficacia general
+
+library(forcats)
+
+plot_gen_dse_i <- ggplot(loadings_gen_dse_i,
+                       aes(x = loading,
+                           y = fct_reorder(item, loading, .fun = median, .desc = FALSE))) +
+  geom_point(aes(color = '#5f5758'), size = 3, alpha = 0.7) + 
+    geom_text_repel(data = labels_gen_dse_i, 
+                  aes(label = CNT), 
+                  size = 2.5,
+                  color = "black",
+                  box.padding = 0.4,
+                  point.padding = 0.2,
+                  min.segment.length = 0,
+                  max.overlaps = Inf) +
+  scale_color_identity(name = "Factor", 
+                       guide = "legend", 
+                       labels = c("General")) +
+  labs(title = "ICILS General DSE Loadings", 
+       x = "Standarized loadings",
+       y = "Item") +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.y = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        legend.position = "top")
+
+plot_gen_dse_i
+
+# Cleaveland autoeficacia especializada
+# Fijar el gráfico a x = .3
+
+```
+
+## Specialized DSE loadings graph
+
+```{r}
+plot_spec_dse_i <- ggplot(loadings_spec_dse_i,
+                        aes(x = loading,
+                            y = fct_reorder(item, loading, .fun = median, .desc = FALSE))) +
+  geom_point(aes(color = '#fe3057'), size = 3, alpha = 0.7) +
+    geom_text_repel(data = labels_spec_dse_i, 
+                  aes(label = CNT), 
+                  size = 2.5,
+                  color = "black",
+                  box.padding = 0.4,
+                  point.padding = 0.2,
+                  min.segment.length = 0,
+                  max.overlaps = Inf,
+                  force = 1,
+                  seed = 999) +
+  scale_color_identity(name = "Factor", 
+                       guide = "legend", 
+                       labels = c("Specialized")) +
+  scale_x_continuous(limits = c(0.5, NA)) +  
+  labs(title = "ICILS Specialized DSE Loadings", 
+       x = "Standarized loadings",
+       y = "Item") +
+  theme_minimal(base_size = 10) +
+  theme(axis.text.y = element_text(size = 8),
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        legend.position = "top")
+
+plot_spec_dse_i
+```
+
+## Countries DSE scores comparison
+
+```{r}
+
+beeswarm_plot <- icils |>
+  group_by(CNTRY)|>
+  summarise(mean_geneff = mean(effgen, na.rm = T),
+            mean_speceff = mean(effspec, na.rm = T))|>
+  ungroup()|>
+  pivot_longer(cols = 2:3,
+               names_to = "type",
+               values_to = "score")
+
+beeswarm_labels <- 
+  rbind(
+  beeswarm_plot%>%
+  group_by(type) %>%
+  arrange(score) %>%
+  slice(c(1:3, (n() - 2):n())) %>%
+  ungroup() %>%
+  mutate(CNT = to_label(CNTRY)),
+  
+  beeswarm_plot%>%
+    filter(CNTRY %in% c(""))%>%
+    mutate(CNT = to_label(CNTRY))%>%
+    slice(-3)
+  )
+
+  
+icils_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
+  geom_beeswarm(size = 2) +
+  geom_text_repel(
+    data = beeswarm_labels,
+    aes(label = CNT),
+    size = 3,
+    color = "black",
+    box.padding = 1.0,        
+    point.padding = 0.1,      
+    min.segment.length = 0,   
+    max.overlaps = Inf,       
+    force = 3,                
+    force_pull = 0.3,         
+    direction = "both",       
+    seed = 79824            
+  ) +
+  scale_color_manual(values = c("#5f5758","#fe3057")) +
+  theme_minimal() +
+  theme(
+    legend.title = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10),
+    legend.position = "none",
+    plot.caption = element_text(size = 15),
+    plot.title = element_text(hjust = 0.5, size = 14)
+  ) +
+  labs(title = "ICILS countries DSE scores comparison") +
+  scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
+
+icils_cnt_plot
+```
+
+## Gender differences by country
+
+```{r}
+gender_plot <- icils |>  
+  group_by(CNTRY, sex) |>  
+  summarise(
+    "General DSE" = mean(effgen, na.rm = TRUE),
+    "Specialized DSE" = mean(effspec, na.rm = TRUE)
+  ) |>  
+  pivot_longer(
+    cols = 3:4,
+    names_to = "type",
+    values_to = "score"
+  ) |>  
+  ungroup() |>  
+  mutate(sex = to_label(sex)) |>  
+  drop_na()
+
+country_labels_map <- gender_plot %>%
+  distinct(CNTRY) %>%
+  mutate(
+    CNT_code = as.character(CNTRY),
+    CNT_label = to_label(CNTRY)
+  ) %>%
+  select(CNT_code, CNT_label)
+
+# Reorder the data by score for each type
+gender_plot <- gender_plot %>%
+  mutate(CNT_code = as.character(CNTRY)) %>%
+  left_join(country_labels_map, by = "CNT_code") %>%
+  group_by(type) %>%
+  arrange(score) %>%
+  mutate(CNT_label = factor(CNT_label, levels = unique(CNT_label))) %>%
+  ungroup()
+
+# Create the plot
+icils_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) + 
+  facet_grid(~type, scales = "free_y") +
+  geom_line(aes(group = CNT_label), size = 0.5) +  
+  geom_point(aes(color = sex, shape = sex), size = 2) +  
+  scale_color_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = "#FE3057", "Male" = "#5f5758")) +
+  scale_shape_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = 16, "Male" = 17)) + 
+  labs(title = "ICILS gender DSE gaps by country") +  
+  theme_minimal() +  
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    legend.position = "top",
+    axis.text.y = element_text(size = 8, color = "black"),
+    plot.margin = margin(10, 10, 10, 10),
+    panel.spacing = unit(1.5, "lines"),
+    text = element_text(size = 12),
+    strip.text = element_text(size = 12),
+    legend.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(1.9, 4))
+
+icils_gender_plot
+```
+
+# Figures export
+
+## Function for HD saving
+
+```{r}
+export_plot <- function(plot_object, 
+                       filename,
+                       format = c("png", "pdf", "tiff", "eps", "svg"),
+                       width = 10,
+                       height = 7,
+                       dpi = 300,
+                       units = "in",
+                       bg = "white",
+                       path = "./output/figures/") {
+  
+  format <- match.arg(format)
+  
+  full_filename <- paste0(filename, ".", format)
+  full_path <- file.path(path, full_filename)
+  
+  # Exportar según formato
+  ggsave(
+    filename = full_path,
+    plot = plot_object,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    bg = bg,
+    device = format
+  )
+  
+  message(paste0("✓ Gráfico exportado: ", full_path))
+}
+```
+
+## Function for multiformat HD saving
+
+```{r}
+export_plot_multi <- function(plot_object,
+                              filename,
+                              formats = c("png", "pdf", "tiff"),
+                              width = 10,
+                              height = 7,
+                              dpi = 300,
+                              units = "in",
+                              bg = "white",
+                              path = "./output/figures/") {
+  
+  purrr::walk(formats, ~export_plot(
+    plot_object = plot_object,
+    filename = filename,
+    format = .x,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    bg = bg,
+    path = path
+  ))
+}
+```
+
+
+## Saving the plots in multiple formats
+
+```{r}
+#| eval: false
+
+# --- GRAFICOS DE LOADINGS --- # 
+
+# PISA gen
+export_plot_multi(plot_gen_dse_p, "pisa_general_dse_loadings", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+# PISA spec
+export_plot_multi(plot_spec_dse_p, "pisa_specialized_dse_loadings", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+# ICILS gen
+export_plot_multi(plot_gen_dse_i, "icils_general_dse_loadings", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+# ICILS spec
+export_plot_multi(plot_spec_dse_i, "icils_specialized_dse_loadings", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+
+# --- GRAFICOS COMPARACION PAISES --- #
+
+# PISA 
+export_plot_multi(pisa_cnt_plot, "pisa_country_dse_comparison", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+# ICILS
+export_plot_multi(icils_cnt_plot, "icils_country_dse_comparison", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+
+# --- GRAFICOS BRECHAS DE GENERO PAISES --- #
+
+# PISA
+export_plot_multi(pisa_gender_plot, "pisa_gender_dse_gaps", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+
+# ICILS
+export_plot_multi(icils_gender_plot, "icils_gender_dse_gaps", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+
+```
