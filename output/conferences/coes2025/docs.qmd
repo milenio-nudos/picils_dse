@@ -80,7 +80,7 @@ Importante factor para la competencia digital
 
 ## ¿Bidimensionalidad de la autoeficacia digital?
 
-::: {.incremental .highlight-last style="font-size: 20px;"}
+::: {.incremental .highlight-last style="font-size: 35px;"}
 -   Un concepto cambiante: Computacional -> Internet -> TIC -> Digital
 
 -   En los últimos años se ha propuesto una distinción entre dos tipos de autoeficacia: general y especializada, para distinguir tareas de programación y comunicacionales-informativos básicos.
@@ -118,9 +118,11 @@ Importante factor para la competencia digital
 :::
 :::::
 
-## Digital self-efficacy variables {.smaller}
+## Baterías de Autoeficacia digital {.smaller}
 
-¿En qué medida eres capaz de realizar las siguientes tareas cuando utilizas herramientas digitales?
+PISA: ¿En qué medida eres capaz de **realizar las siguientes tareas** cuando utilizas herramientas digitales?
+
+ICILS: ¿Qué tan bien puedes hacer...?
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 26px;"}
