@@ -80,12 +80,12 @@ Importante factor para la competencia digital
 
 ## ¿Bidimensionalidad de la autoeficacia digital?
 
-::: {.incremental .highlight-last style="font-size: 40px;"}
--   La autoeficacia digital ha sido entendida como un constructo unidimensional
+::: {.incremental .highlight-last style="font-size: 20px;"}
+-   Un concepto cambiante: Computacional -> Internet -> TIC -> Digital
 
--   En los últimos años se ha propuesto una distinción entre dos tipos de autoeficacia: general y especializada.
+-   En los últimos años se ha propuesto una distinción entre dos tipos de autoeficacia: general y especializada, para distinguir tareas de programación y comunicacionales-informativos básicos.
 
--   Algunos estudios internacionales operacionalizan autoeficacia digital como un constructo unidimensional, otros como bidimensional.
+-   Sin embargo, algunos estudios internacionales operacionalizan autoeficacia digital como un constructo unidimensional, otros como bidimensional.
 :::
 
 ## Nivel país
@@ -191,7 +191,7 @@ Importante factor para la competencia digital
 
 ## Conclusiones
 
-:::: {.incremental .highlight-last style="font-size: 100%;"}
+::: {.incremental .highlight-last style="font-size: 100%;"}
 -   ¿Es posible identificar dos dimensiones en PISA e ICILS?
 
     -   Sí, pero con menos ítems de los que proponen ambos estudios.
@@ -203,26 +203,25 @@ Importante factor para la competencia digital
 -   ¿Qué diferencias de género existen en la autoeficacia digital entre países?
 
     -   Las mujeres toman ventaja en autoeficacia general y los hombres en especializada.
-
-::::::
+:::
 
 ## Discusión
 
-:::: {.incremental .highlight-last style="font-size: 40px;"}
+::: {.incremental .highlight-last style="font-size: 40px;"}
 -   La complejidad de medir la autoeficacia digital de forma bidimensional
 
 -   La evolución de las mediciones: ICTSE vs. DSE y el marco DigComp
 
 -   La contraintuitiva relación entre el desarrollo de los países y la brecha de género
-
-::::::
+:::
 
 ## Siguientes pasos {style="font-size: 60px;"}
 
 ¿Qué factores a nivel macro pueden explicar las diferencias en autoeficacia digital y las brechas de género?
 
+¿Qué está pasando en los países desarrollados/no desarrollados?
+
 # Gracias!
 
 -   **Sitio web NUDOS:** [www.nudos.cl](https://www.nudos.cl/)
 -   **Repositorio Github del proyecto:** <https://github.com/milenio-nudos/picils_dse>
-
