@@ -42,9 +42,9 @@ editor: visual
 
 Daniel Miranda, Ismael Aguayo, Juan Carlos Castillo, Nicolas Tobar y Tomás Urzúa
 
-#### Universidad de Chile y Núcleo Milenio Desigualdades y Oportunidades Digitales (*nudos.cl*)
+#### Universidad de Chile y [Núcleo Milenio Desigualdades y Oportunidades Digitales](https://nudos.cl).
 
-XII COnferencia Internacional COES; UDP, 22-24 Octubre
+XII Conferencia Internacional COES; UDP, 22-24 Octubre
 :::
 :::::
 
@@ -86,7 +86,6 @@ Importante factor para la competencia digital
 -   En los últimos años se ha propuesto una distinción entre dos tipos de autoeficacia: general y especializada.
 
 -   Algunos estudios internacionales operacionalizan autoeficacia digital como un constructo unidimensional, otros como bidimensional.
-
 :::
 
 ## Nivel país
@@ -103,19 +102,11 @@ Importante factor para la competencia digital
 *¿Cómo se distribuyen las diferencias de genero en autoeficacia digital entre países?*
 :::
 
-# Metodos {data-background-color="#5f5758"}
-
--   Validación métrica de la escala.
-
--   Estabilidad de la escala entre páises y por género.
-
--   Exploración de distribuciones.
-
 ## Datos
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 40px;"}
--   Programa por la Evaluación Internacional 2022 (n≈183.000).    
+-   Programa por la Evaluación Internacional 2022 (n≈183.000).
 
 -   Estudio por la Alfabetización Computacional y de la Información 2023 (n≈90.000).
 
@@ -123,8 +114,7 @@ Importante factor para la competencia digital
 :::
 
 ::: {.column width="50%"}
-![](images/pisa-ocde.jpg){width="70%"}
-![](images/icils.png){width="50%"}
+![](images/pisa-ocde.jpg){width="70%"} ![](images/icils.png){width="50%"}
 :::
 :::::
 
@@ -135,7 +125,6 @@ Importante factor para la competencia digital
 ::::: columns
 ::: {.column width="50%" style="font-size: 26px;"}
 **Autoeficacia general**
-
 
 -   Buscar y evaluar información en internet.
 
@@ -159,9 +148,13 @@ Importante factor para la competencia digital
 
 Ítems eliminados: Manipulación multimedia, Búsqueda de fuentes de información, Configuración de privacidad, Selección de apps.
 
-## Hipótesis
+# Métodos {data-background-color="#5f5758"}
 
-![](images/paste-3.png)
+-   Validación métrica de la escala (AFC).
+
+-   Estabilidad de la escala entre páises y por género (AFC multigrupo).
+
+-   Exploración de distribuciones y diferencias de género.
 
 # Resultados {data-background-color="#5f5758"}
 
@@ -182,25 +175,23 @@ Importante factor para la competencia digital
 
 ## 
 
-![](images/pisa_country_dse_comparison.png){width="100%"}
-
-##
-
 ![](images/icils_country_dse_comparison.png){width="100%"}
 
+## 
 
+![](images/pisa_country_dse_comparison.png){width="100%"}
 
 ## 
 
 ![](images/icils_gender_dse_gaps.png){width="100%"}
 
-##
+## 
 
 ![](images/pisa_gender_dse_gaps.png){width="100%"}
 
-## Discusion
+## Conclusiones
 
-::: {.incremental .highlight-last style="font-size: 100%;"}
+:::: {.incremental .highlight-last style="font-size: 100%;"}
 -   ¿Es posible identificar dos dimensiones en PISA e ICILS?
 
     -   Sí, pero con menos ítems de los que proponen ambos estudios.
@@ -209,16 +200,29 @@ Importante factor para la competencia digital
 
     -   En PISA sí, en ICILS solo a nivel métrico.
 
--   ¿Qué diferencias de género existen en la autoeficacia digital entre países? 
+-   ¿Qué diferencias de género existen en la autoeficacia digital entre países?
 
     -   Las mujeres toman ventaja en autoeficacia general y los hombres en especializada.
-:::
+
+::::::
+
+## Discusión
+
+:::: {.incremental .highlight-last style="font-size: 40px;"}
+-   La complejidad de medir la autoeficacia digital de forma bidimensional
+
+-   La evolución de las mediciones: ICTSE vs. DSE y el marco DigComp
+
+-   La contraintuitiva relación entre el desarrollo de los países y la brecha de género
+
+::::::
 
 ## Siguientes pasos {style="font-size: 60px;"}
 
-¿Qué factores pueden explicar estas diferencias de autoeficacia entre países y por género?
+¿Qué factores a nivel macro pueden explicar las diferencias en autoeficacia digital y las brechas de género?
 
 # Gracias!
 
 -   **Sitio web NUDOS:** [www.nudos.cl](https://www.nudos.cl/)
--   **Repositorio Github del proyecto:** <https://github.com/milenio-nudos/ILSAs_batteries_measurement>
+-   **Repositorio Github del proyecto:** <https://github.com/milenio-nudos/picils_dse>
+

@@ -360,8 +360,7 @@ Idea: Marcar en rojo a la izquierda los países que más brecha presentan en la 
 icils <- icils|>
   mutate(
     effgen = rowMeans(across(c(search_info, evaluate_info, install_app,
-                               share_content,
-                               create_media, insert_image, edit_image, change_settings)), 
+                               share_content, insert_image, write_text)), 
                       na.rm = TRUE),
     effspec = rowMeans(across(c(programming, visual_coding, develop_webpage)), 
                        na.rm = TRUE)  
@@ -369,8 +368,7 @@ icils <- icils|>
 
 model_fitted_i <- '
   gen_dse =~ search_info + evaluate_info + install_app +
-              share_content +
-              create_media + insert_image + edit_image + change_settings
+              share_content + write_text + insert_image
   spec_dse =~ programming + visual_coding + develop_webpage
   '
 
@@ -560,7 +558,7 @@ icils_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) 
     force = 3,                
     force_pull = 0.3,         
     direction = "both",       
-    seed = 79824            
+    seed = 234756           
   ) +
   scale_color_manual(values = c("#5f5758","#fe3057")) +
   theme_minimal() +

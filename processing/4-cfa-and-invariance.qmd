@@ -76,7 +76,15 @@ knitr::kable(fit_pisa, digits = 3)
 modindices(m_pooled_p, sort = TRUE, maximum.number = 20)
 ```
 
-Este modelo no tiene warnings. Partimos con el mismo rmsea de 0.16. Identify app es medido por gen_dse (por eso quizás da tantos problemas en ambos modelos). Al eliminarlo el rmsea mejora a 0.12. La siguiente variable que trae problemas es nuevamente develop_webpage, que al eliminarse mejora el rmsea a 0.087. Luego, modindices da señales de que collect_data, change_settings, search_info y create_media también podrían ser medidos por spec_dse. Borrando collect_data el modelo queda con 0.084, y eliminando change_settings queda con 0.073. Si eliminamos create_media el modelo da 0.061 de rmsea.
+Identify app es medido por gen dse (mi=97,163) se elimina (argumentar). Develop webpage es medido por general (mi=49,218) se elimina. Change settings es medido por especializada (mi=9251). Collect data se mide por especializada (mi=9,781). RMSEA = 0.073, CFI = 0.997, TLI = 0.996. 
+
+- A diferencia de logical solution or technical error, identify app es una habilidad que se requiere al momento previo de programar en sí. Tiene que ver con la conciencia del entorno digital más que con la habilidad misma. POr eso los otros dos items de pensamiento computacional si ajustan a ICT framework.
+- Develop webpage ha dejado de ser especializada porque los avances en plataformas computacionales han facilitado la conformación de paginas web
+- Change settings se elimina porque esto no tiene que ver con las 3 dimensiones básicas del digcomp (informativas, comunicacionales, creativas), sino con la cuarta dimensión intermedia, que de hecho no está presente en el ICT framework, esto es, privacy.
+- Collect data habría que analizarla a fondo, pero aparentemente las habilidades de recolección y procesamiento básico de datos es más compleja para los estudiantes.
+- Create media medida spec_dse (7,858)
+- - Tanto editar imagenes como crear multimedia se inclinan por especializada. Esto es probablement porque las tareas multimedias de hoy se han sofisticado, al punto en que los estudiantes no imaginan uso de paint o cortar imágenes cuando se les pregunta esto, sino realizar ediciones exigentes como videos en youtube, edición photoshop de fotos, etc. Los avances tecnológicos han masificado las habilidades de edición, y ello las ha vuelto más técnica que antes, por lo que lo que puede que esté midiendo la batería tenga que ver más con tareas complejas de productos multimedia.
+
 
 ## Fitted model
 
@@ -356,7 +364,7 @@ knitr::kable(fit_icils, digits = 3)
 modindices(m_pooled_i, sort = TRUE, maximum.number = 5)
 ```
 
-Este parte mejor (RMSEA = 0.105), eliminando source_info pasa a 0.091, y luego develop_webpage pasa a 0.08. SI sacamos write_text mejora a 0.077 pero no hay muchas vías más de mejoras (mi \< 2800).
+
 
 ## Fitted model
 
@@ -364,11 +372,9 @@ Este parte mejor (RMSEA = 0.105), eliminando source_info pasa a 0.091, y luego d
 #| echo: true
 #| code-fold: true
 
-# No tiene source_info y write_text
 model_fitted_i <- '
   gen_dse =~ search_info + evaluate_info + install_app +
-              share_content +
-              create_media + insert_image + edit_image + change_settings
+              share_content + write_text + insert_image
   spec_dse =~ programming + visual_coding + develop_webpage
   '
 
@@ -388,6 +394,16 @@ knitr::kable(fit_icils, digits = 3)
 
 modindices(m_fitted_i, sort = TRUE, maximum.number = 5)
 ```
+
+- Source info fue elminada (se mide por spec_dse, mi=16,787) porque las fuentes de información de hoy en internet se han complejizado, y buscar los laberintos del origen o fuente de un dato requiere mayor especialización. Tanto es así, que visual_coding y programming tienen una alta varianza compartida con est avariable. Eliminar source info tampoco hace un daño mayor a la variable general dse porque ya hay otros dos ítems que miden esta tarea.
+- Luego, las variables visual coding y programming demuestran una varianza compartida alta, y develop_webpage parece ser medida por gen_dse, sin embargo no podemos hacer nada por que el modelo se cae.
+- Change settings se elimina porque esto no tiene que ver con las 3 dimensiones básicas del digcomp (informativas, comunicacionales, creativas), sino con la cuarta dimensión intermedia, que de hecho no está presente en el ICT framework, esto es, privacy.
+- Create media medido por spec (mi=5,831). 
+- edit image medido por spec (mi=6,034)
+
+- Tanto editar imagenes como crear multimedia se inclinan por especializada. Esto es probablement porque las tareas multimedias de hoy se han sofisticado, al punto en que los estudiantes no imaginan uso de paint o cortar imágenes cuando se les pregunta esto, sino realizar ediciones exigentes como videos en youtube, edición photoshop de fotos, etc. Los avances tecnológicos han masificado las habilidades de edición, y ello las ha vuelto más técnica que antes, por lo que lo que puede que esté midiendo la batería tenga que ver más con tareas complejas de productos multimedia. El argumento se sostiene aún más cuando se ve que el item insert image, que es explicitamente más simple y con menor posibilidad de interpretación, se queda consistentemente en autoeficacia generalizada.
+
+
 
 ## Country invariance analysis
 
