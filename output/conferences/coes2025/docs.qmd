@@ -81,14 +81,14 @@ Importante factor para la competencia digital
 ## ¿Bidimensionalidad de la autoeficacia digital?
 
 ::: {.incremental .highlight-last style="font-size: 35px;"}
--   Un concepto cambiante: Computacional -> Internet -> TIC -> Digital
+-   Un concepto cambiante: Computacional -> Internet -> TIC -> Digital (DigComp)
 
 -   En los últimos años se ha propuesto una distinción entre dos tipos de autoeficacia: general y especializada, para distinguir tareas de programación y comunicacionales-informativos básicos.
 
 -   Sin embargo, algunos estudios internacionales operacionalizan autoeficacia digital como un constructo unidimensional, otros como bidimensional.
 :::
 
-## Nivel país
+## ¿Estabilidad de la bidimensionalidad?
 
 ![](images/world_context.jpg)
 
@@ -118,14 +118,14 @@ Importante factor para la competencia digital
 :::
 :::::
 
-## Baterías de Autoeficacia digital {.smaller}
+## Baterías de Autoeficacia digital
 
 PISA: ¿En qué medida eres capaz de **realizar las siguientes tareas** cuando utilizas herramientas digitales?
 
 ICILS: ¿Qué tan bien puedes hacer...?
 
 ::::: columns
-::: {.column width="50%" style="font-size: 26px;"}
+::: {.column width="50%" style="font-size: 30px;"}
 **Autoeficacia general**
 
 -   Buscar y evaluar información en internet.
@@ -135,9 +135,10 @@ ICILS: ¿Qué tan bien puedes hacer...?
 -   Escribir o editar textos.
 
 -   Crear o editar imágenes.
+
 :::
 
-::: {.column width="50%" style="font-size: 26px; color: #ff3057;"}
+::: {.column width="50%" style="font-size: 30px; color: #ff3057;"}
 **Autoeficacia especializada**
 
 -   Desarrollo de páginas web.
@@ -148,11 +149,9 @@ ICILS: ¿Qué tan bien puedes hacer...?
 :::
 :::::
 
-Ítems eliminados: Manipulación multimedia, Búsqueda de fuentes de información, Configuración de privacidad, Selección de apps.
-
 # Métodos {data-background-color="#5f5758"}
 
--   Validación métrica de la escala (AFC).
+-   Validación métrica de la escala (AFC) y re especificación de los modelos.
 
 -   Estabilidad de la escala entre páises y por género (AFC multigrupo).
 
@@ -187,9 +186,18 @@ ICILS: ¿Qué tan bien puedes hacer...?
 
 ![](images/icils_gender_dse_gaps.png){width="100%"}
 
+
+##
+
+![](images/icils_gender_dse_gaps_destacado.png){width="100%"}
+
 ## 
 
 ![](images/pisa_gender_dse_gaps.png){width="100%"}
+
+##
+
+![](images/pisa_gender_dse_gaps_destacado.png){width="100%"}
 
 ## Conclusiones
 
@@ -209,10 +217,10 @@ ICILS: ¿Qué tan bien puedes hacer...?
 
 ## Discusión
 
-::: {.incremental .highlight-last style="font-size: 40px;"}
--   La complejidad de medir la autoeficacia digital de forma bidimensional
-
+::: {.highlight-last style="font-size: 40px;"}
 -   La evolución de las mediciones: ICTSE vs. DSE y el marco DigComp
+
+-   ¿Obsolescencia de la bidimensionalidad?
 
 -   La contraintuitiva relación entre el desarrollo de los países y la brecha de género
 :::
@@ -227,3 +235,13 @@ ICILS: ¿Qué tan bien puedes hacer...?
 
 -   **Sitio web NUDOS:** [www.nudos.cl](https://www.nudos.cl/)
 -   **Repositorio Github del proyecto:** <https://github.com/milenio-nudos/picils_dse>
+
+# Anexo
+
+## Items eliminados
+
+-   Manipulación multimedia 
+-   Búsqueda de fuentes de información
+-   Configuración de privacidad 
+-   Selección de apps.
+
