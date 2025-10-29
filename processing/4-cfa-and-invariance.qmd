@@ -91,10 +91,9 @@ Identify app es medido por gen dse (mi=97,163) se elimina (argumentar). Develop 
 ```{r}
 
 model_fitted_p <- '
-  gen_dse =~ search_info + evaluate_info + 
-  explain_content + share_content + pair_collab + 
+  gen_dse =~ search_info + evaluate_info + share_content + pair_collab + explain_content +
   write_text
-  spec_dse =~ programming + identify_error + logical_solution
+  spec_dse =~ programming + logical_solution + identify_error
   '
 m_fitted_p <- cfa(model = model_fitted_p, 
               data = pisa,
@@ -104,6 +103,13 @@ m_fitted_p <- cfa(model = model_fitted_p,
 standardizedsolution(m_fitted_p) %>% 
   filter(op == "=~") %>% 
   select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+
+standardizedsolution(m_fitted_p) %>% 
+  filter(op == "~~",           # Operador de covarianza/correlación
+         lhs != rhs) %>%       # Excluir varianzas (donde lhs == rhs)
+  select(Factor1 = lhs, Factor2 = rhs, Correlation = est.std, 
+         SE = se, Z = z, `p-value` = pvalue)
+
 
 fit_pisa <- fitMeasures(m_fitted_p,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
@@ -373,8 +379,8 @@ modindices(m_pooled_i, sort = TRUE, maximum.number = 5)
 #| code-fold: true
 
 model_fitted_i <- '
-  gen_dse =~ search_info + evaluate_info + install_app +
-              share_content + write_text + insert_image
+  gen_dse =~ search_info + evaluate_info + share_content + 
+             write_text + install_app + insert_image
   spec_dse =~ programming + visual_coding + develop_webpage
   '
 
@@ -386,6 +392,13 @@ m_fitted_i <- cfa(model = model_fitted_i,
 standardizedsolution(m_fitted_i) %>% 
   filter(op == "=~") %>% 
   select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+
+standardizedsolution(m_fitted_i) %>% 
+  filter(op == "~~",           # Operador de covarianza/correlación
+         lhs != rhs) %>%       # Excluir varianzas (donde lhs == rhs)
+  select(Factor1 = lhs, Factor2 = rhs, Correlation = est.std, 
+         SE = se, Z = z, `p-value` = pvalue)
+
 
 fit_icils <- fitMeasures(m_fitted_i,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))

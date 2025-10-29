@@ -55,15 +55,6 @@ icils <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"
 ## Model running and data processing
 
 ```{r}
-pisa <- pisa |>
-  mutate(
-    effgen = rowMeans(across(c(search_info, evaluate_info, 
-                               explain_content, share_content, pair_collab,
-                               write_text)), 
-                      na.rm = TRUE),
-    effspec = rowMeans(across(c(programming, identify_error, logical_solution)), 
-                       na.rm = TRUE)
-  )
 
 model_fitted_p <- '
   gen_dse =~ search_info + evaluate_info + 
@@ -76,10 +67,144 @@ fitgroup_p <- cfa(model = model_fitted_p,
                 data = pisa, 
                 group = "CNT",
                 ordered = TRUE,
-                estimator = "DWLS"
+                estimator = "DWLS",
+                group.equal = c("loadings", "intercepts")
               )
+
+idx_p <- lavInspect(fitgroup_p, "case.idx")
+
+fscores_p <- lavPredict(fitgroup_p)
+
+pisa$gen_dse_score <- NA_real_
+pisa$spec_dse_score <- NA_real_
+
+for (g in seq_along(fscores_p)) {
+  # idx[[g]] contiene los índices de filas que lavaan usó para este grupo
+  # fscores[[g]] contiene los factor scores para esas filas
+  
+  pisa[idx_p[[g]], "gen_dse_score"] <- fscores_p[[g]][, "gen_dse"]
+  pisa[idx_p[[g]], "spec_dse_score"] <- fscores_p[[g]][, "spec_dse"]
+}
+
+
+pisa |>
+  group_by(CNT) |>
+  summarise(
+    total = n(),
+    con_score = sum(!is.na(gen_dse_score)),
+    sin_score = sum(is.na(gen_dse_score)),
+    media_gen = mean(gen_dse_score, na.rm = TRUE),
+    media_spec = mean(spec_dse_score, na.rm = TRUE)
+  )
 ```
 
+## Correspondence analysis index vs factor scores 
+```{r}
+pisa$gen_dse_index <- NA_real_
+pisa$spec_dse_index <- NA_real_
+
+for (g in seq_along(idx_p)) {
+  # Casos de este grupo que lavaan usó
+  casos_usados <- idx_p[[g]]
+  
+  # Calcular índices para esos casos específicos
+  pisa$gen_dse_index[casos_usados] <- rowMeans(
+    pisa[casos_usados, c("search_info", "evaluate_info", 
+                         "explain_content", "share_content", 
+                         "pair_collab", "write_text")],
+    na.rm = TRUE
+  )
+  
+  pisa$spec_dse_index[casos_usados] <- rowMeans(
+    pisa[casos_usados, c("programming", "identify_error", 
+                         "logical_solution")],
+    na.rm = TRUE
+  )
+}
+
+# Ahora calcular correlaciones
+cor_gen <- cor(pisa$gen_dse_index_old, pisa$gen_dse_score, 
+               use = "complete.obs")
+cor_spec <- cor(pisa$spec_dse_index_old, pisa$spec_dse_score, 
+                use = "complete.obs")
+
+cat("Correlación Gen DSE (índice vs factor score):", round(cor_gen, 3), "\n")
+cat("Correlación Spec DSE (índice vs factor score):", round(cor_spec, 3), "\n")
+
+# Ver por país
+correlaciones_por_pais <- pisa |>
+  filter(!is.na(gen_dse_score)) |>
+  group_by(CNT) |>
+  summarise(
+    n = n(),
+    cor_gen = cor(gen_dse_index, gen_dse_score, use = "complete.obs"),
+    cor_spec = cor(spec_dse_index, spec_dse_score, use = "complete.obs")
+  )
+
+print(correlaciones_por_pais, n=22)
+
+# Gráficos de dispersión
+library(ggplot2)
+
+# General DSE
+ggplot(pisa |> filter(!is.na(gen_dse_score)), 
+       aes(x = gen_dse_index, y = gen_dse_score)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", color = "red") +
+  facet_wrap(~CNT) +
+  labs(title = "Correlación: Índice vs Factor Score (General DSE)",
+       x = "Índice (promedio simple)", 
+       y = "Factor Score") +
+  theme_minimal()
+
+# Specialized DSE
+ggplot(pisa |> filter(!is.na(spec_dse_score)), 
+       aes(x = spec_dse_index, y = spec_dse_score)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", color = "blue") +
+  facet_wrap(~CNT) +
+  labs(title = "Correlación: Índice vs Factor Score (Specialized DSE)",
+       x = "Índice (promedio simple)", 
+       y = "Factor Score") +
+  theme_minimal()
+
+```
+
+```{r}
+# Comparar medias del índice vs factor scores por país
+comparacion_medias <- pisa |>
+  filter(!is.na(gen_dse_score)) |>
+  group_by(CNT) |>
+  summarise(
+    # Índices (escala original)
+    mean_index_gen = mean(gen_dse_index, na.rm = TRUE),
+    sd_index_gen = sd(gen_dse_index, na.rm = TRUE),
+    mean_index_spec = mean(spec_dse_index, na.rm = TRUE),
+    sd_index_spec = sd(spec_dse_index, na.rm = TRUE),
+    
+    # Factor scores (estandarizados)
+    mean_fscore_gen = mean(gen_dse_score, na.rm = TRUE),
+    sd_fscore_gen = sd(gen_dse_score, na.rm = TRUE),
+    mean_fscore_spec = mean(spec_dse_score, na.rm = TRUE),
+    sd_fscore_spec = sd(spec_dse_score, na.rm = TRUE),
+    
+    # Diferencia en ranking
+    rank_index_gen = rank(-mean_index_gen),
+    rank_fscore_gen = rank(-mean_fscore_gen),
+    rank_diff_gen = rank_index_gen - rank_fscore_gen
+  ) |>
+  arrange(desc(mean_fscore_gen))
+
+print(comparacion_medias, n=22)
+
+# Ver países donde el ranking cambió más
+print(comparacion_medias |>
+  arrange(desc(abs(rank_diff_gen))) |>
+  select(CNT, mean_index_gen, mean_fscore_gen, rank_diff_gen), n=22
+)
+```
+
+## Loadings processing
 ```{r}
 # Obtenemos todos los parámetros
 
@@ -221,8 +346,8 @@ plot_spec_dse_p
 
 beeswarm_plot <- pisa |>
   group_by(CNT)|>
-  summarise(mean_geneff = mean(effgen, na.rm = T),
-            mean_speceff = mean(effspec, na.rm = T))|>
+  summarise(mean_geneff = mean(gen_dse_score, na.rm = T),
+            mean_speceff = mean(spec_dse_score, na.rm = T))|>
   ungroup()|>
   pivot_longer(cols = 2:3,
                names_to = "type",
@@ -274,7 +399,7 @@ pisa_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
   ) +
   labs(title = "PISA countries DSE scores comparison") +
   scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
-  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
+  scale_y_continuous(breaks = c(-0.5, -0.25, 0, 0, 0.25, 0.5), limits = c(-0.5,0.6))
 
 pisa_cnt_plot
 ```
@@ -286,8 +411,8 @@ pisa_cnt_plot
 gender_plot <- pisa |>  
   group_by(CNT, sex) |>  
   summarise(
-    "General DSE" = mean(effgen, na.rm = TRUE),
-    "Specialized DSE" = mean(effspec, na.rm = TRUE)
+    "General DSE" = mean(gen_dse_score, na.rm = TRUE),
+    "Specialized DSE" = mean(spec_dse_score, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,
@@ -344,7 +469,7 @@ pisa_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) +
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   ) +
   coord_cartesian(clip = "off") +
-  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(2, 4))
+  scale_x_continuous(breaks = c(-0.5, -0.25, 0, 0.25, 0.5), limits = c(-0.5,0.6))
 
 pisa_gender_plot
 ```
@@ -357,15 +482,6 @@ Idea: Marcar en rojo a la izquierda los países que más brecha presentan en la 
 
 ```{r}
 
-icils <- icils|>
-  mutate(
-    effgen = rowMeans(across(c(search_info, evaluate_info, install_app,
-                               share_content, insert_image, write_text)), 
-                      na.rm = TRUE),
-    effspec = rowMeans(across(c(programming, visual_coding, develop_webpage)), 
-                       na.rm = TRUE)  
-  )
-
 model_fitted_i <- '
   gen_dse =~ search_info + evaluate_info + install_app +
               share_content + write_text + insert_image
@@ -376,10 +492,135 @@ fitgroup_i <- cfa(model = model_fitted_i,
               data = icils,
               estimator = "DWLS",
               group = "CNTRY",
-              ordered = T)
+              ordered = T,
+              group.equal = c("loadings", "intercepts"))
+
+idx_i <- lavInspect(fitgroup_i, "case.idx")
+
+fscores_i <- lavPredict(fitgroup_i)
+
+icils$gen_dse_score <- NA_real_
+icils$spec_dse_score <- NA_real_
+
+for (g in seq_along(fscores_i)) {
+  # idx[[g]] contiene los índices de filas que lavaan usó para este grupo
+  # fscores[[g]] contiene los factor scores para esas filas
+  
+  icils[idx_i[[g]], "gen_dse_score"] <- fscores_i[[g]][, "gen_dse"]
+  icils[idx_i[[g]], "spec_dse_score"] <- fscores_i[[g]][, "spec_dse"]
+}
+
 
 ```
 
+## Correspondence analysis index vs factor scores 
+```{r}
+icils$gen_dse_index <- NA_real_
+icils$spec_dse_index <- NA_real_
+
+for (g in seq_along(idx_i)) {
+  # Casos de este grupo que lavaan usó
+  casos_usados <- idx_i[[g]]
+  
+  # Calcular índices para esos casos específicos
+  icils$gen_dse_index[casos_usados] <- rowMeans(
+    icils[casos_usados, c("search_info", "evaluate_info", 
+                               "install_app", "share_content", "write_text",
+                               "insert_image")],
+    na.rm = TRUE
+  )
+  
+  icils$spec_dse_index[casos_usados] <- rowMeans(
+    icils[casos_usados, c("programming", "visual_coding", 
+                         "develop_webpage")],
+    na.rm = TRUE
+  )
+}
+
+# Ahora calcular correlaciones
+cor_gen <- cor(icils$gen_dse_index, icils$gen_dse_score, 
+               use = "complete.obs")
+cor_spec <- cor(icils$spec_dse_index, icils$spec_dse_score, 
+                use = "complete.obs")
+
+cat("Correlación Gen DSE (índice vs factor score):", round(cor_gen, 3), "\n")
+cat("Correlación Spec DSE (índice vs factor score):", round(cor_spec, 3), "\n")
+
+# Ver por país
+correlaciones_por_pais_icils <- icils |>
+  filter(!is.na(gen_dse_score)) |>
+  group_by(CNTRY) |>
+  summarise(
+    n = n(),
+    cor_gen = cor(gen_dse_index, gen_dse_score, use = "complete.obs"),
+    cor_spec = cor(spec_dse_index, spec_dse_score, use = "complete.obs")
+  )
+
+print(correlaciones_por_pais)
+
+# Gráficos de dispersión
+library(ggplot2)
+
+# General DSE
+ggplot(icils |> filter(!is.na(gen_dse_score)), 
+       aes(x = gen_dse_index, y = gen_dse_score)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", color = "red") +
+  facet_wrap(~CNTRY) +
+  labs(title = "Correlación: Índice vs Factor Score (General DSE)",
+       x = "Índice (promedio simple)", 
+       y = "Factor Score") +
+  theme_minimal()
+
+# Specialized DSE
+ggplot(icils |> filter(!is.na(spec_dse_score)), 
+       aes(x = spec_dse_index, y = spec_dse_score)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", color = "blue") +
+  facet_wrap(~CNT) +
+  labs(title = "Correlación: Índice vs Factor Score (Specialized DSE)",
+       x = "Índice (promedio simple)", 
+       y = "Factor Score") +
+  theme_minimal()
+
+```
+
+```{r}
+# Comparar medias del índice vs factor scores por país
+comparacion_medias <- icils |>
+  filter(!is.na(gen_dse_score)) |>
+  group_by(CNTRY) |>
+  summarise(
+    # Índices (escala original)
+    mean_index_gen = mean(gen_dse_index, na.rm = TRUE),
+    sd_index_gen = sd(gen_dse_index, na.rm = TRUE),
+    mean_index_spec = mean(spec_dse_index, na.rm = TRUE),
+    sd_index_spec = sd(spec_dse_index, na.rm = TRUE),
+    
+    # Factor scores (estandarizados)
+    mean_fscore_gen = mean(gen_dse_score, na.rm = TRUE),
+    sd_fscore_gen = sd(gen_dse_score, na.rm = TRUE),
+    mean_fscore_spec = mean(spec_dse_score, na.rm = TRUE),
+    sd_fscore_spec = sd(spec_dse_score, na.rm = TRUE),
+    
+    # Diferencia en ranking
+    rank_index_gen = rank(-mean_index_gen),
+    rank_fscore_gen = rank(-mean_fscore_gen),
+    rank_diff_gen = rank_index_gen - rank_fscore_gen
+  ) |>
+  arrange(desc(mean_fscore_gen))
+
+print(comparacion_medias, n=22)
+
+# Ver países donde el ranking cambió más
+print(comparacion_medias |>
+  arrange(desc(abs(rank_diff_gen))) |>
+  select(CNTRY, mean_index_gen, mean_fscore_gen, rank_diff_gen), n=22
+)
+```
+
+
+## Loadings processing
 ```{r}
 # Obtenemos todos los parámetros
 
@@ -521,8 +762,8 @@ plot_spec_dse_i
 
 beeswarm_plot <- icils |>
   group_by(CNTRY)|>
-  summarise(mean_geneff = mean(effgen, na.rm = T),
-            mean_speceff = mean(effspec, na.rm = T))|>
+  summarise(mean_geneff = mean(gen_dse_score, na.rm = T),
+            mean_speceff = mean(spec_dse_score, na.rm = T))|>
   ungroup()|>
   pivot_longer(cols = 2:3,
                names_to = "type",
@@ -574,7 +815,7 @@ icils_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) 
   ) +
   labs(title = "ICILS countries DSE scores comparison") +
   scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
-  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
+  scale_y_continuous(breaks = c(-0.5, -0.25, 0, 0.25, 0.5, 0.75), limits = c(-0.5,0.9))
 
 icils_cnt_plot
 ```
@@ -585,8 +826,8 @@ icils_cnt_plot
 gender_plot <- icils |>  
   group_by(CNTRY, sex) |>  
   summarise(
-    "General DSE" = mean(effgen, na.rm = TRUE),
-    "Specialized DSE" = mean(effspec, na.rm = TRUE)
+    "General DSE" = mean(gen_dse_score, na.rm = TRUE),
+    "Specialized DSE" = mean(spec_dse_score, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,
@@ -642,7 +883,7 @@ icils_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) +
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   ) +
   coord_cartesian(clip = "off") +
-  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(1.9, 4))
+  scale_x_continuous(breaks = c(-0.5, -0.25, 0, 0.25, 0.5, 0.75), limits = c(-0.6, 0.9))
 
 icils_gender_plot
 ```
