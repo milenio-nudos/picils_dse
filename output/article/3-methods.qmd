@@ -3,7 +3,9 @@ editor: visual
 bibliography: references.bib
 ---
 
-# Data
+# Methods
+
+## Data
 
 ICILS 2023 employed a two-stage cluster sampling approach across 34 countries and more than 130,000 studentes around the world. In the first stage, schools with students in the target grade were randomly selected using a probability proportional to size (PPS) method. In the second stage, one intact class was randomly selected within each sampled school, and all students in that class were invited to participate [@julianfraillon2024].
 
@@ -13,7 +15,7 @@ To ensure comparability, both datasets were filtered to include only those count
 
 The final country-level sample include 22 countries, with 91,132 nested students in ICILS and 183,902 in PISA.
 
-# Variables
+## Variables
 
 Both studies include a module on digital self-efficacy in their questionnaires. In ICILS the items are introduced with the phrase *"How well can you do:"* and recoded categories are 1 = I do not think I could do this; 2 = I have never done this, but I could work out how to do it; 3 = Moderately well; 4 = Very well. PISA module preface the items with the question *"To what extent are you able to do the following tasks when using \<digital resources\>?"*, where \<digital resources\> is a placeholder for a term adapted to the target culture. PISA recoded categories are 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this. Responses as "I don't know" was threated as missing values. A complete comparison of the items from both surveys is presented in [Table @tbl-comparison], highlighting the concordances and distinctions between the studies, and the type of DSE we are assuming to match the item.
 
@@ -37,9 +39,11 @@ scroll_box(height="800px")
 #Hay que añadir la cantidad de NA por item en esta tabla
 ```
 
-# Analytical Strategy
+## Analytical Strategy
 
-The main analyses were performed within a Confirmatory Factor Analysis (CFA) framework to test the hypothesized two-factor structure of DSE [@brown2015]. All data management and analyses were conducted using the R statistical environment. The CFA models were estimated with the lavaan package [@rosseel2012]. Given the ordinal nature of the Likert-scale items, they were treated as ordered categorical variables in the CFA models. This specification handles missing data through pairwise deletion by default.
+All data management and analyses were conducted using the R statistical environment.
+
+The main analyses were performed within a Confirmatory Factor Analysis (CFA) framework to test the hypothesized two-factor structure of DSE [@brown2015]. The CFA models were estimated with the lavaan package [@rosseel2012]. Given the ordinal nature of the Likert-scale items, they were treated as ordered categorical variables in the CFA models. This specification handles missing data through listwise deletion by default.
 
 To evaluate the goodness-of-fit of the pooled CFA model, chi-square (χ²) test was used. However, due to the test's sensitivity to large sample sizes, model evaluation primarily relied on a complementary set of fit indices: the Comparative Fit Index (CFI), the Tucker-Lewis Index (TLI), and the Root Mean Square Error of Approximation (RMSEA). Following common guidelines, CFI and TLI values of 0.95 or higher are considered indicative of excellent fit, while values between 0.90 and 0.95 are considered acceptable. For RMSEA, values of 0.06 or less indicate a close fit, while values up to 0.08 are considered adequate [@brown2015; @wang2012].
 

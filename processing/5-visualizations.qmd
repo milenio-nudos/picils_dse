@@ -68,6 +68,7 @@ fitgroup_p <- cfa(model = model_fitted_p,
                 group = "CNT",
                 ordered = TRUE,
                 estimator = "DWLS",
+                missing = 'pairwise',
                 group.equal = c("loadings", "intercepts")
               )
 
@@ -493,6 +494,7 @@ fitgroup_i <- cfa(model = model_fitted_i,
               estimator = "DWLS",
               group = "CNTRY",
               ordered = T,
+              missing = 'pairwise',
               group.equal = c("loadings", "intercepts"))
 
 idx_i <- lavInspect(fitgroup_i, "case.idx")
