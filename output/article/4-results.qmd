@@ -22,8 +22,6 @@ Given the above, the following re-specified two-dimensional DSE models are propo
 
 ![](images/icils_fitted_diagram.png)
 
-En el ambos estudios, el factor general queda con seis variables y el especializado con tres. En PISA, los índicadores de ajuste están dentro del rango de ajuste excelente (\>0.95) en el caso de CFI y TLI y aceptable (\<0.08) en el caso del RMSEA. Todas las cargas factoriales son mayores a 0.85, por lo que los factores propuestos están explicando una buena porción de la varianza de los items que componen la variable latente (al menos 72.3%). La correlación entre los dos factores es moderada, de 0.4.
-
 In both studies, the general factor remains with six items and the specialized factor with three. In PISA, the fit indices are within the excellent fit range (\>0.95) for CFI and TLI, and the acceptable range (\<0.08) for RMSEA. All factor loadings are greater than 0.85, indicating that the proposed factors explain a good portion of the variance of the items comprising the latent variable (at least 72.3%). The correlation between the two factors is moderate, at 0.4.
 
 Regarding ICILS, the model shows a slightly looser fit than in PISA. Although the CFI and TLI also indicate an excellent fit, the RMSEA is just at the borderline to be considered acceptable. In addition to this, the factor loadings are somewhat lower, although they still show high magnitude, with values ranging from 0.68 to 0.84, meaning they would explain, in the worst-case scenario, 46.2% of the item variance. The correlation between both factors is very similar to the PISA model, at 0.43.
@@ -40,4 +38,4 @@ Regarding gender invariance, both studies achieved scalar invariance. The change
 
 ## Descriptives by gender and countries
 
-Graphs for loadings by gender and countries (PISA and ICILS (if fitted and comparable))
+To do...
