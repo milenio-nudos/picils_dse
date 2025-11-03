@@ -53,13 +53,13 @@ model_cfa <- '
 
 m_cfa <- cfa(model = model_cfa, 
               data = icils23_proc, 
-              estimator = "DWLS",
+              estimator = "WLSMV",
               ordered = T,
               std.lv = F)
 
 standardizedsolution(m_cfa) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std) 
 
 
 summary(m_cfa)

@@ -69,7 +69,7 @@ m_pooled_p <- cfa(model = model_pooled_p,
 
 standardizedsolution(m_pooled_p) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std)
 
 fit_pisa <- fitMeasures(m_pooled_p,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
@@ -103,7 +103,7 @@ m_fitted_p <- cfa(model = model_fitted_p,
 
 standardizedsolution(m_fitted_p) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std)
 
 fit_pisa <- fitMeasures(m_fitted_p,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
@@ -137,7 +137,7 @@ m_pooled_i <- cfa(model = model_pooled_i,
 
 standardizedsolution(m_pooled_i) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std) 
 
 fit_icils <- fitMeasures(m_pooled_i,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
@@ -173,7 +173,7 @@ m_fitted_i <- cfa(model = model_fitted_i_a,
 
 standardizedsolution(m_fitted_i) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std) 
 
 fit_icils <- fitMeasures(m_fitted_i,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))

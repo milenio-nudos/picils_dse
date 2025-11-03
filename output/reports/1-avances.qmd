@@ -327,7 +327,7 @@ model_cfa <- '
 
 m_cfa <- cfa(model = model_cfa, 
               data = pisa, 
-              estimator = "DWLS",
+              estimator = "WLSMV",
               ordered = T,
               std.lv = F)
 ```
@@ -340,7 +340,7 @@ m_cfa <- cfa(model = model_cfa,
 
 standardizedsolution(m_cfa) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std) 
 ```
 
 En @tbl-factor-loadings las cargas factoriales se encuentran estandarizadas. Resulta llamativo que todos los loadings son bastante altos, lo cual podría sugerir que los factores están sobre explicando a los indicadores

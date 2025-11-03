@@ -61,13 +61,13 @@ model_pooled_p <- '
 
 m_pooled_p <- cfa(model = model_pooled_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               missing = 'pairwise',
               ordered = T)
 
 standardizedsolution(m_pooled_p) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std)
 
 fit_pisa <- fitMeasures(m_pooled_p,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
@@ -98,13 +98,13 @@ model_fitted_p <- '
   '
 m_fitted_p <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               missing = 'pairwise',
               ordered = T)
 
 standardizedsolution(m_fitted_p) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std)
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std)
 
 standardizedsolution(m_fitted_p) %>% 
   filter(op == "~~",           # Operador de covarianza/correlación
@@ -130,7 +130,7 @@ modindices(m_fitted_p, sort = TRUE, maximum.number = 5)
 
 multigroup_p <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNT",
               missing = 'pairwise',
               ordered = T)
@@ -139,7 +139,7 @@ multigroup_p <- cfa(model = model_fitted_p,
 
 multigroup_p_m <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNT",
               missing = 'pairwise',
               ordered = T,
@@ -149,7 +149,7 @@ multigroup_p_m <- cfa(model = model_fitted_p,
 
 multigroup_p_e <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNT",
               missing = 'pairwise',
               ordered = T,
@@ -242,7 +242,7 @@ tabla_completa_p$Decision <- c(
 
 multigroup_p_g <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "sex",
               missing = 'pairwise',
               ordered = T)
@@ -251,7 +251,7 @@ multigroup_p_g <- cfa(model = model_fitted_p,
 
 multigroup_p_g_m <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "sex",
               missing = 'pairwise',
               ordered = T,
@@ -261,7 +261,7 @@ multigroup_p_g_m <- cfa(model = model_fitted_p,
 
 multigroup_p_g_e <- cfa(model = model_fitted_p, 
               data = pisa,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "sex",
               missing = 'pairwise',
               ordered = T,
@@ -363,13 +363,13 @@ model_pooled_i <- '
 
 m_pooled_i <- cfa(model = model_pooled_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               missing = 'pairwise',
               ordered = T)
 
 standardizedsolution(m_pooled_i) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std) 
 
 fit_icils <- fitMeasures(m_pooled_i,
                          c("chisq", "df", "pvalue", "cfi", "tli", "rmsea", "srmr"))
@@ -395,13 +395,13 @@ model_fitted_i <- '
 
 m_fitted_i <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               missing = 'pairwise',
               ordered = T)
 
 standardizedsolution(m_fitted_i) %>% 
   filter(op == "=~") %>% 
-  select(Factor = lhs, Indicator = rhs, `Loading (DWLS)` = est.std) 
+  select(Factor = lhs, Indicator = rhs, `Loading (WLSMV)` = est.std) 
 
 standardizedsolution(m_fitted_i) %>% 
   filter(op == "~~",           # Operador de covarianza/correlación
@@ -436,7 +436,7 @@ modindices(m_fitted_i, sort = TRUE, maximum.number = 5)
 
 multigroup_i <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNTRY",
               missing = 'pairwise',
               ordered = T)
@@ -445,7 +445,7 @@ multigroup_i <- cfa(model = model_fitted_i,
 
 multigroup_i_m <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNTRY",
               ordered = T,
               missing = 'pairwise',
@@ -455,7 +455,7 @@ multigroup_i_m <- cfa(model = model_fitted_i,
 
 multigroup_i_e <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNTRY",
               ordered = T,
               missing = 'pairwise',
@@ -546,7 +546,7 @@ tabla_completa_i$Decision <- c(
 
 multigroup_i_g <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "sex",
               missing = 'pairwise',
               ordered = T)
@@ -555,7 +555,7 @@ multigroup_i_g <- cfa(model = model_fitted_i,
 
 multigroup_i_g_m <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "sex",
               missing = 'pairwise',
               ordered = T,
@@ -565,7 +565,7 @@ multigroup_i_g_m <- cfa(model = model_fitted_i,
 
 multigroup_i_g_e <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "sex",
               missing = 'pairwise',
               ordered = T,

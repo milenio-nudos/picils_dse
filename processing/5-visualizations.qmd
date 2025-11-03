@@ -67,7 +67,7 @@ fitgroup_p <- cfa(model = model_fitted_p,
                 data = pisa, 
                 group = "CNT",
                 ordered = TRUE,
-                estimator = "DWLS",
+                estimator = "WLSMV",
                 missing = 'pairwise',
                 group.equal = c("loadings", "intercepts")
               )
@@ -491,7 +491,7 @@ model_fitted_i <- '
 
 fitgroup_i <- cfa(model = model_fitted_i, 
               data = icils,
-              estimator = "DWLS",
+              estimator = "WLSMV",
               group = "CNTRY",
               ordered = T,
               missing = 'pairwise',
