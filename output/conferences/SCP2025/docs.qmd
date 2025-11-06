@@ -127,6 +127,8 @@ ICILS: ¿Qué tan bien puedes hacer...?
 ::: {.column width="50%" style="font-size: 30px;"}
 **Autoeficacia general**
 
+PISA: 8 ítems, ICILS: 10 ítems
+
 -   Buscar y evaluar información en internet.
 
 -   Compartir contenido en línea
@@ -138,6 +140,8 @@ ICILS: ¿Qué tan bien puedes hacer...?
 
 ::: {.column width="50%" style="font-size: 30px; color: #ff3057;"}
 **Autoeficacia especializada**
+
+PISA: 6 ítems, ICILS: 3 ítems
 
 -   Desarrollo de páginas web.
 
@@ -161,6 +165,20 @@ ICILS: ¿Qué tan bien puedes hacer...?
 2.  Prueba de invarianza
 3.  Distribución de medias entre países
 4.  Diferencias de género entre países
+
+## Modelo original: pooled
+
+#### PISA 2022
+
+CFI = 0.98; TLI = 0.97; RMSEA = 0.15, exceeding the maximum acceptable RMSEA threshold of 0.08
+
+#### ICILS 2023
+
+CFI = 0.97; TLI = 0.96; RMSEA = 0.10, exceeding the maximum acceptable RMSEA threshold of 0.08
+
+## Modelo Ajustado: pooled
+
+![](images/paste-FBC819C4.png)
 
 ## AFC e Invarianza
 
@@ -186,15 +204,7 @@ ICILS: ¿Qué tan bien puedes hacer...?
 
 ## 
 
-![](images/icils_gender_dse_gaps_destacado.png){width="100%"}
-
-## 
-
 ![](images/pisa_gender_dse_gaps.png){width="100%"}
-
-## 
-
-![](images/pisa_gender_dse_gaps_destacado.png){width="100%"}
 
 ## Conclusiones
 
@@ -217,7 +227,7 @@ ICILS: ¿Qué tan bien puedes hacer...?
 ::: {.highlight-last style="font-size: 40px;"}
 -   La evolución de las mediciones: ICTSE vs. DSE y el marco DigComp
 
--   ¿Obsolescencia de la bidimensionalidad?
+-   ¿Son dos o más dimensiones?
 
 -   La contraintuitiva relación entre el desarrollo de los países y la brecha de género
 :::
