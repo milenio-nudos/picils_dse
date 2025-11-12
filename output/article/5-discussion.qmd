@@ -2,4 +2,13 @@
 editor: visual
 ---
 
-# 
+# Discussion
+
+The self-efficacy scales in the two studies reviewed demonstrate clear two-dimensional behaviour, when the number of items considered are reduced. Although PISA and ICILS explicitly differ in their strategies for measuring DSE, the results indicates that it is possible to obtain a common scale from the data that is comparable across cultures and by gender. In turn, data exploration supports a consistent trend with the literature: in both studies, the latent means of general self-efficacy show minimal gaps in favour of girls, while specialised self-efficacy favours boys to a considerable extent.
+
+Since PISA tends to give a context of difficulty to the construct, which involves the development of logical thinking and a social context behind it, it achieves better levels of adjustment than ICILS, a study that focuses on the performance achievement of tasks in abstract. By introducing less information, cultural differences are likely to differentiate the way students from different countries interpret the meaning of the question.
+
+The items that were eliminated reveals important trends to consider for innovating future measurements.Some tasks that do not belong to the basic set of digital literacy (i.e. information, communication, and creation) did not fit into the proposed two-dimensional model, anchored to a linear distinction of the degree of difficulty of the tasks to group the factors. For example, expectations for achieving changes in device settings, specific to managing user ‘privacy,’ distort the model in both studies.   
+
+Likewise, other tasks did not seem to have the same meaning that students had given them in previous measurements. While in previous versions of these studies, web page development was a clearly distinctive skill of specialised technology users, the results suggest that it shares considerable variance with the latent construct of general self-efficacy. The opposite is true for multimedia content creation, which has moved from general self-efficacy to a blurred area between the two dimensions. Technological contexts change over time. It is likely that new developments in digital tools have brought some tasks that were previously challenging for the general public closer together, while other tasks that previously appeared to be simple have become more complex than usual.
+
