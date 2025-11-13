@@ -124,9 +124,9 @@ for (g in seq_along(idx_p)) {
 }
 
 # Ahora calcular correlaciones
-cor_gen <- cor(pisa$gen_dse_index_old, pisa$gen_dse_score, 
+cor_gen <- cor(pisa$gen_dse_index, pisa$gen_dse_score, 
                use = "complete.obs")
-cor_spec <- cor(pisa$spec_dse_index_old, pisa$spec_dse_score, 
+cor_spec <- cor(pisa$spec_dse_index, pisa$spec_dse_score, 
                 use = "complete.obs")
 
 cat("Correlación Gen DSE (índice vs factor score):", round(cor_gen, 3), "\n")
@@ -579,7 +579,7 @@ ggplot(icils |> filter(!is.na(spec_dse_score)),
        aes(x = spec_dse_index, y = spec_dse_score)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "lm", color = "blue") +
-  facet_wrap(~CNT) +
+  facet_wrap(~CNTRY) +
   labs(title = "Correlación: Índice vs Factor Score (Specialized DSE)",
        x = "Índice (promedio simple)", 
        y = "Factor Score") +
