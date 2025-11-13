@@ -38,4 +38,6 @@ Regarding gender invariance, both studies achieved scalar invariance. The change
 
 ## Descriptives by gender and countries
 
+
+DECIR QUE VAMOS A UTILIZAR LOS PROMEDIOS DIRECTOS CONSIDERANDO QUE LA CORRELACIÓN ES 0.96, 0.99.
 To do...
