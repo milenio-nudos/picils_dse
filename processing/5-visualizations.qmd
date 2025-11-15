@@ -22,6 +22,7 @@ editor_options:
 execute:
   fig-width: 10
   fig-height: 6
+  warning: false
 
 ---
 # Enviroment setting
@@ -74,6 +75,33 @@ fitgroup_p <- cfa(model = model_fitted_p,
 
 idx_p <- lavInspect(fitgroup_p, "case.idx")
 
+pisa$gen_dse_index <- NA_real_
+pisa$spec_dse_index <- NA_real_
+
+for (g in seq_along(idx_p)) {
+  # Casos de este grupo que lavaan usó
+  casos_usados <- idx_p[[g]]
+  
+  # Calcular índices para esos casos específicos
+  pisa$gen_dse_index[casos_usados] <- rowMeans(
+    pisa[casos_usados, c("search_info", "evaluate_info", 
+                         "explain_content", "share_content", 
+                         "pair_collab", "write_text")],
+    na.rm = TRUE
+  )
+  
+  pisa$spec_dse_index[casos_usados] <- rowMeans(
+    pisa[casos_usados, c("programming", "identify_error", 
+                         "logical_solution")],
+    na.rm = TRUE
+  )
+}
+```
+
+## Correspondence analysis index vs factor scores 
+```{r}
+#| eval: false
+
 fscores_p <- lavPredict(fitgroup_p)
 
 pisa$gen_dse_score <- NA_real_
@@ -97,31 +125,6 @@ pisa |>
     media_gen = mean(gen_dse_score, na.rm = TRUE),
     media_spec = mean(spec_dse_score, na.rm = TRUE)
   )
-```
-
-## Correspondence analysis index vs factor scores 
-```{r}
-pisa$gen_dse_index <- NA_real_
-pisa$spec_dse_index <- NA_real_
-
-for (g in seq_along(idx_p)) {
-  # Casos de este grupo que lavaan usó
-  casos_usados <- idx_p[[g]]
-  
-  # Calcular índices para esos casos específicos
-  pisa$gen_dse_index[casos_usados] <- rowMeans(
-    pisa[casos_usados, c("search_info", "evaluate_info", 
-                         "explain_content", "share_content", 
-                         "pair_collab", "write_text")],
-    na.rm = TRUE
-  )
-  
-  pisa$spec_dse_index[casos_usados] <- rowMeans(
-    pisa[casos_usados, c("programming", "identify_error", 
-                         "logical_solution")],
-    na.rm = TRUE
-  )
-}
 
 # Ahora calcular correlaciones
 cor_gen <- cor(pisa$gen_dse_index, pisa$gen_dse_score, 
@@ -172,6 +175,8 @@ ggplot(pisa |> filter(!is.na(spec_dse_score)),
 ```
 
 ```{r}
+#| eval: false
+
 # Comparar medias del índice vs factor scores por país
 comparacion_medias <- pisa |>
   filter(!is.na(gen_dse_score)) |>
@@ -347,8 +352,8 @@ plot_spec_dse_p
 
 beeswarm_plot <- pisa |>
   group_by(CNT)|>
-  summarise(mean_geneff = mean(gen_dse_score, na.rm = T),
-            mean_speceff = mean(spec_dse_score, na.rm = T))|>
+  summarise(mean_geneff = mean(gen_dse_index, na.rm = T),
+            mean_speceff = mean(spec_dse_index, na.rm = T))|>
   ungroup()|>
   pivot_longer(cols = 2:3,
                names_to = "type",
@@ -398,9 +403,8 @@ pisa_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
     plot.caption = element_text(size = 15),
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   ) +
-  labs(title = "PISA countries DSE scores comparison") +
   scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
-  scale_y_continuous(breaks = c(-0.5, -0.25, 0, 0, 0.25, 0.5), limits = c(-0.5,0.6))
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
 
 pisa_cnt_plot
 ```
@@ -412,8 +416,8 @@ pisa_cnt_plot
 gender_plot <- pisa |>  
   group_by(CNT, sex) |>  
   summarise(
-    "General DSE" = mean(gen_dse_score, na.rm = TRUE),
-    "Specialized DSE" = mean(spec_dse_score, na.rm = TRUE)
+    "General DSE" = mean(gen_dse_index, na.rm = TRUE),
+    "Specialized DSE" = mean(spec_dse_index, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,
@@ -455,7 +459,6 @@ pisa_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) +
     name = "Gender",
     labels = c("Female", "Male"),
     values = c("Female" = 16, "Male" = 17)) + 
-  labs(title = "PISA gender DSE gaps by country") +  
   theme_minimal() +  
   theme(
     axis.title.y = element_blank(),
@@ -470,12 +473,11 @@ pisa_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) +
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   ) +
   coord_cartesian(clip = "off") +
-  scale_x_continuous(breaks = c(-0.5, -0.25, 0, 0.25, 0.5), limits = c(-0.5,0.6))
+  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(2, 4))
 
 pisa_gender_plot
 ```
 
-Idea: Marcar en rojo a la izquierda los países que más brecha presentan en la autoeficacia digital especializada. Así podemos discutir estos casos y abrir el tema de que los países más desarrollados tienen mayores brechas en dirección a los hombres.
 
 # ICILS
 
@@ -499,24 +501,6 @@ fitgroup_i <- cfa(model = model_fitted_i,
 
 idx_i <- lavInspect(fitgroup_i, "case.idx")
 
-fscores_i <- lavPredict(fitgroup_i)
-
-icils$gen_dse_score <- NA_real_
-icils$spec_dse_score <- NA_real_
-
-for (g in seq_along(fscores_i)) {
-  # idx[[g]] contiene los índices de filas que lavaan usó para este grupo
-  # fscores[[g]] contiene los factor scores para esas filas
-  
-  icils[idx_i[[g]], "gen_dse_score"] <- fscores_i[[g]][, "gen_dse"]
-  icils[idx_i[[g]], "spec_dse_score"] <- fscores_i[[g]][, "spec_dse"]
-}
-
-
-```
-
-## Correspondence analysis index vs factor scores 
-```{r}
 icils$gen_dse_index <- NA_real_
 icils$spec_dse_index <- NA_real_
 
@@ -537,6 +521,26 @@ for (g in seq_along(idx_i)) {
                          "develop_webpage")],
     na.rm = TRUE
   )
+}
+
+
+```
+
+## Correspondence analysis index vs factor scores 
+```{r}
+#| eval: false
+
+fscores_i <- lavPredict(fitgroup_i)
+
+icils$gen_dse_score <- NA_real_
+icils$spec_dse_score <- NA_real_
+
+for (g in seq_along(fscores_i)) {
+  # idx[[g]] contiene los índices de filas que lavaan usó para este grupo
+  # fscores[[g]] contiene los factor scores para esas filas
+  
+  icils[idx_i[[g]], "gen_dse_score"] <- fscores_i[[g]][, "gen_dse"]
+  icils[idx_i[[g]], "spec_dse_score"] <- fscores_i[[g]][, "spec_dse"]
 }
 
 # Ahora calcular correlaciones
@@ -588,6 +592,8 @@ ggplot(icils |> filter(!is.na(spec_dse_score)),
 ```
 
 ```{r}
+#| eval: false
+
 # Comparar medias del índice vs factor scores por país
 comparacion_medias <- icils |>
   filter(!is.na(gen_dse_score)) |>
@@ -764,8 +770,8 @@ plot_spec_dse_i
 
 beeswarm_plot <- icils |>
   group_by(CNTRY)|>
-  summarise(mean_geneff = mean(gen_dse_score, na.rm = T),
-            mean_speceff = mean(spec_dse_score, na.rm = T))|>
+  summarise(mean_geneff = mean(gen_dse_index, na.rm = T),
+            mean_speceff = mean(spec_dse_index, na.rm = T))|>
   ungroup()|>
   pivot_longer(cols = 2:3,
                names_to = "type",
@@ -815,9 +821,8 @@ icils_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) 
     plot.caption = element_text(size = 15),
     plot.title = element_text(hjust = 0.5, size = 14)
   ) +
-  labs(title = "ICILS countries DSE scores comparison") +
   scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
-  scale_y_continuous(breaks = c(-0.5, -0.25, 0, 0.25, 0.5, 0.75), limits = c(-0.5,0.9))
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
 
 icils_cnt_plot
 ```
@@ -828,8 +833,8 @@ icils_cnt_plot
 gender_plot <- icils |>  
   group_by(CNTRY, sex) |>  
   summarise(
-    "General DSE" = mean(gen_dse_score, na.rm = TRUE),
-    "Specialized DSE" = mean(spec_dse_score, na.rm = TRUE)
+    "General DSE" = mean(gen_dse_index, na.rm = TRUE),
+    "Specialized DSE" = mean(spec_dse_index, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,
@@ -870,7 +875,6 @@ icils_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) +
     name = "Gender",
     labels = c("Female", "Male"),
     values = c("Female" = 16, "Male" = 17)) + 
-  labs(title = "ICILS gender DSE gaps by country") +  
   theme_minimal() +  
   theme(
     axis.title.y = element_blank(),
@@ -885,7 +889,7 @@ icils_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) +
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   ) +
   coord_cartesian(clip = "off") +
-  scale_x_continuous(breaks = c(-0.5, -0.25, 0, 0.25, 0.5, 0.75), limits = c(-0.6, 0.9))
+  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(1.9, 4))
 
 icils_gender_plot
 ```
