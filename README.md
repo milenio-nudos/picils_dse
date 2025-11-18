@@ -26,10 +26,11 @@ This repository structure follows the IPO Protocol:
 - [CFA Invariance PISA](https://milenio-nudos.github.io/picils_dse/output/reports/3-cfa-invariance-pisa.html)
 - [Gender Differences PICILS](https://milenio-nudos.github.io/picils_dse/output/reports/4-plot-gender-diff.html)
 
-
-
 ## Conferences
 
 - [Abstract INVALSI 2025: Measuring Digital Self-Efficacy in International Large-Scale Assessments: An International Comparison Between ICILS and PISA ](https://milenio-nudos.github.io/picils_dse/output/conferences/invalsi2025/abstract-invalsi.html)
 - [XII Conferencia COES: Medición de autoeficacia digital y diferencias de género en evaluaciones internacionales de gran escala](https://milenio-nudos.github.io/picils_dse/output/conferences/coes2025/docs.html)
 - [XI Congreso SCP 2025: Medición de autoeficacia digital y diferencias de género en evaluaciones internacionales de gran escala](https://milenio-nudos.github.io/picils_dse/output/conferences/SCP2025/docs.html)
+
+## Paper
+- [Digital Self-efficacy and gender in Large-scale assesments](https://milenio-nudos.github.io/picils_dse/output/article/paper.html)
