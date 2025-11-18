@@ -13,3 +13,13 @@ Such attitudinal differences are also shaped by broader sociocultural and educat
 International large-scale assessments (ILSAs) provide an unparalleled opportunity to examine these issues. Studies such as the International Computer and Information Literacy Study (ICILS) and the Programme for International Student Assessment (PISA) include DSE measures, but they differ in important ways. PISA has traditionally adopted a unidimensional approach, aggregating digital self-confidence into a single scale [@oecd_pisa_2023], whereas ICILS uses a bidimensional framework, distinguishing between general and specialized DSE [@fraillon_preparing_2020]. Although ICILS and PISA differ in the wording of the items, if one examines the meaning of the items in depth, they are similar in terms of the tasks, which does not justify their different measurement strategies.
 
 These differences are more than technical: they affect how countries governments interpret digital readiness and how gender disparities are identified. Against this background, the present study contributes by (i) testing whether a two-dimensional model of DSE —general and specialized— can be identified in both PISA and ICILS, (ii) evaluating its measurement invariance across gender and countries, and (iii) exploring determinants on gender differences at country level for both studies. By doing so, we aim to clarify whether differences in DSE are consistent across contexts or instead a product of how assessments operationalize the construct.
+
+-\> párrafos autocontenidos / topic sentence
+
+-\> redacción entrecortada, en algunas partes muy gpteada
+
+-\> relevancia
+
+-\> argumento
+
+These differences are more than technical: they affect how countries governments interpret digital readiness and how gender disparities are identified. Against this background, the present study contributes by (i) testing whether a two-dimensional model of DSE —general and specialized— can be identified in both PISA and ICILS, (ii) evaluating its measurement invariance across gender and countries, and (iii) exploring distribution on gender differences at country level for both studies. By doing so, we aim to clarify whether differences in DSE are consistent across contexts or instead a product of how assessments operationalize the construct.
