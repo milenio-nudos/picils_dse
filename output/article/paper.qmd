@@ -17,7 +17,7 @@ comments:
   hypothesis: true
 ---
 
-# Digital Self-efficacy and gender in Large-scale assesments {.unnumbered}
+# Measuring Digital Self-Efficacy in International Large-Scale Assessments: A Comparison Between ICILS and PISA {.unnumbered}
 
 Daniel Miranda[^1], Juan Carlos Castillo[^2], Nicolás Tobar[^3], Tomás Urzúa[^4] and Ismael Aguayo[^5]
 
