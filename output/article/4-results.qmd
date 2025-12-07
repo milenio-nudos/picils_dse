@@ -4,50 +4,40 @@ editor: source
 
 # Results
 
-## Pooled models
+## ICILS
 
-The models originally hypothesized for both studies did not achieve an initial fit, thus requiring several modifications to meet the established criteria. Regarding PISA, the pooled model yielded the following fit indices: CFI = 0.98; TLI = 0.97; RMSEA = 0.15, exceeding the maximum acceptable RMSEA threshold of 0.08. Given this result, a model re-specification process was undertaken, removing items from the model. The first item dropped from the model was ‘identify app’, which, according to the modification indices, cross-loaded on the general sub-dimension of the latent variable (MI = 113,132). This item, unlike the others in the specialized sub-dimension, does not refer to tasks specifically related to programming, which may explain why it did not fit well within the factor. The next item removed was *develop webpage*, due to its cross-loading on the general DSE factor (MI = 61,606). It is possible that due to the propagation and popularization of 'user-friendly' platforms for website creation, this skill is no longer considered advanced by young people. The next item removed was *change settings*, due to it cross-loading on the specialized DSE factor (MI = 9,168). This item is not directly related with the most basic 'digital literacy' dimensions recognized in the DigComp framework (information, communication, and creation), but rather to the dimension related to privacy. Next, the *collect data* item was dropped, as modification indices indicated it cross-loaded on the specialized DSE factor (MI = 11,187). Although this item requires deeper analysis, the basic data collection and analysis skills it assesses seem to be perceived as more complex by students. Finally, the *create media* item was extracted from the model, as modification indices suggested it cross-loaded on the specialized sub-dimension (MI = 7,927). Although we lack substantive evidence to affirm this, it is plausible that the perceived threshold for proficiency in multimedia skills has increased for students, given the wide availability of high-quality multimedia content on the internet.
+### Pooled Model
 
-In the case of ICILS, the model also failed to fit due to a very high RMSEA; its fit indices were: CFI = 0.97; TLI = 0.96; RMSEA = 0.1. Again, a re-specification process of the hypothesized model was followed. First, *source info* was removed from the model, as it cross-loaded on the specialized DSE factor (MI = 18,633). Identifying an information source today has become very complex; tracing the origin of a specific piece of data is something that, in the students' view, apparently requires greater specialization. So much so, that this item shows high shared variance with visual coding and programming. Then, just as in the previous study, *change settings* was removed, due to it not being related to the basic dimensions of the DigComp framework. Finally, two items related to multimedia skills were removed due to cross-loading on the specialized DSE factor: *create media* (MI = 6,174) and *edit image* (MI = 6,510). The fact that in both studies these items lean towards the specialized self-efficacy factor leads us to think that, rather than a measurement issue specific to one study, the students' perceived difficulty of editing and managing audio, video, and image skills is genuinely changing.
+*Figure 1: ICILS global CFA model*
 
-Given the above, the following re-specified two-dimensional DSE models are proposed for both studies.
+![](images/icils_model.png)
 
-## Modified-Fitted models
+The ICILS initial model shown a good fit ($\chi^2$ = 5145.041; p \< .001; CFI = .97; TLI = .963; RMSEA = .031). The only metric of poor fit was a significant $\chi^2$, but given the large sample size any small difference in the covariance matrix would be significant. The loadings were medium to high for both factors, scoring between .6 and .84, and therefore, explaining among 36% and 71% of the items variance (r²). The inter-factor correlation was large, at .55. Even if highly correlated, we can identify a general and specialized dimension for digital self-eficacy in the ICILS global model, consistently with the study IRT validations and the specialized literature. The fiability and Average Variace Extracted (AVE) for both factors was above set tresholds (for General DSE: $\omega$ = .91; for Specialized DSE: $\omega$ = .8; AVE = .61).
 
-*Figure 1: PISA fitted model*
+### Invariance analysis
 
-![](images/pisa_fitted_diagram.png)
+![](images/invariance_table_icils.png)
 
-*Figure 2: ICILS fitted model*
+Regarding MGCFA analysis, the ICILS DSE model achieved configural and metric cross-country invariance, but scalar invariance could not be established due to a change in CFI (-.007) that exceeded the cut-off criterion. This allow us to compare the factor loadings across countries, but it does not permit the comparison of latent means, as different cultures may have interpreted the items diferently (i.e., the intercepts are not equivalent). Aditionaly, the multi-group model shown a significantly worst adjustment than the global model, with a RMSEA of .093. On the other hand, the model did passed all three nested levels (configural, metric and scalar) of gender invariance, with changes of the key indices within acceptable ranges.
 
-![](images/icils_fitted_diagram.png)
+### Descriptive exploration
 
-In both studies, the general factor remains with six items and the specialized factor with three. In PISA, the fit indices are within the excellent fit range (\>0.95) for CFI and TLI, and the acceptable range (\<0.08) for RMSEA. All factor loadings are greater than 0.85, indicating that the proposed factors explain a good portion of the variance of the items comprising the latent variable (at least 72.3%). The correlation between the two factors is moderate, at 0.4.
+No sé si continuar, ya que no funciona. Podríamos hacer exploraciones por género.
 
-Regarding ICILS, the model shows a slightly looser fit than in PISA. Although the CFI and TLI also indicate an excellent fit, the RMSEA is just at the borderline to be considered acceptable. In addition to this, the factor loadings are somewhat lower, although they still show high magnitude, with values ranging from 0.68 to 0.84, meaning they would explain, in the worst-case scenario, 46.2% of the item variance. The correlation between both factors is very similar to the PISA model, at 0.43.
+## PISA
 
-## Multigroup CFA and invariance analysis
+### Pooled model and adjustments
 
-![](images/invariance_table_country.png)
+![](images/pisa_model.png)
 
-Starting with cross-country invariance, the PISA study passed all three tested levels (configural, metric, and scalar), showing changes in the key fit indices ($\Delta$CFI and $\Delta$RMSEA) that were within acceptable ranges. This establishes cross-country comparability and permits subsequent analyses. On the other hand, while ICILS achieved configural and metric invariance, scalar invariance could not be established due to a change in CFI (-0.007) that exceeded the cut-off criterion. This allows us to compare the factor loadings across countries, but it does not permit the comparison of latent means, as groups may interpret the items differently (i.e., the intercepts are not equivalent).
+The initial PISA model shown vast sources of misfit (RMSEA = .12), in particular because of two items having strong cross-loadings with the another factor and multiple residual covariances with other indicators. The first item, "Select the most efficient programme or App that allows me to carry out a specific task", shown a big charge to the general factor (mi = 76,502), and strong negative standarized residual covariance with the specialized subdimension items "logical solution" (-138.13), "identify error" (-138.24) and "programming" (-120.52). Aditionally, it had a big positive residual covariance with change settings (161.21), a item corresponding to the general DSE factor. Therefore, to maintain the parsimony of the model we removed the item. In contrast to our theorized model, the data suggest that this item has little to no relation to the programming-related tasks of the specialized dimension. The second item that shown significant problems was "Create, update and maintain a webpage or a blog", also presenting a strong cross-loading to the general factor (mi = 39,014) and big residual covariances, possitive ones with general DSE items (i.e., "collect data" (113.72), "create media" (128.92) and "change settings" (112.41)) and negative with the specialized DSE indicators (i.e., "logical solution" (-107.93) and "identify error" (-111.12)).
 
-![](images/invariance_table_gender.png)
+After re-especification, the PISA model shown a razonable fit to the data ($\chi^2$ = 37625.623; p \< .001; CFI = .994; TLI = .992; RMSEA = .068). Their factor loadings were all high, scoring between .78 and .93, and explaining among 63 and 87% of the item variance. Aditionaly, both factors had a good reliability and convergence (for General DSE: $\omega$ = .95; AVE = .71; for Specialized DSE: $\omega$ = .89; AVE = .8). The inter-factor correlation is moderate at .49.
 
-Regarding gender invariance, both studies achieved scalar invariance. The changes between the nested models ($\Delta$CFI and $\Delta$RMSEA) were within the acceptable ranges (i.e., below the problematic cut-offs). The latent constructs are comparable across genders in both studies, permitting comparative analyses of both factor loadings and latent means.
+### Invariance analysis
 
-## Descriptives by gender and country
+![](images/invariance_table_pisa.png)
 
-This section reports descriptive analyses by country and gender for both dimensions in the two studies. We opted to use averaged indices rather than latent mean scores for DSE for two main reasons: (1) in both studies, the correlation between the summative index and the latent mean for each dimension (general and specialized) exceeded 0.95 in all countries; (2) using indices preserves the original scale of the items, facilitating interpretation of the descriptive results. Although ICILS failed to achieve scalar invariance across countries, we present its descriptive results with the caveat that intercept variability across countries limits comparability. In each database, indices were computed only for observations included in the pairwise model estimation to ensure consistent treatment of missing data.
+-   both pases the three nested levels
 
-*Figure 3: PISA country scores comparison* ![](images/pisa_country_dse_comparison.png) 
-
-*Figure 4: ICILS country scores comparison* ![](images/icils_country_dse_comparison.png)
-
-In both studies, general DSE scores higher than specialized DSE, as expected. The difference is somewhat larger in ICILS. The most striking finding concerns the distribution of countries in the specialized dimension, where countries with lower technological development report higher aggregate self-efficacy (e.g., Kazakhstan), while countries with better performance on the CIL test rank at the bottom of the distribution (e.g., Germany, Austria).
-
-*Figure 5: PISA gender gaps by country* ![](images/pisa_gender_dse_gaps.png)
-
-*Figure 6: ICILS gender gaps by country* ![](images/icils_gender_dse_gaps.png)
-
-Regarding gender gaps across different cultures, we observe similar patterns in both PISA and ICILS. Consistent with the literature, we expected girls to score higher on the general dimension and boys to score higher on the specialized dimension. In PISA, Figure 6 shows that girls consistently score higher on the general dimension, while boys demonstrate higher self-efficacy on the specialized dimension, with notably larger gaps. In ICILS (Figure 7), the gender gap on the general dimension is less consistent across countries, with some instances showing negligible differences. On the specialized dimension, boys again show substantially larger advantages. A counterintuitive finding from both studies concerns the relationship between countries' gender equality development and the magnitude of gender gaps favoring boys on specialized tasks: countries such as Germany, Denmark, and Finland exhibit considerably larger gaps on the specialized dimension than countries like Chile or Kazakhstan.
+### Descriptive exploration

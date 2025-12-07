@@ -11,6 +11,6 @@ pisa22 <- read_sav("input/data/raw_data/CY08MSP_STU_QQQ.SAV")
 #Filter only countries that have applied the ICT questionnarie and the ICT and sociodemographic variables. 
 pisa22 <- pisa22 %>%
   filter(Option_ICTQ == 1) %>%
-  select(CNT, CNTRYID, CNTSCHID, CNTSTUID, ST001D01T, ST004D01T, starts_with("ST322"), ST337Q08JA, ST338Q08JA, starts_with("IC"))
+  select(CNT, CNTRYID, CNTSCHID, CNTSTUID, W_FSTUWT, SENWT, ESCS, SDLEFF, ST001D01T, ST004D01T, starts_with("ST322"), ST337Q08JA, ST338Q08JA, starts_with("IC"), starts_with("ST355"))
 
 saveRDS(pisa22, "input/data/proc_data/pisa22ict.rds")
