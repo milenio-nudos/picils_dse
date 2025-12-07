@@ -31,7 +31,7 @@ library(pacman)
 pacman::p_load(
   dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
   parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
-  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer)
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer, ggbeeswarm)
 
 options(scipen = 999)
 rm(list = ls()) 
@@ -43,6 +43,8 @@ pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
 # Pooled model
 
 ```{r}
+#| warning: false
+
 model_syntax <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
@@ -92,6 +94,8 @@ First, we detect  a couple of problematic items. Identify app charge to the gene
 ### Re-especification
 
 ```{r}
+#| warning: false
+
 model_syntax_2 <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
@@ -140,6 +144,8 @@ The item of develop webpage self-efficacy shows a big cross-loading to the gener
 ### Re-especification 2
 
 ```{r}
+#| warning: false
+
 model_syntax_3 <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
@@ -273,7 +279,6 @@ fitmeasures_scalar_cnt <- fitMeasures(scalar_cnt,
 ### Table processing
 
 ```{r}
-# Dataframe consolidado
 
 tabla_completa_cnt <- data.frame(
   Type = c("Country", "", ""),
@@ -285,14 +290,14 @@ tabla_completa_cnt <- data.frame(
   RMSEA = c(fitmeasures_config_cnt["rmsea"], fitmeasures_metric_cnt["rmsea"], fitmeasures_scalar_cnt["rmsea"])
 )
 
-# Cálculo deltas
+# Deltas
 
 tabla_completa_cnt$delta_chisq <- c(NA, diff(tabla_completa_cnt$chisq))
 tabla_completa_cnt$delta_df    <- c(NA, diff(tabla_completa_cnt$df))
 tabla_completa_cnt$delta_CFI   <- c(NA, diff(tabla_completa_cnt$CFI))
 tabla_completa_cnt$delta_RMSEA <- c(NA, diff(tabla_completa_cnt$RMSEA))
 
-# Display para los deltas 
+# Deltas display
 
 tabla_completa_cnt$delta_CFI_display <- sapply(1:nrow(tabla_completa_cnt), function(i) {
   if (i == 1) return(NA)
@@ -316,7 +321,7 @@ tabla_completa_cnt$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_cnt), fun
   }
 })
 
-# ANOVA para significancia
+# ANOVA for significance
 
 anova_cnt <- anova(config_cnt, metric_cnt, scalar_cnt)
 
@@ -324,7 +329,7 @@ tabla_completa_cnt$p_value_delta_chisq <- case_when(anova_cnt$`Pr(>Chisq)`< 0.01
                                                   anova_cnt$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
                                                   anova_cnt$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", anova_cnt$`Pr(>Chisq)`))
 tabla_completa_cnt$Decision <- c(
-  NA,  # Configural no tiene comparación previa
+  NA,  # Configural
   # Metric: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
   ifelse(tabla_completa_cnt$delta_CFI[2] >= -0.004 & 
          tabla_completa_cnt$delta_RMSEA[2] <= 0.050, "Yes", "No"),
@@ -386,7 +391,6 @@ fitmeasures_scalar_sex <- fitMeasures(scalar_sex,
 
 ### Table processing
 ```{r}
-# Dataframe consolidado
 
 tabla_completa_sex <- data.frame(
   Type = c("Gender", "", ""),
@@ -398,14 +402,14 @@ tabla_completa_sex <- data.frame(
   RMSEA = c(fitmeasures_config_sex["rmsea"], fitmeasures_metric_sex["rmsea"], fitmeasures_scalar_sex["rmsea"])
 )
 
-# Cálculo deltas
+# Deltas
 
 tabla_completa_sex$delta_chisq <- c(NA, diff(tabla_completa_sex$chisq))
 tabla_completa_sex$delta_df    <- c(NA, diff(tabla_completa_sex$df))
 tabla_completa_sex$delta_CFI   <- c(NA, diff(tabla_completa_sex$CFI))
 tabla_completa_sex$delta_RMSEA <- c(NA, diff(tabla_completa_sex$RMSEA))
 
-# Display para los deltas 
+# Deltas display
 
 tabla_completa_sex$delta_CFI_display <- sapply(1:nrow(tabla_completa_sex), function(i) {
   if (i == 1) return(NA)
@@ -429,7 +433,7 @@ tabla_completa_sex$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_sex), fun
   }
 })
 
-# ANOVA para significancia
+# ANOVA for significance
 
 anova_sex <- anova(config_sex, metric_sex, scalar_sex)
 
@@ -437,11 +441,11 @@ tabla_completa_sex$p_value_delta_chisq <- case_when(anova_sex$`Pr(>Chisq)`< 0.01
                                                   anova_sex$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
                                                   anova_sex$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", anova_sex$`Pr(>Chisq)`))
 tabla_completa_sex$Decision <- c(
-  NA,  # Configural no tiene comparación previa
-  # Métrico: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
+  NA,  # Configural
+  # Metric: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
   ifelse(tabla_completa_sex$delta_CFI[2] >= -0.004 & 
          tabla_completa_sex$delta_RMSEA[2] <= 0.050, "Yes", "No"),
-  # Escalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
+  # Scalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
   ifelse(tabla_completa_sex$delta_CFI[3] >= -0.004 & 
          tabla_completa_sex$delta_RMSEA[3] <= 0.010, "Yes", "No")
 )
@@ -488,9 +492,7 @@ colnames(tabla_unificada_pisa) <- c(
 )
 
 ft_pisa <- flextable(tabla_unificada_pisa) %>%
-# Formatear números: 0 decimales para χ², df, Δχ², Δdf
   colformat_double(j = c("\u03C7\u00B2", "df", "\u0394\u03C7\u00B2", "\u0394df"), digits = 0) %>%
-  # 3 decimales para el resto de columnas numéricas
   colformat_double(j = c("CFI", "TLI", "RMSEA", "\u0394CFI", "\u0394RMSEA", "p"), digits = 3) %>%  border_remove() %>%
   hline_top(border = officer::fp_border(width = 2), part = "all") %>%
   hline_bottom(border = officer::fp_border(width = 2), part = "all") %>%
@@ -506,19 +508,18 @@ ft_pisa <- flextable(tabla_unificada_pisa) %>%
   autofit() %>%
   fit_to_width(max_width = 7.5)
 
-# --- LOGICA DE COLOREO AUTOMÁTICA --- #
 
-# Detectamos la columna a colorear
+# Which cols to color
 delta_cfi_col <- which(colnames(tabla_unificada_pisa) == "\u0394CFI")
 delta_rmsea_col <- which(colnames(tabla_unificada_pisa) == "\u0394RMSEA")
 decision_col <- which(colnames(tabla_unificada_pisa) == "Decision")
-# Detectamos la fila a colorear (las que no tienen el operador menor que)
+# Which rows to color
 rows_cfi_fail <- which(!grepl("<", tabla_unificada_pisa[[delta_cfi_col]]) & 
                        !is.na(tabla_unificada_pisa[[delta_cfi_col]]))
 rows_rmsea_fail <- which(!grepl("<", tabla_unificada_pisa[[delta_rmsea_col]]) & 
                          !is.na(tabla_unificada_pisa[[delta_rmsea_col]]))
 rows_decision_no <- which(tabla_unificada_pisa$Decision == "No")
-# Coloreamos según corresponda
+# Red when dont pass
 if(length(rows_cfi_fail) > 0) {
   ft_pisa <- ft_pisa %>%
     bg(i = rows_cfi_fail, j = delta_cfi_col, bg = "#FFCCCB") %>%
@@ -544,7 +545,7 @@ ft_pisa
 ```{r}
 #| eval: false
 
-# Guardar como docx y png
+# Save tables
 save_as_docx(ft_pisa, path = "output/figures/tables/invariance_table_pisa.docx")
 save_as_image(ft_pisa, path = "output/figures/tables/invariance_table_pisa.png")
 save_as_image(ft_pisa, path = "output/article/images/invariance_table_pisa.png")
@@ -553,23 +554,380 @@ save_as_image(ft_pisa, path = "output/article/images/invariance_table_pisa.png")
 
 # Descriptive analysis
 
+## Latent means prediction
+
 ```{r}
 
-fscores_p <- lavPredict(fitgroup_p)
+fscores_df <- lavPredict(
+  scalar_cnt,
+  type = "lv", 
+  method = "EBM",
+  assemble = TRUE,
+  append.data = TRUE
+)
 
-pisa$gen_dse_score <- NA_real_
-pisa$spec_dse_score <- NA_real_
+fscores_df |>
+  summarise(
+    total = n(),
+    mean_gen_dse = mean(gen_dse, na.rm = TRUE),
+    mean_spec_dse = mean(spec_dse, na.rm = TRUE)
+  )
 
-for (g in seq_along(fscores_p)) {
-  # idx[[g]] contiene los índices de filas que lavaan usó para este grupo
-  # fscores[[g]] contiene los factor scores para esas filas
+```
+
+## Index and latent means correspondence analysis
+
+### Index construction
+
+```{r}
+fscores_df <- fscores_df |> 
+  mutate(
+    gen_dse_index = rowMeans(pick(search_info, evaluate_info, collect_data, 
+                                  explain_content, share_content, pair_collab, 
+                                  write_text, create_media, change_settings), 
+                             na.rm = TRUE),
+                             
+    spec_dse_index = rowMeans(pick(programming, identify_error, logical_solution), 
+                              na.rm = TRUE)
+  )
+```
+
+### Correlation index vs. latent mean
+
+```{r}
+cor_gen <- cor(fscores_df$gen_dse_index, fscores_df$gen_dse, 
+               use = "complete.obs")
+cor_spec <- cor(fscores_df$spec_dse_index, fscores_df$spec_dse, 
+                use = "complete.obs")
+
+n_global <- sum(!is.na(fscores_df$gen_dse))
+
+global_row <- tibble(
+  CNT = "GLOBAL", 
+  n = n_global,
+  cor_gen = cor_gen,
+  cor_spec = cor_spec
+)
+
+cnt_cors <- fscores_df |>
+  filter(!is.na(gen_dse)) |>
+  group_by(CNT) |>
+  summarise(
+    n = n(),
+    cor_gen = cor(gen_dse_index, gen_dse, use = "complete.obs"),
+    cor_spec = cor(spec_dse_index, spec_dse, use = "complete.obs")
+  )
+
+final_table <- bind_rows(global_row, cnt_cors)
+
+knitr::kable(final_table, digits = 3, caption = "Index and latent means correlations")
+```
+
+
+## Visualizations
+
+### Index construction
+```{r}
+pisa <- pisa |> 
+  mutate(
+    gen_dse_index = rowMeans(pick(search_info, evaluate_info, collect_data, 
+                                  explain_content, share_content, pair_collab, 
+                                  write_text, create_media, change_settings), 
+                             na.rm = TRUE),
+                             
+    spec_dse_index = rowMeans(pick(programming, identify_error, logical_solution), 
+                              na.rm = TRUE)
+  )
+```
+
+### Descriptives by gender
+
+```{r}
+pisa |> 
+  filter(sex %in% c("Female", "Male")) |> 
+  mutate(sex = as_factor(sex)) |> 
+  droplevels() |> 
+  table1(~ gen_dse_index + spec_dse_index | sex, 
+         data = _,
+         caption = "General and Specialized DSE scales descriptives by gender")
+
+```
+
+### Country comparison
+
+```{r}
+
+# Create data with country means
+beeswarm_plot <- pisa |>
+  group_by(CNT)|>
+  summarise(mean_geneff = mean(gen_dse_index, na.rm = T),
+            mean_speceff = mean(spec_dse_index, na.rm = T))|>
+  ungroup()|>
+  pivot_longer(cols = 2:3,
+               names_to = "type",
+               values_to = "score")
+
+# Sort and extract labels
+beeswarm_labels <- 
+  rbind(
+  beeswarm_plot%>%
+  group_by(type) %>%
+  arrange(score) %>%
+  slice(c(1:3, (n() - 2):n())) %>%
+  ungroup() %>%
+  mutate(CNT = to_label(CNT)),
   
-  pisa[idx_p[[g]], "gen_dse_score"] <- fscores_p[[g]][, "gen_dse"]
-  pisa[idx_p[[g]], "spec_dse_score"] <- fscores_p[[g]][, "spec_dse"]
-}
+  beeswarm_plot%>%
+    filter(CNT %in% c(""))%>%
+    mutate(CNT = to_label(CNT))%>%
+    slice(-3)
+  )
 
+# Plot
+pisa_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
+  geom_beeswarm(size = 2) +
+  geom_text_repel(
+    data = beeswarm_labels,
+    aes(label = CNT),
+    size = 3,
+    color = "black",
+    box.padding = 1.0,        
+    point.padding = 0.1,      
+    min.segment.length = 0,   
+    max.overlaps = Inf,       
+    force = 3,                
+    force_pull = 0.3,         
+    direction = "both",       
+    seed = 999              
+  ) +
+  scale_color_manual(values = c("#5f5758","#fe3057")) +
+  theme_minimal() +
+  theme(
+    legend.title = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10),
+    legend.position = "none",
+    plot.caption = element_text(size = 15),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
+
+pisa_cnt_plot
+```
+
+### Gender gap country comparison
+
+```{r}
+# Create data in long format with gender means
+gender_plot <- pisa |>  
+  group_by(CNT, sex) |>  
+  summarise(
+    "General DSE" = mean(gen_dse_index, na.rm = TRUE),
+    "Specialized DSE" = mean(spec_dse_index, na.rm = TRUE)
+  ) |>  
+  pivot_longer(
+    cols = 3:4,
+    names_to = "type",
+    values_to = "score"
+  ) |>  
+  ungroup() |>  
+  mutate(sex = to_label(sex)) |>  
+  drop_na()
+
+# Extract labels
+country_labels_map <- gender_plot %>%
+  distinct(CNT) %>%
+  mutate(
+    CNT_code = as.character(CNT),
+    CNT_label = to_label(CNT)
+  ) %>%
+  select(CNT_code, CNT_label)
+
+# Reorder the data by score for each type
+gender_plot <- gender_plot %>%
+  mutate(CNT_code = as.character(CNT)) %>%
+  left_join(country_labels_map, by = "CNT_code") %>%
+  group_by(type) %>%
+  arrange(score) %>%
+  mutate(CNT_label = factor(CNT_label, levels = unique(CNT_label))) %>%
+  ungroup()
+
+
+pisa_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) + 
+  facet_grid(~type, scales = "free_y") +
+  geom_line(aes(group = CNT_label), size = 0.5) +  
+  geom_point(aes(color = sex, shape = sex), size = 2) +  
+  scale_color_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = "#FE3057", "Male" = "#5f5758")) +
+  scale_shape_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = 16, "Male" = 17)) + 
+  theme_minimal() +  
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    legend.position = "top",
+    axis.text.y = element_text(size = 8, color = "black"),
+    plot.margin = margin(10, 10, 10, 10),
+    panel.spacing = unit(1.5, "lines"),
+    text = element_text(size = 12),
+    strip.text = element_text(size = 12),
+    legend.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(2, 4))
+
+pisa_gender_plot
+```
+
+## Loadings and chi analysis (appendix)
+
+```{r}
+
+all_params <- parameterEstimates(scalar_cnt, standardized = TRUE)
+
+factor_loadings_country <- all_params %>%
+  filter(op == "=~")
+
+test_stats <- lavInspect(scalar_cnt, "test")
+chisq_values <- test_stats$scaled.shifted$stat.group
+country_names_lavaan <- attr(test_stats, "info")$group.label
+
+chisq_map <- data.frame(
+  CNT = country_names_lavaan,
+  Chisqr = as.numeric(chisq_values)
+)
+
+label_dictionary <- pisa %>%
+  select(CNT) %>%
+  distinct() %>%
+  mutate(
+    label_text = as.character(haven::as_factor(CNT)) 
+  )
+
+groups_code <- lavInspect(scalar_cnt, "group.label")
+
+matched_labels <- label_dictionary$label_text[match(groups_code, label_dictionary$CNT)]
+
+country_map <- data.frame(
+  group = 1:length(groups_code),
+  CNT = groups_code,
+  Country = matched_labels
+)
+
+factor_loadings_final <- factor_loadings_country %>%
+  left_join(country_map, by = "group") %>%
+  left_join(chisq_map, by = "CNT") %>%
+  select(Country, Item = rhs, Factor = lhs, Loading = std.all, Chisqr)
 
 
 ```
 
-Probar e investigar parámetros lavpredict newdata, method, transform, append.data y assemble. Luego, realizar visualizaciones para PISA con el modelo escalar con los índices si nada de esto funciona y si funciona con las medias latentes.
+## Table for report
+
+```{r}
+
+datatable(
+  factor_loadings_final, 
+  rownames = FALSE,
+  filter = 'top',
+  options = list(
+    pageLength = 15,
+    autoWidth = TRUE
+  ),
+  caption = 'Tabla Interactiva: Cargas Factoriales y Desajuste (Chi2) por País'
+) %>%
+  formatRound(columns = 'Loading', digits = 3) %>% 
+  formatRound(columns = 'Chisqr', digits = 2)
+
+```
+
+# Figures export
+
+## Function for HD saving
+
+```{r}
+export_plot <- function(plot_object, 
+                       filename,
+                       format = c("png", "pdf", "tiff", "eps", "svg"),
+                       width = 10,
+                       height = 7,
+                       dpi = 300,
+                       units = "in",
+                       bg = "white",
+                       path = "./output/figures/") {
+  
+  format <- match.arg(format)
+  
+  full_filename <- paste0(filename, ".", format)
+  full_path <- file.path(path, full_filename)
+  
+
+  ggsave(
+    filename = full_path,
+    plot = plot_object,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    bg = bg,
+    device = format
+  )
+  
+  message(paste0("✓ Gráfico exportado: ", full_path))
+}
+```
+
+## Function for multiformat HD saving
+
+```{r}
+export_plot_multi <- function(plot_object,
+                              filename,
+                              formats = c("png", "pdf", "tiff"),
+                              width = 10,
+                              height = 7,
+                              dpi = 300,
+                              units = "in",
+                              bg = "white",
+                              path = "./output/figures/") {
+  
+  purrr::walk(formats, ~export_plot(
+    plot_object = plot_object,
+    filename = filename,
+    format = .x,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    bg = bg,
+    path = path
+  ))
+}
+```
+
+
+## Saving the plots in multiple formats
+
+```{r}
+#| eval: false
+
+export_plot_multi(pisa_cnt_plot, "pisa_country_dse_comparison", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+
+export_plot_multi(pisa_gender_plot, "pisa_gender_dse_gaps", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+# Article
+export_plot_multi(pisa_cnt_plot, "pisa_country_dse_comparison", 
+                  formats = c("png"), width = 10, height = 6, dpi = 600, path = "./output/article/images/")
+
+export_plot_multi(pisa_gender_plot, "pisa_gender_dse_gaps", 
+                  formats = c("png"), width = 10, height = 6, dpi = 600, path = "./output/article/images/")
+
+```
