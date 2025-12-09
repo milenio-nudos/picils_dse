@@ -46,9 +46,10 @@ icils <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"
 #| warning: false
 
 model_syntax <- '
-  gen_dse =~ search_info + evaluate_info + install_app + source_info + create_media +
-              share_content + write_text + insert_image + edit_image + change_settings
-  spec_dse =~ programming + visual_coding + develop_webpage
+  gen_dse =~ search_info + source_info + evaluate_info + 
+              install_app + share_content + write_text + 
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ develop_webpage + programming + visual_coding
   '
 
 m_pooled <- cfa(model = model_syntax, 
@@ -173,8 +174,6 @@ fitmeasures_scalar_cnt <- fitMeasures(scalar_cnt,
 ### Table processing
 
 ```{r}
-# Dataframe consolidado
-
 tabla_completa_cnt <- data.frame(
   Type = c("Country", "", ""),
   Model = c("1. Configural", "2. Metric", "3. Scalar"),
@@ -185,14 +184,14 @@ tabla_completa_cnt <- data.frame(
   RMSEA = c(fitmeasures_config_cnt["rmsea"], fitmeasures_metric_cnt["rmsea"], fitmeasures_scalar_cnt["rmsea"])
 )
 
-# Cálculo deltas
+# Deltas
 
 tabla_completa_cnt$delta_chisq <- c(NA, diff(tabla_completa_cnt$chisq))
 tabla_completa_cnt$delta_df    <- c(NA, diff(tabla_completa_cnt$df))
 tabla_completa_cnt$delta_CFI   <- c(NA, diff(tabla_completa_cnt$CFI))
 tabla_completa_cnt$delta_RMSEA <- c(NA, diff(tabla_completa_cnt$RMSEA))
 
-# Display para los deltas 
+# Deltas display
 
 tabla_completa_cnt$delta_CFI_display <- sapply(1:nrow(tabla_completa_cnt), function(i) {
   if (i == 1) return(NA)
@@ -216,7 +215,7 @@ tabla_completa_cnt$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_cnt), fun
   }
 })
 
-# ANOVA para significancia
+# ANOVA for significance
 
 anova_cnt <- anova(config_cnt, metric_cnt, scalar_cnt)
 
@@ -224,7 +223,7 @@ tabla_completa_cnt$p_value_delta_chisq <- case_when(anova_cnt$`Pr(>Chisq)`< 0.01
                                                   anova_cnt$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
                                                   anova_cnt$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", anova_cnt$`Pr(>Chisq)`))
 tabla_completa_cnt$Decision <- c(
-  NA,  # Configural no tiene comparación previa
+  NA,  # Configural
   # Metric: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
   ifelse(tabla_completa_cnt$delta_CFI[2] >= -0.004 & 
          tabla_completa_cnt$delta_RMSEA[2] <= 0.050, "Yes", "No"),
@@ -286,8 +285,6 @@ fitmeasures_scalar_sex <- fitMeasures(scalar_sex,
 
 ### Table processing
 ```{r}
-# Dataframe consolidado
-
 tabla_completa_sex <- data.frame(
   Type = c("Gender", "", ""),
   Model = c("1. Configural", "2. Metric", "3. Scalar"),
@@ -298,14 +295,14 @@ tabla_completa_sex <- data.frame(
   RMSEA = c(fitmeasures_config_sex["rmsea"], fitmeasures_metric_sex["rmsea"], fitmeasures_scalar_sex["rmsea"])
 )
 
-# Cálculo deltas
+# Deltas
 
 tabla_completa_sex$delta_chisq <- c(NA, diff(tabla_completa_sex$chisq))
 tabla_completa_sex$delta_df    <- c(NA, diff(tabla_completa_sex$df))
 tabla_completa_sex$delta_CFI   <- c(NA, diff(tabla_completa_sex$CFI))
 tabla_completa_sex$delta_RMSEA <- c(NA, diff(tabla_completa_sex$RMSEA))
 
-# Display para los deltas 
+# Deltas display
 
 tabla_completa_sex$delta_CFI_display <- sapply(1:nrow(tabla_completa_sex), function(i) {
   if (i == 1) return(NA)
@@ -329,7 +326,7 @@ tabla_completa_sex$delta_RMSEA_display <- sapply(1:nrow(tabla_completa_sex), fun
   }
 })
 
-# ANOVA para significancia
+# ANOVA for significance
 
 anova_sex <- anova(config_sex, metric_sex, scalar_sex)
 
@@ -337,11 +334,11 @@ tabla_completa_sex$p_value_delta_chisq <- case_when(anova_sex$`Pr(>Chisq)`< 0.01
                                                   anova_sex$`Pr(>Chisq)`< 0.05 ~ "< 0.05",
                                                   anova_sex$`Pr(>Chisq)`> 0.05 ~ sprintf("%.2f", anova_sex$`Pr(>Chisq)`))
 tabla_completa_sex$Decision <- c(
-  NA,  # Configural no tiene comparación previa
-  # Métrico: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
+  NA,  # Configural
+  # Metric: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.050
   ifelse(tabla_completa_sex$delta_CFI[2] >= -0.004 & 
          tabla_completa_sex$delta_RMSEA[2] <= 0.050, "Yes", "No"),
-  # Escalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
+  # Scalar: ΔCFI ≥ -0.004 Y ΔRMSEA ≤ 0.010
   ifelse(tabla_completa_sex$delta_CFI[3] >= -0.004 & 
          tabla_completa_sex$delta_RMSEA[3] <= 0.010, "Yes", "No")
 )
@@ -388,15 +385,13 @@ colnames(tabla_unificada_icils) <- c(
 )
 
 ft_icils <- flextable(tabla_unificada_icils) %>%
-# Formatear números: 0 decimales para χ², df, Δχ², Δdf
   colformat_double(j = c("\u03C7\u00B2", "df", "\u0394\u03C7\u00B2", "\u0394df"), digits = 0) %>%
-  # 3 decimales para el resto de columnas numéricas
   colformat_double(j = c("CFI", "TLI", "RMSEA", "\u0394CFI", "\u0394RMSEA", "p"), digits = 3) %>%  border_remove() %>%
   hline_top(border = officer::fp_border(width = 2), part = "all") %>%
   hline_bottom(border = officer::fp_border(width = 2), part = "all") %>%
   hline(i = 1, border = officer::fp_border(width = 1.5), part = "header") %>%
   bold(part = "header") %>%
-  font(fontname = "Calibri", part = "all") %>%
+  font(fontname = "Times New Roman", part = "all") %>%
   fontsize(size = 9, part = "body") %>%
   fontsize(size = 10, part = "header") %>%
   padding(padding = 3, part = "all") %>%
@@ -406,19 +401,17 @@ ft_icils <- flextable(tabla_unificada_icils) %>%
   autofit() %>%
   fit_to_width(max_width = 7.5)
 
-# --- LOGICA DE COLOREO AUTOMÁTICA --- #
-
-# Detectamos la columna a colorear
+# Which cols to color
 delta_cfi_col <- which(colnames(tabla_unificada_icils) == "\u0394CFI")
 delta_rmsea_col <- which(colnames(tabla_unificada_icils) == "\u0394RMSEA")
 decision_col <- which(colnames(tabla_unificada_icils) == "Decision")
-# Detectamos la fila a colorear (las que no tienen el operador menor que)
+# Which rows to color
 rows_cfi_fail <- which(!grepl("<", tabla_unificada_icils[[delta_cfi_col]]) & 
                        !is.na(tabla_unificada_icils[[delta_cfi_col]]))
 rows_rmsea_fail <- which(!grepl("<", tabla_unificada_icils[[delta_rmsea_col]]) & 
                          !is.na(tabla_unificada_icils[[delta_rmsea_col]]))
 rows_decision_no <- which(tabla_unificada_icils$Decision == "No")
-# Coloreamos según corresponda
+# Red when dont achieve invariance
 if(length(rows_cfi_fail) > 0) {
   ft_icils <- ft_icils %>%
     bg(i = rows_cfi_fail, j = delta_cfi_col, bg = "#FFCCCB") %>%
@@ -444,9 +437,145 @@ ft_icils
 ```{r}
 #| eval: false
 
-# Guardar como docx y png
+# Save
 save_as_docx(ft_icils, path = "output/figures/tables/invariance_table_icils.docx")
 save_as_image(ft_icils, path = "output/figures/tables/invariance_table_icils.png")
 save_as_image(ft_icils, path = "output/article/images/invariance_table_icils.png")
+saveRDS(ft_icils, "./output/article/tables/invariance_table_icils.rds")
 
+```
+
+# Loadings and chi analysis (appendix)
+
+```{r}
+
+all_params <- parameterEstimates(scalar_cnt, standardized = TRUE)
+
+factor_loadings_country <- all_params %>%
+  filter(op == "=~")
+
+test_stats <- lavInspect(scalar_cnt, "test")
+chisq_values <- test_stats$scaled.shifted$stat.group
+country_names_lavaan <- attr(test_stats, "info")$group.label
+
+chisq_map <- data.frame(
+  CNTRY = country_names_lavaan,
+  Chisqr = as.numeric(chisq_values)
+)
+
+label_dictionary <- icils %>%
+  select(CNTRY) %>%
+  distinct() %>%
+  mutate(
+    label_text = as.character(haven::as_factor(CNTRY)) 
+  )
+
+n_countries <- icils |> 
+  group_by(CNTRY) |> 
+  select(CNTRY) |> 
+  mutate(N = n()) |> 
+  distinct(CNTRY, .keep_all = TRUE)
+
+groups_code <- lavInspect(scalar_cnt, "group.label")
+
+matched_labels <- label_dictionary$label_text[match(groups_code, label_dictionary$CNTRY)]
+
+country_map <- data.frame(
+  group = 1:length(groups_code),
+  CNTRY = groups_code,
+  Country = matched_labels
+)
+
+factor_loadings_final <- factor_loadings_country %>%
+  left_join(country_map, by = "group") %>%
+  left_join(n_countries, by = "CNTRY") %>%
+  left_join(chisq_map, by = "CNTRY") %>%
+  select(Country, Item = rhs, Factor = lhs, Loading = std.all, N, Chisqr)
+
+
+```
+
+## Table for appendix
+
+```{r}
+loadings_table <- factor_loadings_final %>%
+  select(Country, Factor, Item, Loading, N, Chisqr) %>%
+  arrange(desc(Chisqr), Factor)
+
+borde_grueso <- fp_border(width = 2)
+borde_medio  <- fp_border(width = 1.5)
+borde_gris   <- fp_border(color = "grey80", width = 0.5)
+
+ft_loadings <- flextable(loadings_table) %>%
+  
+  set_header_labels(
+    Country = "Country",
+    Factor  = "Latent Factor",
+    Item    = "Item",
+    Loading = "Std. Loading",
+    N       = "N",
+    Chisqr  = "\u03C7\u00B2"
+  ) %>%
+  
+  merge_v(j = c("Country", "Factor", "N", "Chisqr")) %>%
+  
+  colformat_double(j = "Loading", digits = 3) %>%
+  colformat_double(j = "Chisqr", digits = 2) %>%
+
+  colformat_double(j = "N", digits = 0) %>% 
+  
+  font(fontname = "Times New Roman", part = "all") %>%
+  fontsize(size = 9, part = "body") %>%
+  fontsize(size = 10, part = "header") %>%
+  bold(part = "header") %>%
+  
+  padding(padding = 3, part = "all") %>%
+  align(align = "center", part = "header") %>%
+  
+  align(align = "center", j = c("Factor", "Loading", "N", "Chisqr"), part = "body") %>% 
+  align(align = "left", j = c("Country", "Item"), part = "body") %>%
+  
+  valign(valign = "center", j = c("Country", "Factor", "N", "Chisqr"), part = "body") %>%
+
+  border_remove() %>%
+  
+  hline(i = ~ !duplicated(Country, fromLast = TRUE), 
+        border = borde_gris) %>%
+  
+  hline_top(border = borde_grueso, part = "all") %>%
+  hline_bottom(border = borde_grueso, part = "all") %>%
+  hline(part = "header", border = borde_medio) %>%
+  
+  autofit() %>%
+  fit_to_width(max_width = 7.5)
+
+ft_loadings
+```
+
+### Table for report
+
+```{r}
+
+datatable(
+  factor_loadings_final, 
+  rownames = FALSE,
+  filter = 'top',
+  options = list(
+    pageLength = 15,
+    autoWidth = TRUE
+  ),
+  caption = 'Interactive table: Loadings and Chi square by country'
+) %>%
+  formatRound(columns = 'Loading', digits = 3) %>% 
+  formatRound(columns = 'Chisqr', digits = 2)
+
+```
+
+```{r}
+#| eval: false
+
+# Saving table
+saveRDS(ft_loadings, "./output/article/tables/loadings_chi_icils.rds")
+save_as_docx(ft_loadings, path = "./output/figures/tables/loadings_chi_icils.docx")
+save_as_image(ft_loadings, path = "./output/figures/tables/loadings_chi_icils.png")
 ```

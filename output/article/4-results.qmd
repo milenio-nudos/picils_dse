@@ -8,36 +8,54 @@ editor: source
 
 ### Pooled Model
 
-*Figure 1: ICILS global CFA model*
+![ICILS global model](images/icils_model.png){#fig-1}
 
-![](images/icils_model.png)
-
-The ICILS initial model shown a good fit ($\chi^2$ = 5145.041; p \< .001; CFI = .97; TLI = .963; RMSEA = .031). The only metric of poor fit was a significant $\chi^2$, but given the large sample size any small difference in the covariance matrix would be significant. The loadings were medium to high for both factors, scoring between .6 and .84, and therefore, explaining among 36% and 71% of the items variance (r²). The inter-factor correlation was large, at .55. Even if highly correlated, we can identify a general and specialized dimension for digital self-eficacy in the ICILS global model, consistently with the study IRT validations and the specialized literature. The fiability and Average Variace Extracted (AVE) for both factors was above set tresholds (for General DSE: $\omega$ = .91; for Specialized DSE: $\omega$ = .8; AVE = .61).
+The ICILS initial model shown a good fit ($\chi^2$ = 5145.041; p \< .001; CFI = .97; TLI = .963; RMSEA = .031). The only metric of poor fit was a significant $\chi^2$, but given the large sample size any small difference in the covariance matrix would be significant. The loadings were medium to high for both factors, scoring between .6 and .84, and therefore, explaining among 36% and 71% of the items variance (r²). The inter-factor correlation was large, at .55. Even if highly correlated, we can identify a general and specialized dimension for digital self-eficacy in the ICILS global model, consistently with the study IRT validations and the specialized literature. The fiability and Average Variace Extracted (AVE) for both factors was above set tresholds (for General DSE: $\omega$ = .91; AVE = .53; for Specialized DSE: $\omega$ = .8; AVE = .61).
 
 ### Invariance analysis
 
-![](images/invariance_table_icils.png)
+```{r}
+#| label: tbl-invariance-icils
+#| tbl-cap: "Country and gender measurement invariance ICILS"
+library(here)
+library(flextable)
+library(officer)
+invariance_icils <- readRDS(here("output", "article", "tables", "invariance_table_icils.rds"))
+invariance_icils
+```
 
-Regarding MGCFA analysis, the ICILS DSE model achieved configural and metric cross-country invariance, but scalar invariance could not be established due to a change in CFI (-.007) that exceeded the cut-off criterion. This allow us to compare the factor loadings across countries, but it does not permit the comparison of latent means, as different cultures may have interpreted the items diferently (i.e., the intercepts are not equivalent). Aditionaly, the multi-group model shown a significantly worst adjustment than the global model, with a RMSEA of .093. On the other hand, the model did passed all three nested levels (configural, metric and scalar) of gender invariance, with changes of the key indices within acceptable ranges.
-
-### Descriptive exploration
-
-No sé si continuar, ya que no funciona. Podríamos hacer exploraciones por género.
+Regarding MGCFA analysis, the ICILS DSE model achieved configural and metric cross-country invariance, but scalar invariance could not be established due to a change in CFI (-.007) that exceeded the cut-off criterion. This allow us to compare the factor loadings across countries, but it does not permit the comparison of latent means, as different cultures may have interpreted the items diferently (i.e., the intercepts are not equivalent). Aditionaly, the multi-group model shown a significantly worst adjustment than the global model, with a RMSEA of .093. On the other hand, the model did passed all three nested levels (configural, metric and scalar) of gender invariance, with changes of the key indices within acceptable ranges. In the appendix, there is a table with detailed information of factor loadings for general and specialized DSE and $\chi^2$ contribution by country corresponding to the most restricted model (scalar).
 
 ## PISA
 
-### Pooled model and adjustments
+### Pooled model and adjustment
 
-![](images/pisa_model.png)
+![PISA respecified global model](images/pisa_model.png){#fig-2}
 
-The initial PISA model shown vast sources of misfit (RMSEA = .12), in particular because of two items having strong cross-loadings with the another factor and multiple residual covariances with other indicators. The first item, "Select the most efficient programme or App that allows me to carry out a specific task", shown a big charge to the general factor (mi = 76,502), and strong negative standarized residual covariance with the specialized subdimension items "logical solution" (-138.13), "identify error" (-138.24) and "programming" (-120.52). Aditionally, it had a big positive residual covariance with change settings (161.21), a item corresponding to the general DSE factor. Therefore, to maintain the parsimony of the model we removed the item. In contrast to our theorized model, the data suggest that this item has little to no relation to the programming-related tasks of the specialized dimension. The second item that shown significant problems was "Create, update and maintain a webpage or a blog", also presenting a strong cross-loading to the general factor (mi = 39,014) and big residual covariances, possitive ones with general DSE items (i.e., "collect data" (113.72), "create media" (128.92) and "change settings" (112.41)) and negative with the specialized DSE indicators (i.e., "logical solution" (-107.93) and "identify error" (-111.12)).
+The initial PISA model shown vast sources of misfit (RMSEA = .12), in particular because of two items having strong cross-loadings with the another factor and multiple residual covariances with other indicators. The first item, "Select the most efficient programme or App that allows me to carry out a specific task", shown a big charge to the general factor (mi = 76,502.42), and problematic negative residual correlations with the specialized subdimension items "logical solution" (-.28), "identify error" (-.28) and "programming" (-.27). Aditionally, it had a positive residual correlation with change settings (.22), a item corresponding to the general DSE factor. Therefore, to maintain the parsimony of the model we removed the item. In contrast to our theorized model, the data suggest that this item has little to no relation to the programming-related tasks of the specialized dimension. The second item that shown significant problems was "Create, update and maintain a webpage or a blog", also presenting a strong cross-loading to the general factor (mi = 39,013.99) and big residual correlations, possitive ones with general DSE items (i.e., "collect data" (.2), "create media" (.23) and "change settings" (.21)) and negative with the specialized DSE indicators (i.e., "logical solution" (-.14) and "identify error" (-.15)). Adding to the technical missfit of the item to the specialized DSE factor, the growing democratization of web development impulsed by the user-friendly platforms (eg., Fandom, Wix) might have changed the perception of this item by the students in this cycle. In comparison with ICILS, this item phrasing adds a refference to a blog, possibly more related to those non-technical platforms.
 
 After re-especification, the PISA model shown a razonable fit to the data ($\chi^2$ = 37625.623; p \< .001; CFI = .994; TLI = .992; RMSEA = .068). Their factor loadings were all high, scoring between .78 and .93, and explaining among 63 and 87% of the item variance. Aditionaly, both factors had a good reliability and convergence (for General DSE: $\omega$ = .95; AVE = .71; for Specialized DSE: $\omega$ = .89; AVE = .8). The inter-factor correlation is moderate at .49.
 
 ### Invariance analysis
 
-![](images/invariance_table_pisa.png)
+```{r}
+#| label: tbl-invariance-pisa
+#| tbl-cap: "Country and gender measurement invariance PISA"
+#| 
+invariance_pisa <- readRDS(here("output", "article", "tables", "invariance_table_pisa.rds"))
+invariance_pisa
+```
 
--   both pases the three nested levels
+PISA study passed all three tested levels (configural, metric, and scalar), showing changes in the key fit indices ($\Delta$CFI and $\Delta$RMSEA) that were within acceptable ranges. This was the case fot both the country and gender MGCFA models, what establishes cross-country and gender comparability and permits subsequent analyses. As in the ICILS case, in the appendix of the study there is a table with information of factor loadings for both DSE dimensions and $\chi^2$ contributed by country.
 
 ### Descriptive exploration
+
+This section reports descriptive analyses by country and gender for both dimensions. We opted to use averaged indices rather than latent mean scores for DSE for two main reasons: (1) the correlation between the averaged index and the latent mean for each dimension (general and specialized) exceeded 0.95 in all countries; (2) using indices preserves the original scale of the items, facilitating interpretation of the descriptive results and allowing comparison between factors. The appendix contains a table showing the correlation between the latent mean and the average index for each dimension (overall and by country).
+
+![PISA country DSE scores](images/pisa_country_dse_comparison.png){#fig-3}
+
+As @fig-3 shows, general DSE scores higher than specialized DSE in all countries. The most striking finding concerns the distribution of countries in the specialized dimension, where countries with lower technological development report higher aggregate self-efficacy (e.g., Kazakhstan), while countries with better performance on the CIL test rank at the bottom of the distribution (e.g., Germany, Austria).
+
+![PISA gender gaps by country](images/pisa_gender_dse_gaps.png){#fig-4}
+
+Consistent with the literature, we expected girls to score higher on the general dimension and boys to score higher on the specialized dimension [@gebhardt_gender_2019]. @fig-4 shows that girls consistently score higher on the general dimension, while boys demonstrate higher self-efficacy on the specialized dimension, with notably larger gaps. A counterintuitive finding concerns the relationship between countries’ gender equality development and the magnitude of gender gaps favoring boys on specialized tasks: countries such as Germany, Denmark, and Finland exhibit considerably larger gaps on the specialized dimension than countries like Chile or Kazakhstan.
