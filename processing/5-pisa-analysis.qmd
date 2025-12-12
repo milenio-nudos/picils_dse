@@ -56,7 +56,7 @@ m_pooled <- cfa(model = model_syntax,
               data = pisa,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               ordered = T)
 
 ```
@@ -108,7 +108,7 @@ m_pooled_2 <- cfa(model = model_syntax_2,
               data = pisa,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               ordered = T)
 ```
 
@@ -159,7 +159,7 @@ m_pooled_3 <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               ordered = T)
 ```
 
@@ -238,7 +238,7 @@ config_cnt <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "CNT",
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               sampling.weights.normalization = "group",
               missing = 'pairwise',
               ordered = T)
@@ -247,7 +247,7 @@ metric_cnt <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "CNT",
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -257,7 +257,7 @@ scalar_cnt <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "CNT",
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -351,7 +351,7 @@ config_sex <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               sampling.weights.normalization = "group",
               missing = 'pairwise',
               ordered = T)
@@ -360,7 +360,7 @@ metric_sex <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -370,7 +370,7 @@ scalar_sex <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "SENWT",
+              sampling.weights = "W_FSTUWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -700,8 +700,8 @@ pisa <- pisa |>
 # Create data with country means
 beeswarm_plot <- pisa |>
   group_by(CNT)|>
-  summarise(mean_geneff = weighted.mean(gen_dse_index, w = SENWT, na.rm = T),
-            mean_speceff = weighted.mean(spec_dse_index, w = SENWT, na.rm = T))|>
+  summarise(mean_geneff = weighted.mean(gen_dse_index, w = W_FSTUWT, na.rm = T),
+            mean_speceff = weighted.mean(spec_dse_index, w = W_FSTUWT, na.rm = T))|>
   ungroup()|>
   pivot_longer(cols = 2:3,
                names_to = "type",
@@ -765,8 +765,8 @@ pisa_cnt_plot
 gender_plot <- pisa |>  
   group_by(CNT, sex) |>  
   summarise(
-    "General DSE" = weighted.mean(gen_dse_index, w = SENWT, na.rm = TRUE),
-    "Specialized DSE" = weighted.mean(spec_dse_index, w = SENWT, na.rm = TRUE)
+    "General DSE" = weighted.mean(gen_dse_index, w = W_FSTUWT, na.rm = TRUE),
+    "Specialized DSE" = weighted.mean(spec_dse_index, w = W_FSTUWT, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,

@@ -4,6 +4,8 @@ editor: source
 
 # Results
 
+The results are organized into three sequential sections. The first section reports the assessment of the global measurement model and the subsequent invariance testing for the ICILS dataset. The second section presents the equivalent analysis for the PISA dataset, including model specification, fit, and invariance results. Finally, the third section provides the descriptive findings for both studies, focusing on the distribution of scores and gender disparities across the participating education systems.
+
 ## Study 1: ICILS
 
 ### Global Measurement Model Assessment
