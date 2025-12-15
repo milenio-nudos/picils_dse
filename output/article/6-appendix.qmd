@@ -1,3 +1,35 @@
 ---
 editor: visual
 ---
+
+# Appendix
+
+```{r}
+#| label: tbl-loadings-chi-icils
+#| tbl-cap: "ICILS factor loadings and scaled Chi squares by country"
+library(flextable)
+library(officer)
+library(here)
+
+loadings_chi_icils <- readRDS(here("output", "article", "tables", "loadings_chi_icils.rds"))
+
+loadings_chi_icils
+```
+
+```{r}
+#| label: tbl-loadings-chi-pisa
+#| tbl-cap: "PISA factor loadings and scaled Chi squares by country"
+
+loadings_chi_pisa <- readRDS(here("output", "article", "tables", "loadings_chi_pisa.rds"))
+
+loadings_chi_pisa
+```
+
+```{r}
+#| label: tbl-index-latent-means
+#| tbl-cap: "PISA correlations of averaged index and latent mean by country"
+
+index_cors_table <- readRDS(here("output", "article", "tables", "index_latent_means.rds"))
+
+index_cors_table
+```

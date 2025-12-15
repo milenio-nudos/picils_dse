@@ -77,3 +77,5 @@ $H_{1}$: It is possible to identify two latent dimensions of digital self-effica
 $H_{2}$: The bi-dimensional measurement model of digital self-efficacy is equivalent across countries in ICILS and PISA.
 
 $H_{3}$: The bi-dimensional measurement model of digital self-efficacy is equivalent between girls and boys.
+
+$H_{4}$: General and Specialized DSE exhibit distinct patterns of association with gender and national context.
