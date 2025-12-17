@@ -5,15 +5,60 @@ editor: visual
 # Appendix
 
 ```{r}
-#| label: tbl-loadings-chi-icils
-#| tbl-cap: "ICILS factor loadings and scaled Chi squares by country"
+#| label: tbl-mod-indices-icils
+#| tbl-cap: "ICILS Modification Indices for Respecifications"
 library(flextable)
 library(officer)
 library(here)
 
+modindices_icils <- readRDS(here("output", "article", "tables", "mod_indices_icils.rds"))
+
+modindices_icils
+```
+
+```{r}
+#| label: tbl-residuals-icils
+#| tbl-cap: "ICILS Residuals for Respecifications"
+
+residuals_icils <- readRDS(here("output", "article", "tables", "residuals_icils.rds"))
+
+residuals_icils
+```
+
+```{r}
+#| label: tbl-loadings-chi-icils
+#| tbl-cap: "ICILS factor loadings and scaled Chi squares by country"
+
 loadings_chi_icils <- readRDS(here("output", "article", "tables", "loadings_chi_icils.rds"))
 
 loadings_chi_icils
+```
+
+
+```{r}
+#| label: tbl-index-latent-means-icils
+#| tbl-cap: "ICILS correlations of averaged index and latent mean by country"
+
+index_cors_table_icils <- readRDS(here("output", "article", "tables", "index_latent_means_icils.rds"))
+
+index_cors_table_icils
+```
+```{r}
+#| label: tbl-mod-indices-pisa
+#| tbl-cap: "PISA Modification Indices for Respecifications"
+
+modindices_pisa <- readRDS(here("output", "article", "tables", "mod_indices_pisa.rds"))
+
+modindices_pisa
+```
+
+```{r}
+#| label: tbl-residuals-pisa
+#| tbl-cap: "PISA Residuals for Respecifications"
+
+residuals_pisa <- readRDS(here("output", "article", "tables", "residuals_pisa.rds"))
+
+residuals_pisa
 ```
 
 ```{r}
@@ -26,10 +71,10 @@ loadings_chi_pisa
 ```
 
 ```{r}
-#| label: tbl-index-latent-means
+#| label: tbl-index-latent-means-pisa
 #| tbl-cap: "PISA correlations of averaged index and latent mean by country"
 
-index_cors_table <- readRDS(here("output", "article", "tables", "index_latent_means.rds"))
+index_cors_table <- readRDS(here("output", "article", "tables", "index_latent_means_pisa.rds"))
 
 index_cors_table
 ```

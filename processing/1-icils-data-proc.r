@@ -133,4 +133,9 @@ icils23_proc <- icils23_proc|>
 
 icils23_proc$sex <- haven::as_factor(icils23_proc$sex)
 
+icils23_proc <- icils23_proc |>
+  group_by(CNTRY) |>
+  mutate(SENWT = TOTWGTS / sum(TOTWGTS) * 5000) |>
+  ungroup()
+
 saveRDS(icils23_proc, "input/data/proc_data/icils23_proc.rds")

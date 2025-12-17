@@ -31,7 +31,7 @@ library(pacman)
 pacman::p_load(
   dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
   parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
-  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer, ggbeeswarm)
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer, ggbeeswarm, stringr)
 
 options(scipen = 999)
 rm(list = ls()) 
@@ -56,9 +56,8 @@ m_pooled <- cfa(model = model_syntax,
               data = pisa,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               ordered = T)
-
 ```
 
 ## Fit
@@ -75,13 +74,13 @@ Given the poor fit of the initial model (RMSEA of .12), we look at the modindice
 ## Modification indices and residual covariances
 
 ```{r}
-mod_indices <- modindices(m_pooled, sort = TRUE, maximum.number = 10)
+mod_indices_1 <- modindices(m_pooled, sort = TRUE, maximum.number = 5)
 
-knitr::kable(mod_indices, digits = 3)
+knitr::kable(mod_indices_1, digits = 3)
 
-matriz_residuales <- resid(m_pooled, type = "cor")$cov
+matriz_residuales_1 <- resid(m_pooled, type = "cor")$cov
 
-corrplot(matriz_residuales, 
+corrplot(matriz_residuales_1, 
          is.corr = FALSE,       
          method = "color", 
          tl.col = "black",      
@@ -92,7 +91,7 @@ corrplot(matriz_residuales,
 
 First, we detect  a couple of problematic items. Identify app charge to the general factor with a mi of 76,502 (very high), and shows strong residual covariance with a lot of items (change settings, identify error, logical solution, programming). We decide to remove that item, because is causing too much noise in the model and possibly dont adjust with the programing-related tasks of the specialized DSE factor.
 
-# Re-especification
+# Re-specification
 
 ```{r}
 #| warning: false
@@ -108,7 +107,7 @@ m_pooled_2 <- cfa(model = model_syntax_2,
               data = pisa,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               ordered = T)
 ```
 
@@ -126,13 +125,13 @@ The fit of the model improved considerably (RMSEA = .094), but still shows space
 ## Modification indices and residual covariances
 
 ```{r}
-mod_indices <- modindices(m_pooled_2, sort = TRUE, maximum.number = 10)
+mod_indices_2 <- modindices(m_pooled_2, sort = TRUE, maximum.number = 5)
 
-knitr::kable(mod_indices, digits = 3)
+knitr::kable(mod_indices_2, digits = 3)
 
-matriz_residuales <- resid(m_pooled_2, type = "cor")$cov
+matriz_residuales_2 <- resid(m_pooled_2, type = "cor")$cov
 
-corrplot(matriz_residuales, 
+corrplot(matriz_residuales_2, 
          is.corr = FALSE,       
          method = "color", 
          tl.col = "black",      
@@ -143,7 +142,7 @@ corrplot(matriz_residuales,
 
 The item of develop webpage self-efficacy shows a big cross-loading to the general factor (mi=39,014). Looking at the residuals, it has strong residual covariance with collect data, create media and change settings, and a negative one with items from the specialized factor (i.e. logical solution and identify error). This item will be also be removed. Summing up to the technical reasons, the growing democratization of web development impulsed by the user-friendly platforms might have changed the perception of this item by the students in this cycle. In comparison with ICILS, this item refers to a webpage or a blog, it could be that students relate blogs with more non-technical platforms like fandom.
 
-# Re-especification 2
+# Re-specification 2
 
 ```{r}
 #| warning: false
@@ -159,7 +158,7 @@ m_pooled_3 <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               ordered = T)
 ```
 
@@ -174,9 +173,147 @@ knitr::kable(fit_pisa, digits = 3)
 
 With this two adjustments, the model is good to go with an RMSEA of .068. Given this, we continue with further analysis.
 
+## Modindices and residuals details for appendix
+
+## Modindices table
+
 ```{r}
-# Releasing a bit of ram
-rm(m_pooled, m_pooled_2)
+mod_indices_table <- bind_rows(
+  mod_indices_1 %>% 
+    mutate(Stage = "First Re-specification"),
+  mod_indices_2 %>% 
+    mutate(Stage = "Second Re-specification")
+) %>%
+  unite("Parameter", lhs, op, rhs, sep = " ", remove = TRUE) %>%
+  select(Stage, Parameter, mi, epc, sepc.all) %>%
+
+  mutate(Parameter = str_replace_all(Parameter, "=~", "=\u223C")) %>% 
+  mutate(Parameter = str_replace_all(Parameter, "~~", "\u223C\u223C"))
+
+head(mod_indices_table)
+```
+
+```{r}
+borde_grueso <- fp_border(width = 2)
+borde_medio  <- fp_border(width = 1.5)
+borde_gris   <- fp_border(color = "grey80", width = 0.5)
+
+ft_mi <- flextable(mod_indices_table) %>%
+  
+  set_header_labels(
+    Stage     = "Analysis Stage",
+    Parameter = "Suggested Modification",
+    mi        = "MI",
+    epc       = "EPC",
+    sepc.all  = "Std. EPC"
+  ) %>%
+  
+  add_footer_lines(
+    values = "Note. \u223C\u223C indicates correlation; =\u223C indicates cross-loading."
+  ) %>%
+  
+  merge_v(j = "Stage") %>% 
+  colformat_double(j = c("mi", "epc", "sepc.all"), digits = 3) %>%
+  
+
+  font(fontname = "Times New Roman", part = "all") %>%
+  fontsize(size = 9, part = "body") %>%
+  fontsize(size = 10, part = "header") %>%
+  fontsize(size = 9, part = "footer") %>% 
+  italic(part = "footer") %>%
+  
+  bold(part = "header") %>%
+  
+  padding(padding = 3, part = "all") %>%
+  align(align = "center", part = "header") %>%
+  align(align = "center", j = c("mi", "epc", "sepc.all"), part = "body") %>%
+  align(align = "left", j = c("Parameter"), part = "body") %>%
+  valign(valign = "center", j = "Stage", part = "body") %>% 
+  
+  border_remove() %>%
+  hline(i = ~ !duplicated(Stage, fromLast = TRUE), border = borde_gris) %>%
+  hline_top(border = borde_grueso, part = "all") %>%
+  hline_bottom(border = borde_grueso, part = "body") %>% 
+  hline(part = "header", border = borde_medio) %>%
+  
+  autofit() %>%
+  fit_to_width(max_width = 7.5)
+
+ft_mi
+```
+
+#### Saving table for article
+
+```{r}
+#| eval: false
+
+# Saving table
+saveRDS(ft_mi, "./output/article/tables/mod_indices_pisa.rds")
+save_as_docx(ft_mi, path = "./output/figures/tables/mod_indices_pisa.docx")
+save_as_image(ft_mi, path = "./output/figures/tables/mod_indices_pisa.png")
+```
+
+### Residuals table
+
+```{r}
+
+get_upper_tri <- function(matriz, model_name) {
+  matriz[lower.tri(matriz, diag = TRUE)] <- NA
+  as.data.frame(as.table(matriz)) %>%
+    na.omit() %>%
+    rename(Item1 = Var1, Item2 = Var2, Residual = Freq) %>%
+    mutate(Model = model_name)
+}
+
+df_res_1 <- get_upper_tri(matriz_residuales_1, "Model 1 (Initial)")
+df_res_2 <- get_upper_tri(matriz_residuales_2, "Model 2 (Re-specified)")
+
+df_plot <- bind_rows(df_res_1, df_res_2)
+
+cutoff <- 0.1 
+
+table_residuals <- df_plot %>% 
+  filter(abs(Residual) > cutoff) %>%
+  arrange(Model, desc(abs(Residual))) %>%
+  unite("Pair", Item1, Item2, sep = " \u223C\u223C ")
+
+ft_resid <- flextable(table_residuals) %>%
+  set_header_labels(
+    Model = "Model Stage",
+    Pair = "Item Pair",
+    Residual = "Residual Corr."
+  ) %>%
+
+  merge_v(j = "Model") %>%
+  colformat_double(j = "Residual", digits = 3) %>%
+  font(fontname = "Times New Roman", part = "all") %>%
+  fontsize(size = 10, part = "all") %>%
+  bold(part = "header") %>%
+
+  border_remove() %>%
+  hline_top(border = fp_border(width = 2), part = "all") %>%
+  hline_bottom(border = fp_border(width = 2), part = "body") %>%
+  hline(part = "header", border = fp_border(width = 1.5)) %>%
+  hline(i = ~ !duplicated(Model, fromLast = TRUE), border = fp_border(color = "grey", width = 0.5)) %>%
+  
+  autofit() %>%
+  add_footer_lines(values = paste("Note. Only pairs with residual correlations >", cutoff, "are shown.")) %>%
+  fontsize(size = 9, part = "footer") %>% 
+  italic(part = "footer")
+
+ft_resid
+
+```
+
+#### Saving for article
+
+```{r}
+#| eval: false
+
+# Saving table
+saveRDS(ft_resid, "./output/article/tables/residuals_pisa.rds")
+save_as_docx(ft_resid, path = "./output/figures/tables/residuals_pisa.docx")
+save_as_image(ft_resid, path = "./output/figures/tables/residuals_pisa.png")
 ```
 
 ## Item information
@@ -234,30 +371,30 @@ std_params %>%
 ```{r}
 #| warning: false
 
-config_cnt <- cfa(model = model_syntax_3, 
+config_cnt <- cfa(model = model_syntax, 
               data = pisa,
               estimator = "WLSMV",
               group = "CNT",
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               missing = 'pairwise',
               ordered = T)
 
-metric_cnt <- cfa(model = model_syntax_3, 
+metric_cnt <- cfa(model = model_syntax, 
               data = pisa,
               estimator = "WLSMV",
               group = "CNT",
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
               group.equal= "loadings")
 
-scalar_cnt <- cfa(model = model_syntax_3, 
+scalar_cnt <- cfa(model = model_syntax, 
               data = pisa,
               estimator = "WLSMV",
               group = "CNT",
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -351,7 +488,7 @@ config_sex <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               missing = 'pairwise',
               ordered = T)
@@ -360,7 +497,7 @@ metric_sex <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -370,7 +507,7 @@ scalar_sex <- cfa(model = model_syntax_3,
               data = pisa,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "W_FSTUWT",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -700,8 +837,8 @@ pisa <- pisa |>
 # Create data with country means
 beeswarm_plot <- pisa |>
   group_by(CNT)|>
-  summarise(mean_geneff = weighted.mean(gen_dse_index, w = W_FSTUWT, na.rm = T),
-            mean_speceff = weighted.mean(spec_dse_index, w = W_FSTUWT, na.rm = T))|>
+  summarise(mean_geneff = weighted.mean(gen_dse_index, w = SENWT, na.rm = T),
+            mean_speceff = weighted.mean(spec_dse_index, w = SENWT, na.rm = T))|>
   ungroup()|>
   pivot_longer(cols = 2:3,
                names_to = "type",
@@ -765,8 +902,8 @@ pisa_cnt_plot
 gender_plot <- pisa |>  
   group_by(CNT, sex) |>  
   summarise(
-    "General DSE" = weighted.mean(gen_dse_index, w = W_FSTUWT, na.rm = TRUE),
-    "Specialized DSE" = weighted.mean(spec_dse_index, w = W_FSTUWT, na.rm = TRUE)
+    "General DSE" = weighted.mean(gen_dse_index, w = SENWT, na.rm = TRUE),
+    "Specialized DSE" = weighted.mean(spec_dse_index, w = SENWT, na.rm = TRUE)
   ) |>  
   pivot_longer(
     cols = 3:4,

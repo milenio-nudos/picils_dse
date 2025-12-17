@@ -31,7 +31,7 @@ library(pacman)
 pacman::p_load(
   dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
   parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
-  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer, semTools)
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra, flextable, officer, ggbeeswarm, stringr)
 
 options(scipen = 999)
 rm(list = ls()) 
@@ -56,12 +56,12 @@ m_pooled <- cfa(model = model_syntax,
               data = icils,
               estimator = "WLSMV",
               missing = 'pairwise',
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               ordered = T)
 
 ```
 
-### Fit
+## Fit
 
 ```{r}
 fit_icils <- fitMeasures(m_pooled,
@@ -71,11 +71,263 @@ knitr::kable(fit_icils, digits = 3)
 
 ```
 
-### Item information
+The initial model shows a sub-optimal fit to the data, with a RMSEA above the acceptable threshold of 0.08 ($RMSEA = .088$). Therefore, we proceed to examine modification indices and residual covariances to identify potential areas for model improvement.
+
+## Modification indices and residual covariances
+
+```{r}
+mod_indices_1 <- modindices(m_pooled, sort = TRUE, maximum.number = 5)
+
+knitr::kable(mod_indices_1, digits = 3)
+
+matriz_residuales_1 <- resid(m_pooled, type = "cor")$cov
+
+corrplot(matriz_residuales_1, 
+         is.corr = FALSE,       
+         method = "color", 
+         tl.col = "black",      
+         cl.pos = "r",          
+         type = "lower",
+         title = "Lavaan residual correlation matrix")
+
+```
+
+The source info item shows a strong modification index (mi = 13,668.28) because of its cross-loading on the specialized DSE factor. Adittionally, the indicator has strong possitive residual correlations with other items from the specialized DSE factor, such as programming and visual coding. Therefore, we proceed to re-specify the model by removing the source info item from the general DSE factor.
+
+# Re-specification
+```{r}
+#| warning: false
+
+model_syntax_2 <- '
+  gen_dse =~ search_info + evaluate_info + 
+              install_app + share_content + write_text + 
+              create_media + insert_image + edit_image + change_settings
+  spec_dse =~ develop_webpage + programming + visual_coding
+  '
+
+m_pooled_2 <- cfa(model = model_syntax_2, 
+              data = icils,
+              estimator = "WLSMV",
+              missing = 'pairwise',
+              sampling.weights = "SENWT",
+              ordered = T)
+
+```
+
+## Fit
+
+```{r}
+fit_icils <- fitMeasures(m_pooled_2,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+
+knitr::kable(fit_icils, digits = 3)
+
+```
+
+The re-specified model shows an improved fit to the data, with a RMSEA below the acceptable threshold of 0.08 ($RMSEA = .077$).
+
+## Modification indices and residual covariances
+
+```{r}
+mod_indices_2 <- modindices(m_pooled_2, sort = TRUE, maximum.number = 5)
+
+knitr::kable(mod_indices_2, digits = 3)
+
+matriz_residuales_2 <- resid(m_pooled_2, type = "cor")$cov
+
+corrplot(matriz_residuales_2, 
+         is.corr = FALSE,       
+         method = "color", 
+         tl.col = "black",      
+         cl.pos = "r",          
+         type = "lower",
+         title = "Lavaan residual correlation matrix")
+
+```
+
+Develop webpage shows a strong modification index (mi = 4,707.51) because of its cross-loading on the general DSE factor. However, due to constraints regarding the number of indicators per factor, this could not be removed from the specialized DSE factor. Create media also shows a notable modification index (mi = 3,982.96) due to its cross-loading on the specialized DSE factor, and strong possitive residual correlations with develop webpage. To mantain the parsimony of the model, this item was also removed.    
+
+# Re-specification 2
+```{r}
+#| warning: false
+
+model_syntax_3 <- '
+  gen_dse =~ search_info + evaluate_info + 
+              install_app + share_content + write_text + 
+              + insert_image + edit_image + change_settings
+  spec_dse =~ develop_webpage + programming + visual_coding
+  '
+
+m_pooled_3 <- cfa(model = model_syntax_3, 
+              data = icils,
+              estimator = "WLSMV",
+              missing = 'pairwise',
+              sampling.weights = "SENWT",
+              ordered = T)
+
+```
+
+## Fit
+
+```{r}
+fit_icils <- fitMeasures(m_pooled_3,
+                         c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+
+knitr::kable(fit_icils, digits = 3)
+
+```
+
+The re-specified model shows an improved fit to the data, with with key fit indices above commonly accepted thresholds ($CFI = .979$; $TLI = .973$, $RMSEA = .075$). 
+
+## Modindices and residuals details for appendix
+
+### Modindices table
+```{r}
+mod_indices_table <- bind_rows(
+  mod_indices_1 %>% 
+    mutate(Stage = "First Re-specification"),
+  mod_indices_2 %>% 
+    mutate(Stage = "Second Re-specification")
+) %>%
+  unite("Parameter", lhs, op, rhs, sep = " ", remove = TRUE) %>%
+  select(Stage, Parameter, mi, epc, sepc.all) %>%
+
+  mutate(Parameter = str_replace_all(Parameter, "=~", "=\u223C")) %>% 
+  mutate(Parameter = str_replace_all(Parameter, "~~", "\u223C\u223C"))
+
+head(mod_indices_table)
+```
+
+```{r}
+borde_grueso <- fp_border(width = 2)
+borde_medio  <- fp_border(width = 1.5)
+borde_gris   <- fp_border(color = "grey80", width = 0.5)
+
+ft_mi <- flextable(mod_indices_table) %>%
+  
+  set_header_labels(
+    Stage     = "Analysis Stage",
+    Parameter = "Suggested Modification",
+    mi        = "MI",
+    epc       = "EPC",
+    sepc.all  = "Std. EPC"
+  ) %>%
+  
+  add_footer_lines(
+    values = "Note. \u223C\u223C indicates correlation; =\u223C indicates cross-loading."
+  ) %>%
+  
+  merge_v(j = "Stage") %>% 
+  colformat_double(j = c("mi", "epc", "sepc.all"), digits = 3) %>%
+  
+
+  font(fontname = "Times New Roman", part = "all") %>%
+  fontsize(size = 9, part = "body") %>%
+  fontsize(size = 10, part = "header") %>%
+  fontsize(size = 9, part = "footer") %>% 
+  italic(part = "footer") %>%
+  
+  bold(part = "header") %>%
+  
+  padding(padding = 3, part = "all") %>%
+  align(align = "center", part = "header") %>%
+  align(align = "center", j = c("mi", "epc", "sepc.all"), part = "body") %>%
+  align(align = "left", j = c("Parameter"), part = "body") %>%
+  valign(valign = "center", j = "Stage", part = "body") %>% 
+  
+  border_remove() %>%
+  hline(i = ~ !duplicated(Stage, fromLast = TRUE), border = borde_gris) %>%
+  hline_top(border = borde_grueso, part = "all") %>%
+  hline_bottom(border = borde_grueso, part = "body") %>% 
+  hline(part = "header", border = borde_medio) %>%
+  
+  autofit() %>%
+  fit_to_width(max_width = 7.5)
+
+ft_mi
+```
+
+#### Saving table for article
+
+```{r}
+#| eval: false
+
+# Saving table
+saveRDS(ft_mi, "./output/article/tables/mod_indices_icils.rds")
+save_as_docx(ft_mi, path = "./output/figures/tables/mod_indices_icils.docx")
+save_as_image(ft_mi, path = "./output/figures/tables/mod_indices_icils.png")
+```
+
+### Residuals table
 
 ```{r}
 
-std_params <- standardizedsolution(m_pooled)
+library(flextable)
+
+get_upper_tri <- function(matriz, model_name) {
+  matriz[lower.tri(matriz, diag = TRUE)] <- NA
+  as.data.frame(as.table(matriz)) %>%
+    na.omit() %>%
+    rename(Item1 = Var1, Item2 = Var2, Residual = Freq) %>%
+    mutate(Model = model_name)
+}
+
+df_res_1 <- get_upper_tri(matriz_residuales_1, "Model 1 (Initial)")
+df_res_2 <- get_upper_tri(matriz_residuales_2, "Model 2 (Re-specified)")
+
+df_plot <- bind_rows(df_res_1, df_res_2)
+
+cutoff <- 0.1 
+
+table_residuals <- df_plot %>% 
+  filter(abs(Residual) > cutoff) %>%
+  arrange(Model, desc(abs(Residual))) %>%
+  unite("Pair", Item1, Item2, sep = " \u223C\u223C ")
+
+ft_resid <- flextable(table_residuals) %>%
+  set_header_labels(
+    Model = "Model Stage",
+    Pair = "Item Pair",
+    Residual = "Residual Corr."
+  ) %>%
+
+  merge_v(j = "Model") %>%
+  colformat_double(j = "Residual", digits = 3) %>%
+  font(fontname = "Times New Roman", part = "all") %>%
+  fontsize(size = 10, part = "all") %>%
+  bold(part = "header") %>%
+
+  border_remove() %>%
+  hline_top(border = fp_border(width = 2), part = "all") %>%
+  hline_bottom(border = fp_border(width = 2), part = "body") %>%
+  hline(part = "header", border = fp_border(width = 1.5)) %>%
+  hline(i = ~ !duplicated(Model, fromLast = TRUE), border = fp_border(color = "grey", width = 0.5)) %>%
+  
+  autofit() %>%
+  add_footer_lines(values = paste("Note. Only pairs with residual correlations >", cutoff, "are shown.")) %>%
+  fontsize(size = 9, part = "footer") %>% 
+  italic(part = "footer")
+
+ft_resid
+
+```
+
+#### Saving for article
+
+```{r}
+#| eval: false
+
+# Saving table
+saveRDS(ft_resid, "./output/article/tables/residuals_icils.rds")
+save_as_docx(ft_resid, path = "./output/figures/tables/residuals_icils.docx")
+save_as_image(ft_resid, path = "./output/figures/tables/residuals_icils.png")
+```
+
+## Item information
+
+```{r}
+
+std_params <- standardizedsolution(m_pooled_3)
 
 
 items_table <- std_params %>% 
@@ -91,12 +343,12 @@ knitr::kable(items_table, digits = 3, caption = "Loadings and R squared")
 
 ```
 
-### Reliability analysis
+## Reliability analysis
 
 ```{r}
-omega_cat <- compRelSEM(m_pooled)
+omega_cat <- compRelSEM(m_pooled_3)
 
-ave_values <- AVE(m_pooled)
+ave_values <- AVE(m_pooled_3)
 
 reliability_table <- data.frame(
   Factor = names(omega_cat),
@@ -127,30 +379,30 @@ std_params %>%
 ```{r}
 #| warning: false
 
-config_cnt <- cfa(model = model_syntax, 
+config_cnt <- cfa(model = model_syntax_3, 
               data = icils,
               estimator = "WLSMV",
               group = "CNTRY",
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               missing = 'pairwise',
               ordered = T)
 
-metric_cnt <- cfa(model = model_syntax, 
+metric_cnt <- cfa(model = model_syntax_3, 
               data = icils,
               estimator = "WLSMV",
               group = "CNTRY",
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
               group.equal= "loadings")
 
-scalar_cnt <- cfa(model = model_syntax, 
+scalar_cnt <- cfa(model = model_syntax_3, 
               data = icils,
               estimator = "WLSMV",
               group = "CNTRY",
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -239,30 +491,30 @@ tabla_completa_cnt$Decision <- c(
 ```{r}
 #| warning: false
 
-config_sex <- cfa(model = model_syntax, 
+config_sex <- cfa(model = model_syntax_3, 
               data = icils,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               missing = 'pairwise',
               ordered = T)
 
-metric_sex <- cfa(model = model_syntax, 
+metric_sex <- cfa(model = model_syntax_3, 
               data = icils,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
               group.equal= "loadings")
 
-scalar_sex <- cfa(model = model_syntax, 
+scalar_sex <- cfa(model = model_syntax_3, 
               data = icils,
               estimator = "WLSMV",
               group = "sex",
-              sampling.weights = "TOTWGTS",
+              sampling.weights = "SENWT",
               sampling.weights.normalization = "group",
               ordered = T,
               missing = 'pairwise',
@@ -442,6 +694,359 @@ save_as_docx(ft_icils, path = "output/figures/tables/invariance_table_icils.docx
 save_as_image(ft_icils, path = "output/figures/tables/invariance_table_icils.png")
 save_as_image(ft_icils, path = "output/article/images/invariance_table_icils.png")
 saveRDS(ft_icils, "./output/article/tables/invariance_table_icils.rds")
+
+```
+
+# Descriptive analysis
+
+## Latent means prediction
+
+```{r}
+
+fscores_df <- lavPredict(
+  scalar_cnt,
+  type = "lv", 
+  method = "EBM",
+  assemble = TRUE,
+  append.data = TRUE
+)
+
+fscores_df |>
+  summarise(
+    total = n(),
+    mean_gen_dse = mean(gen_dse, na.rm = TRUE),
+    mean_spec_dse = mean(spec_dse, na.rm = TRUE)
+  )
+
+```
+
+## Index and latent means correspondence analysis
+
+### Index construction
+
+```{r}
+
+fscores_df <- fscores_df |> 
+  mutate(
+    gen_dse_index = rowMeans(pick(search_info, evaluate_info, install_app, 
+                                  share_content, write_text, insert_image, edit_image,
+                                  change_settings),
+                             na.rm = TRUE),
+                             
+    spec_dse_index = rowMeans(pick(develop_webpage, programming, visual_coding), 
+                              na.rm = TRUE)
+  )
+```
+
+### Correlation index vs. latent mean
+
+```{r}
+cor_gen <- cor(fscores_df$gen_dse_index, fscores_df$gen_dse, 
+               use = "complete.obs")
+cor_spec <- cor(fscores_df$spec_dse_index, fscores_df$spec_dse, 
+                use = "complete.obs")
+
+cnt_label_map <- icils |> 
+  select(CNTRY) |>
+  mutate(label = to_label(CNTRY)) |> 
+  distinct(CNTRY, .keep_all = TRUE)
+
+n_global <- sum(!is.na(fscores_df$gen_dse))
+
+global_row <- tibble(
+  CNTRY = "GLOBAL",
+  label = "Overall",
+  N = n_global,
+  `Gen_dse_correlations` = cor_gen,
+  `Spec_dse_correlations` = cor_spec
+)
+
+cnt_cors <- fscores_df |>
+  filter(!is.na(gen_dse)) |>
+  group_by(CNTRY) |>
+  summarise(
+    N = n(),
+    `Gen_dse_correlations` = cor(gen_dse_index, gen_dse, use = "complete.obs"),
+    `Spec_dse_correlations` = cor(spec_dse_index, spec_dse, use = "complete.obs")
+  ) |> 
+  left_join(cnt_label_map, by = "CNTRY")
+
+final_table <- bind_rows(global_row, cnt_cors) |> select(- CNTRY)
+
+# knitr::kable(final_table, digits = 3, caption = "Index and latent means correlations")
+```
+
+### Exporting the table (for appendix)
+```{r}
+
+ft_cors <- flextable(final_table) |> 
+  set_header_labels(
+    label = "Country",
+    N = "N",
+    Gen_dse_correlations = "General DSE Correlation",
+    Spec_dse_correlations = "Specialized DSE Correlation"
+  ) |> 
+  
+  colformat_double(j = c("Gen_dse_correlations", "Spec_dse_correlations"), digits = 3) |> 
+  
+  border_remove() |> 
+  hline_top(border = fp_border(width = 2), part = "all") |> 
+  hline_bottom(border = fp_border(width = 2), part = "all") |> 
+  hline(i = 1, border = fp_border(width = 1.5), part = "header") |> 
+  
+  bold(part = "header") |> 
+  font(fontname = "Times New Roman", part = "all") |> 
+  fontsize(size = 9, part = "body") |> 
+  fontsize(size = 10, part = "header") |> 
+  
+  padding(padding = 3, part = "all") |> 
+  align(align = "center", part = "header") |> 
+  align(align = "left", part = "body", j = 1:2) |> 
+  align(align = "center", part = "body", j = 3:4) |> 
+  
+  bold(i = 1, j = 1:4, part = "body") |> 
+  autofit() |> 
+  fit_to_width(max_width = 7.5)
+
+ft_cors
+```
+
+```{r}
+#| eval: false
+
+saveRDS(ft_cors, "./output/article/tables/index_latent_means_icils.rds")
+save_as_docx(ft_cors, path = "./output/figures/tables/index_latent_means_icils.docx")
+save_as_image(ft_cors, path = "./output/figures/tables/index_latent_means_icils.png")
+```
+
+## Visualizations
+
+### Index construction
+```{r}
+icils <- icils |> 
+  mutate(
+    gen_dse_index = rowMeans(pick(search_info, evaluate_info, install_app, 
+                                  share_content, write_text, insert_image, edit_image,
+                                  change_settings),
+                             na.rm = TRUE),
+                             
+    spec_dse_index = rowMeans(pick(develop_webpage, programming, visual_coding), 
+                              na.rm = TRUE)
+  )
+```
+
+### Country comparison
+
+```{r}
+
+# Create data with country means
+beeswarm_plot <- icils |>
+  group_by(CNTRY)|>
+  summarise(mean_geneff = weighted.mean(gen_dse_index, w = SENWT, na.rm = T),
+            mean_speceff = weighted.mean(spec_dse_index, w = SENWT, na.rm = T))|>
+  ungroup()|>
+  pivot_longer(cols = 2:3,
+               names_to = "type",
+               values_to = "score")
+
+# Sort and extract labels
+beeswarm_labels <- 
+  rbind(
+  beeswarm_plot%>%
+  group_by(type) %>%
+  arrange(score) %>%
+  slice(c(1:3, (n() - 2):n())) %>%
+  ungroup() %>%
+  mutate(CNTRY = to_label(CNTRY)),
+  
+  beeswarm_plot%>%
+    filter(CNTRY %in% c(""))%>%
+    mutate(CNTRY = to_label(CNTRY))%>%
+    slice(-3)
+  )
+
+# Plot
+icils_cnt_plot <- ggplot(beeswarm_plot, aes(y = score, x = type, color = type)) +
+  geom_beeswarm(size = 2) +
+  geom_text_repel(
+    data = beeswarm_labels,
+    aes(label = CNTRY),
+    size = 3,
+    color = "black",
+    box.padding = 1.0,        
+    point.padding = 0.1,      
+    min.segment.length = 0,   
+    max.overlaps = Inf,       
+    force = 3,                
+    force_pull = 0.3,         
+    direction = "both",       
+    seed = 999              
+  ) +
+  scale_color_manual(values = c("#5f5758","#fe3057")) +
+  theme_minimal() +
+  theme(
+    legend.title = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 10),
+    legend.position = "none",
+    plot.caption = element_text(size = 15),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  scale_x_discrete(labels = c("General DSE", "Specialized DSE")) +
+  scale_y_continuous(breaks = c(2,2.5,3,3.5,4), limits = c(2,4))
+
+icils_cnt_plot
+```
+
+### Gender gap country comparison
+
+```{r}
+# Create data in long format with gender means
+gender_plot <- icils |>  
+  group_by(CNTRY, sex) |>  
+  summarise(
+    "General DSE" = weighted.mean(gen_dse_index, w = SENWT, na.rm = TRUE),
+    "Specialized DSE" = weighted.mean(spec_dse_index, w = SENWT, na.rm = TRUE)
+  ) |>  
+  pivot_longer(
+    cols = 3:4,
+    names_to = "type",
+    values_to = "score"
+  ) |>  
+  ungroup() |>  
+  mutate(sex = to_label(sex)) |>  
+  drop_na()
+
+# Extract labels
+country_labels_map <- gender_plot %>%
+  distinct(CNTRY) %>%
+  mutate(
+    CNT_code = as.character(CNTRY),
+    CNT_label = to_label(CNTRY)
+  ) %>%
+  select(CNT_code, CNT_label)
+
+# Reorder the data by score for each type
+gender_plot <- gender_plot %>%
+  mutate(CNT_code = as.character(CNTRY)) %>%
+  left_join(country_labels_map, by = "CNT_code") %>%
+  group_by(type) %>%
+  arrange(score) %>%
+  mutate(CNT_label = factor(CNT_label, levels = unique(CNT_label))) %>%
+  ungroup()
+
+
+icils_gender_plot <- ggplot(gender_plot, aes(y = CNT_label, x = score)) + 
+  facet_grid(~type, scales = "free_y") +
+  geom_line(aes(group = CNT_label), size = 0.5) +  
+  geom_point(aes(color = sex, shape = sex), size = 2) +  
+  scale_color_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = "#FE3057", "Male" = "#5f5758")) +
+  scale_shape_manual(
+    name = "Gender",
+    labels = c("Female", "Male"),
+    values = c("Female" = 16, "Male" = 17)) + 
+  theme_minimal() +  
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    legend.position = "top",
+    axis.text.y = element_text(size = 8, color = "black"),
+    plot.margin = margin(10, 10, 10, 10),
+    panel.spacing = unit(1.5, "lines"),
+    text = element_text(size = 12),
+    strip.text = element_text(size = 12),
+    legend.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(breaks = c(2, 2.5, 3, 3.5, 4), limits = c(1.8, 4))
+
+icils_gender_plot
+```
+
+## Function for HD saving
+
+```{r}
+export_plot <- function(plot_object, 
+                       filename,
+                       format = c("png", "pdf", "tiff", "eps", "svg"),
+                       width = 10,
+                       height = 7,
+                       dpi = 300,
+                       units = "in",
+                       bg = "white",
+                       path = "./output/figures/") {
+  
+  format <- match.arg(format)
+  
+  full_filename <- paste0(filename, ".", format)
+  full_path <- file.path(path, full_filename)
+  
+
+  ggsave(
+    filename = full_path,
+    plot = plot_object,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    bg = bg,
+    device = format
+  )
+  
+  message(paste0("✓ Gráfico exportado: ", full_path))
+}
+```
+
+## Function for multiformat HD saving
+
+```{r}
+export_plot_multi <- function(plot_object,
+                              filename,
+                              formats = c("png", "pdf", "tiff"),
+                              width = 10,
+                              height = 7,
+                              dpi = 300,
+                              units = "in",
+                              bg = "white",
+                              path = "./output/figures/") {
+  
+  purrr::walk(formats, ~export_plot(
+    plot_object = plot_object,
+    filename = filename,
+    format = .x,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    bg = bg,
+    path = path
+  ))
+}
+```
+
+
+## Saving the plots in multiple formats
+
+```{r}
+#| eval: false
+
+export_plot_multi(icils_cnt_plot, "icils_country_dse_comparison", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+
+export_plot_multi(icils_gender_plot, "icils_gender_dse_gaps", 
+                  formats = c("png", "pdf", "tiff"), width = 10, height = 6, dpi = 600, path = "./output/figures/plots/")
+# Article
+export_plot_multi(icils_cnt_plot, "icils_country_dse_comparison", 
+                  formats = c("png"), width = 10, height = 6, dpi = 600, path = "./output/article/images/")
+
+export_plot_multi(icils_gender_plot, "icils_gender_dse_gaps", 
+                  formats = c("png"), width = 10, height = 6, dpi = 600, path = "./output/article/images/")
 
 ```
 
