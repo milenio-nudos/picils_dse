@@ -6,9 +6,11 @@ editor: visual
 
 Originally formulated by @bandura_selfefficacy_1982, self-efficacy is defined as "judgments of how well one can execute courses of action required to deal with prospective situations." (p. 122). This construct is fundamental to human agency, as it help to understand how individuals approach challenges, persist despite setbacks, and develop competence in complex domains. It does so by facilitating the establishment of standards and the attainment of performance accomplishments across learning activities [@bandura_selfefficacy_1995; @steele_stereotype_1995;@bandura_selfefficacy_1997]. 
 
-Self-efficacy has proven to be particularly relevant when it comes to digital technologies learning achievements. A whole thematic research agenda has opened up around self-efficacy role on the adoption of new technologies and the develop of competences on digital environments, although there are scattered efforts when it comes to measuring this construct. Early proposals aims on measuring self-efficacy in general computer domains and specific software application tasks [@compeau_computer_1995;@durndell_computer_2002; @weigel_technical_2014], while other studies focuses more on the online browsing and communication [@eastin_internet_2000a; @hsu_internet_2004]. In view of the growing hybridization between computational components and the use of the network for social interaction, the discussion on self-efficacy have centered on the ICT framework, which consider a group of generalized tasks as digital information processing, communication and content creation [@aesaert_exploring_2014; @hatlevik_students_2018] but also more computational skills, such as programming or web development [@rohatgi_role_2016].
+Self-efficacy has proven to be particularly relevant when it comes to digital technologies learning achievements. A whole thematic research agenda has opened up around self-efficacy role on the adoption of new technologies and the develop of competences on digital environments, although there are scattered efforts when it comes to measuring this construct. Early proposals aims on measuring self-efficacy in general computer domains and specific software application tasks [@compeau_computer_1995;@durndell_computer_2002; @weigel_technical_2014], while other studies focuses more on the online browsing and communication [@eastin_internet_2000a; @hsu_internet_2004]. 
 
-During the second decade of the 21st century, a broad consensus emerged around the idea that ICT self-efficacy was better understood as a bidimensional construct, distinguishing between general and specialized digital tasks [@liang_internet_2008; @papastergiou_enhancing_2010; @aesaert_exploring_2014]. Studies adopting this framework consistently identified contrasting associations with key variables related to competence development: while self-efficacy in areas such as information management, communication, and content creation tended to align positively with broader digital proficiency, self-efficacy in more advanced domains—such as web development and programming—often showed different or even inverse patterns of relationship [@rohatgi_role_2016; @gebhardt_gender_2019; @punter_gender_2017].
+In view of the growing hybridization between computational components and the use of the network for social interaction, the discussion on self-efficacy have centered on the ICT framework, which consider a group of generalized tasks as digital information processing, communication and content creation [@aesaert_exploring_2014; @hatlevik_students_2018] but also more computational skills, such as programming or web development [@rohatgi_role_2016]. 
+
+During the second decade of the 21st century, amidst the internet massification, a broad consensus emerged around the idea that ICT self-efficacy was better understood when distinguishing the different areas of use of technologies [@liang_internet_2008; @papastergiou_enhancing_2010; @aesaert_exploring_2014]. Studies adopting this framework consistently identified contrasting associations with key variables related to competence development: while self-efficacy in areas such as data management, communication, and content creation tended to align positively with broader digital proficiency, self-efficacy in more advanced domains—such as web development and programming—often showed different or even inverse patterns of relationship [@rohatgi_role_2016; @gebhardt_gender_2019; @punter_gender_2017].
 
 @ulfert-blank_assessing_2022 pushed the boundaries of the traditional ICT self-efficacy framework by highlighting its limited capacity to keep pace with the rapidly evolving nature of digital systems. Due to the accelerated rate of technological change, many ICT self-efficacy items quickly became obsolete as the applications, functions, or devices they referenced fell out of use. In response to this problem, @ulfert-blank_assessing_2022 proposed the development of updated constructs under the label of digital self-efficacy (DSE), grounded in the most recent guidelines for Digital Competence development, particularly those outlined in the DigComp 2.1 framework [@europeancommissionjointresearchcentre_digcomp_2022]. DigComp emphasizes that constructs related to digital engagement must encompass a wide range of functions and tasks across entire digital systems in order to remain coherent over time and across diverse technological ecologies.
 
@@ -18,10 +20,25 @@ Considering the disagreement that exists regarding the dimensionality of digital
 
 # ICILS and the bi-dimensional DSE
 
+Presentacion icils
+
+conceptualizacion autoeficacia: Orientacion al logro de la tarea, ICT
+
+Historia de las baterías de autoeficaica
+
+Validaciones de la bateria
+
+Efectos en diferentes estudios en Competence, genero, país. Consistente entre olas entre paises.
 
 # Competences area grouped on a unidimensional DSE on PISA
 
+PISA mide autoeficacia como un proxy a competencias digitales, considerando las tareas por area de competencia.
 
+Esto se debe ya que PISA está basado en el DIGCOMP del European Framework. Eso añade novedades a las mediciones de autoeficacia digital.
+
+Sin embargo, PISA tiene muchas similitudes con ICILS, ya que los ítems tienen dimensiones muy parecidas y fraseos similares. Pero se agregan cosas nuevas como problem solving, safety, y tareas contextuales en el aula.
+
+Efectos en diferentes estudios en Competence, genero, país. Consistente entre olas entre paises.
 
 # Country level and Gender
 
