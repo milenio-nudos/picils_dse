@@ -25,3 +25,8 @@ This contribution encountered two main limitations. First, in order for the mode
 The results force to think that differences in technology engagement are not homogeneous and do not present in the later stages of education. Already, in elementary school students (14 years old), it is possible to see that girls in several countries inconsistently show less confidence with advanced technologies, although they have a slight advantage in general-purpose technologies. Through longitudinal methods, future studies should evaluate when and why these DSE inequalities awaken in the growth of boys and girls.
 
 Finally, it remains to reflect on the contextual variables that may be determining gender DSE divides. The results provided some clues: developed countries show greater gender gaps in specialized self-efficacy compared to underdeveloped countries. This counter intuitive finding raises a number of questions for the future, such as what are the structural characteristics of countries that exhibit this dynamic, as well as delving deeper into the cultural patterns among male and female students that widen existing gaps.
+
+# References
+
+::: {#refs}
+:::
