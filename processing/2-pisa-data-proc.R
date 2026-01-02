@@ -7,7 +7,7 @@ pisa22_proc <- pisa22 %>%
          IC183Q05JA, IC183Q07JA, IC183Q08JA, IC183Q09JA, IC183Q10JA,
          IC183Q12JA, IC183Q13JA, IC183Q14JA, IC183Q15JA, IC183Q16JA)
 
-#Elimiar respuesta no sabe
+# Recode 5 as NA
 pisa22_proc$IC183Q01JA[pisa22_proc$IC183Q01JA==5]<-NA
 pisa22_proc$IC183Q02JA[pisa22_proc$IC183Q02JA==5]<-NA
 pisa22_proc$IC183Q03JA[pisa22_proc$IC183Q03JA==5]<-NA

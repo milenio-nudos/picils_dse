@@ -16,10 +16,10 @@ icils <- icils %>%
     TRUE ~ as.character(CNTRY)
   ) %>% as_factor() %>% as.character())
 
-# Verificar los cambios
+# Verify changes
 unique(icils$CNTRY)
 
-# Aplicamos labels de PISA a ICILS country iso code
+# Apply PISA labels to ICILS dataset
 
 paises_comunes <- intersect(unique(pisa$CNT), unique(icils$CNTRY))
 icils_filtrado <- icils %>% filter(CNTRY %in% paises_comunes)

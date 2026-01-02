@@ -1,32 +1,32 @@
-# ---- Base de autoeficacia digital ICILS 2023 ----
+# ---- ICILS 2023 digital self-efficacy dataset ----
 
-# Carga de librerías y pasos previos
+# Load packages and preliminary steps
 
 pacman::p_load(here, dplyr, haven,sjlabelled, psych, purrr, tidyverse, sjmisc, sjPlot, ggplot2, parameters, table1, car, beeswarm, lme4,
                labelled)
 options(scipen = 999)
 rm(list = ls())
 
-# Cargar bases de datos 
+# Load datasets 
 
 archivos_bsg <- list.files(
-  path = "./input/data/raw_data/icils_countries", # Directorio actual (cambia si es necesario)
+  path = "./input/data/raw_data/icils_countries", # Current directory (change if needed)
   pattern = "^BSG.*\\.Rdata$",
   full.names = TRUE
 )
 
-# Ver qué archivos encontramos
+# List found files
 print(archivos_bsg)
 
-# Cargar todos los archivos encontrados
+# Load all found files
 for (archivo in archivos_bsg) {
   load(archivo)
   cat("Cargado:", archivo, "\n")
 }
 
-# así hasta cargar todas
+# Repeat until all are loaded
 
-# Unir bases de datos
+# Bind datasets
 
 icils23 <- rbind(BSGAUTI3, BSGAZEI3, BSGBFLI3, BSGBIHI3, BSGCHLI3, BSGCYPI3, BSGCZEI3, BSGDEUI3, 
                     BSGDNKI3, BSGDNWI3, BSGESPI3, BSGFINI3, BSGFRAI3, BSGGRCI3, BSGHRVI3, BSGHUNI3,
@@ -34,16 +34,16 @@ icils23 <- rbind(BSGAUTI3, BSGAZEI3, BSGBFLI3, BSGBIHI3, BSGCHLI3, BSGCYPI3, BSG
                     BSGOMNI3, BSGPRTI3, BSGROUI3, BSGSRBI3, BSGSVKI3, BSGSVNI3, BSGSWEI3, BSGTWNI3,
                     BSGURYI3, BSGUSAI3, BSGXKXI3)
 
-# Seleccionar variables que componen la autoeficacia digital
+# Select variables used in digital self-efficacy
 
 icils23_proc <- icils23 %>%
   select(CNTRY, IDSCHOOL, TOTWGTS, JKZONES, JKREPS, starts_with("SRWGT"), IS3G02, IS3G24A, IS3G24B, IS3G24C, IS3G24D, IS3G24E, IS3G24F, IS3G24G, IS3G24H, IS3G24I, IS3G24J,
          IS3G24K, IS3G24L, IS3G24M, PV1CIL)
 
-# Revisar las categorias de respuesta para poder agrupar los NA
+# Inspect response categories to group NAs
 sjlabelled::get_labels(icils23_proc)
 
-# Agrupar NA
+# Group missing codes as NA
 
 icils23_proc$IS3G02 <- recode(icils23_proc$IS3G02, "c(8,9)=NA")
 icils23_proc$IS3G24A <- recode(icils23_proc$IS3G24A, "c(8,9)=NA")
@@ -60,7 +60,7 @@ icils23_proc$IS3G24K <- recode(icils23_proc$IS3G24K, "c(8,9)=NA")
 icils23_proc$IS3G24L <- recode(icils23_proc$IS3G24L, "c(8,9)=NA")
 icils23_proc$IS3G24M <- recode(icils23_proc$IS3G24M, "c(8,9)=NA")
 
-# Recodificación valores
+# Value recoding
 
 icils23_proc$IS3G24A <- car::recode(icils23_proc$IS3G24A, "c(1)=4; c(2)=3; c(3)=2; c(4)=1")
 icils23_proc$IS3G24B <- car::recode(icils23_proc$IS3G24B, "c(1)=4; c(2)=3; c(3)=2; c(4)=1")
@@ -76,10 +76,10 @@ icils23_proc$IS3G24K <- car::recode(icils23_proc$IS3G24K, "c(1)=4; c(2)=3; c(3)=
 icils23_proc$IS3G24L <- car::recode(icils23_proc$IS3G24L, "c(1)=4; c(2)=3; c(3)=2; c(4)=1")
 icils23_proc$IS3G24M <- car::recode(icils23_proc$IS3G24M, "c(1)=4; c(2)=3; c(3)=2; c(4)=1")
 
-# Recodificación labels
+# Relabel value labels
 
 recodificar <- function(data, vars_prefix = "IS3G24") {
-  # Definir las etiquetas comunes
+  # Define common labels
   etiquetas <- c(
     "I do not think I could do this" = 1,
     "I have never done this, but I could work out how to do" = 2,
@@ -87,10 +87,10 @@ recodificar <- function(data, vars_prefix = "IS3G24") {
     "Very well" = 4
   )
   
-  # Identificar todas las variables que coinciden con el prefijo
+  # Identify variables matching the prefix
   vars_a_recodificar <- grep(paste0("^", vars_prefix), names(data), value = TRUE)
   
-  # Aplicar las etiquetas a cada variable
+  # Apply labels to each variable
   for (var in vars_a_recodificar) {
     data[[var]] <- set_labels(data[[var]], labels = etiquetas)
   }
@@ -100,16 +100,16 @@ recodificar <- function(data, vars_prefix = "IS3G24") {
 
 icils23_proc <- recodificar(icils23_proc)
 
-# Obtener etiquetas actuales
+# Get current labels
 current_labels <- val_labels(icils23_proc$IS3G02)
 
-# Eliminar etiquetas para los valores 8 y 9 (como números, no texto)
+# Drop labels for values 8 and 9 (numeric)
 new_labels <- current_labels[!current_labels %in% c(8, 9)]
 
-# Reasignar etiquetas limpias
+# Reassign cleaned labels
 val_labels(icils23_proc$IS3G02) <- new_labels
 
-# Comprobar si se recodificaron correctamente los labels
+# Check labels were recoded correctly
 frq(icils23_proc$IS3G02)
 frq(icils23_proc$IS3G24I)
 
