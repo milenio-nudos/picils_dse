@@ -17,7 +17,7 @@ comments:
   hypothesis: true
 ---
 
-# Measuring Digital Self-Efficacy in International Large-Scale Assessments: A Comparison Between ICILS and PISA {.unnumbered}
+# A Bi-dimensional Comparative scale of Digital Self-efficacy Between ICILS and PISA {.unnumbered}
 
 Daniel Miranda[^1], Ismael Aguayo[^2], Nicolás Tobar[^3], Tomás Urzúa[^4] and Juan Carlos Castillo[^5]
 
