@@ -48,7 +48,7 @@ pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
 model_syntax <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
-  write_text + create_media + change_settings
+  write_text + create_media + privacy_settings
   spec_dse =~ programming + develop_webpage + identify_error + identify_app + logical_solution
   '
 
@@ -99,7 +99,7 @@ First, we detect  a couple of problematic items. Identify app charge to the gene
 model_syntax_2 <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
-  write_text + create_media + change_settings
+  write_text + create_media + privacy_settings
   spec_dse =~ programming + develop_webpage + identify_error + logical_solution
   '
 
@@ -150,7 +150,7 @@ The item of develop webpage self-efficacy shows a big cross-loading to the gener
 model_syntax_3 <- '
   gen_dse =~ search_info + evaluate_info + collect_data + 
   explain_content + share_content + pair_collab + 
-  write_text + create_media + change_settings
+  write_text + create_media + privacy_settings
   spec_dse =~ programming + identify_error + logical_solution
   '
 
@@ -265,8 +265,8 @@ get_upper_tri <- function(matriz, model_name) {
     mutate(Model = model_name)
 }
 
-df_res_1 <- get_upper_tri(matriz_residuales_1, "Model 1 (Initial)")
-df_res_2 <- get_upper_tri(matriz_residuales_2, "Model 2 (Re-specified)")
+df_res_1 <- get_upper_tri(matriz_residuales_1, "First Re-specification")
+df_res_2 <- get_upper_tri(matriz_residuales_2, "Second Re-specification")
 
 df_plot <- bind_rows(df_res_1, df_res_2)
 
@@ -725,7 +725,7 @@ fscores_df <- fscores_df |>
   mutate(
     gen_dse_index = rowMeans(pick(search_info, evaluate_info, collect_data, 
                                   explain_content, share_content, pair_collab, 
-                                  write_text, create_media, change_settings), 
+                                  write_text, create_media, privacy_settings), 
                              na.rm = TRUE),
                              
     spec_dse_index = rowMeans(pick(programming, identify_error, logical_solution), 
@@ -822,7 +822,7 @@ pisa <- pisa |>
   mutate(
     gen_dse_index = rowMeans(pick(search_info, evaluate_info, collect_data, 
                                   explain_content, share_content, pair_collab, 
-                                  write_text, create_media, change_settings), 
+                                  write_text, create_media, privacy_settings), 
                              na.rm = TRUE),
                              
     spec_dse_index = rowMeans(pick(programming, identify_error, logical_solution), 

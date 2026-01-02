@@ -272,8 +272,8 @@ get_upper_tri <- function(matriz, model_name) {
     mutate(Model = model_name)
 }
 
-df_res_1 <- get_upper_tri(matriz_residuales_1, "Model 1 (Initial)")
-df_res_2 <- get_upper_tri(matriz_residuales_2, "Model 2 (Re-specified)")
+df_res_1 <- get_upper_tri(matriz_residuales_1, "First Re-specification")
+df_res_2 <- get_upper_tri(matriz_residuales_2, "Second Re-specification")
 
 df_plot <- bind_rows(df_res_1, df_res_2)
 
