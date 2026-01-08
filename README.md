@@ -32,6 +32,7 @@ This repository structure follows the IPO Protocol:
 - [XII Conferencia COES: Medición de autoeficacia digital y diferencias de género en evaluaciones internacionales de gran escala](https://milenio-nudos.github.io/picils_dse/output/conferences/coes2025/docs.html)
 - [XI Congreso SCP 2025: Medición de autoeficacia digital y diferencias de género en evaluaciones internacionales de gran escala](https://milenio-nudos.github.io/picils_dse/output/conferences/SCP2025/docs.html)
 -  [X INVALSI Seminar: Measuring Digital Self-Efficacy in International Large-Scale Assessments: An International Comparison Between ICILS and PISA](https://milenio-nudos.github.io/picils_dse/output/conferences/invalsi2025P/docs.html)
+-  [II Congreso ACMME 2026](https://milenio-nudos.github.io/picils_dse/output/conferences/acmme-2026/docs.html)
 
 ## Paper
 - [Digital Self-efficacy and gender in Large-scale assesments](https://milenio-nudos.github.io/picils_dse/output/article/paper.html)

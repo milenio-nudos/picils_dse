@@ -38,7 +38,7 @@ editor: visual
 ::: {.column .column-right width="85%"}
 <br>
 
-### **Measuring Digital Self-Efficacy in International Large-Scale Assessments: An International Comparison Between ICILS and PISA**
+### **Measuring Digital Self-Efficacy in International Large-Scale Assessments: A bi-dimensional comparative scale Between ICILS and PISA**
 
 ------------------------------------------------------------------------
 
@@ -46,8 +46,7 @@ Daniel Miranda, Ismael Aguayo, Juan Carlos Castillo, Nicolas Tobar y Tomás Urz�
 
 #### University of Chile y [Millennium Nucleus on Digital Inequalities and Opportunities](https://nudos.cl).
 
-Segundo Congreso Internacional de la Asociación Chilena de Metodología,
-Medición y Evaluación, La Serena, Chile. 07, 08 y 09 de enero 2026
+Segundo Congreso Internacional de la Asociación Chilena de Metodología, Medición y Evaluación, La Serena, Chile. 07, 08 y 09 de enero 2026
 :::
 :::::
 
@@ -82,11 +81,13 @@ Medición y Evaluación, La Serena, Chile. 07, 08 y 09 de enero 2026
 ## Bidimensional digital self-efficacy?
 
 ::: {.incremental .highlight-last style="font-size: 35px;"}
--   A changing concept: Computacional -\> Internet -\> TICs -\> Digital (DigComp)
+-   A changing concept: Computacional -\> Internet -\> TICs
 
--   In the last years it has been proposed a distinction between two types of self-efficacy: general and specialized.
+-   In the last years ICTs has divided in two types of self-efficacy: general and specialized.
 
--   Cross-country studies operationalize digital self-efficacy in a one-dimensional and two-dimensional manner
+-   Another understanding of ICTs that has gained traction is DigComp based in five competences areas.
+
+-   Cross-country studies operationalize digital self-efficacy in a one-dimensional and two-dimensional manner   
 :::
 
 ## Country differences?
@@ -103,22 +104,22 @@ Medición y Evaluación, La Serena, Chile. 07, 08 y 09 de enero 2026
 *Which gender differences exist on Digital Self-efficacy across countries?*
 :::
 
-# Method {data-background-color="#5f5758"} 
+# Method {data-background-color="#5f5758"}
 
-
-## Participants 
+## Participants
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 40px;"}
--   International Computer and Information Literacy Study 2023 (n≈90.000).
+
+-   Students ($\bar{x}$ = 13.5 years) from 22 shared countries.   
+
+-   International Computer and Information Literacy Study 2023 (n≈91.000).
 
 -   Programme for International Student Assessment 2022 (n≈183.000).
-
--   22 shared countries.
 :::
 
 ::: {.column width="50%"}
-![](images/icils.png){width="50%"} ![](images/pisa-ocde.jpg){width="70%"} 
+![](images/icils.png){width="50%"} ![](images/pisa-ocde.jpg){width="70%"}
 :::
 :::::
 
@@ -140,7 +141,7 @@ ICILS: 10 items; PISA: 8 items
 
 -   Write or edit text.
 
--   Create or edit images.
+-   Create a multi-media presentation.
 :::
 
 ::: {.column width="50%" style="font-size: 30px; color: #ff3057;"}
@@ -157,7 +158,6 @@ ICILS: 3 items; PISA: 6 items
 :::::
 
 ## Analytic strategy
-
 
 ::: {.incremental .highlight-last style="font-size: 40px;"}
 -   Confirmatory Factor Analizes and re-specification
@@ -182,7 +182,7 @@ ICILS: 3 items; PISA: 6 items
 
 ![](images/pisa_model.png)
 
-## ICILS Invariance 
+## ICILS Invariance
 
 ```{r}
 #| label: tbl-invariance-icils
@@ -236,7 +236,7 @@ invariance_pisa |>
 
 ![](images/icils_country_dse_comparison.png){width="100%"}
 
-##
+## 
 
 ![](images/pisa_country_dse_comparison.png){width="100%"}
 
