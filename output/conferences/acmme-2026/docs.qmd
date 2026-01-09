@@ -83,7 +83,7 @@ Segundo Congreso Internacional de la Asociación Chilena de Metodología, Medici
 
   - [International Computer and Information Literacy Study (ICILS)](https://www.iea.nl/studies/iea/icils/2023): autoeficacia bidimensional
   
-  - [Programme for International Student Assessmentent (PISA)](https://www.oecd.org/en/about/programmes/pisa.html): autoeficacia unidimensional
+  - [Programme for International Student Assessment (PISA)](https://www.oecd.org/en/about/programmes/pisa.html): autoeficacia unidimensional
 
 - Desafíos para la comparabilidad entre: estudios, países y género
 :::
