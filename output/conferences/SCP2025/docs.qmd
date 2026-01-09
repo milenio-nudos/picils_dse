@@ -73,7 +73,7 @@ Importante factor para la competencia digital
 :::
 
 ::: {.column width="50%"}
-![](images/woman-prog.jpg){width="100%"}
+![](images/woman-prog.jpg){fig-align="center" width="100%"}
 :::
 :::
 
