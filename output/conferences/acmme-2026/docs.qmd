@@ -1,5 +1,5 @@
 ---
-pagetitle: "Measuring Digital Self-Efficacy in International Large-Scale Assessments: An International Comparison Between ICILS and PISA"
+pagetitle: "Midiendo la Autoeficacia Digital en Evaluaciones Internacionales a Gran Escala: Comparación Internacional entre ICILS y PISA"
 Author: Daniel Miranda, Ismael Aguayo, Juan Carlos Castillo, Nicolas Tobar y Tomás Urzúa
 #bibliography: ../../../input/bib/icils_nudos.bib
 #csl: ../../../input/bib/apa.csl
@@ -38,13 +38,13 @@ editor: visual
 ::: {.column .column-right width="85%"}
 <br>
 
-### **Measuring Digital Self-Efficacy in International Large-Scale Assessments: A bi-dimensional comparative scale Between ICILS and PISA**
+### **Midiendo la Autoeficacia Digital en Evaluaciones Internacionales a Gran Escala: Una escala comparativa bidimensional entre ICILS y PISA**
 
 ------------------------------------------------------------------------
 
 Daniel Miranda, Ismael Aguayo, Juan Carlos Castillo, Nicolas Tobar y Tomás Urzúa
 
-#### University of Chile y [Millennium Nucleus on Digital Inequalities and Opportunities](https://nudos.cl).
+#### Universidad de Chile y [Millennium Nucleus on Digital Inequalities and Opportunities](https://nudos.cl).
 
 Segundo Congreso Internacional de la Asociación Chilena de Metodología, Medición y Evaluación, La Serena, Chile. 07, 08 y 09 de enero 2026
 :::
@@ -56,21 +56,21 @@ Segundo Congreso Internacional de la Asociación Chilena de Metodología, Medici
 <iframe width="1000" height="500" src="https://www.nudos.cl/" title="Webpage example"></iframe>
 ```
 
-[More information: nudos.cl](https://www.nudos.cl/)
+[Más información: nudos.cl](https://www.nudos.cl/)
 
 ![](images/banner_nudos.jpg){width="80%" fig-align="center"}
 
 ![](images/lineas-nudos.png)
 
-## Starting point
+## Punto de partida
 
 ![](images/dig-context.jpg)
 
-## Digital self-efficacy and gender
+## Autoeficacia digital y género
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 40px;"}
-"... *expectations about one's capabilities to learn and accomplish tasks in digital technologies and digital environments*, is one of the principal components to promote the formation of digital competences" (Ulffert-Blank & Schmidt, 2022).
+"... *expectativas sobre las propias capacidades para aprender y realizar tareas en tecnologías digitales y entornos digitales*, es uno de los componentes principales para promover la formación de competencias digitales" (Ulffert-Blank & Schmidt, 2022).
 :::
 
 ::: {.column width="50%"}
@@ -78,40 +78,39 @@ Segundo Congreso Internacional de la Asociación Chilena de Metodología, Medici
 :::
 :::::
 
-## Bidimensional digital self-efficacy?
+## ¿Autoeficacia digital bidimensional?
 
 ::: {.incremental .highlight-last style="font-size: 35px;"}
--   A changing concept: Computacional -\> Internet -\> TICs
+-   Un concepto en evolución: Computacional -> Internet -> TICs
 
--   In the last years ICTs has divided in two types of self-efficacy: general and specialized.
+-   En los últimos años las TIC se han dividido en dos tipos de autoeficacia: general y especializada.
 
--   Another understanding of ICTs that has gained traction is DigComp based in five competences areas.
+-   Otra comprensión de las TIC que ha ganado tracción es DigComp basada en cinco áreas de competencia.
 
--   Cross-country studies operationalize digital self-efficacy in a one-dimensional and two-dimensional manner   
+-   Estudios transnacionales operativizan la autoeficacia digital de manera unidimensional y bidimensional\
 :::
 
-## Country differences?
+## ¿Diferencias entre países?
 
 ![](images/countries-dif.jpg)
 
 ##  {data-background-color="#5f5758"}
 
 ::: {style="font-size: 180%; display: flex; justify-content: center; align-items: flex-start; flex-direction: column; text-align: center"}
-*It is possible to identify two dimensions on PISA Digital Self-efficacy measurement?*
+*¿Es posible identificar dos dimensiones en la medición de Autoeficacia Digital de PISA?*
 
-*Is the bidimensional model of Digital Self-efficacy equivalent by gender and across countries?*
+*¿Es el modelo bidimensional de Autoeficacia Digital equivalente por género y entre países?*
 
-*Which gender differences exist on Digital Self-efficacy across countries?*
+*¿Qué diferencias de género existen en la Autoeficacia Digital entre países?*
 :::
 
-# Method {data-background-color="#5f5758"}
+# Método {data-background-color="#5f5758"}
 
-## Participants
+## Participantes
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 40px;"}
-
--   Students ($\bar{x}$ = 13.5 years) from 22 shared countries.   
+-   Estudiantes ($\bar{x}$ = 13.5 años) de 22 países compartidos.
 
 -   International Computer and Information Literacy Study 2023 (n≈91.000).
 
@@ -123,70 +122,70 @@ Segundo Congreso Internacional de la Asociación Chilena de Metodología, Medici
 :::
 :::::
 
-## Measures
+## Medidas
 
-**ICILS**: How well you can do...?
+**ICILS**: ¿Qué tan bien puedes hacer...?
 
-**PISA**: ¿To what extent *are you able to do* the following tasks when using <digital sources>?
+**PISA**: ¿En qué medida *eres capaz de hacer* las siguientes tareas al usar <fuentes digitales>?
 
 ::::: columns
 ::: {.column width="50%" style="font-size: 30px;"}
-**General Self-Efficacy**
+**Autoeficacia General**
 
-ICILS: 10 items; PISA: 8 items
+ICILS: 10 ítems; PISA: 8 ítems
 
--   Search for and evaluate information online.
+-   Buscar y evaluar información en línea.
 
--   Share content online.
+-   Compartir contenido en línea.
 
--   Write or edit text.
+-   Escribir o editar textos.
 
--   Create a multi-media presentation.
+-   Crear una presentación multimedia.
 :::
 
 ::: {.column width="50%" style="font-size: 30px; color: #ff3057;"}
-**Specialized Self-Efficacy**
+**Autoeficacia Especializada**
 
-ICILS: 3 items; PISA: 6 items
+ICILS: 3 ítems; PISA: 6 ítems
 
--   Website development.
+-   Desarrollo de sitios web.
 
--   Programming.
+-   Programación.
 
--   Computational reasoning.
+-   Razonamiento computacional.
 :::
 :::::
 
-## Analytic strategy
+## Estrategia analítica
 
 ::: {.incremental .highlight-last style="font-size: 40px;"}
--   Confirmatory Factor Analizes and re-specification
+-   Análisis factorial confirmatorio y re-especificación
 
--   Stability among countries and gender (Multigroup CFA)
+-   Estabilidad entre países y por género (ACF multigrupo)
 
--   Country and gender differences
+-   Diferencias por país y por género
 :::
 
-# Results {data-background-color="#5f5758"}
+# Resultados {data-background-color="#5f5758"}
 
-1.  Measurement model
-2.  Invariance testing
-3.  Mean distributions across countries
-4.  Gender differences across countries
+1.  Modelo de medición
+2.  Pruebas de invariancia
+3.  Distribuciones de medias entre países
+4.  Diferencias de género entre países
 
-## ICILS Model
+## Modelo ICILS
 
 ![](images/icils_model.png)
 
-## PISA Model
+## Modelo PISA
 
 ![](images/pisa_model.png)
 
-## ICILS Invariance
+## Invarianza ICILS
 
 ```{r}
 #| label: tbl-invariance-icils
-#| tbl-cap: "Country and gender measurement invariance ICILS"
+#| tbl-cap: "Invarianza por país y género ICILS"
 
 library(here)
 library(flextable)
@@ -208,11 +207,11 @@ invariance_icils |>
   fontsize(size = 14, part = "all")  # aumenta el tamaño de fuente también
 ```
 
-## PISA Invariance
+## Invarianza PISA
 
 ```{r}
 #| label: tbl-invariance-pisa
-#| tbl-cap: "Country and gender measurement invariance PISA"
+#| tbl-cap: "Invarianza por país y género PISA"
 
 invariance_pisa <- readRDS(here("output", "article", "tables", "invariance_table_pisa.rds"))
 
@@ -248,48 +247,48 @@ invariance_pisa |>
 
 ![](images/pisa_gender_dse_gaps.png){width="100%"}
 
-## Conclusion
+## Conclusión
 
 ::: {.incremental .highlight-last style="font-size: 100%;"}
--   Is it possible to identify two dimensions in ICILS and PISA?
+-   ¿Es posible identificar dos dimensiones en ICILS y PISA?
 
-    -   Yes, but with fewer items than those proposed by both studies.
+    -   Sí, pero con menos ítems de los propuestos por ambos estudios.
 
--   Is the two-dimensional model of digital self-efficacy equivalent across genders and countries?
+-   ¿El modelo bidimensional de autoeficacia digital es equivalente entre géneros y países?
 
-    -   In PISA, yes; in ICILS, only at the metric level.
+    -   En PISA, sí; en ICILS, sólo a nivel métrico.
 
--   What gender differences exist in digital self-efficacy across countries?
+-   ¿Qué diferencias de género existen en la autoeficacia digital entre países?
 
-    -   Women have an advantage in general self-efficacy, while men in specialized self-efficacy.
+    -   Las mujeres tienen ventaja en autoeficacia general, mientras que los hombres en autoeficacia especializada.
 :::
 
-## Discussion
+## Discusión
 
 ::: {.highlight-last style="font-size: 40px;"}
--   The evolution of measurements: ICTSE vs. DSE and the DigComp framework
+-   La evolución de las mediciones: ICTSE vs. DSE y el marco DigComp
 
--   Are there two or more dimensions?
+-   ¿Hay dos o más dimensiones?
 
--   The counterintuitive relationship between countries' development and the gender gap
+-   La relación contraintuitiva entre desarrollo de los países y la brecha de género
 :::
 
-## Next steps {style="font-size: 60px;"}
+## Siguientes pasos {style="font-size: 60px;"}
 
--   What macro-level factors can explain the differences in digital self-efficacy and the gender gap?
+-   ¿Qué factores a nivel macro pueden explicar las diferencias en autoeficacia digital y la brecha de género?
 
--   What is happening in developed/developing countries?
+-   ¿Qué ocurre en países desarrollados/ en desarrollo?
 
-# Thank you!
+# ¡Gracias!
 
 -   **Sitio web NUDOS:** [www.nudos.cl](https://www.nudos.cl/)
--   **Repository Github of the proyect:** <https://github.com/milenio-nudos/picils_dse>
+-   **Repositorio GitHub del proyecto:** <https://github.com/milenio-nudos/picils_dse>
 
-# Anex
+# Anexo
 
-## Eliminated items
+## Ítems eliminados
 
--   Multimedia manipulation
--   Searching for information sources
--   Privacy settings
--   App selection.
+-   Manipulación multimedia
+-   Búsqueda de fuentes de información
+-   Configuraciones de privacidad
+-   Selección de aplicaciones.
