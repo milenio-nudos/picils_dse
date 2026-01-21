@@ -19,19 +19,17 @@ comments:
 
 # Measuring Digital Self-Efficacy in International Large-Scale Assessments: A bi-dimensional comparative scale Between ICILS and PISA {.unnumbered}
 
-Daniel Miranda[^dm], Ismael Aguayo[^ia], Nicolás Tobar[^nt], Tomás Urzúa[^tu] and Juan Carlos Castillo[^jc]
+Daniel Miranda[^1], Ismael Aguayo[^2], Nicolás Tobar[^3], Tomás Urzúa[^4] and Juan Carlos Castillo\[\^jc\]
 
-[^dm]: Psychology Department, University of Chile. Associate researcher at Center of Social Cohesion and Conflict studies (COES). Adjunct researcher on NUDOS. [damiran1\@uc.cl](mailto:danmiranda@uchile.cl).
+[^1]: Psychology Department, University of Chile. Associate researcher at Center of Social Cohesion and Conflict studies (COES). Adjunct researcher on NUDOS. [damiran1\@uc.cl](mailto:danmiranda@uchile.cl).
 
-[^ia]: Research Assistant on NUDOS. Bsc (c) Sociology, Sociology Department, University of Chile. [ismael.aguayo\@ug.uchile.cl](mailto:ismael.aguayo@ug.uchile.cl)
+[^2]: Research Assistant on NUDOS. Bsc (c) Sociology, Sociology Department, University of Chile. [ismael.aguayo\@ug.uchile.cl](mailto:ismael.aguayo@ug.uchile.cl)
 
-[^nt]: Research Assistant on NUDOS. Msc (c) Political Science, Faculty of Government, University of Chile. [nicolas.tobar\@ug.uchile.cl.](mailto:nicolas.tobar@ug.uchile.cl)
+[^3]: Research Assistant on NUDOS. Msc (c) Political Science, Faculty of Government, University of Chile. [nicolas.tobar\@ug.uchile.cl.](mailto:nicolas.tobar@ug.uchile.cl)
 
-[^tu]: Research Assistant on NUDOS. Msc (c) Social Sciences, Sociology Department, University of Chile. [tomas.urzua\@ug.uchile.cl](mailto:tomas.urzua@ug.uchile.cl)
+[^4]: Research Assistant on NUDOS. Msc (c) Social Sciences, Sociology Department, University of Chile. [tomas.urzua\@ug.uchile.cl](mailto:tomas.urzua@ug.uchile.cl)
 
-[^jg]: Sociology Department, University of Chile. Principal researcher on Millennium Nucleus on Digital Inequalities and Opportunities (NUDOS) and at the Center of Social Cohesion and Conflict studies (COES). [juancastillov\@uchile.cl](mailto:juancastillov@uchile.cl) - [jc-castillo.com](jc-castillo.com)
-
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 
 # Sesion setting
 
@@ -56,7 +54,7 @@ pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
 
 **Abstract**
 
-Understanding students’ beliefs about their capabilities with digital technologies, commonly referred to as digital self-efficacy (DSE), is critical for interpreting cross-national assessments of digital competence. International large-scale assessments differ in how DSE is measured. The International Computer and Information Literacy Study (ICILS) adopts a bidimensional approach, while the Programme for International Student Assessment (PISA) treats DSE as a unidimensional construct, despite relying on highly similar digital tasks. This study examines whether a bidimensional structure of DSE can be empirically supported in both assessments across diverse educational systems. Within a structural equation modeling framework, we employ multi-group confirmatory factor analysis to assess the validity and comparability of specialized and general dimensions of DSE across countries and genders. The results support a two-factor structure in both datasets, full gender invariance, and scalar invariance achieved by only one assessment. A descriptive exploration shows, consistently across countries and studies, smaller gender differences in general DSE, while specialized DSE systematically favors boys. These findings refine the interpretation of DSE in international assessments and emphasize the importance of construct dimensionality, as well as the need to update measurement instruments to account for rapid technological innovation.
+Understanding students' beliefs about their capabilities with digital technologies, commonly referred to as digital self-efficacy (DSE), is critical for interpreting cross-national assessments of digital competence. International large-scale assessments differ in how DSE is measured. The International Computer and Information Literacy Study (ICILS) adopts a bidimensional approach, while the Programme for International Student Assessment (PISA) treats DSE as a unidimensional construct, despite relying on highly similar digital tasks. This study examines whether a bidimensional structure of DSE can be empirically supported in both assessments across diverse educational systems. Within a structural equation modeling framework, we employ multi-group confirmatory factor analysis to assess the validity and comparability of specialized and general dimensions of DSE across countries and genders. The results support a two-factor structure in both datasets, full gender invariance, and scalar invariance achieved by only one assessment. A descriptive exploration shows, consistently across countries and studies, smaller gender differences in general DSE, while specialized DSE systematically favors boys. These findings refine the interpretation of DSE in international assessments and emphasize the importance of construct dimensionality, as well as the need to update measurement instruments to account for rapid technological innovation.
 
 {{< include 1-intro.qmd >}}
 

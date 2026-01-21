@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.52">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -63,15 +63,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="2-dse_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="2-dse_files/libs/quarto-html/anchor.min.js"></script>
 <link href="2-dse_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="2-dse_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="2-dse_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="2-dse_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="2-dse_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="2-dse_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="2-dse_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="2-dse_files/libs/kePrint-0.0.1/kePrint.js"></script>
-
 <link href="2-dse_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -86,42 +113,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="self-efficacy-and-digital-technologies" class="level1">
 <h1>Self-efficacy and Digital Technologies</h1>
-<p>Building on the centrality of digital self-efficacy outlined above, it is essential to examine in greater depth how this construct has been conceptualized within the broader literature on self-regulated learning and technology use. Self-efficacy, as originally formulated by <span class="citation" data-cites="bandura_selfefficacy_1982">@bandura_selfefficacy_1982</span> refers to “judgments of how well one can execute courses of action required to deal with prospective situations.” (p.&nbsp;122). The concept occupies a foundational place in human agency, because helps to understanding how individuals approach challenges, persist in the face of setbacks, and ultimately develop competence in complex domains by creating fulfilling standards and obtaining performance accomplishments across learning activities <span class="citation" data-cites="bandura_selfefficacy_1995 steele_stereotype_1995 bandura_selfefficacy_1997">[@bandura_selfefficacy_1995; @steele_stereotype_1995;@bandura_selfefficacy_1997]</span>.</p>
-<p>Self-efficacy has proven to be particularly relevant when it comes to digital technologies learning achievements. A whole thematic research agenda has opened up around self-efficacy role on the adoption of new technologies and the develop of competences on digital environments, although there are scattered efforts when it comes to measuring this construct. There have been early efforts to measure self-efficacy in general computer domains and specific software application tasks <span class="citation" data-cites="compeau_computer_1995 durndell_computer_2002 weigel_technical_2014">[@compeau_computer_1995;@durndell_computer_2002; @weigel_technical_2014]</span>, while other literature focuses more on the online browsing and communication <span class="citation" data-cites="eastin_internet_2000a hsu_internet_2004">[@eastin_internet_2000a; @hsu_internet_2004]</span>. In view of the evident hybridization between computational components and the use of the network for social interaction, the discussion on self-efficacy have centered on the ICT framework, which consider a group of generalized tasks as digital information processing, communication and content creation <span class="citation" data-cites="aesaert_exploring_2014 hatlevik_students_2018">[@aesaert_exploring_2014; @hatlevik_students_2018]</span> but also more advanced skills, such as programming or web development <span class="citation" data-cites="rohatgi_role_2016">[@rohatgi_role_2016]</span>.</p>
-<p>During the second decade of the 21st century, a broad consensus emerged around the idea that ICT self-efficacy is best understood as a bidimensional construct, distinguishing between general and specialized digital tasks. Studies adopting this framework consistently identified contrasting associations with key variables related to competence development: while self-efficacy in areas such as information management, communication, and content creation tended to align positively with broader digital proficiency, self-efficacy in more advanced domains—such as web development and programming—often showed different or even inverse patterns of relationship <span class="citation" data-cites="gebhardt_gender_2019 punter_gender_2017">[@gebhardt_gender_2019; @punter_gender_2017]</span>.</p>
-<p><span class="citation" data-cites="ulfert-blank_assessing_2022">@ulfert-blank_assessing_2022</span> pushed the boundaries of the traditional ICT self-efficacy framework by highlighting its limited capacity to keep pace with the rapidly evolving nature of digital systems. Because of the accelerated rate of technological change, many ICT self-efficacy items quickly became obsolete as the applications, functions, or devices they referenced fell out of use. In response to this problem, <span class="citation" data-cites="ulfert-blank_assessing_2022">@ulfert-blank_assessing_2022</span> proposed the development of updated constructs under the label of digital self-efficacy (DSE), grounded in the most recent guidelines for Digital Competence development, particularly those outlined in the DigComp framework <span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022">[@europeancommissionjointresearchcentre_digcomp_2022]</span>. DigComp emphasizes that constructs related to digital engagement must encompass a wide range of functions and tasks across entire digital systems in order to remain coherent over time and across diverse technological ecologies.</p>
-<p>The problem is that recent definitions of Digital Competence are no longer framed within a bidimensional approach to self-efficacy with technologies. New critical competences beyond the informational, communicative, and creative dimensions have begun to be incorporated, specifically safety (i.e., the ability to protect personal data, privacy, and digital well-being while navigating online environments) and problem-solving (i.e., the capacity to diagnose and resolve technical issues, adapt to unfamiliar digital tools, and strategically select appropriate technological solutions). With the introduction of these new types of activity, the DigComp framework tends to favor a multidimensional perspective that organises digital tasks by competence areas rather than by the level of difficulty or knowledge associated with each task <span class="citation" data-cites="ulfert-blank_assessing_2022">[@ulfert-blank_assessing_2022]</span>.</p>
-<p>As a result of this tension, it is necessary to study how this conceptual discussion correlates with large-scale measurements, as well as the different understandings of self-efficacy that each of them has. To decipher this, it is worth revisiting the theoretical foundations of the construct.</p>
+<section id="self-efficacy-and-digital-learning" class="level3">
+<h3 class="anchored" data-anchor-id="self-efficacy-and-digital-learning">Self-efficacy and digital learning</h3>
+<p>Self-efficacy, originally formulated by <span class="citation" data-cites="bandura_selfefficacy_1982">@bandura_selfefficacy_1982</span>, refers to individuals' judgments about their capability to execute actions required to manage prospective situations (p.&nbsp;122). This construct is central to human agency because it helps explain how people approach challenges, sustain effort despite setbacks, and build competence in complex domains. Self-efficacy beliefs support goal setting, persistence, and the interpretation of performance feedback, thereby shaping learning and achievement across a wide range of contexts <span class="citation" data-cites="bandura_selfefficacy_1995 steele_stereotype_1995 bandura_selfefficacy_1997">[@bandura_selfefficacy_1995; @steele_stereotype_1995; @bandura_selfefficacy_1997]</span>.</p>
+<p>Self-efficacy is particularly relevant for understanding learning processes involving digital technologies <span class="citation" data-cites="moos_learning_2009 hatlevik_digital_2015 aesaert_accuracy_2017">[@moos_learning_2009; @hatlevik_digital_2015; @aesaert_accuracy_2017]</span>. A substantial research agenda has examined how self-efficacy beliefs relate to the adoption of new technologies and the development of digital competence, yet measurement approaches remain fragmented. Early work focused on general computer self-efficacy and confidence in specific software applications <span class="citation" data-cites="compeau_computer_1995 durndell_computer_2002 moos_learning_2009 weigel_technical_2014">[@compeau_computer_1995; @durndell_computer_2002; @moos_learning_2009; @weigel_technical_2014]</span>, whereas other strands emphasized self-efficacy for internet navigation and online communication <span class="citation" data-cites="eastin_internet_2000a hsu_internet_2004 liang_internet_2008">[@eastin_internet_2000a; @hsu_internet_2004; @liang_internet_2008]</span>. This diversity of operationalizations highlights an ongoing challenge: self-efficacy in digital environments is theoretically meaningful but empirically sensitive to how digital tasks are defined and grouped.</p>
 </section>
-<section id="dimensions-of-the-digital-self-efficacy" class="level1">
-<h1>Dimensions of the Digital Self-efficacy</h1>
-<p>In the literature, there is broad agreement on the minimal definitions of self-efficacy proposed initially by <span class="citation" data-cites="bandura_selfefficacy_1982">@bandura_selfefficacy_1982</span>; however, different approaches emerge that emphasize specific elements of the construct. On the one hand, some studies focus on task self-efficacy, understood as the perceived capabilities required to achieve a certain level of performance when mastering an activity. On the other hand, there is work oriented toward regulatory self-efficacy, which is more concerned with how confidence supports resilience in the face of potential barriers around the social context of the individuals. While capability-focused studies emphasize the magnitude of the task—that is, its degree of difficulty or complexity—and the linear progression toward mastery, more attitudinal approaches highlight persistence and resistance when confronting the adversities present in the environment where the activity takes place <span class="citation" data-cites="marlatt_selfefficacy_1995 schwarzer_socialcognitive_2000 williams_confounded_2016">[@marlatt_selfefficacy_1995; @schwarzer_socialcognitive_2000; @williams_confounded_2016]</span>.</p>
-<p>Studies examining self-efficacy with technologies tend to focus more on students’ ability to perform increasingly advanced technological tasks than on their capacity to recover from situations that may undermine their confidence. The underlying assumption in this line of research is that competence develops through progressively more complex levels of technological knowledge—from simple skills such as opening a file to more demanding tasks such as programming or web development. However, these measurement batteries typically assess, in the abstract, whether students believe they can perform a task, without situating the technology within a specific social context in which the skill must actually be applied. Consequently, self-efficacy instruments in the technological domain often structure their dimensionality around the degree of task complexity, rather than around competence areas or types of use to which the tasks belong <span class="citation" data-cites="bandura_selfefficacy_1995 fabia_students_2024 mekheimer_technological_2025">[@bandura_selfefficacy_1995; @fabia_students_2024; @mekheimer_technological_2025]</span>.</p>
-<p>Although some studies define DSE as a simple unidimensional construct, measuring individuals’ task achievement in using digital technologies without distinguishing levels of complexity <span class="citation" data-cites="hatlevik_digital_2015 rohatgi_role_2016">[@hatlevik_digital_2015; @rohatgi_role_2016]</span>, a large range of studies adopt a bidimensional approach, which categorise as ‘general or basic DSE’ a first level of achievement considering widespread skills around handling information, communicating or collaborating through technologies and creating digital content. A second level of achievement, jerarquically above the previous one, considers high technical expertise on computational tasks such as using programming languages, application development, or website management. Generally, is labelled as ‘specialized or advanced DSE’ <span class="citation" data-cites="pasha_crossnational_2024 gebhardt_gender_2019">[@pasha_crossnational_2024; @gebhardt_gender_2019]</span>.</p>
-<p>Both the unidimensional and the bidimensional approaches not only influence measurement instruments but also lead to different research findings: unidimensional models could underestimate the predictive power of DSE for complex digital enviroments, while bidimensional models offer greater explanatory precision but can introduce challenges such as construct overlap or reduced generalizability across contexts, limiting findings across educational systems and cultural contexts <span class="citation" data-cites="aesaert_accuracy_2017 siddiq_there_2019 scherer_gender_2023 campos_digital_2023">[@aesaert_accuracy_2017; @siddiq_there_2019; @scherer_gender_2023; @campos_digital_2023]</span>. Thus, the choice between unidimensional and bidimensional models of DSE is not merely theoretical, as it has significant implications for the validity, reliability, and utility of research on digital competence development, especially in the case of large-scale studies, which require consistent data at a cross-cultural level.</p>
+<section id="from-ict-self-efficacy-to-digital-self-efficacy-dse" class="level3">
+<h3 class="anchored" data-anchor-id="from-ict-self-efficacy-to-digital-self-efficacy-dse">From ICT self-efficacy to Digital Self-Efficacy (DSE)</h3>
+<p>As digital technologies became increasingly hybrid, combining computational components with networked social interaction, research converged around broader constructs such as ICT self-efficacy, which integrated internet-based tasks with more technical and computer-related activities within a single line of inquiry <span class="citation" data-cites="papastergiou_enhancing_2010 aesaert_exploring_2014">[@papastergiou_enhancing_2010; @aesaert_exploring_2014]</span>. Within this tradition, several studies adopted a bidimensional approach that distinguishes between (a) general digital tasks related to information processing, communication, and content creation and (b) more advanced or specialized computational tasks such as programming or web development <span class="citation" data-cites="aesaert_exploring_2014 hatlevik_students_2018 rohatgi_role_2016">[@aesaert_exploring_2014; @hatlevik_students_2018; @rohatgi_role_2016]</span>. Studies adopting this framework consistently identified contrasting associations with key variables related to competence development: while self-efficacy in general digital tasks tended to align positively with broader digital proficiency, whereas self-efficacy in specialized domains often showed weaker, null or even reverse patterns of relationship <span class="citation" data-cites="rohatgi_role_2016 gebhardt_gender_2019 aydin_multilevel_2022">[@rohatgi_role_2016; @gebhardt_gender_2019; @aydin_multilevel_2022]</span>.</p>
+<p>More recently, <span class="citation" data-cites="ulfert-blank_assessing_2022">@ulfert-blank_assessing_2022</span> argued that traditional ICT self-efficacy instruments may struggle to keep pace with rapid technological change. Because many measures are tied to specific applications, interfaces, or devices, they can become outdated as digital systems evolve. In response, <span class="citation" data-cites="ulfert-blank_assessing_2022">@ulfert-blank_assessing_2022</span> proposed the construct of Digital Self-Efficacy (DSE), defined as individuals' confidence in their ability to organize and execute actions required to successfully perform digital tasks across diverse and changing contexts. This conceptualization draws on the European Digital Competence Framework (DigComp) <span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022">[@europeancommissionjointresearchcentre_digcomp_2022]</span>, emphasizing that self-efficacy measures in digital environments should remain coherent across a broad range of tasks and technological ecologies. We addopt the label of digital self-efficacy rather ICT self-efficacy to highlight that the target of the construct is not a specific set of devices or applications.</p>
 </section>
-<section id="pisa-and-icils-approaches" class="level1">
-<h1>PISA and ICILS approaches</h1>
-<p>International Large-scale Assessment have become one of the most important types of studies in the field of education, characterized by the deployment of their surveys throughout the educational systems of the world, enabling cross-country analysis with large volumes of data.</p>
-<p>There are two main studies that include digital topics in their surveys. First, International Computer and Information Literacy Study (ICILS), belonging to the International Evaluation Assosiation (IEA), and second, the Programme for International Student Assessment (PISA), which is developed by the OECD. ICILS is a study focused on digital competences, which seeks to answer the question: How well are students prepared to study, work and live in a digital world? To this end, the study measures Computer and Information Literacy (CIL) achievement through a standardized test, and predict the behavior of the score by variables from a questionnaire of students, teachers and principals. PISA is recognized by measuring the knowledge in reading, mathematics and science of 15-year-old adolescents, evaluating how prepared they are to use this topics on the real life. This study stands out for the great thematic versatility of its questionnaires, including digital themes in the ICT familiarity module.</p>
-<p>As can be viewed on <a href="#tbl-comparison" class="quarto-xref">Table&nbsp;1</a>, these studies understands and measures DSE differently. ICILS proposes a two-dimensional perspective of DSE, distinguishing between general DSE and specialized DSE. The general dimension encompasses tasks that do not require in-depth knowledge of how digital devices work like search and find information on internet. Specialized DSE tasks requires greater mastery of digital skills, as they are more complex to perform, like create a computer program. In contrast, PISA has a one-dimensional approach that can be inferred from a single battery with 14 items which also goes from simple skills, as text editing in digital services, to more complex ones like identifying the source of an error in a software.</p>
+<section id="operationalizations-of-dse-in-international-large-scale-assessments" class="level2">
+<h2 class="anchored" data-anchor-id="operationalizations-of-dse-in-international-large-scale-assessments">Operationalizations of DSE in international large-scale assessments</h2>
+<p>A major motivation for this study is that large-scale assessments operationalize DSE in ways that differ substantially in content and dimensionality. Such differences can affect how cross-national inequalities are interpreted and whether findings accumulate meaningfully across studies. Two prominent international large-scale assessments are ICILS and PISA, both of which include student-reported measures related to digital self-efficacy.</p>
+<section id="icils-and-the-bidimensional-approach-to-dse" class="level3">
+<h3 class="anchored" data-anchor-id="icils-and-the-bidimensional-approach-to-dse">ICILS and the bidimensional approach to DSE</h3>
+<p>The International Computer and Information Literacy Study (ICILS), conducted by the International Association for the Evaluation of Educational Achievement (IEA), is the primary large-scale assessment that adopt and maintains a bidimensional approach to ICT self-efficacy. ICILS assesses students’ Computer and Information Literacy (CIL) through standardized performance tests while also collecting survey data on digital-related attitudes and background variables. The study has been administered three times (2013, 2018, and 2023), using nationally representative samples of eighth-grade students across multiple educational systems.</p>
+<p>ICILS draws on Bandura's conceptualization of self-efficacy as perceived capability to execute courses of action <span class="citation" data-cites="bandura_perceived_1993">[@bandura_perceived_1993]</span> and applies it to students' confidence in performing ICT-related tasks <span class="citation" data-cites="fraillon_iea_2025a">[@fraillon_iea_2025a]</span>. Since its inception, ICILS has distinguished between (a) self-efficacy in general ICT tasks, confidence in everyday digital activities such as information retrieval, online communication, and content creation, and (b) self-efficacy in specialized ICT tasks, confidence in more technically advanced activities such as programming or database management <span class="citation" data-cites="fraillon_iea_2025a">[@fraillon_iea_2025a]</span>. This distinction reflects the idea that confidence in routine digital engagement may functions differently from the high-level technical creation.</p>
+<p>Although the bidimensional structure has remained stable, the composition and wording of item batteries has evolved across cycles to mirror the changing digital landscape. Between 2013 and 2018, the terminology shifted from “basic” and “advanced” to “general” and “specialized” and recalibrated items accordingly. The 2023 cycle introduced more substantial modifications: specialized dimension was narrowed to focus strongly on visual coding, text-based programming and web creation, moving away from earlier items related to local networks or database management, while the general dimension incorporated updated items reflecting contemporary information literacy demands (e.g., idenfiying original sources). Item stems were also revised to reduce explicit references to "computers", acknowledging the diversity of devices used by students.</p>
+<p>Psychometric validation of the bidimensional ICILS self-efficacy framework has been consistently documented across cycles, although the methodological strategies have evolved. In the 2013 and 2018 cycles, dimensionality was examined using exploratory procedures in field trials and later confirmed through Confirmatory Factor Analysis (CFA) within a Structural Equation Modeling (SEM) framework <span class="citation" data-cites="fraillon_icils_2015">[@fraillon_icils_2015]</span>. The 2018 cycle extended this approach by using multi-group CFA to evaluate measurement invariance across educational systems <span class="citation" data-cites="fraillon_iea_2020">[@fraillon_iea_2020]</span>. In the 2023 cycle, validation shifted toward an Item Response Theory (IRT) framework, using Partial Credit Models (PCM) and multi-group PCM to assess fit and cross-national comparability <span class="citation" data-cites="fraillon_iea_2025">[@fraillon_iea_2025]</span>. Taken together, evidence from ICILS supports the operationalization of digital self-efficacy as two related but distinct dimensions.</p>
+<p>The empirical distinctiveness of the bidimensional framework is reinforced by the diverging relationships that general and specialized self-efficacy exhibit with digital competence and gender across diverse educational systems. Consistent analyses from ICILS international reports and various independent studies demonstrate that self-efficacy in general ICT tasks functions as a robust, positive predictor of CIL achievement <span class="citation" data-cites="rohatgi_role_2016 aydin_multilevel_2022 fraillon_students_2020 rozman_students_2025">[@rohatgi_role_2016; @aydin_multilevel_2022; @fraillon_students_2020; @rozman_students_2025]</span>. Conversely, self-efficacy in specialized tasks has repeatedly shown a null or even negative association with CIL performance. This discrepancy is often attributed to a “misalignment” between the high-level technical skills that specialized ICT self-efficacy encompasses (e.g., programming) and the information-management focus of CIL assessments, where technical expertise does not necessarily translate into informational competence <span class="citation" data-cites="rohatgi_role_2016 fraillon_iea_2019">[@rohatgi_role_2016; @fraillon_iea_2019]</span>. Furthermore, this distinction unveils critical gender dynamics: while boys consistently report higher specialized self-efficacy, this gap disappears in the general dimension <span class="citation" data-cites="gebhardt_gender_2019">[@gebhardt_gender_2019]</span>, even though girls outperform them in CIL scores across almost all educational systems <span class="citation" data-cites="kennedy_relationships_2025">[@kennedy_relationships_2025]</span>.</p>
+</section>
+<section id="pisa-and-the-unidimensional-approach-to-dse" class="level3">
+<h3 class="anchored" data-anchor-id="pisa-and-the-unidimensional-approach-to-dse">PISA and the unidimensional approach to DSE</h3>
+<p>The Programme for International Student Assessment (PISA), coordinated by the OECD, evaluates 15-year-old students' ability to apply knowledge and skills in reading, mathematics, and science to real-life challenges <span class="citation" data-cites="oecd_what_2023">[@oecd_what_2023]</span>. Since its first cycle in 2000, PISA has expanded its contextual questionnaires and frameworks to capture students' exposure to and engagement with digital technologies. The latest published cycle (PISA 2022) includes measures related to ICT use, access, and digital competence <span class="citation" data-cites="oecd_pisa_2023">[@oecd_pisa_2023]</span>.</p>
+<p>In PISA, self-efficacy related to digital tasks functions as an important indicator of students' perceived capacity to perform digital activities, particularly given the absence of an ICT performance assessment comparable to ICILS. PISA's framework aligns with DigComp by covering multiple competence areas (information, communication, content creation, safety, and problem solving) <span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022 oecd_pisa_2023">[@europeancommissionjointresearchcentre_digcomp_2022; @oecd_pisa_2023]</span>. Consequently, the PISA DSE battery includes items that extend beyond the ICILS operationalization, incorporating tasks such as protecting data privacy or representing computational solutions as algorithms.</p>
+<p>Despite overlap in item scope and wording, as can be observed on <a href="#tbl-comparison" class="quarto-xref">Table&nbsp;1</a>, PISA differs from ICILS in its treatment of dimensionality. PISA operationalized digital self-efficacy as a unidimensional construct, treating variation across heterogeneous tasks as reflecting a single latent continuum rather than distinct underlying dimensions <span class="citation" data-cites="oecd_pisa_2018_framework oecd_pisa_2023">[@oecd_pisa_2018_framework; @oecd_pisa_2023]</span>. PISA's psychometric validation relies primarily on IRT scaling—often using Partial Credit Models—supported by exploratory analyses (e.g., principal component analyses) used to justify the unidimensional structure <span class="citation" data-cites="oecd_pisa_2024">[@oecd_pisa_2024]</span>. Scale quality is evaluated using item-fit indices, category functioning, reliability indicators, and multi-group IRT procedures to support cross-national comparability <span class="citation" data-cites="oecd_pisa_2024 adams_wu_wilson_2012_conquest">[@oecd_pisa_2024; @adams_wu_wilson_2012_conquest]</span>.</p>
+<p>However, unlike ICILS, PISA has not systematically tested multidimensional alternatives for digital self-efficacy, nor has it explicitly examined whether item groupings comparable to ICILS' general and specialized domains form empirically distinguishable latent factors. As a result, although PISA's DSE scale may demonstrate strong psychometric properties under a unidimensional specification, the question of whether students' digital self-efficacy is more accurately represented by a bidimensional structure remains open and requires explicit empirical assessment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'kableExtra' was built under R version 4.4.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'openxlsx' was built under R version 4.4.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"input"</span>, <span class="st">"documents"</span>, <span class="st">"batteries_icils_pisa_selfeff_comparison.xlsx"</span>), <span class="at">fillMergedCells =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>table[<span class="fu">is.na</span>(table)] <span class="ot">&lt;-</span> <span class="st">""</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>table <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Competence.area,Competence,Common.label,Type.of.DSE,ICILS.Label,PISA.Label)<span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scroll_box</span>(<span class="at">height=</span><span class="st">"800px"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Hay que añadir la cantidad de NA por item en esta tabla</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"input"</span>, <span class="st">"documents"</span>, <span class="st">"batteries_icils_pisa_selfeff_comparison.xlsx"</span>), <span class="at">fillMergedCells =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>table[<span class="fu">is.na</span>(table)] <span class="ot">&lt;-</span> <span class="st">""</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>table <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Competence.area,Competence,Common.label,ICILS.Label,PISA.Label,Type.of.DSE)<span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">scroll_box</span>(<span class="at">height=</span><span class="st">"800px"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Hay que añadir la cantidad de NA por item en esta tabla</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -136,163 +166,171 @@ Table&nbsp;1: DSE item comparison between PISA and ICILS.
 <th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Competence.area</th>
 <th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Competence</th>
 <th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Common.label</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Type.of.DSE</th>
 <th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">ICILS.Label</th>
 <th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">PISA.Label</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Type.of.DSE</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">1. Information and data literacy</td>
 <td style="text-align: left;">1.1 Navigate, search and filter data, information</td>
-<td style="text-align: left;">search_info</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Search information</td>
 <td style="text-align: left;">Search for relevant information for a school project on the internet</td>
 <td style="text-align: left;">Search for and find relevant information online</td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">1. Information and data literacy</td>
 <td style="text-align: left;">1.1 Navigate, search and filter data, information</td>
-<td style="text-align: left;">source_info</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Source information</td>
 <td style="text-align: left;">Find the original sources of information referred to in an article on the internet</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1. Information and data literacy</td>
 <td style="text-align: left;">1.2 Evaluate data, information and digital content</td>
-<td style="text-align: left;">evaluate_info</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Evaluate information</td>
 <td style="text-align: left;">Judge whether you can trust information you find on the internet</td>
 <td style="text-align: left;">Assess the quality of information you found online</td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">1. Information and data literacy</td>
 <td style="text-align: left;">1.3 Manage data, information and digital content</td>
-<td style="text-align: left;">collect_data</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Collect data</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">Collect and record data (e.g., using data loggers, Google Forms, spreadsheets)</td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">1. Information and data literacy</td>
 <td style="text-align: left;">1.3 Manage data, information and digital content</td>
-<td style="text-align: left;">install_app</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Install app</td>
 <td style="text-align: left;">Install a program or app</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">1. Information and data literacy</td>
+<td style="text-align: left;">1.3 Manage data, information and digital content</td>
+<td style="text-align: left;">Change settings</td>
+<td style="text-align: left;">Change the settings on a device to suit your needs and preferences</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">2. Communication and collaboration</td>
 <td style="text-align: left;">2.1 Interact through digital technologies/2.2 Share info</td>
-<td style="text-align: left;">explain_content</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Explain content</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">Explain to other students how to share digital content online or on a school platform</td>
+<td style="text-align: left;">General</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">2. Communication and collaboration</td>
 <td style="text-align: left;">2.1 Interact through digital technologies/2.2 Share info</td>
-<td style="text-align: left;">share_content</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Share content</td>
 <td style="text-align: left;">Upload text, images, or video to an online profile</td>
 <td style="text-align: left;">Share practical information with a group of students</td>
+<td style="text-align: left;">General</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">2. Communication and collaboration</td>
 <td style="text-align: left;">2.4 Collaborate through digital technologies</td>
-<td style="text-align: left;">pair_collab</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Pair collaboration</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">Collaborate with other students on a group assignment</td>
+<td style="text-align: left;">General</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3. Digital content creation</td>
+<td style="text-align: left;">3.1 Develop digital content</td>
+<td style="text-align: left;">Write text</td>
+<td style="text-align: left;">Write or edit text for a school assignment</td>
+<td style="text-align: left;">Write or edit text for a school assignment</td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">3. Digital content creation</td>
-<td style="text-align: left;">3.1 Develop digital content</td>
-<td style="text-align: left;">write_text</td>
+<td style="text-align: left;">3.1 Develop digital content / 3.2 Integrate content</td>
+<td style="text-align: left;">Create media</td>
+<td style="text-align: left;">Create a multi-media presentation (with sound, pictures, or video)</td>
+<td style="text-align: left;">Create a multi-media presentation (with sound, pictures, or video)</td>
 <td style="text-align: left;">General</td>
-<td style="text-align: left;">Write or edit text for a school assignment</td>
-<td style="text-align: left;">Write or edit text for a school assignment</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">3. Digital content creation</td>
 <td style="text-align: left;">3.1 Develop digital content / 3.2 Integrate content</td>
-<td style="text-align: left;">create_media</td>
-<td style="text-align: left;">General</td>
-<td style="text-align: left;">Create a multi-media presentation (with sound, pictures, or video)</td>
-<td style="text-align: left;">Create a multi-media presentation (with sound, pictures, or video)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3. Digital content creation</td>
-<td style="text-align: left;">3.1 Develop digital content / 3.2 Integrate content</td>
-<td style="text-align: left;">insert_image</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Insert image</td>
 <td style="text-align: left;">Insert an image into a document or message</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;">General</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">3. Digital content creation</td>
 <td style="text-align: left;">3.2 Integrate and re-elaborate digital content</td>
-<td style="text-align: left;">edit_image</td>
-<td style="text-align: left;">General</td>
+<td style="text-align: left;">Edit image</td>
 <td style="text-align: left;">Edit digital photographs or other graphic images</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;">General</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">3. Digital content creation</td>
 <td style="text-align: left;">3.1 Develop digital content</td>
-<td style="text-align: left;">develop_webpage</td>
-<td style="text-align: left;">Specialized</td>
+<td style="text-align: left;">Develop webpage</td>
 <td style="text-align: left;">Build or edit a webpage</td>
 <td style="text-align: left;">Create, update and maintain a webpage or a blog</td>
+<td style="text-align: left;">Specialized</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">3. Digital content creation</td>
 <td style="text-align: left;">3.4 Programming</td>
-<td style="text-align: left;">programming</td>
-<td style="text-align: left;">Specialized</td>
+<td style="text-align: left;">Programming</td>
 <td style="text-align: left;">Use a text-based programming language (e.g., Python, JavaScript...)</td>
 <td style="text-align: left;">Create a computer program (e.g., in Scratch, Python, Java)</td>
+<td style="text-align: left;">Specialized</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">3. Digital content creation</td>
 <td style="text-align: left;">3.4 Programming</td>
-<td style="text-align: left;">visual_coding</td>
-<td style="text-align: left;">Specialized</td>
+<td style="text-align: left;">Visual coding</td>
 <td style="text-align: left;">Use visual coding (e.g., Scratch, Lego Mindstorms) to develop a simple computer program</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;">Specialized</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">4. Safety</td>
 <td style="text-align: left;">4.1 Protect devices/ 4.2 Protect personal data and privacy</td>
-<td style="text-align: left;">change_settings</td>
-<td style="text-align: left;">General</td>
-<td style="text-align: left;">Change the settings on a device to suit your needs and preferences</td>
-<td style="text-align: left;">Change the settings of a device or App in order to protect my data and privacy</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5. Problem solving</td>
-<td style="text-align: left;">5.1 Solve technical problems</td>
-<td style="text-align: left;">identify_error</td>
-<td style="text-align: left;">Specialized</td>
+<td style="text-align: left;">Privacy settings</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">Identify the source of an error in a software after considering a list of potential causes</td>
+<td style="text-align: left;">Change the settings of a device or App in order to protect my data and privacy</td>
+<td style="text-align: left;">General</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">5. Problem solving</td>
-<td style="text-align: left;">5.2 Identify needs and technological responses</td>
-<td style="text-align: left;">identify_app</td>
-<td style="text-align: left;">Specialized</td>
+<td style="text-align: left;">5.1 Solve technical problems</td>
+<td style="text-align: left;">Identify error</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">Select the most efficient programme or App that allows me to carry out a specific task</td>
+<td style="text-align: left;">Identify the source of an error in a software after considering a list of potential causes</td>
+<td style="text-align: left;">Specialized</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">5. Problem solving</td>
-<td style="text-align: left;">5.3 Use digital technologies creatively</td>
-<td style="text-align: left;">logical_solution</td>
+<td style="text-align: left;">5.2 Identify needs and technological responses</td>
+<td style="text-align: left;">Identify app</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Select the most efficient programme or App that allows me to carry out a specific task</td>
 <td style="text-align: left;">Specialized</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5. Problem solving</td>
+<td style="text-align: left;">5.3 Use digital technologies creatively</td>
+<td style="text-align: left;">Logical solution</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">Break down a problem and represent a solution as a series of logical steps, such as an algorithm</td>
+<td style="text-align: left;">Specialized</td>
 </tr>
 </tbody>
 </table>
@@ -303,18 +341,20 @@ Table&nbsp;1: DSE item comparison between PISA and ICILS.
 </figure>
 </div>
 </div>
-<p>The different considerations of DSE number of dimensions can be adressed on the distinct approaches both studies have towards self-efficacy concept. ICILS items reflect greater relevance in the completion of a specific task rather than in carrying out an evaluative process of how to solve a situated problem. PISA presents greater definitions on the existence of a scenario where the tasks are involved, and a procedural for overcoming them. In this sense, ICILS places greater emphasis on task self-efficacy than PISA, and therefore, PISA do not attempt to differentiate tasks based on their level of technical difficulty, but on the the greatest diversity of elements that contextualize the type of task.</p>
-<p>A careful analysis of both batteries reveals that there are differences not only in the number of dimensions, but also in the type of skills being considered (see <a href="#tbl-comparison" class="quarto-xref">Table&nbsp;1</a>). ICILS contains tasks related to information, communication, and digital creation. Among the last one, there are three that are specialized: web development, use of programming languages, and visual coding. PISA, on the other hand, presents two items of advanced digital creation (programming and web development), but also adds a series of other items that refer to the fourth and fifth dimensions of the Digcomp framework, namely safety and problem solving <span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022">[@europeancommissionjointresearchcentre_digcomp_2022]</span>. The inclusion of these two areas in PISA shows that the dimensionality of the construct was designed focusing more on the type of context of the tasks than on their level of difficulty, as is the case in ICILS.</p>
-<p>The more comprehensive scope of the concept of DSE in PISA does not translate into the creation of sub-constructs as in ICILS, but rather the study chooses to reduce its dimensions to just one. Furthermore, it disregards the factor validation rule, as it has a dimension (safety) that has only one item <span class="citation" data-cites="kline_principles_2016 devellis_scale_2022">[@kline_principles_2016; @devellis_scale_2022]</span>. And with its DigComp framework approach, tasks such as web development or programming are placed in the same dimension as simple tasks such as writing text or inserting images, even though the literature in the field reports that these tasks are asymmetrically, and even oppositely, related to other variables <span class="citation" data-cites="fraillon_preparing_2020 aesaert_accuracy_2017">[@fraillon_preparing_2020; @aesaert_accuracy_2017]</span>.</p>
-<p>Given the weaknesses of both studies, it is worth asking whether it is possible to establish some degree of comparability between them, so that the results become more robust thanks to the consistency that can be found between two such large-scale samples. ICILS has published reports that reveal the process of construction of its scales <span class="citation" data-cites="fraillon_iea_2025">[@fraillon_iea_2025]</span>, whereas PISA’s construct remains opaque in terms of its metrics <span class="citation" data-cites="oecd_pisa_2023">[@oecd_pisa_2023]</span>. Furthermore, the logic of ICILS can be perfectly extrapolated to the information contained in the PISA battery, but not vice versa. By forcing ICILS framework in PISA, it would also be possible to understand the performance of new tasks that ICILS’ bi-dimensionality approach don’t contemplate, such as pair collaboration, identifying errors or representing logical solutions.</p>
-<p>Considering the previous statements, the first hypothesis of this study is: <em>H<sub>1</sub> It is possible to identify two latent dimensions of digital self-efficacy (general and specialized) on PISA and ICILS.</em></p>
 </section>
-<section id="country-level-and-gender" class="level1">
-<h1>Country level and Gender</h1>
-<p>When comparing psychological or educational constructs across social groups or countries, the issue of measurement invariance becomes an indispensable methodological requirement. As recent scholarship shows, social science research often assumes—incorrectly—that instruments capture the same underlying meaning across culturally or structurally diverse populations, even though socialization trajectories, interpretive repertoires, and institutional conditions can substantially alter how individuals understand and respond to items <span class="citation" data-cites="putnick_bornstein_2023">[@putnick_bornstein_2023]</span>. In this sense, the contrast between the dimensionality of DSE on both studies is not a matter of chance when it comes to evaluating the sociocultural context in which they are embedded.</p>
-<p>The available evidence suggests that the magnitude and direction of DSE vary significantly between countries, indicating that self-efficacy is not expressed uniformly but is mediated by social expectations <span class="citation" data-cites="gebauer_crosscultural_2021">[@gebauer_crosscultural_2021]</span>, and differential degrees of exposure to technologies <span class="citation" data-cites="hatlevik_students_2018 senkbeil_ictrelated_2022">[@hatlevik_students_2018; @senkbeil_ictrelated_2022]</span>. Education systems may associate divergent meanings with seemingly similar tasks with technologies, whether due to contrasting curricular trajectories <span class="citation" data-cites="martin-parraga_selfperception_2023 annemann_teachers_2025">[@martin-parraga_selfperception_2023; @annemann_teachers_2025]</span>, heterogeneity in access to digital infrastructure or differences in the social valuation of certain technological skills <span class="citation" data-cites="annemann_teachers_2025 conte_unlocking_2025">[@annemann_teachers_2025; @conte_unlocking_2025]</span>. These</p>
-<p>The interpretation of the dimensionality of a construct as dynamic and complex as DSE can be quite sensitive to the contexts in which students develop, so differences between-countries on DSE cannot be assumed without first examining the metric equivalence of the construct by study. ICILS has published reports that validate the two-dimensionality of its construct across countries in previous versions <span class="citation" data-cites="fraillon_preparing_2020">[@fraillon_preparing_2020]</span>, and relevant studies has accepted the international validity of its proposal <span class="citation" data-cites="campos_digital_2024 gebhardt_gender_2019 karpinski_noncognitive_2023 rohatgi_role_2016">[@campos_digital_2024; @gebhardt_gender_2019; @karpinski_noncognitive_2023; @rohatgi_role_2016]</span>. Since the tasks outlined in PISA battery are quite similar, it is likely that a two-dimensional approach would also be appropriate in its study. Therefore, the following hypothesis is proposed: <em>H<sub>2</sub> The bi-dimensional measurement model of digital self-efficacy is equivalent across countries in ICILS and PISA.</em></p>
-<p>The dimensions of the DSE are not only relevant to contrast for theoretical reasons, but also because consideration of this approach has an impact on the distribution of these variables among groups. A series of studies using the two-dimensional ICILS model has shown that girls outperform boys in general DSE, but present lower scores on specialized DSE <span class="citation" data-cites="campos_digital_2024 kaarakainen_differences_2017 cusso-calabuig_effects_2018 cai_gender_2017">[@campos_digital_2024; @kaarakainen_differences_2017; @cusso-calabuig_effects_2018; @cai_gender_2017]</span>. In turn, the literature consistently reports that individuals with low expectations of specialized self-efficacy sometimes score higher on standardized tests of digital skills <span class="citation" data-cites="aesaert_accuracy_2017 weigold_measuring_2021">[@aesaert_accuracy_2017; @weigold_measuring_2021]</span>. To address gender inequalities in attitudes toward technology a stable measure at large scale is necessary, so the third hypothesis is: <em>H<sub>3</sub> The bi-dimensional measurement model of digital self-efficacy is equivalent between girls and boys</em></p>
+<section id="implications-for-cross-national-and-gender-research" class="level3">
+<h3 class="anchored" data-anchor-id="implications-for-cross-national-and-gender-research">Implications for cross-national and gender research</h3>
+<p>The unidimensional operationalization of DSE has substantive consequences for how digital inequality is described and interpreted. Studies using PISA ICT self-efficacy battery as a single latent construct consistently report significant associations with gender, socioeconomic status, ICT use, motivational orientations toward technology, and academic achievement across reading, mathematics, and science <span class="citation" data-cites="chen_ictrelated_2020 yu_ict_2022 hori_impact_2021 kunina-habenicht_ict_2020">[@chen_ictrelated_2020; @yu_ict_2022; @hori_impact_2021; @kunina-habenicht_ict_2020]</span>. These findings suggest that digital self-efficacy, as measured in PISA, functions as a meaningful predictor of educational outcomes <span class="citation" data-cites="yu_ict_2022">[@yu_ict_2022]</span>. At the same time, collapsing heterogeneous digital tasks into a single continuum implies functional equivalence between qualitatively different forms of digital engagement, ranging from routine information and communication tasks to more specialized and computationally demanding activities <span class="citation" data-cites="oecd_pisa_2023">[@oecd_pisa_2023]</span>.</p>
+<p>Emerging evidence suggests that the heterogeneity of digital task may matter. while self-efficacy related to general or information-oriented digital skills tends to show robust positive associations with achievement and background variables, self-efficacy related to more specialized or computational domains often displays weaker, null, or reverse relationships <span class="citation" data-cites="tomte_genderdifferences_2011 hristov_understanding_2026">[@tomte_genderdifferences_2011; @hristov_understanding_2026]</span>. Yet, despite these recurrent patterns, these dimensional splits have rarely been subjected to formal tests of construct validity or cross-national measurement invariance, which limits confidence in substantive interpretations about gender inequalities or between-country differences.</p>
+<p>When comparing psychological or educational constructs across social groups or countries, the issue of measurement invariance is a critical methodological requirement. Without evidence that scale functioning similarly across populations, differences in latent means or associations may reflect measurement artifacts rather than genuine disparities <span class="citation" data-cites="davidov_measurement_2014 leitgob_measurement_2023">[@davidov_measurement_2014; @leitgob_measurement_2023]</span>. This concern is particularly relevant for DSE, as cross-national variation in digital experiences, institutional exposure to ICT, and cultural expectations may shape how students interpret and respond to self-efficacy items <span class="citation" data-cites="gebauer_crosscultural_2021 hatlevik_students_2018 senkbeil_ictrelated_2022">[@gebauer_crosscultural_2021; @hatlevik_students_2018; @senkbeil_ictrelated_2022]</span>. Educational systems may attach different meanings to similar technology-related tasks due to differences in curricula, infrastructure, and the social valuation of technological skills <span class="citation" data-cites="martin-parraga_selfperception_2023 annemann_teachers_2025 conte_unlocking_2025">[@martin-parraga_selfperception_2023; @annemann_teachers_2025; @conte_unlocking_2025]</span>.</p>
+<p>While the two-dimensional structure proposed by ICILS has been widely used and supported in cross-national research <span class="citation" data-cites="campos_digital_2024 gebhardt_gender_2019 karpinski_noncognitive_2023 rohatgi_role_2016">[@campos_digital_2024; @gebhardt_gender_2019; @karpinski_noncognitive_2023; @rohatgi_role_2016]</span>, and some studies have applied similar item groupings to PISA <span class="citation" data-cites="tomte_genderdifferences_2011 hristov_understanding_2026">[@tomte_genderdifferences_2011; @hristov_understanding_2026]</span>, no study has systematically examined whether a comparable bidimensional DSE construct can be established and validated across both assessments. In addition, although partial cross-national invariance has been tested for the ICILS DSE scales <span class="citation" data-cites="fraillon_iea_2025 campos_digital_2024">[@fraillon_iea_2025; @campos_digital_2024]</span> and gender invariance has been explored for bidimensional DSE specifications in PISA [<span class="citation" data-cites="hristov_understanding_2026">@hristov_understanding_2026</span>], cross-assessment comparability remains largely unaddressed.</p>
+<p>Considering the previous framework, we test the following hypotheses:</p>
+<p><span class="math inline">\(H_{1}\)</span>: It A two-dimensional model of digital self-efficacy (general and specialized) can be identified in both PISA 2022 and ICILS 2023.</p>
+<p><span class="math inline">\(H_{2}\)</span>: The two-dimensional measurement model of digital self-efficacy is invariant across countries.</p>
+<p><span class="math inline">\(H_{3}\)</span>: The two-dimensional measurement model of digital self-efficacy is invariant between girls and boys.</p>
+<p><span class="math inline">\(H_{4}\)</span>: Gender differences in DSE are dimension-specific: boys report higher levels of specialized DSE than girls, whereas gender differences in general DSE are smaller or absent.</p>
+</section>
+</section>
 </section>
 
 </main>
@@ -401,6 +441,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -511,6 +553,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
