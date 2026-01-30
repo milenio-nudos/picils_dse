@@ -19,7 +19,7 @@ comments:
 
 # Measuring Digital Self-Efficacy in International Large-Scale Assessments: A bi-dimensional comparative scale Between ICILS and PISA {.unnumbered}
 
-Daniel Miranda[^dm], Ismael Aguayo[^ia], Nicolás Tobar[^nt], Tomás Urzúa[^tu] and Juan Carlos Castillo[^jc]
+Daniel Miranda[^1], Ismael Aguayo[^2], Nicolás Tobar[^3], Tomás Urzúa[^4] and Juan Carlos Castillo[^jc]
 
 [^dm]: Assistant professor, Psychology Department, University of Chile. [damiran1\@uc.cl](mailto:danmiranda@uchile.cl).
 
@@ -32,7 +32,6 @@ Daniel Miranda[^dm], Ismael Aguayo[^ia], Nicolás Tobar[^nt], Tomás Urzúa[^tu]
 [^jc]: Full professor, Sociology Department, University of Chile. [juancastillov\@uchile.cl](mailto:juancastillov@uchile.cl) - [jc-castillo.com](jc-castillo.com)
 
 ```{r setup}
-
 # Sesion setting
 
 options(scipen=999) #No scientific notation

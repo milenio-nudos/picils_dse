@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.5.52">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="5-discussion_files/libs/clipboard/clipboard.min.js"></script>
@@ -29,11 +48,40 @@ ul.task-list li input[type="checkbox"] {
 <script src="5-discussion_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="5-discussion_files/libs/quarto-html/anchor.min.js"></script>
 <link href="5-discussion_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="5-discussion_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="5-discussion_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="5-discussion_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="5-discussion_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="5-discussion_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="5-discussion_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -48,16 +96,25 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="discussion" class="level1">
 <h1>Discussion</h1>
-<p>Although PISA and ICILS differ in their strategies for measuring DSE, a reduced scales in both studies reviewed demonstrate clear two-dimensional behavior. The items that were eliminated reveals important trends to consider for innovating future measurements.Some tasks that do not belong to the basic set of digital literacy (i.e.&nbsp;information, communication, and creation) did not fit into the proposed two-dimensional model, anchored to a linear distinction of the degree of difficulty of the tasks to group the factors. For example, expectations for achieving changes in device settings, specific to managing user ‘privacy,’ distort the model in both studies. Likewise, other tasks did not seem to have the same meaning that students had given them in previous measurements. While in previous versions of these studies, web page development was a clearly distinctive skill of specialized technology users, the results suggest that it shares considerable variance with the latent construct of general self-efficacy. The opposite is true for multimedia content creation, which has moved from general self-efficacy to a blurred area between the two dimensions. Technological contexts change over time. It is likely that new developments in digital tools have brought some tasks that were previously challenging for the general public closer together, while other tasks that previously appeared to be simple have become more complex than usual.</p>
-<p>The factor analysis confirms that it is possible to obtain a common scale from the data that is relatively comparable across cultures and by gender. ICILS present moderate problems with scalar invariance adjustments by country, which can be explained because the different understandings of self-efficacy behind the strategies of measuring. Since PISA tends to give a context of difficulty to the construct, which involves the development of logical thinking and a social context behind it, it achieves better levels of adjustment than ICILS, a study that focuses on the performance achievement of tasks in abstract. By introducing less information, cultural differences are likely to differentiate the way students from different countries interpret the meaning of the question.</p>
-<p>In both studies, overall countries demonstrate major levels of general than specialized self-efficacy. The gender mean distribution of general self-efficacy show minimal gaps in favor of girls, while specialized self-efficacy favors boys to a considerable extent. A counterintutive result points that less developed countries as Kazakhstan or Romania present the best specialized scores, in spite of their bad peformance on general self-efficacy. At the same time, catches the attention the reduced or neutralized gender specialized self-efficacy gap of global-south countries as Chile, Korea, Kazakhstan, where policies aimed at encouraging STEM engagement on girls are supposedly less intense than the global-north countries, where the gap tend to be higher. The consistency between the two studies confirms a recent trend within gender and STEM literature: the paradox that in countries with less gender equality, attitudinal differences between men and women tend to decrease <span class="citation" data-cites="marsh_illusory_2021 guo_crosscultural_2024">[@marsh_illusory_2021; @guo_crosscultural_2024]</span>.</p>
+<p>The present study examined whether a bidimensional conceptualization of digital self-efficacy (DSE), distinguishing General and Specialized DSE, can be identified and compared within two major international large-scale assessments, ICILS 2023 and PISA 2022. Overall, the findings support the feasibility of recovering a comparable two-factor structure in both datasets, indicating that students' perceived capability to perform routine digital tasks is empirically distinct from their perceived capability in more specialized or computational activities (supporting <span class="math inline">\(H_1\)</span>). Although achieving this comparability required targeted model refinement in both studies, the patterns of misfit offer substantive clues about how adolescents interpret and classify digital tasks in contemporary digital environments.</p>
+<p>A first contribution of the study concerns measurement validity and model specification. In both ICILS and PISA, a small set of items displayed evidence of cross-loadings and local dependence, suggesting that certain digital tasks do not map neatly onto a purely complexity-based distinction between general versus specialized activities. In particular, tasks involving information, communication, and creation showed consistent empirical overlap, pointing to a different component that may blur boundaries between the two dimensions. For instance, while in previous versions web page development was a clearly distinctive skill of specialized technology users <span class="citation" data-cites="fraillon_icils_2015">[@fraillon_icils_2015]</span>, the results suggest that it shares considerable variance with the latent construct of general self-efficacy now. These results do not contradict the bidimensional structure itself, but highlight that the interpretation of what counts as "specialized" digital engagement may be shifting over time, which has implications for the stability of DSE operationalizations in large-scale assessment.</p>
+<p>The observed patterns are consistent with recent findings in the field of digital studies. The diffusion of user-friendly platforms for website building and online publishing reduces the technical barrier for activities that historically required specialized knowledge <span class="citation" data-cites="jagtap_no_2024 lively_integrating_2023">[@jagtap_no_2024; @lively_integrating_2023]</span>. At the same time, rising standards for sophisticated multimedia production, potentially intensified by social media dynamics and AI-supported content generation, may change the perceived difficulty for tasks previously classified as general digital competence <span class="citation" data-cites="gardan_usergenerated_2022 alnaser_impact_2024">[@gardan_usergenerated_2022; @alnaser_impact_2024]</span>. These contextual shifts provide a plausible explanation for why some tasks move across the boundary between General and Specialized DSE, underscoring that DSE measurement must remain responsive to technological change.</p>
+<p>Our findings also connect to an ongoing conceptual debate regarding the dimensionality of DSE. Recent proposals argue for multidimensional DSE measures aligned with competence frameworks such as DigComp [<span class="citation" data-cites="europeancommissionjointresearchcentre_digcomp_2022">@europeancommissionjointresearchcentre_digcomp_2022</span>; <span class="citation" data-cites="ulfert-blank_assessing_2022">@ulfert-blank_assessing_2022</span>], which organizes digital competence into domains including information and data literacy, communication and collaboration, content creation, safety, and problem solving. Although this approach may provide a theoretically robust alternative to complexity-based distinctions, the available item batteries in ICILS and PISA are currently too short to support a psychometrically stable five-dimensional model, and large-scale validation remains limited. Within these constraints, the present study offers a parsimonious and empirically supported bidimensional solution that is feasible with existing ILSA data and enables systematic comparisons across datasets.</p>
+<p>Turning to comparability across groups, invariance results were mixed across assessments. In PISA, the bidimensional model achieved configural, metric, and scalar invariance across countries, providing strong evidence that the construct is comparable across participating education systems (supporting H2). In ICILS, the model reached configural and metric invariance but did not meet scalar invariance criteria across countries, suggesting that cross country mean differences should be interpreted cautiously and reinforcing the importance of explicitly evaluating between country comparability before drawing substantive conclusions (partial support for <span class="math inline">\(H_2\)</span>). These results indicate that even when the same two-dimensional structure is recoverable, the degree of cross national comparability may depend on assessment specific design features and item functioning.</p>
+<p>In contrast, gender invariance results were consistently supportive. Both assessments achieved scalar invariance across gender, indicating that General and Specialized DSE can be compared meaningfully between boys and girls within each dataset (supporting <span class="math inline">\(H_3\)</span>). This finding strengthens the validity of gender comparisons in DSE and suggests that observed gender gaps in DSE are unlikely to be driven by measurement non-equivalence, at least within the tested frameworks.</p>
+<p>Beyond measurement evidence, descriptive patterns provided substantive insights into digital inequality. Across countries and in both studies, students reported higher General DSE than Specialized DSE, consistent with the idea that routine digital activities may be more widely internalized than specialized computational competencies. Gender differences were clearly dimensional specific: girls tended to report slightly higher General DSE, whereas boys reported substantially higher Specialized DSE across most education systems. This pattern indicates that gender disparities depend on the type of digital task domain being evaluated (supporting <span class="math inline">\(H_4\)</span>).</p>
+<p>At the country level, the magnitude of gender gaps in Specialized DSE varied considerably across educational systems, and in some contexts the specialized gender gap was minimal. These patterns suggest that the strength of gender differentiation in specialized digital confidence is context dependent rather than universal, supporting <span class="math inline">\(H_4\)</span> in a cross national comparability. In addition, exploratory country level distributions indicated that high levels of Specialized DSE and smaller specialized gender gaps were not necessarily concentrated in highly digitalized contexts. This counterintuitive pattern aligns with prior evidence that digital self-efficacy may not correspond straightforwardly to objective performance indicators at the country level <span class="citation" data-cites="rozman_students_2025">[@rozman_students_2025]</span> and with evidence on the gender equality paradox, which suggests that gender gaps in STEM attitudes can be larger in more gender equal settings <span class="citation" data-cites="marsh_illusory_2021 guo_crosscultural_2024">[@marsh_illusory_2021; @guo_crosscultural_2024]</span>. Future research should examine whether these results reflect reference group effects, cross cultural differences in calibration, or variation in exposure and social valuation of specialized digital pathways.</p>
+<p>This study has three main limitations. First, achieving acceptable model fit required removing a small number of items from the DSE batteries in both assessments, which may reduce content coverage and limits direct comparability with official reporting. Second, cross national invariance in ICILS did not reach the most restrictive level, indicating that country level mean comparisons should be interpreted cautiously. Third, the analyses relied on a single cycle from each assessment (PISA 2022 and ICILS 2023), which prevents evaluating the temporal stability of the measurement models. Future research should extend this approach across cycles to assess whether the two-dimensional structure remains robust as digital environments evolve. In addition, assessment developers may consider expanding and updating DSE item pools to better capture emerging digital competence domains in rapidly changing educational contexts.</p>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
-<p>Based on a comparative study between PISA and ICILS, this paper demonstrated that digital self-efficacy can be studied from a two-dimensional perspective, even when it is not understood in this way, as in the case of PISA. This result challenges the measurement of digital self-efficacy by ILSAs, since considering all tasks within the same range of difficulty can have serious implications when studying students’ digital self-efficacy, especially when considering that the two-dimensional approach is equivalent across countries and genders.</p>
-<p>The present study encountered two limitations. First, in order for the models to obtain acceptable fit indices, items had to be removed from the batteries in both studies. Therefore, invariance works, but not without first modifying the model specifications. Second, only one measurement from each study was used (PISA 2022 and ICILS 2023 respectively), which does not allow for the identification of stability in digital self-efficacy scales over time. Considering this, it is extremely important to continue this line of work and conduct research that addresses the reliability of the scales, taking into account the time factor. In addition, study organizers should seriously consider new ways of measuring digital self-efficacy in contexts that are changing at a rapid pace.</p>
-<p>This study contribute to think that differences in technology engagement are not homogeneous and do not present in the later stages of education. Already in elementary school students (14 years old), it is possible to see that girls in several countries inconsistently show less confidence with advanced technologies, although they have a slight advantage in general-purpose technologies. Through longitudinal methods, future studies should evaluate when and why these DSE inequalities awaken in the growth of boys and girls.</p>
-<p>Finally, it remains to reflect on the contextual variables that may be determining gender digital divides. The results provided some clues: developed countries show greater gender gaps in specialized self-efficacy compared to underdeveloped countries. This counterintuitive finding raises a number of questions for the future, such as what are the structural characteristics of countries that exhibit this dynamic, as well as delving deeper into the cultural patterns among male and female students that widen existing gaps.</p>
+<p>In sum, the study provides evidence that a two-dimensional representation of DSE is recoverable in both ICILS and PISA ($H_1$), that cross-national comparability is stronger in PISA than in ICILS ($H_2$, partial), that gender comparisons are supported in both assessments ($H_3$), and that gender and country differences operate in dimension specific ways ($H_4$). These findings highlight the importance of testing measurement assumptions when using ILSA data to interpret digital inequalities and to cumulate evidence across international assessments.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" role="list">
+
+</div>
 </section>
 
 </main>
@@ -144,6 +201,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -254,6 +313,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
