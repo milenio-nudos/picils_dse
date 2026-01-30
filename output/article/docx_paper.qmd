@@ -1,0 +1,343 @@
+---
+format: docx
+editor: visual
+smooth-scroll: true
+mainfont: Times New Roman
+number-sections: true
+cite-method: citeproc
+bibliography: "picils.bib"
+csl: "apa.csl"
+link-citations: true
+execute: 
+  echo: false
+  warning: false
+comments:
+  hypothesis: true
+---
+
+# Measuring Digital Self-Efficacy in International Large-Scale Assessments: A bi-dimensional comparative scale Between ICILS and PISA {.unnumbered}
+
+Daniel Miranda[^dm], Ismael Aguayo[^ia], Nicolás Tobar[^nt], Tomás Urzúa[^tu] and Juan Carlos Castillo[^jc]
+
+[^dm]: Assistant professor, Psychology Department, University of Chile. [damiran1\@uc.cl](mailto:danmiranda@uchile.cl).
+
+[^ia]: Bsc (c) Sociology, Sociology Department, University of Chile. [ismael.aguayo\@ug.uchile.cl](mailto:ismael.aguayo@ug.uchile.cl)
+
+[^nt]: Msc (c) Political Science, Faculty of Government, University of Chile. [nicolas.tobar\@ug.uchile.cl.](mailto:nicolas.tobar@ug.uchile.cl)
+
+[^tu]: Msc (c) Social Sciences, Sociology Department, University of Chile. [tomas.urzua\@ug.uchile.cl](mailto:tomas.urzua@ug.uchile.cl)
+
+[^jc]: Full professor, Sociology Department, University of Chile. [juancastillov\@uchile.cl](mailto:juancastillov@uchile.cl) - [jc-castillo.com](jc-castillo.com)
+
+```{r setup}
+# Sesion setting
+
+options(scipen=999) #No scientific notation
+options(digits = 2) #Round results two decimals
+
+
+#install.packages("pacman")
+library(pacman)
+
+pacman::p_load(
+  dplyr, haven, sjlabelled,  psych,  purrr,  tidyr,  sjPlot,  ggplot2, 
+  parameters,  table1,  car,  beeswarm,  lme4, scales, ggrepel, corrplot,
+  ggtext, patchwork, lavaan, semTools, DT, knitr, kableExtra)
+
+options(scipen = 999)
+rm(list = ls()) 
+
+icils <- readRDS(here::here("input", "data", "proc_data", "icils_comparable.rds"))
+pisa <- readRDS(here::here("input", "data", "proc_data", "pisa_comparable.rds"))
+```
+
+**Abstract**
+
+Understanding students’ beliefs about their capabilities with digital technologies, commonly referred to as digital self-efficacy (DSE) is critical for interpreting the levels of digital competence across educational systems. Depending on how studies conceptualize and measure the construct, they can significantly affect their results. The two most relevant International Large-Scale Assessments (ILSAs) that address this topic differ in how DSE is measured. The International Computer and Information Literacy Study (ICILS) adopts a bidimensional approach, while the Programme for International Student Assessment (PISA) treats DSE as an unidimensional construct, despite relying on highly similar digital tasks. This lack of a common definitions leads to different interpretations of the construct's distribution across key determinants of inequality, such as gender or country. Moreover, some studies operationalize the PISA self-efficacy construct as two-dimensional without first examining its psychometric properties. This study examines whether a bidimensional structure of DSE can be empirically supported in both ILSAs. We employ multi-group confirmatory factor analysis to assess the validity and comparability of specialized and general dimensions of DSE, and test measurement invariance across countries and genders. The results support a two-factor structure, full gender invariance in both datasets, full country invariance in PISA and scalar country invariance in ICILS. A descriptive exploration shows, consistently across countries and studies, smaller gender differences in general DSE, while specialized DSE systematically favors boys. These findings refine the interpretation of DSE in ILSAs, propose a comparable scale for future research, and emphasize the importance of supporting DSE dimensionality with empirical evidence.
+
+**Keywords:** Digital self-efficacy, ICILS, PISA, International Large-Scale Assesment, invariance, multi-group confirmatory factor analysis.
+
+Highlights:
+
+-   DSE is empirically better represented as a two-dimensional construct.
+-   Items misfit indicate that the dimensional affiliation of them may shift over time.
+-   Results confirm gender and cross-national comparability on ILSA's DSE scales.
+-   Gender and country differences in digital self-efficacy are dimension specific.
+
+
+# Introduction
+
+Digital competence has become essential for learning and participation in contemporary societies. However, research increasingly shows that mastering digital technologies requires more than access to devices or procedural knowledge; it also involves attitudinal dispositions such as confidence, persistence, and adaptability in complex digital environments [@europeancommissionjointresearchcentre_digcomp_2022; @lythreatis_digital_2022; @dijk_digital_2020]. Digital self-efficacy (DSE), defined as the belief in one’s ability to accomplish tasks and overcome obstacles in digital contexts, has therefore emerged as a central construct for understanding the development of digital competences [@bandura_selfefficacy_1995; @ulfert-blank_assessing_2022]. Compared with purely skill-based measures, DSE captures perceived capability in ways that help explain why some learners navigate digital transformations successfully while others struggle [@scherer_revisiting_2015; @rohatgi_role_2016].
+
+A growing body of cross-national research has examined how levels of DSE and related inequalities vary across countries, typically attributing these differences to broader sociocultural and educational contexts [@campos_digital_2024; @hatlevik_students_2018]. Yet, despite the prominence of descriptive cross-national comparisons, relatively little attention has been devoted to the measurement comparability of DSE across populations. This gap may limit the interpretability and robustness of claims about cross-national differences. Without explicit tests of comparability, it is difficult to determine whether observed differences reflect substantive disparities or methodological artefacts [@leitgob_measurement_2023].
+
+International large-scale assessments (ILSAs) offer a unique opportunity to address issues of measurement comparability, although existing instruments are not fully aligned. For example, the International Computer and Information Literacy Study (ICILS) distinguishes between general and specialized DSE using a bidimensional framework [@fraillon_international_2025], whereas the Programme for International Student Assessment (PISA) has traditionally adopted a unidimensional approach by aggregating digital self-confidence into a single scale [@oecd_pisa_2023]. These differences are consequential: when closely related constructs are operationalized differently across assessments, cross-study comparisons become difficult, and the cumulative evidence on the social determinants of digital competence remains fragmented.
+
+Gender differences in DSE represent one of the most salient areas of focus across educational systems. Historically, women have reported lower levels of confidence and motivation in digital environments, particularly in domains associated with STEM or advanced technical applications [@hargittai_differences_2006; @cai_gender_2017]. More recent research suggests that, although women often match or surpass men in basic digital tasks related to information navigation, communication, and content creation, they tend to report lower self-efficacy in more specialized areas such as programming or data analysis [@gebhardt_gender_2019]. This pattern supports a bidimensional conceptualization of DSE, in which gender inequalities manifest differently across domains. Importantly, the magnitude of these gender differences varies across countries [@campos_digital_2023], indicating that both contextual factors and measurement choices play a role.
+
+There are empirical reasons to speculate that the PISA battery implicitly captures the two dimensions of DSE proposed by ICILS, even though these dimensions are not explicitly theorized in the PISA framework. These reasons include high similarity in item wording, comparable covariance structures among items, and similar associations with key external variables. Building on this assumption, recent studies have applied a bidimensional DSE framework to PISA data, despite the fact that this extrapolation has not been tested in detail or theoretically discussed [e.g., @hristov_understanding_2026]. Such studies rely on international data that require a high degree of stability in the interpretation of scale meaning across diverse contexts to ensure comparability. This highlights the need for research that explicitly addresses this issue.
+
+In this study, we argue that a two-dimensional structure of DSE—general and specialized—can be identified and meaningfully compared across ICILS 2023 and PISA 2022. Specifically, we (i) test the fit of a bidimensional DSE model in both assessments, (ii) evaluate measurement invariance across gender and countries, and (iii) examine cross-national variation in gender differences in DSE in each study. Finally, we propose a comparable scale to explore parallelisms in DSE across the two assessments.
+
+# Self-efficacy and Digital Technologies
+
+### Self-efficacy and digital learning
+
+Self-efficacy, originally formulated by @bandura_selfefficacy_1982, refers to individuals’ judgments about their capability to execute the actions required to manage prospective situations (p. 122). This construct is central to human agency, as it helps explain how people approach challenges, sustain effort in the face of setbacks, and build competence in complex domains. Self-efficacy beliefs support goal setting, persistence, and the interpretation of performance feedback, thereby shaping learning and achievement across a wide range of contexts [@bandura_selfefficacy_1995; @steele_stereotype_1995; @bandura_selfefficacy_1997].
+
+Self-efficacy is particularly relevant for understanding learning processes involving digital technologies [@moos_learning_2009; @hatlevik_digital_2015; @aesaert_accuracy_2017]. A substantial body of research has examined how self-efficacy beliefs relate to the adoption of new technologies and the development of digital competence; however, measurement approaches remain fragmented. Early work focused on general computer self-efficacy and confidence in the use of specific software applications [@compeau_computer_1995; @durndell_computer_2002; @moos_learning_2009; @weigel_technical_2014], whereas other strands emphasized self-efficacy for internet navigation and online communication [@eastin_internet_2000a; @hsu_internet_2004; @liang_internet_2008]. This diversity of operationalizations highlights an ongoing challenge: although self-efficacy in digital environments is theoretically meaningful, it is empirically sensitive to how digital tasks are defined and grouped.
+
+### From ICT self-efficacy to Digital Self-Efficacy (DSE)
+
+As digital technologies became increasingly hybrid, combining computational components with networked social interaction, research converged around broader constructs such as ICT self-efficacy, which integrate internet-based tasks with more technical and computer-related activities within a single line of inquiry [@papastergiou_enhancing_2010; @aesaert_exploring_2014]. Considering this, several studies adopted a bidimensional approach that distinguishes between (a) general digital tasks related to information processing, communication, and content creation, and (b) more advanced or specialized computational tasks such as programming or web development [@aesaert_exploring_2014; @hatlevik_students_2018; @rohatgi_role_2016]. Studies adopting this framework have consistently identified contrasting associations with key variables related to competence development: self-efficacy in general digital tasks tends to align positively with broader digital proficiency, whereas self-efficacy in specialized domains often shows weaker, null, or even inverse relationships [@rohatgi_role_2016; @gebhardt_gender_2019; @aydin_multilevel_2022].
+
+More recently, @ulfert-blank_assessing_2022 argued that traditional ICT self-efficacy instruments may struggle to keep pace with rapid technological change. Because many measures are tied to specific applications, interfaces, or devices, they can become outdated as digital systems evolve. In response, @ulfert-blank_assessing_2022 proposed the construct of digital self-efficacy (DSE), defined as individuals’ confidence in their ability to organize and execute the actions required to successfully perform digital tasks across diverse and changing contexts. This conceptualization draws on the European Digital Competence Framework (DigComp) [@europeancommissionjointresearchcentre_digcomp_2022], emphasizing that self-efficacy measures in digital environments should remain coherent across a broad range of tasks and technological ecologies. Accordingly, we adopt the label digital self-efficacy rather than ICT self-efficacy to highlight that the target of the construct is not a specific set of devices or applications.
+
+## Operationalizations of DSE in international large-scale assessments
+
+A major motivation for this study is that large-scale assessments operationalize digital self-efficacy in ways that differ substantially in both content and dimensionality. Such differences can influence how cross-national inequalities are interpreted and whether findings accumulate meaningfully across studies. Two prominent international large-scale assessments are ICILS and PISA, both of which include student-reported measures related to digital self-efficacy.
+
+### ICILS and the bidimensional approach to DSE
+
+The International Computer and Information Literacy Study (ICILS), conducted by the International Association for the Evaluation of Educational Achievement (IEA), is the primary large-scale assessment that adopts and maintains a bidimensional approach to ICT self-efficacy. ICILS assesses students’ Computer and Information Literacy (CIL) through standardized performance tests while also collecting survey data on digital-related attitudes and background variables. The study has been administered three times (2013, 2018, and 2023), using nationally representative samples of eighth-grade students across multiple educational systems.
+
+ICILS draws on Bandura’s conceptualization of self-efficacy as perceived capability to execute courses of action [@bandura_perceived_1993] and applies it to students’ confidence in performing ICT-related tasks [@fraillon_iea_2025]. Since its inception, ICILS has distinguished between (a) self-efficacy in general ICT tasks, defined as confidence in everyday digital activities such as information retrieval, online communication, and content creation, and (b) self-efficacy in specialized ICT tasks, defined as confidence in more technically advanced activities such as programming or database management [@fraillon_iea_2025]. This distinction reflects the idea that confidence in routine digital engagement may function differently from confidence in high-level technical creation.
+
+Although the bidimensional structure has remained stable, the composition and wording of item batteries have evolved across cycles to mirror the changing digital landscape. Between 2013 and 2018, the terminology shifted from “basic” and “advanced” to “general” and “specialized”, and items were recalibrated accordingly. The 2023 cycle introduced more substantial modifications: the specialized dimension was narrowed to focus more strongly on visual coding, text-based programming, and web creation, moving away from earlier items related to local networks or database management, while the general dimension incorporated updated items reflecting contemporary information literacy demands (e.g., identifying original sources). Item stems were also revised to reduce explicit references to “computers”, acknowledging the diversity of devices used by students.
+
+Psychometric validation of the bidimensional ICILS self-efficacy framework has been consistently documented across cycles, although the methodological strategies have evolved. In the 2013 and 2018 cycles, dimensionality was examined using exploratory procedures in field trials and later confirmed through Confirmatory Factor Analysis (CFA) within a Structural Equation Modeling (SEM) framework [@fraillon_icils_2015]. The 2018 cycle extended this approach by using multi-group CFA to evaluate measurement invariance across educational systems [@fraillon_iea_2020]. In the 2023 cycle, validation shifted toward an Item Response Theory (IRT) framework, using Partial Credit Models (PCM) and multi-group PCM to assess fit and cross-national comparability [@fraillon_iea_2025]. Taken together, evidence from ICILS supports the operationalization of digital self-efficacy as two related but distinct dimensions.
+
+The empirical distinctiveness of the bidimensional framework is reinforced by the diverging relationships that general and specialized self-efficacy exhibit with digital competence and gender across diverse educational systems. Consistent analyses from ICILS international reports and independent studies demonstrate that self-efficacy in general ICT tasks functions as a robust, positive predictor of CIL achievement [@rohatgi_role_2016; @aydin_multilevel_2022; @fraillon_students_2020; @rozman_students_2025]. Conversely, self-efficacy in specialized tasks has repeatedly shown a null or even negative association with CIL performance. This discrepancy is often attributed to a “misalignment” between the high-level technical skills encompassed by specialized ICT self-efficacy (e.g., programming) and the information-management focus of CIL assessments, in which technical expertise does not necessarily translate into informational competence [@rohatgi_role_2016; @fraillon_iea_2020]. Furthermore, this distinction reveals important gender dynamics: while boys consistently report higher specialized self-efficacy, this gap disappears in the general dimension [@gebhardt_gender_2019], even though girls outperform boys in CIL scores across almost all educational systems [@kennedy_relationships_2025].
+
+### PISA and the unidimensional approach to DSE
+
+The Programme for International Student Assessment (PISA), coordinated by the OECD, evaluates 15-year-old students’ ability to apply knowledge and skills in reading, mathematics, and science to real-life challenges [@oecd_pisa_2023b]. Since its first cycle in 2000, PISA has expanded its contextual questionnaires and frameworks to capture students’ exposure to and engagement with digital technologies. The latest published cycle (PISA 2022) includes measures related to ICT use, access, and digital competence [@oecd_pisa_2023].
+
+In PISA, self-efficacy related to digital tasks functions as an important indicator of students’ perceived capacity to perform digital activities, particularly given the absence of an ICT performance assessment comparable to ICILS. PISA’s framework aligns with DigComp by covering multiple competence areas, including information, communication, content creation, safety, and problem solving [@europeancommissionjointresearchcentre_digcomp_2022; @oecd_pisa_2023]. Consequently, the PISA digital self-efficacy battery includes items that extend beyond the ICILS operationalization, incorporating tasks such as protecting data privacy or representing computational solutions as algorithms.
+
+Despite overlap in item scope and wording, as can be observed in @tbl-comparison, PISA differs from ICILS in its treatment of dimensionality. PISA operationalizes digital self-efficacy as a unidimensional construct, treating variation across heterogeneous tasks as reflecting a single latent continuum rather than distinct underlying dimensions [@oecd_pisa_2018_framework; @oecd_pisa_2023]. PISA’s psychometric validation relies primarily on IRT scaling, often using Partial Credit Models, supported by exploratory analyses such as principal component analyses to justify the unidimensional structure [@oecd_pisa_2024]. Scale quality is evaluated using item-fit indices, category functioning, reliability indicators, and multi-group IRT procedures to support cross-national comparability [@oecd_pisa_2024; @adams_wu_wilson_2012_conquest].
+
+However, unlike ICILS, multidimensional alternatives for digital self-efficacy have not been systematically tested within the PISA framework, nor has it been explicitly examined whether item groupings comparable to ICILS’ general and specialized domains form empirically distinguishable latent factors. As a result, although PISA’s digital self-efficacy scale may demonstrate strong psychometric properties under a unidimensional specification, the question of whether students’ digital self-efficacy is more accurately represented by a bidimensional structure remains open and requires explicit empirical assessment.
+
+```{r}
+#| label: tbl-comparison
+#| tbl-cap: "DSE item comparison between PISA and ICILS."
+
+library(kableExtra)
+library(openxlsx)
+
+table <- openxlsx::read.xlsx(here::here("input", "documents", "batteries_icils_pisa_selfeff_comparison.xlsx"), fillMergedCells = TRUE)
+table[is.na(table)] <- ""
+
+table |>
+  dplyr::select(Competence.area,Competence,Common.label,ICILS.Label,PISA.Label,Type.of.DSE)|>
+  knitr::kable()
+
+#Hay que añadir la cantidad de NA por item en esta tabla
+```
+
+### Implications for cross-national and gender research
+
+The unidimensional operationalization of digital self-efficacy has substantive consequences for how digital inequality is described and interpreted. Studies using the PISA ICT self-efficacy battery as a single latent construct consistently report significant associations with gender, socioeconomic status, ICT use, motivational orientations toward technology, and academic achievement in reading, mathematics, and science [@chen_ictrelated_2020; @yu_ict_2022; @hori_impact_2021; @kunina-habenicht_ict_2020]. These findings suggest that digital self-efficacy, as measured in PISA, functions as a meaningful predictor of educational outcomes [@yu_ict_2022]. At the same time, collapsing heterogeneous digital tasks into a single continuum implies functional equivalence between qualitatively different forms of digital engagement, ranging from routine information and communication tasks to more specialized and computationally demanding activities [@oecd_pisa_2023].
+
+Emerging evidence suggests that the heterogeneity of digital tasks may matter. While self-efficacy related to general or information-oriented digital skills tends to show robust positive associations with achievement and background variables, self-efficacy related to more specialized or computational domains often displays weaker, null, or even reverse relationships [@tomte_genderdifferences_2011; @hristov_understanding_2026]. Yet, despite these recurrent patterns, such dimensional distinctions have rarely been subjected to formal tests of construct validity or cross-national measurement invariance, which limits confidence in substantive interpretations of gender inequalities or between-country differences.
+
+When comparing psychological or educational constructs across social groups or countries, measurement invariance is a critical methodological requirement. Without evidence that a scale functions similarly across populations, differences in latent means or associations may reflect measurement artifacts rather than genuine disparities [@davidov_measurement_2014; @leitgob_measurement_2023]. This concern is particularly relevant for digital self-efficacy, as cross-national variation in digital experiences, institutional exposure to ICT, and cultural expectations may shape how students interpret and respond to self-efficacy items [@gebauer_crosscultural_2021; @hatlevik_students_2018; @senkbeil_ictrelated_2022]. Educational systems may attach different meanings to similar technology-related tasks due to differences in curricula, infrastructure, and the social valuation of technological skills [@martin-parraga_selfperception_2023; @annemann_teachers_2025; @conte_unlocking_2025].
+
+While the two-dimensional structure proposed by ICILS has been widely used and supported in cross-national research [@campos_digital_2024; @gebhardt_gender_2019; @karpinski_noncognitive_2023; @rohatgi_role_2016], and some studies have applied similar item groupings to PISA data [@tomte_genderdifferences_2011; @hristov_understanding_2026], no study has systematically examined whether a comparable bidimensional digital self-efficacy construct can be established and validated across both assessments. In addition, although partial cross-national invariance has been tested for the ICILS digital self-efficacy scales [@fraillon_iea_2025; @campos_digital_2024] and gender invariance has been explored for bidimensional specifications in PISA [@hristov_understanding_2026], cross-assessment comparability remains largely unaddressed.
+
+Building on this framework, we test the following hypotheses:
+
+$H_{1}$: A two-dimensional model of digital self-efficacy (general and specialized) can be identified in both PISA 2022 and ICILS 2023.
+
+$H_{2}$: The two-dimensional measurement model of digital self-efficacy is invariant across countries.
+
+$H_{3}$: The two-dimensional measurement model of digital self-efficacy is invariant between girls and boys.
+
+$H_{4}$: Gender differences in digital self-efficacy are dimension-specific, such that boys report higher levels of specialized digital self-efficacy than girls, whereas gender differences in general digital self-efficacy are smaller or absent.
+
+# Methods
+
+## Data
+
+ICILS 2023 employed a two-stage cluster sampling approach across 34 countries and more than 130,000 students worldwide. In the first stage, schools with students in the target grade were randomly selected using a probability proportional to size (PPS) method. In the second stage, one intact class was randomly selected within each sampled school, and all students in that class were invited to participate [@fraillon_international_2025].
+
+The PISA 2022 target population consists of 15-year-old students attending educational establishments and employs a two-stage stratified sampling design. In the first stage, schools were systematically selected with PPS from national sampling frames. In the second stage, a target number of students (typically 42) were randomly selected with equal probability from within each sampled school [@oecd_pisa_2024]. The ICT questionnarie that contains the DSE battery was applied in a group of countries. The official dataset includes approximately 393,000 students, nested within 52 countries.
+
+To ensure comparability, both datasets were filtered to include only countries that participated in both the PISA ICT questionnaire and the ICILS survey. Furthermore, specific adjustments were made to maximize overlap between the samples. In the ICILS data, Germany is reported as two separate regions reflecting its distinct educational systems; for this analysis, these regions were aggregated to form a single national entity. Similarly, ICILS data for Belgium were collected exclusively from the Flemish Community (Flanders) in this cycle. To align the datasets, data from Flanders were treated as representative of the country.
+
+The final country-level sample includes 22 countries, with 91,132 students in ICILS and 183,902 students in PISA.
+
+## Variables
+
+Both studies include a module on digital self-efficacy in their questionnaires. In ICILS the 13 items are introduced with the phrase *"How well can you do:"* and the recoded categories are 1 = I do not think I could do this; 2 = I have never done this, but I could work out how to do it; 3 = Moderately well; 4 = Very well. PISA prefaces its 14-item module with the question *"To what extent are you able to do the following tasks when using \<digital resources\>?"*, where \<digital resources\> is a placeholder for a term adapted to the target culture. PISA recoded categories are 1 = I cannot do this; 2 = I struggle to do this on my own; 3 = I can do this with a bit of effort; 4 = I can easily do this. Responses as "I don't know" were treated as missing values. A complete comparison of the items from both surveys was presented in [Table @tbl-comparison], highlighting the concordances and distinctions between the tasks considered in bot studies, the Digcomp area to which the task corresponds, and the type of DSE we are assuming to match the item.
+
+We also consider the three-digit ISO country code and the student's sex (recoded as 1 = male and 2 = female) from both datasets.
+
+## Analytical Strategy
+
+The main analyses were performed within a Confirmatory Factor Analysis (CFA) framework to test the hypothesised two-factor structure of DSE [@brown_confirmatory_2015]. The CFA models were estimated with the `lavaan` package [@rosseel_lavaan_2012]. Given the ordinal nature of the Likert-scale items, they were treated as ordered categorical variables. Therefore, models were estimated using the Weighted Least Squares Mean and Variance Adjusted (WLSMV) estimator. Missing data were handled using pairwise deletion, which is the standard approach for this estimator in lavaan besides the (default) listwise deletion. In both studies, the complex structure of the samples was addressed using sample weights (Senate Weights[^1]). This weighting was applied to all models and descriptive analyses to ensure representative parameter estimates.
+
+[^1]: In PISA, Senate Weights are constructed by the OECD based on the final weight of the student, ensuring that each country totals 5000. For ICILS, we follow the same procedure based on total weights (TOTWGTS).
+
+To evaluate the goodness-of-fit of the models, the chi-square (χ²) test was used. However, due to the test's sensitivity to large sample sizes, model evaluation primarily relied on a complementary set of fit indices: the Comparative Fit Index (CFI), the Tucker-Lewis Index (TLI), and the Root Mean Square Error of Approximation (RMSEA). Following common guidelines, CFI and TLI values of .95 or higher are considered indicative of excellent fit, while values between 0.90 and 0.95 are considered acceptable. For RMSEA, values of .06 or less indicate a close fit, while values up to .08 are considered adequate [@brown_confirmatory_2015; @wang_structural_2012]. To verify the reliability of the models, McDonald's $\omega$ are reported. Values above .7 indicate good reliability [@hair_multivariate_2009]. In terms of convergent validity, statistically significant factor loadings of at least .5 will be required. In addition, an Average Variance Extracted (AVE) of at least .5 will be required, which means that the model explains 50% of the variance of the items on average [@cheung_reporting_2024]. The R `semTools` package was used to perform reliability and convergent validity analyses [@jorgensen_semtools_2025].
+
+The analysis process involved a series of consecutive steps. The first was to estimate a pooled model to evaluate the fit of the hypothetical model in each study. In instances where the initial model failed to achieve an acceptable fit, a principled procedure of model re-specification was undertaken. Sources of model misfit were diagnosed by examining multiple indicators, including residual correlation matrices and modification indices. Items identified as primary sources of misspecification were considered for removal. However, any modification was contingent upon a strong theoretical justification beyond statistical improvement. We critically evaluated items for potential issues related to ambiguous phrasing, conceptual overlap, or compromised content validity due to the evolving technological context. This process was performed judiciously to arrive at a final, well-fitting model that remained theoretically coherent. A factor was required to have a minimum of three indicators to be retained.
+
+In the next step, to test the comparability of this measurement model across countries and genders, a series of Multi-Group Confirmatory Factor Analyses (MGCFA) was conducted to assess Measurement Equivalence or Invariance (ME/I) [e.g., @beaujean_latent_2014; @davidov_measurement_2014]. This procedure involves testing three sequential levels of invariance by imposing progressive restrictions: **1) configural invariance**, which tests if the same factor structure holds for all groups; **2) metric invariance**, which adds the constraint that factor loadings are equal across groups; and **3) scalar invariance**, which further constrains item intercepts (or thresholds for ordinal items) to be equal [@cheung_evaluating_2002; @milfont_testing_2010]. The establishment of invariance between these nested models was evaluated by examining the change in CFI (ΔCFI) and RMSEA (ΔRMSEA). Specifically, for **metric (weak) invariance**, a change in CFI of ≥ -.004 and a change in RMSEA of ≤ .05 were considered acceptable. For **scalar (strong) invariance**, a ΔCFI of ≥ -.004 and a ΔRMSEA of ≤ .01 were considered adequate [@rutkowski_measurement_2017]. Achieving metric invariance is a prerequisite for further analysis of the association among dimensions of DSE with factors. Achieving scalar invariance is a prerequisite for further analysis of the association among dimensions of DSE with factors and estimation of the latent means across countries and across gender.
+
+Upon establishing scalar invariance, mean scores of General and Specialised DSE country distribution are explored. In the next step, the magnitude of the DSE gender gap is visualised for each country.
+
+All data management and analyses were conducted using the R statistical environment. The hypotheses were previously pre-registered on [Open Science Framework](https://osf.io/fxhc5/overview), and the code analyses are available on [Github](https://github.com/milenio-nudos/picils_dse).
+
+# Results
+
+The results are organized into three sequential sections. The first section reports the assessment of the global measurement model and the subsequent invariance testing for the ICILS dataset. The second section presents the equivalent analysis for the PISA dataset, including model specification, fit, and invariance results. Finally, the third section provides the descriptive findings for both studies, focusing on the distribution of scores and gender disparities across the participating education systems.
+
+## Study 1: ICILS
+
+### Global Measurement Model Assessment
+
+The initial model for ICILS exhibited a suboptimal fit to the data, with an RMSEA exceeding the acceptable threshold of .08 ($RMSEA = .088$). Consequently, the model was respecified based on theory-consistent diagnostics (modification indices and residual correlations). Two items were removed due to evidence of cross-loadings and local dependence to improve parsimony and interpretability. The first problematic item was 'Find the original sources of information referred to in an article on the internet,' which displayed a substantial modification index ($MI = 13,668.28$) driven by a cross-loading on the Specialized DSE factor. Additionally, this item showed strong positive residual correlations with technical indicators, suggesting that students may interpret source verification as a more demanding digital literacy task that overlaps with specialized competencies. We proceeded to remove this item from the General DSE factor; the empirical overlap suggests that the item may tap a broader content-creation component. Subsequently, although the item 'Build or edit a webpage' showed a high modification index ($MI = 4,707.52$) due to a cross-loading on the General factor, it was retained to preserve model identification and maintain at least three indicators per factor. Instead, we removed the item 'Create a multi-media presentation (with sound, pictures, or video),' which exhibited a notable modification index ($MI = 3,982.96$) and strong positive residual correlations with 'Develop webpage.' The high covariance indicates that students perceive multimedia creation and web development as a unified dimension of 'content creation', a finding that aligns with the DigComp framework (see @tbl-comparison '3.1 Develop Digital Content'). A detailed table presenting all modification indices and residual correlations for the ICILS respecification process is provided in the Appendix (@tbl-mod-indices-icils and @tbl-residuals-icils).
+
+![ICILS global model](images/icils_model.png){#fig-1} 
+
+Following the respecification, the final ICILS measurement model yielded fit indices indicative of a good fit to the data ($\chi^2 = 20,523.816$; $df=43$; $p < .001$; $CFI = .979$; $TLI = .973$; $RMSEA = .074$). Standardized factor loadings were substantial and statistically significant for all indicators, ranging from .63 to .82. This implies that the latent factors account for between 39.5% and 67.6% of the variance in the observed items ($R^2$). Regarding psychometric quality, both dimensions exhibited adequate internal consistency and convergent validity, with statistics surpassing the recommended cutoffs (General DSE: $\omega = .88$, $AVE = .55$; Specialized DSE: $\omega = .80$, $AVE = .62$). Finally, the estimation revealed a moderate correlation of .51 between the two factors, reinforcing the discriminant validity of the construct.
+
+### Measurement Invariance Testing
+
+```{r}
+#| label: tbl-invariance-icils
+#| tbl-cap: "Country and gender measurement invariance ICILS"
+library(here)
+library(flextable)
+library(officer)
+invariance_icils <- readRDS(here("output", "article", "tables", "invariance_table_icils.rds"))
+invariance_icils
+```
+
+As presented in @tbl-invariance-icils, the ICILS measurement model achieved configural and metric invariance across participating countries. However, scalar invariance could not be established, as the decrease in $CFI$ ($\Delta CFI = -.007$) exceeded the strict cutoff criterion. While establishing metric invariance confirms that the factor loadings are comparable across educational systems, the lack of scalar invariance indicates non-equivalence in item intercepts. In contrast, the assessment of gender invariance yielded positive results; the model satisfied all three levels of invariance (configural, metric, and scalar), with changes in fit indices remaining well within acceptable ranges. Detailed information regarding factor loadings for the General and Specialized DSE dimensions, along with the $\chi^2$ contribution by country derived from the scalar invariance model, is provided in the Appendix (@tbl-loadings-chi-icils) to examine potential sources of misfit across countries.
+
+## Study 2: PISA
+
+### Model Respecification and Global Fit
+
+The initial PISA model exhibited substantial misfit ($RMSEA = .12$), primarily driven by two items that displayed strong cross-loadings and multiple significant residual covariances. The first item, "Select the most efficient programme or App that allows me to carry out a specific task", showed a substantial modification index for the General factor ($MI = 76,502.42$) and problematic negative residual correlations with items from the Specialized dimension (e.g., "logical solution", "programming"). Additionally, it showed a positive residual correlation with "privacy settings", an indicator of the General DSE factor. Consequently, this item was removed; contrary to the theoretical model, the data suggest this task is perceived by students as a general competency rather than one related to the technical problem-solving nature of the specialized dimension.
+
+The second problematic item was 'Create, update and maintain a webpage or a blog,' which also presented a strong cross-loading on the General factor ($MI = 39,013.99$). Crucially, it exhibited its strongest positive residual correlation with 'create media.' This specific covariance mirrors the pattern observed in the ICILS respecification, indicating that students perceive web page development and multimedia creation as a unified dimension of 'content creation,' a finding aligned with the DigComp framework. Furthermore, unlike ICILS, the PISA item phrasing explicitly references a 'blog,' which further anchors the task in non-technical content creation contexts. Based on these consistent empirical and theoretical grounds across both studies, this item was removed from the PISA analysis. In the appendix, a comprehensive table details the modification indices and residual correlations that informed the PISA model respecification process (@tbl-mod-indices-pisa and @tbl-residuals-pisa).
+
+![PISA respecified global model](images/pisa_model.png){#fig-2}
+
+Following this respecification, the PISA model demonstrated a satisfactory fit to the data ($\chi^2 = 37,625.623$; $df=53$; $p < .001$; $CFI = .994$; $TLI = .992$; $RMSEA = .068$). Factor loadings were high and statistically significant, ranging from .78 to .93, thus explaining between 60% and 86% of the item variance ($R^2$). Additionally, both factors demonstrated strong reliability and convergent validity, exceeding all established thresholds (General DSE: $\omega = .95$, $AVE = .71$; Specialized DSE: $\omega = .89$, $AVE = .80$). The inter-factor correlation was moderate at .49, further supporting the distinctness of the dimensions.
+
+### Measurement Invariance Testing
+
+```{r}
+#| label: tbl-invariance-pisa
+#| tbl-cap: "Country and gender measurement invariance PISA"
+#| 
+invariance_pisa <- readRDS(here("output", "article", "tables", "invariance_table_pisa.rds"))
+invariance_pisa
+```
+
+As detailed in @tbl-invariance-pisa, the PISA measurement model successfully established invariance across all three tested levels (configural, metric, and scalar) for both country and gender groupings. The changes in the key fit indices ($\Delta CFI$ and $\Delta RMSEA$) between the nested models remained strictly within the recommended thresholds. These results confirm the cross-cultural and cross-gender comparability of the DSE construct within the PISA dataset, thereby satisfying the necessary psychometric prerequisites for comparative analyses. Consistent with the reporting for ICILS, a detailed table presenting the factor loadings and country-specific $\chi^2$ contributions derived from the scalar invariance model is provided in the Appendix (@tbl-loadings-chi-pisa).
+
+## Country and Gender Differences in DSE
+
+This section presents the descriptive analyses by country and gender for both the PISA and ICILS datasets. To ensure that the results accurately reflect the underlying population structures, all descriptive statistics were calculated applying the final sampling weights for each study (Senate Weights). A methodological distinction regarding comparability is necessary: while PISA established scalar invariance (allowing for strict mean comparisons), ICILS only achieved metric invariance. Consequently, the absolute ranking of countries in ICILS should be interpreted with caution and regarded as exploratory. However, we opted to utilize averaged indices for both studies to maintain analytical consistency. A robustness check conducted for both datasets confirmed that the averaged indices and latent mean scores correlated above .95 across all participating countries (see @tbl-index-latent-means-icils and @tbl-index-latent-means-pisa in the Appendix). Furthermore, employing averaged indices preserves the original response scale, facilitating the substantive interpretation and enabling a direct comparison between the General and Specialized dimensions across both datasets.
+
+![ICILS country DSE scores](images/icils_country_dse_comparison.png){#fig-3} 
+
+
+![PISA country DSE scores](images/pisa_country_dse_comparison.png){#fig-4} 
+
+As illustrated in @fig-3 (ICILS) and @fig-4 (PISA), a highly consistent pattern emerges across all participating education systems in both studies: students systematically report higher levels of General DSE compared to Specialized DSE. Regarding the country-level distribution for the Specialized dimension, the results from both assessments reveal a striking counter-intuitive finding. Education systems often characterized by developing digital infrastructure relative to the OECD average report the highest aggregate specialized self-efficacy; this is evident in the prominent position of Kazakhstan and Romania in ICILS, and for Kazakhstan in PISA. In sharp contrast, countries with advanced digital ecosystems and traditionally strong performance on Computer and Information Literacy (CIL) assessments —such as Germany, Austria, and Denmark— rank at the very bottom of the distribution in both studies. This inversion may reflect differences in self evaluative standards, task interpretation, or reference group effects across countries.
+
+![ICILS gender gaps by country](images/icils_gender_dse_gaps.png){#fig-5} 
+
+![PISA gender gaps by country](images/pisa_gender_dse_gaps.png){#fig-6} 
+
+Consistent with prior literature [@gebhardt_gender_2019], the analysis reveal distinct gender patterns across the two dimensions of digital self-efficacy, replicated in both assessments. As illustrated in @fig-5 and @fig-6, female students generally report higher levels of self-efficacy in the General dimension; however, these differences are relatively modest in magnitude. The Specialized dimension reveals a pronounced and consistent gap favoring male students across almost all participating education systems. Exceptions to this trend are observed in countries like Kazakhstan or Chile, where the gender gap in the specialized dimension is minimal. An examination of the country-specific magnitudes reveals a counter-intuitive pattern regarding the relationship between national development contexts and these disparities. Education systems traditionally associated with higher levels of gender equality and digital development, such as Germany, Denmark, and Finland, exhibit considerably larger gender gaps in specialized self-efficacy compared to the aforementioned developing contexts.
+
+# References
+
+::: {#refs}
+:::
+
+# Appendix
+
+```{r}
+#| label: tbl-mod-indices-icils
+#| tbl-cap: "ICILS Modification Indices for Respecifications"
+library(flextable)
+library(officer)
+library(here)
+
+modindices_icils <- readRDS(here("output", "article", "tables", "mod_indices_icils.rds"))
+
+modindices_icils
+```
+
+```{r}
+#| label: tbl-residuals-icils
+#| tbl-cap: "ICILS Residuals for Respecifications"
+
+residuals_icils <- readRDS(here("output", "article", "tables", "residuals_icils.rds"))
+
+residuals_icils
+```
+
+```{r}
+#| label: tbl-loadings-chi-icils
+#| tbl-cap: "ICILS factor loadings and scaled Chi squares by country"
+
+loadings_chi_icils <- readRDS(here("output", "article", "tables", "loadings_chi_icils.rds"))
+
+loadings_chi_icils
+```
+
+```{r}
+#| label: tbl-index-latent-means-icils
+#| tbl-cap: "ICILS correlations of averaged index and latent mean by country"
+
+index_cors_table_icils <- readRDS(here("output", "article", "tables", "index_latent_means_icils.rds"))
+
+index_cors_table_icils
+```
+
+```{r}
+#| label: tbl-mod-indices-pisa
+#| tbl-cap: "PISA Modification Indices for Respecifications"
+
+modindices_pisa <- readRDS(here("output", "article", "tables", "mod_indices_pisa.rds"))
+
+modindices_pisa
+```
+
+```{r}
+#| label: tbl-residuals-pisa
+#| tbl-cap: "PISA Residuals for Respecifications"
+
+residuals_pisa <- readRDS(here("output", "article", "tables", "residuals_pisa.rds"))
+
+residuals_pisa
+```
+
+```{r}
+#| label: tbl-loadings-chi-pisa
+#| tbl-cap: "PISA factor loadings and scaled Chi squares by country"
+
+loadings_chi_pisa <- readRDS(here("output", "article", "tables", "loadings_chi_pisa.rds"))
+
+loadings_chi_pisa
+```
+
+```{r}
+#| label: tbl-index-latent-means-pisa
+#| tbl-cap: "PISA correlations of averaged index and latent mean by country"
+
+index_cors_table <- readRDS(here("output", "article", "tables", "index_latent_means_pisa.rds"))
+
+index_cors_table
+```
+

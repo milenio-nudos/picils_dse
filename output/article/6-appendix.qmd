@@ -34,7 +34,6 @@ loadings_chi_icils <- readRDS(here("output", "article", "tables", "loadings_chi_
 loadings_chi_icils
 ```
 
-
 ```{r}
 #| label: tbl-index-latent-means-icils
 #| tbl-cap: "ICILS correlations of averaged index and latent mean by country"
@@ -43,6 +42,7 @@ index_cors_table_icils <- readRDS(here("output", "article", "tables", "index_lat
 
 index_cors_table_icils
 ```
+
 ```{r}
 #| label: tbl-mod-indices-pisa
 #| tbl-cap: "PISA Modification Indices for Respecifications"

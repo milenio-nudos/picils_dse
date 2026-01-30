@@ -1,15 +1,13 @@
 ---
-format:
-  html: 
-    toc: true
-    keep-tex: true
+format: docx
 editor: visual
 smooth-scroll: true
+mainfont: Times New Roman
 number-sections: true
+cite-method: citeproc
 bibliography: "picils.bib"
 csl: "apa.csl"
 link-citations: true
-mainfont: Times New Roman
 execute: 
   echo: false
   warning: false
