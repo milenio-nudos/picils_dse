@@ -34,4 +34,4 @@ In the next step, to test the comparability of this measurement model across cou
 
 Upon establishing scalar invariance, mean scores of General and Specialised DSE country distribution are explored. In the next step, the magnitude of the DSE gender gap is visualised for each country.
 
-All data management and analyses were conducted using the R statistical environment. The hypotheses were previously pre-registered on [Open Science Framework](https://osf.io/fxhc5/overview), and the code analyses are available on [Github](https://github.com/milenio-nudos/picils_dse).
+All data management and analyses were conducted using the R statistical environment. The [hypotheses pre-registration](https://osf.io/fxhc5/overview) and [analysis code](https://osf.io/q4zeu/overview?view_only=e1c761f0e78d435d9936963e38a070b0) are available on the Open Science Framework.
